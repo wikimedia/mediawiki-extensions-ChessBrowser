@@ -1,0 +1,118 @@
+.pgn-sourcegame {
+	display: none
+}
+
+.pgn-source-wrapper { 
+	text-align: center; 
+	min-height: 365px;
+}
+
+.pgn-board-div { display: inline-block; position: relative; margin: 0 auto; border: 8px ridge grey; border-radius: 10px; }
+.pgn-tabber { display: inline-block; position: relative; vertical-align: top; max-width: 20em; }
+.pgn-selector { margin: 8px; }
+.pgn-hidebutton { margin: 8px; }
+.pgn-controls { margin: 8px; direction: ltr; }
+.pgn-controls { margin: 8px; direction: ltr; }
+.pgn-image-button { 
+	height: 26px;
+    width: 26px;
+    margin: 0.25em;
+    padding: 3px;
+    border: 1px solid #a2a9b1;
+    border-radius: 6px;	
+    cursor: pointer;
+    background-color: #f8f9fa;
+	background-size: cover; 
+	display: inline-block;
+}
+
+.pgn-image-button:hover { background-color: #fff; }
+.pgn-image-button-on { box-shadow: inset 0 0 0 1px #36c; }
+.pgn-legend { text-align: center; vertical-align: middle; }
+.pgn-pgn-display { height: 100%; direction: ltr; }
+.pgn-descriptions { height: 100%; overflow: auto; }
+.pgn-hide-descriptions .pgn-descriptions { display:none; }
+.pgn-movelink { margin: 0 0.3em; cursor: alias; unicode-bidi: isolate;}
+.pgn-steplink { margin: 0 0.3em; color: green; font-weight: bold; }
+.pgn-comment { margin: 0 0.3em; color: blue; background-color: lightblue; font-weight: bold; }
+.pgn-comments-hidden  .pgn-comment { display: none; }
+.pgn-rtl-comment { direction: rtl; text-align: right; unicode-bidi: embed; display: inline-block;}
+.pgn-current-move { background-color: #00c; color: yellow; cursor: auto; }
+.pgn-row-legend, .pgn-file-legend { position: absolute; line-height: 20px; }
+.pgn-pgndiv { 
+	unicode-bidi: isolate;
+	text-align: left; 
+	font-size:125%; 
+	overflow: auto; 
+}
+
+.pgn-chessPiece {
+	position: absolute;
+	background-size:  cover; 
+	transition: left 700ms, top 700ms, opacity 700ms;
+	min-width: 12.5%;
+	max-width: 12.5%;
+	min-height: 12.5%;
+	max-height: 12.5%;
+}
+
+/* pieces */
+.pgn-ptype-color-pl { background-image: url(//upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg); }
+.pgn-ptype-color-pd { background-image: url(//upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg); }
+.pgn-ptype-color-rl { background-image: url(//upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg); }
+.pgn-ptype-color-rd { background-image: url(//upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg); }
+.pgn-ptype-color-nl { background-image: url(//upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg); }
+.pgn-ptype-color-nd { background-image: url(//upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg); }
+.pgn-ptype-color-bl { background-image: url(//upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg); }
+.pgn-ptype-color-bd { background-image: url(//upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg); }
+.pgn-ptype-color-ql { background-image: url(//upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg); }
+.pgn-ptype-color-qd { background-image: url(//upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg); }
+.pgn-ptype-color-kl { background-image: url(//upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg); }
+.pgn-ptype-color-kd { background-image: url(//upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg); }
+
+/* board image */
+.pgn-board-img { 
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/5/5b/Chessboard480.png); 
+	background-size: cover;
+}
+
+/* buttons images */
+.pgn-button-tostart { background-image: url(//upload.wikimedia.org/wikipedia/commons/e/e9/Ic_skip_previous_48px.svg); }
+.pgn-button-toend { background-image: url(//upload.wikimedia.org/wikipedia/commons/5/55/Ic_skip_next_48px.svg); }
+.pgn-button-play { background-image: url(//upload.wikimedia.org/wikipedia/commons/8/84/Ic_play_arrow_48px.svg); }
+.pgn-button-advance { background-image: url(//upload.wikimedia.org/wikipedia/commons/0/09/Ic_keyboard_arrow_right_48px.svg); }
+.pgn-button-retreat { background-image: url(//upload.wikimedia.org/wikipedia/commons/c/cc/Ic_keyboard_arrow_left_48px.svg); }
+.pgn-button-faster { background-image: url(//upload.wikimedia.org/wikipedia/commons/1/1a/Ic_directions_bike_48px.svg); }
+.pgn-button-slower { background-image: url(//upload.wikimedia.org/wikipedia/commons/f/f3/Ic_directions_walk_48px.svg); }
+.pgn-button-flip { background-image: url(//upload.wikimedia.org/wikipedia/commons/7/7c/Yin_and_Yang.svg); transition: 500ms; }
+.pgn-button-cc { background-image: url(//upload.wikimedia.org/wikipedia/commons/1/1d/Ic_closed_caption_48px.svg); }
+
+.pgn-button-flip.pgn-image-button-on { transform: rotate(180deg); }
+.pgn-button-play.pgn-image-button-on { background-image: url(//upload.wikimedia.org/wikipedia/commons/9/95/Ic_pause_48px.svg); }
+
+/* row % */
+.pgn-prow-7 { top: 0; }
+.pgn-prow-6 { top: 12.5%; }
+.pgn-prow-5 { top: 25%; }
+.pgn-prow-4 { top: 37.5%; }
+.pgn-prow-3 { top: 50%; }
+.pgn-prow-2 { top: 62.5%; }
+.pgn-prow-1 { top: 75%; }
+.pgn-prow-0 { top: 87.5%; }
+
+
+/* file */
+.pgn-pfile-0 { left: 0; }
+.pgn-pfile-1 { left: 12.5%; }
+.pgn-pfile-2 { left: 25%; }
+.pgn-pfile-3 { left: 37.5%; }
+.pgn-pfile-4 { left: 50%; }
+.pgn-pfile-5 { left: 62.5%; }
+.pgn-pfile-6 { left: 75%; }
+.pgn-pfile-7 { left: 87.5%; }
+
+.pgn-piece-hidden { opacity: 0; }
+.pgn-piece-visible { opacity: 1.0; }
+
+/* [[קטגוריה:דפי סגנון של תבניות]] */
+

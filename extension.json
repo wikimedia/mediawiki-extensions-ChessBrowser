@@ -1,0 +1,24 @@
+{
+	"Hooks": {
+        "ParserFirstCallInit": "Chess::onParserFirstCallInit",
+		"BeforePageDisplay": "Chess::onBeforePageDisplay"
+	},
+    "ResourceModules": {
+        "ext.chessViewer": {
+            "scripts": [
+                "modules/ext.chessViewer.core.js"
+            ],
+            "styles": [
+                "modules/ext.chessViewer.css"
+            ],
+            "dependencies": [
+                "jquery.ui.tabs"
+            ]
+        },
+        "ext.myExtension": {
+            "scripts": [
+                "modules/ext.myExtension.core.js"
+            ]
+        }
+    }
+}
