@@ -1,24 +1,38 @@
 {
+    "name": "ChessBrowser",
+	"version": "0.0.0",
+	"author": [
+		"Wugapodes",
+        "Kipod"
+	],
+    "descriptionmsg": "chessbrowser-desc",
+    "type": "parserhook",
+    "license-name": "CC0-1.0",
+    "url": "https://www.mediawiki.org/wiki/Extension:ChessBrowser",
+    "AutoloadClasses": {
+		"ChessBrowser": "includes/chessBrowser.php"
+	},
 	"Hooks": {
-        "ParserFirstCallInit": "Chess::onParserFirstCallInit",
-		"BeforePageDisplay": "Chess::onBeforePageDisplay"
+        "ParserFirstCallInit": "ChessBrowser::onParserFirstCallInit",
+        "OutputPageParserOutput": "ChessBrowser::onOutputPageParserOutput"
 	},
     "ResourceModules": {
-        "ext.chessViewer": {
-            "scripts": [
-                "modules/ext.chessViewer.core.js"
-            ],
-            "styles": [
-                "modules/ext.chessViewer.css"
-            ],
-            "dependencies": [
-                "jquery.ui.tabs"
-            ]
-        },
-        "ext.myExtension": {
-            "scripts": [
-                "modules/ext.myExtension.core.js"
-            ]
-        }
-    }
+		"ext.chessViewer": {
+			"scripts": [
+				"modules/ext.chessViewer.core.js"
+			],
+			"styles": [
+				"modules/ext.chessViewer.css"
+			]
+		}
+	},
+    "ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "ChessBrowser"
+	},
+    "MessagesDirs": {
+		"ChessBrowser": [
+			"i18n"
+		]
+	}
 }

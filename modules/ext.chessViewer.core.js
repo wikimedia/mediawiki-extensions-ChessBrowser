@@ -830,7 +830,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( mobile )
 			doIt();
 		else
-			mw.loader.using( 'jquery.ui' ).done( doIt );
+			mw.loader.using( 'jquery.ui.tabs' ).done( doIt );
 	}
 });
 
