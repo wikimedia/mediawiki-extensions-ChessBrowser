@@ -73,11 +73,14 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		var res = [],
 			len = function ( s ) {
 				return s.length;
-			};
+			},
+			r,
+			row,
+			f;
 
-		for ( var r = 0; r < 8; r++ ) {
-			var row = '';
-			for ( var f = 0; f < 8; f++ ) {
+		for ( r = 0; r < 8; r++ ) {
+			row = '';
+			for ( f = 0; f < 8; f++ ) {
 				row += board[ bindex( f, r ) ] ? board[ bindex( f, r ) ].fen() : ' ';
 			}
 			res.push( row.replace( /(\s+)/g, len ) );
@@ -166,8 +169,10 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				}
 			},
 			relocateLegends: function () {
-				for ( var si in sides ) {
-					for ( var n = 0; n < 8; n++ ) {
+				var n,
+					si;
+				for ( si in sides ) {
+					for ( n = 0; n < 8; n++ ) {
 						this[ sides[ si ] ][ n ].css( this.legendLocation( sides[ si ], n ) );
 					}
 				}
@@ -302,14 +307,13 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 					return false;
 				}
 				var rd = Math.abs( this.row - row ),
-					fd = Math.abs( this.file - file );
+					fd = Math.abs( this.file - file ),
+					dir = this.pawnDirection();
 
 				switch ( this.type ) {
 					case 'n':
 						return rd * fd === 2; // how nice that 2 is prime: its only factors are 2 and 1....
 					case 'p':
-						var dir = this.pawnDirection();
-
 						return ( ( this.row === this.pawnStart() && row === this.row + dir * 2 && !fd && this.game.roadIsClear( this.file, file, this.row, row ) && !capture ) ||
 							( this.row + dir === row && ( ( fd === 0 ) === ( !capture ) ) ) ); // advance 1, and either stay in file and no capture, or move exactly one
 					case 'k':
@@ -367,8 +371,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				color === BLACK && tpiece.black ||
 				tpiece;
 			try {
-				var regex = new RegExp( '(' + Object.keys( tpiece ).join( '|' ) + ')', 'g' );
-				notation = notation.replace( regex, function ( c ) {
+				notation = notation.replace( new RegExp( '(' + Object.keys( tpiece ).join( '|' ) + ')', 'g' ), function ( c ) {
 					return tpiece[ c ] || c;
 				} );
 			} catch ( e ) {
@@ -426,10 +429,9 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		gs.pgnDiv.empty().append( this.notations );
 
 		// set the board.
-		var hiddenAvatars = this.pieces.map( function ( piece ) {
+		this.gs.piecesDiv.empty().append( this.pieces.map( function ( piece ) {
 			return piece.disappear();
-		} );
-		this.gs.piecesDiv.empty().append( hiddenAvatars );
+		} ) );
 
 		this.drawBoard();
 	};
@@ -490,11 +492,12 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		this.pieces.push( piece );
 		var type = piece.type,
 			color = piece.color,
-			byType = this.piecesByTypeCol[ type ];
+			byType = this.piecesByTypeCol[ type ],
+			byTypeCol;
 		if ( !byType ) {
 			byType = this.piecesByTypeCol[ type ] = {};
 		}
-		var byTypeCol = byType[ color ];
+		byTypeCol = byType[ color ];
 		if ( !byTypeCol ) {
 			byTypeCol = byType[ color ] = [];
 		}
@@ -514,10 +517,9 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		var moveLink = this.moves[ this.index ];
 		if ( moveLink ) {
 			moveLink.addClass( 'pgn-current-move' ).siblings().removeClass( 'pgn-current-move' );
-			var wannabe = moveLink.parent().height() / 2,
-				isNow = moveLink.position().top,
-				newScrolltop = moveLink.parent()[ 0 ].scrollTop + isNow - wannabe;
-			moveLink.parent().stop().animate( { scrollTop: newScrolltop }, 500 );
+			moveLink.parent().stop().animate( {
+				scrollTop: moveLink.parent()[ 0 ].scrollTop + moveLink.position().top - moveLink.parent().height() / 2
+			}, 500 );
 		}
 	};
 
@@ -531,16 +533,20 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 
 		this.index = index;
 
-		var board = this.boards[ index ];
+		var board = this.boards[ index ],
+			i,
+			b;
 
-		for ( var i in this.pieces ) {
+		for ( i in this.pieces ) {
 			this.pieces[ i ].disappear();
 		}
-		for ( var b in board ) {
+
+		for ( b in board ) {
 			if ( board[ b ] ) {
 				board[ b ].appear( file( b ), row( b ) );
 			}
 		}
+
 		this.showCurrentMoveLink();
 		this.gs.refreshFEN();
 	};
@@ -606,6 +612,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			return false;
 		}
 
+		// eslint-disable-next-line one-var
 		var type = match[ 1 ] ? match[ 1 ].toLowerCase() : 'p',
 			oldFile = fileOfStr( match[ 2 ] ),
 			oldRow = rowOfStr( match[ 3 ] ),
@@ -620,6 +627,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		} );
 
 		if ( thePiece.length !== 1 ) {
+			/* eslint-disable one-var */
 			var ok = false;
 			if ( thePiece.length === 2 ) { // maybe one of them can't move because it protects the king?
 				var king = this.piecesByTypeCol.k[ color ][ 0 ];
@@ -642,6 +650,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 					}
 				}
 			}
+			/* eslint-enable one-var */
 
 			if ( !ok ) {
 
@@ -720,7 +729,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			turn,
 			moveNum = '',
 			game = this,
-			pgn = this.pgn;
+			pgn = this.pgn,
+			prevLen = -1;
 
 		function removeHead( match ) {
 			var ind = pgn.indexOf( match ) + match.length;
@@ -751,17 +761,16 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				game.moves.push( notation );
 			}
 
-			var index = game.boards.length - 1;
 			notation.on( 'click', function () {
 				game.gs.stopAutoPlay();
-				game.drawBoard( index );
+				game.drawBoard( game.boards.length - 1 );
 			} );
 		}
 
 		pgn = pgn.replace( /;(.*)\n/g, ' {$1} ' ).replace( /\s+/g, ' ' ); // replace to-end-of-line comments with block comments, remove newlines and noramlize spaces to 1
 		this.populateBoard( this.descriptions.FEN || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' );
 		this.boards.push( this.board.slice() );
-		var prevLen = -1;
+
 		while ( pgn.length ) {
 
 			if ( prevLen === pgn.length ) {
@@ -795,6 +804,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( fenar.length < 8 ) {
 			throw new Error( 'illegal fen: "' + fen + '"' );
 		}
+		/* eslint-disable one-var */
 		for ( var row = 0; row < 8; row++ ) {
 			var file = 0,
 				filear = fenar[ row ].split( '' );
@@ -810,6 +820,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				}
 			}
 		}
+		/* eslint-enable one-var */
 	};
 
 	Game.prototype.hasComments = function () {
@@ -851,7 +862,11 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				notation: 'Game Notation',
 				metadata: 'Information',
 				fen: 'FEN' },
-			config.tab_names );
+			config.tab_names ),
+			fl = 'abcdefgh'.split( '' ),
+			fileCaption = config && config.translate && config.translate.file,
+			rl = '12345678'.split( '' ),
+			rowCaption = config && config.translate && config.translate.row;
 		gameSet.autoPlayButton = autoplay;
 		gameSet.ccButton = commentsToggle;
 		gameSet.descriptionsDiv = $( '<div>', { class: 'pgn-descriptions', id: infoId } );
@@ -883,6 +898,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				.append( gameSet.fenDiv )
 				.tabs();
 		}
+		// eslint-disable-next-line one-var
 		var buttons = gameSet.fixedDelay ?
 			[ gotostart, backstep, autoplay, forward, gotoend, flip, commentsToggle ] :
 			[ gotostart, backstep, slower, autoplay, faster, forward, gotoend, flip, commentsToggle ];
@@ -898,27 +914,25 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			.addClass( chessboardClass )
 			.appendTo( gameSet.boardDiv );
 
-		var fl = 'abcdefgh'.split( '' ),
-			fileCaption = config && config.translate && config.translate.file;
 		if ( fileCaption ) {
 			fl = fl.map( function ( c ) {
 				return fileCaption[ c ] || '';
 			} );
 		}
-		var rl = '12345678'.split( '' ),
-			rowCaption = config && config.translate && config.translate.row;
 		if ( rowCaption ) {
 			rl = rl.map( function ( c ) {
 				return rowCaption[ c ] || '';
 			} );
 		}
 
+		/* eslint-disable one-var */
 		for ( var side in sides ) {
 			var
 				s = sides[ side ],
-				isFile = /n|s/.test( s );
+				isFile = /n|s/.test( s ),
+				i;
 			gameSet[ s ] = [];
-			for ( var i = 0; i < 8; i++ ) {
+			for ( i = 0; i < 8; i++ ) {
 				var sp = $( '<span>', { class: isFile ? 'pgn-file-legend' : 'pgn-row-legend' } )
 					.text( isFile ? fl[ i ] : rl[ i ] )
 					.appendTo( gameSet.boardDiv )
@@ -926,6 +940,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				gameSet[ s ][ i ] = sp;
 			}
 		}
+		/* eslint-enable one-var */
 
 		container
 			.append( selector || '' )
@@ -943,7 +958,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				initial = wrapperDiv.text(),
 				pgnSource = $( 'div.pgn-sourcegame', wrapperDiv ),
 				selector,
-				gameSet = new Gameset( wrapperDiv );
+				gameSet = new Gameset( wrapperDiv ),
+				game;
 			try {
 				if ( pgnSource.length > 1 ) {
 					selector = $( '<select>', { class: 'pgn-selector' } )
@@ -951,7 +967,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				}
 
 				buildBoardDiv( wrapperDiv, selector, gameSet, ind );
-				var game;
 				ind = 0;
 				pgnSource.each( function () {
 					try {
