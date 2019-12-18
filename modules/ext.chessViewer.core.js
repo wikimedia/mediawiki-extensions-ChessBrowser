@@ -142,8 +142,9 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				gameSet.reportDelay();
 			},
 			reportDelay: function () {
+				var message;
 				gameSet.toggleAutoPlay(); // no param means keep state, but use new delay
-				var message = gameSet.config.delay_msg ?
+				message = gameSet.config.delay_msg ?
 					gameSet.config.delay_msg.replace( '$sec$', 0.001 * gameSet.autoPlayDelay ) :
 					0.001 * gameSet.autoPlayDelay;
 				mw.notify( message, { tag: 'delay' } );
@@ -200,14 +201,13 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				this.relocateLegends();
 			},
 			setWidth: function ( width ) {
-				width = width || this.blockSize;
-				var
-					widthPx = width * 8,
+				var actualWidth = width || this.blockSize,
+					widthPx = actualWidth * 8,
 					widthPxPlus = widthPx + 40;
 				this.tabberDiv // disgusting, but i could not get heightStyle of jquery tabs to do what i need.
 					.css( { height: widthPxPlus } )
 					.find( 'div' ).css( { height: mobile ? widthPxPlus : widthPx - 20 } );
-				this.blockSize = width;
+				this.blockSize = actualWidth;
 				this.piecesDiv.css( { width: widthPx, height: widthPx } );
 				this.boardDiv.css( { width: widthPxPlus, height: widthPxPlus } );
 				this.changeAppearance();
@@ -241,6 +241,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	}
 
 	function ChessPiece( type, color, game ) {
+		var piece = this;
+
 		this.game = game;
 		this.type = type;
 		this.color = color;
@@ -248,7 +250,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			.addClass( 'pgn-chessPiece pgn-ptype-color-' + type + color )
 			.on( 'transitionstart', function () { $( this ).addClass( 'moving' ); } ) // supposedly elevates z-index
 			.on( 'transitionend', function () { $( this ).removeClass( 'moving' ); } );
-		var piece = this;
 		$.extend( piece, {
 			appear: function ( file, row ) {
 				if ( game.gs.isFlipped ) {
@@ -301,14 +302,13 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				this.onBoard = false;
 			},
 			canMoveTo: function ( file, row, capture ) {
-
-				if ( !this.onBoard ) {
-
-					return false;
-				}
 				var rd = Math.abs( this.row - row ),
 					fd = Math.abs( this.file - file ),
 					dir = this.pawnDirection();
+
+				if ( !this.onBoard ) {
+					return false;
+				}
 
 				switch ( this.type ) {
 					case 'n':
@@ -489,11 +489,11 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.addPieceToDicts = function ( piece ) {
-		this.pieces.push( piece );
 		var type = piece.type,
 			color = piece.color,
 			byType = this.piecesByTypeCol[ type ],
 			byTypeCol;
+		this.pieces.push( piece );
 		if ( !byType ) {
 			byType = this.piecesByTypeCol[ type ] = {};
 		}
@@ -524,6 +524,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.drawBoard = function ( index ) {
+		var board, i, b;
+
 		if ( index === undefined ) {
 			index = this.index;
 		}
@@ -532,10 +534,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		}
 
 		this.index = index;
-
-		var board = this.boards[ index ],
-			i,
-			b;
+		board = this.boards[ index ];
 
 		for ( i in this.pieces ) {
 			this.pieces[ i ].disappear();
@@ -579,7 +578,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		piece[ capture ? 'capture' : 'move' ]( file, row );
 		this.clearPieceAt( file, row );
 		// Technical debt incurred Dec 2019
-		// eslint-ignore-next-line no-unused-vars
+		// eslint-disable-next-line no-unused-vars, vars-on-top
 		var newPiece = this.createPiece( type, piece.color, file, row );
 	};
 
@@ -606,13 +605,14 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			return moveStr; // end of game - white wins, black wins, draw, game halted/abandoned/unknown.
 		}
 
+		// eslint-disable-next-line vars-on-top
 		var match = moveStr.match( /([RNBKQ])?([a-h])?([1-8])?(x)?([a-h])([1-8])(=[RNBKQ])?/ );
 
 		if ( !match ) {
 			return false;
 		}
 
-		// eslint-disable-next-line one-var
+		// eslint-disable-next-line one-var, vars-on-top
 		var type = match[ 1 ] ? match[ 1 ].toLowerCase() : 'p',
 			oldFile = fileOfStr( match[ 2 ] ),
 			oldRow = rowOfStr( match[ 3 ] ),
@@ -627,7 +627,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		} );
 
 		if ( thePiece.length !== 1 ) {
-			/* eslint-disable one-var */
+			/* eslint-disable one-var, vars-on-top */
 			var ok = false;
 			if ( thePiece.length === 2 ) { // maybe one of them can't move because it protects the king?
 				var king = this.piecesByTypeCol.k[ color ][ 0 ];
@@ -650,7 +650,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 					}
 				}
 			}
-			/* eslint-enable one-var */
+			/* eslint-enable one-var, vars-on-top */
 
 			if ( !ok ) {
 
@@ -683,6 +683,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		// Technical debt incurred Dec 2019
 		// eslint-disable-next-line no-jquery/no-trim
 		description = $.trim( description );
+		// eslint-disable-next-line vars-on-top
 		var match = description.match( /\[([^"]+)"(.*)"\]/ );
 		if ( match ) {
 			// Technical debt incurred Dec 2019
@@ -711,6 +712,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			return match && match[ 0 ];
 		}
 
+		// eslint-disable-next-line vars-on-top
 		var match;
 		while ( ( match = tryMatch( /^\s*\[[^\]]*\]/ ) ) !== null ) {
 			this.addDescription( match );
@@ -719,11 +721,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.analyzePgn = function () {
-
-		if ( this.analyzed ) {
-			return;
-		}
-		this.analyzed = true;
 		var
 			match,
 			turn,
@@ -731,6 +728,11 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			game = this,
 			pgn = this.pgn,
 			prevLen = -1;
+
+		if ( this.analyzed ) {
+			return;
+		}
+		this.analyzed = true;
 
 		function removeHead( match ) {
 			var ind = pgn.indexOf( match ) + match.length;
@@ -804,7 +806,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( fenar.length < 8 ) {
 			throw new Error( 'illegal fen: "' + fen + '"' );
 		}
-		/* eslint-disable one-var */
+		/* eslint-disable one-var, vars-on-top */
 		for ( var row = 0; row < 8; row++ ) {
 			var file = 0,
 				filear = fenar[ row ].split( '' );
@@ -820,7 +822,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				}
 			}
 		}
-		/* eslint-enable one-var */
+		/* eslint-enable one-var, vars-on-top */
 	};
 
 	Game.prototype.hasComments = function () {
@@ -898,7 +900,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				.append( gameSet.fenDiv )
 				.tabs();
 		}
-		// eslint-disable-next-line one-var
+		// eslint-disable-next-line one-var, vars-on-top
 		var buttons = gameSet.fixedDelay ?
 			[ gotostart, backstep, autoplay, forward, gotoend, flip, commentsToggle ] :
 			[ gotostart, backstep, slower, autoplay, faster, forward, gotoend, flip, commentsToggle ];
@@ -925,7 +927,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			} );
 		}
 
-		/* eslint-disable one-var */
+		/* eslint-disable one-var, vars-on-top */
 		for ( var side in sides ) {
 			var
 				s = sides[ side ],
@@ -940,7 +942,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				gameSet[ s ][ i ] = sp;
 			}
 		}
-		/* eslint-enable one-var */
+		/* eslint-enable one-var, vars-on-top */
 
 		container
 			.append( selector || '' )
@@ -983,6 +985,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 					} catch ( e ) {
 						mw.log( 'exception in game ' + ind + ' problem is: "' + e + '"' );
 						if ( game && game.descriptions ) {
+							// eslint-disable-next-line vars-on-top
 							for ( var d in game.descriptions ) {
 								mw.log( d + ':' + game.descriptions[ d ] );
 							}

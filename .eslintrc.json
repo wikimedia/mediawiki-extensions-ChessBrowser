@@ -12,7 +12,6 @@
 			"files": ["*.js"],
 			"rules": {
 				"no-unused-vars": "warn",
-				"vars-on-top": "warn", // Technical debt incurred Dec 2019
 				"no-useless-escape": "warn", // Technical debt incurred Dec 2019
 				"no-jquery/variable-pattern": "warn", // Technical debt incurred Dec 2019
 				"no-jquery/no-constructor-attributes": "warn" // Technical debt incurred Dec 2019
