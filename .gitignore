@@ -1,3 +1,5 @@
+.eslintcache
+docs/*
 node_modules/*
 vendor/*
 *.orig
