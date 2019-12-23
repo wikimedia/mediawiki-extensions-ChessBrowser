@@ -11,11 +11,12 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:ChessBrowser",
 	"AutoloadClasses": {
 		"ChessBrowser": "includes/ChessBrowser.php",
+		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
 		"PgnParser": "includes/PgnParser.php"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "ChessBrowser::onParserFirstCallInit",
-		"OutputPageParserOutput": "ChessBrowser::onOutputPageParserOutput"
+		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",
+		"OutputPageParserOutput": "ChessBrowserHooks::onOutputPageParserOutput"
 	},
 	"ResourceModules": {
 		"ext.chessViewer": {
