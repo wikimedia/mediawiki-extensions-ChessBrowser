@@ -871,7 +871,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			rowCaption = config && config.translate && config.translate.row;
 		gameSet.autoPlayButton = autoplay;
 		gameSet.ccButton = commentsToggle;
-		gameSet.descriptionsDiv = $( '<div>', { class: 'pgn-descriptions', id: infoId } );
+		gameSet.descriptionsDiv = $( '<div>' ).addClass( 'pgn-descriptions' ).attr( 'id', infoId );
 		gameSet.fixedDelay = 'delay' in config;
 		if ( gameSet.fixedDelay ) {
 			gameSet.autoPlayDelay = Math.max( 500, config.delay );
@@ -880,20 +880,21 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( $( '#' + notationId ) ) {
 			notationId += '_1';
 		}
-		gameSet.pgnDiv = $( '<div>', { class: 'pgn-pgndiv', id: notationId } );
+		gameSet.pgnDiv = $( '<div>' ).addClass( 'pgn-pgndiv' ).attr( 'id', notationId );
 		gameSet.blockSize = Math.max( minBlockSize, Math.min( maxBlockSize, config.squareSize || defaultBlockSize ) );
-		gameSet.fenDiv = $( '<div>', { id: fenId } )
+		gameSet.fenDiv = $( '<div>' )
+			.attr( 'id', fenId )
 			.css( { 'word-wrap': 'break-word' } );
-		gameSet.tabberDiv = $( '<div>', { class: 'pgn-tabber' } );
+		gameSet.tabberDiv = $( '<div>' ).addClass( 'pgn-tabber' );
 		if ( mobile ) {
 			gameSet.tabberDiv
 				.append( gameSet.pgnDiv );
 		} else {
 			gameSet.tabberDiv
 				.append( $( '<ul>' )
-					.append( $( '<li>' ).append( $( '<a>', { href: '#' + notationId } ).text( tabnames.notation ) ) )
-					.append( $( '<li>' ).append( $( '<a>', { href: '#' + infoId } ).text( tabnames.metadata ) ) )
-					.append( $( '<li>' ).append( $( '<a>', { href: '#' + fenId } ).text( tabnames.fen ) ) )
+					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + notationId ).text( tabnames.notation ) ) )
+					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + infoId ).text( tabnames.metadata ) ) )
+					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + fenId ).text( tabnames.fen ) ) )
 				)
 				.append( gameSet.pgnDiv )
 				.append( gameSet.descriptionsDiv )
@@ -905,7 +906,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			[ gotostart, backstep, autoplay, forward, gotoend, flip, commentsToggle ] :
 			[ gotostart, backstep, slower, autoplay, faster, forward, gotoend, flip, commentsToggle ];
 
-		controlsDiv = $( '<div>', { class: 'pgn-controls' } )
+		controlsDiv = $( '<div>' )
+			.addClass( 'pgn-controls' )
 			.css( { textAlign: 'center' } ) // todo: move to css
 			.append( buttons.map( function ( x ) { return x.elem; } ) );
 
@@ -935,7 +937,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				i;
 			gameSet[ s ] = [];
 			for ( i = 0; i < 8; i++ ) {
-				var sp = $( '<span>', { class: isFile ? 'pgn-file-legend' : 'pgn-row-legend' } )
+				var sp = $( '<span>' )
+					.addClass( isFile ? 'pgn-file-legend' : 'pgn-row-legend' )
 					.text( isFile ? fl[ i ] : rl[ i ] )
 					.appendTo( gameSet.boardDiv )
 					.css( gameSet.legendLocation( s, i ) );
@@ -964,7 +967,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				game;
 			try {
 				if ( pgnSource.length > 1 ) {
-					selector = $( '<select>', { class: 'pgn-selector' } )
+					selector = $( '<select>' )
+						.addClass( 'pgn-selector' )
 						.on( 'change', function () { gameSet.selectGame( this.value ); } );
 				}
 
@@ -978,7 +982,9 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 						ind++;
 						gameSet.allGames.push( game );
 						if ( selector ) {
-							selector.append( $( '<option>', { value: gameSet.allGames.length - 1, text: game.description() } )
+							selector.append( $( '<option>' )
+								.attr( 'value', gameSet.allGames.length - 1 )
+								.text( game.description() )
 								.css( 'direction', game.descriptions.Direction || 'ltr' )
 							);
 						}

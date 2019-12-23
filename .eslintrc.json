@@ -12,8 +12,7 @@
 			"files": ["*.js"],
 			"rules": {
 				"no-unused-vars": "warn",
-				"no-useless-escape": "warn", // Technical debt incurred Dec 2019
-				"no-jquery/no-constructor-attributes": "warn" // Technical debt incurred Dec 2019
+				"no-useless-escape": "warn" // Technical debt incurred Dec 2019
 			}
 		}
 	]
