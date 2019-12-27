@@ -6,8 +6,8 @@ class ChessBrowser {
 	}
 
 	public static function pollRender( $input, array $args, Parser $parser, PPFrame $frame ) {
-		$parser->getOutput()->setExtensionData('ChessViewerTrigger','true');
-		$pgnParser = new PgnParser($input);
+		$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
+		$pgnParser = new PgnParser( $input );
 		$ret = '<div class="pgn-source-wrapper"><div class="pgn-sourcegame">';
 		$ret .= $pgnParser->parseMovetext();
 		$ret .= '</div></div>';
@@ -15,9 +15,9 @@ class ChessBrowser {
 	}
 
 	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
-		$trigger = $parserOutput->getExtensionData('ChessViewerTrigger');
-		if ($trigger) {
-			$out->addModules('ext.chessViewer');
+		$trigger = $parserOutput->getExtensionData( 'ChessViewerTrigger' );
+		if ( $trigger ) {
+			$out->addModules( 'ext.chessViewer' );
 		}
 	}
 }

@@ -5,11 +5,11 @@
  */
 class PgnParserTest extends MediaWikiTestCase {
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		parent::tearDown();
 	}
 
@@ -21,8 +21,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected from cut
 	 */
 	public function testCut( $text, $start, $end, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->cut($start,$end));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->cut( $start, $end ) );
 	}
 
 	/**
@@ -32,10 +32,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param integer $end Index to end cut
 	 */
 	public function testInvalidCut( $text, $start, $end ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'End index is before start index.' );
-		$pgnParser->cut($start,$end);
+		$pgnParser->cut( $start, $end );
 	}
 
 	/**
@@ -45,8 +45,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected Character expected
 	 */
 	public function testGetChar( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->getChar($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->getChar( $index ) );
 	}
 
 	/**
@@ -55,10 +55,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param integer $index
 	 */
 	public function testInvalidGetChar( $text, $index ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Invalid index' );
-		$pgnParser->getChar($index);
+		$pgnParser->getChar( $index );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected Character expected
 	 */
 	public function testGetCharWithoutIndexWithCursor( $text, $cursor, $expected ) {
-		$pgnParser = new PgnParser($text, $cursor);
-		$this->assertEquals( $expected, $pgnParser->getChar());
+		$pgnParser = new PgnParser( $text, $cursor );
+		$this->assertEquals( $expected, $pgnParser->getChar() );
 	}
 
 	/**
@@ -78,8 +78,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected Character expected
 	 */
 	public function testEndOfGamePosition( $text, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->getChar($pgnParser->EOG));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->getChar( $pgnParser->EOG ) );
 	}
 
 	/**
@@ -89,8 +89,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseVariation( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseVariation($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseVariation( $index ) );
 	}
 
 	/**
@@ -99,10 +99,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param integer $index
 	 */
 	public function testInvalidParseVariation( $text, $index ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Variation does not terminate' );
-		$pgnParser->parseVariation($index);
+		$pgnParser->parseVariation( $index );
 	}
 
 	/**
@@ -112,8 +112,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseComment( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseComment($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseComment( $index ) );
 	}
 
 	/**
@@ -122,10 +122,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param integer $index
 	 */
 	public function testInvalidParseComment( $text, $index ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Comment not terminated' );
-		$pgnParser->parseComment($index);
+		$pgnParser->parseComment( $index );
 	}
 
 	/**
@@ -135,8 +135,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseString( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseString($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseString( $index ) );
 	}
 
 	/**
@@ -146,10 +146,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $message Expected error message
 	 */
 	public function testInvalidParseString( $text, $index, $message ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( $message );
-		$pgnParser->parseString($index);
+		$pgnParser->parseString( $index );
 	}
 
 	/**
@@ -159,8 +159,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseNumericAnnotationGlyph( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseNumericAnnotationGlyph($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseNumericAnnotationGlyph( $index ) );
 	}
 
 	/**
@@ -175,8 +175,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseStandardAlgebraicNotation( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseStandardAlgebraicNotation($index) );
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseStandardAlgebraicNotation( $index ) );
 	}
 
 	/**
@@ -191,8 +191,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseTagPair( $text, $index, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseTagPair($index));
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseTagPair( $index ) );
 	}
 
 	/**
@@ -201,10 +201,10 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param integer $index
 	 */
 	public function testInvalidTagPair( $text, $index ) {
-		$pgnParser = new PgnParser($text);
-		$this->expectException(Exception::class);
+		$pgnParser = new PgnParser( $text );
+		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Tag does not terminate' );
-		$pgnParser->parseTagPair($index);
+		$pgnParser->parseTagPair( $index );
 	}
 
 	/**
@@ -214,9 +214,9 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param bool $escaped Whether character is escaped or not
 	 */
 	public function testParseCheckEscape( $text, $index, $escaped ) {
-		$pgnParser = new PgnParser($text);
-		$result = $pgnParser->checkEscape($index);
-		if ($escaped) {
+		$pgnParser = new PgnParser( $text );
+		$result = $pgnParser->checkEscape( $index );
+		if ( $escaped ) {
 			$this->assertTrue( $result );
 		} else {
 			$this->assertFalse( $result );
@@ -229,8 +229,8 @@ class PgnParserTest extends MediaWikiTestCase {
 	 * @param string $expected String expected
 	 */
 	public function testParseGame( $text, $expected ) {
-		$pgnParser = new PgnParser($text);
-		$this->assertEquals( $expected, $pgnParser->parseMovetext());
+		$pgnParser = new PgnParser( $text );
+		$this->assertEquals( $expected, $pgnParser->parseMovetext() );
 	}
 
 	public static function provideCut() {
@@ -457,12 +457,12 @@ class PgnParserTest extends MediaWikiTestCase {
 			[
 				'[Event "Wikipedia Chess-a-thon"][ Date "2001.01.15" ]',
 				0,
-				['Event','Wikipedia Chess-a-thon']
+				[ 'Event','Wikipedia Chess-a-thon' ]
 			],
 			[
 				'[Foo "Bar"]' . "\n" . '[Biz "Baz"] 1.e4',
 				12,
-				['Biz','Baz']
+				[ 'Biz','Baz' ]
 			]
 		];
 	}
@@ -496,6 +496,7 @@ class PgnParserTest extends MediaWikiTestCase {
 	}
 
 	public static function providePgnGame() {
+		// @phpcs:disable Generic.Files.LineLength
 		return [
 					[
 						'[Event "Berlin"]
@@ -646,6 +647,7 @@ class PgnParserTest extends MediaWikiTestCase {
 						. '23.Bd7+ Kf8 24.Bxe7# 1-0 '
 				]
 		];
+		// @phpcs:enable Generic.Files.LineLength
 	}
 
 }
