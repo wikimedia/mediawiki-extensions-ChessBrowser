@@ -26,7 +26,7 @@
 				"modules/ext.chessViewer.css"
 			],
 			"dependencies": [
-			    "jquery.ui"
+				"jquery.ui"
 			]
 		}
 	},
