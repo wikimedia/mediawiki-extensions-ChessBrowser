@@ -779,8 +779,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				throw new Error( 'analysePgn encountered a problem. pgn is: ' + pgn );
 			}
 			prevLen = pgn.length;
-			this.addComment( tryMatch( /^\s*\{[^\}]*\}\s*/ ) );
-			this.addComment( tryMatch( /^\s*\([^\)]*\)\s*/ ) );
+			this.addComment( tryMatch( /^\s*\{[^}]*\}\s*/ ) );
+			this.addComment( tryMatch( /^\s*\([^)]*\)\s*/ ) );
 
 			if ( ( match = tryMatch( /^\s*(\d+)\.+/ ) ) !== null ) {
 
@@ -802,7 +802,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.populateBoard = function ( fen ) {
-		var fenar = fen.split( /[\/\s]/ );
+		var fenar = fen.split( /[/\s]/ );
 		if ( fenar.length < 8 ) {
 			throw new Error( 'illegal fen: "' + fen + '"' );
 		}

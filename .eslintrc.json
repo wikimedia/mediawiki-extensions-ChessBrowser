@@ -11,8 +11,7 @@
 		{
 			"files": ["*.js"],
 			"rules": {
-				"no-unused-vars": "warn",
-				"no-useless-escape": "warn" // Technical debt incurred Dec 2019
+				"no-unused-vars": "warn"
 			}
 		}
 	]
