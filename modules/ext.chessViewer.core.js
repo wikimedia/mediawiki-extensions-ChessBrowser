@@ -152,10 +152,12 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			},
 			// 6 is half letter size (assuming font-size 0.875em)
 			top: function ( row, l ) {
-				return ( ( ( this.isFlipped ? row : ( 7 - row ) ) + ( l ? 0.3 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding ) ) + 'px';
+				var pixels = ( ( this.isFlipped ? row : ( 7 - row ) ) + ( l ? 0.3 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding );
+				return pixels + 'px';
 			},
 			left: function ( file, l ) {
-				return ( ( ( this.isFlipped ? 7 - file : file ) + ( l ? 0.5 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding ) ) + 'px';
+				var pixels = ( ( this.isFlipped ? 7 - file : file ) + ( l ? 0.5 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding );
+				return pixels + 'px';
 			},
 			legendLocation: function ( side, num ) {
 				switch ( side ) {
@@ -204,7 +206,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				var actualWidth = width || this.blockSize,
 					widthPx = actualWidth * 8,
 					widthPxPlus = widthPx + 40;
-				this.tabberDiv // disgusting, but i could not get heightStyle of jquery tabs to do what i need.
+				this.tabberDiv // disgusting, but I could not get heightStyle of jquery tabs to do what I need.
 					.css( { height: widthPxPlus } )
 					.find( 'div' ).css( { height: mobile ? widthPxPlus : widthPx - 20 } );
 				this.blockSize = actualWidth;
@@ -295,7 +297,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				return this.color === WHITE ? this.type.toUpperCase() : this.type;
 			},
 			pawnStart: function () {
-
 				return this.color === WHITE ? 1 : 6;
 			},
 			remove: function () {
@@ -327,16 +328,12 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 					case 'b':
 						return rd === fd && this.game.roadIsClear( this.file, file, this.row, row );
 				}
-
 			}, // function canMoveTo
 			matches: function ( oldFile, oldRow, isCapture, file, row ) {
-
 				if ( typeof oldFile === 'number' && oldFile !== this.file ) {
-
 					return false;
 				}
 				if ( typeof oldRow === 'number' && oldRow !== this.row ) {
-
 					return false;
 				}
 
@@ -401,9 +398,7 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			}
 		}
 
-		// Technical debt incurred Dec 2019
-		// eslint-disable-next-line no-jquery/no-trim
-		return $.trim( notation.replace( /-/g, '\u2011' ) ) + ' ';
+		return notation.replace( /-/g, '\u2011' ).trim() + ' ';
 	};
 
 	Game.prototype.show = function () {
@@ -455,7 +450,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 
 	Game.prototype.clearPieceAt = function ( file, row ) {
 		var piece = this.pieceAt( file, row );
-
 		if ( piece ) {
 			piece.remove();
 		}
@@ -463,7 +457,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.roadIsClear = function ( file1, file2, row1, row2 ) {
-
 		var file = file1,
 			row = row1,
 			steps = 0,
@@ -479,7 +472,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 				return false;
 			}
 			if ( steps++ > 10 ) {
-
 				throw new Error( 'something is wrong in function roadIsClear.' +
 					' file=' + file + ' file1=' + file1 + ' file2=' + file2 +
 					' row=' + row + ' row1=' + row1 + ' row2=' + row2 +
@@ -532,14 +524,13 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( index < 0 ) {
 			index += this.boards.length;
 		}
-
 		this.index = index;
-		board = this.boards[ index ];
 
 		for ( i in this.pieces ) {
 			this.pieces[ i ].disappear();
 		}
 
+		board = this.boards[ index ];
 		for ( b in board ) {
 			if ( board[ b ] ) {
 				board[ b ].appear( file( b ), row( b ) );
@@ -575,11 +566,13 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.promote = function ( piece, type, file, row, capture ) {
-		piece[ capture ? 'capture' : 'move' ]( file, row );
+		if ( capture ) {
+			piece.capture( file, row );
+		} else {
+			piece.move( file, row );
+		}
 		this.clearPieceAt( file, row );
-		// Technical debt incurred Dec 2019
-		// eslint-disable-next-line no-unused-vars, vars-on-top
-		var newPiece = this.createPiece( type, piece.color, file, row );
+		this.createPiece( type, piece.color, file, row );
 	};
 
 	Game.prototype.createPiece = function ( type, color, file, row ) {
@@ -590,7 +583,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.createMove = function ( color, moveStr ) {
-
 		moveStr = moveStr.replace( /^\s+|[!?+# ]*(\$\d{1,3})?$/g, '' ); // check, mate, comments, glyphs.
 		if ( !moveStr.length ) {
 			return false;
@@ -653,7 +645,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			/* eslint-enable one-var, vars-on-top */
 
 			if ( !ok ) {
-
 				throw new Error( 'could not find matching pieces. type="' + type + ' color=' + color + ' moveAGN="' + moveStr + '". found ' + thePiece.length + ' matching pieces' );
 			}
 		} else {
@@ -680,15 +671,9 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 	};
 
 	Game.prototype.addDescription = function ( description ) {
-		// Technical debt incurred Dec 2019
-		// eslint-disable-next-line no-jquery/no-trim
-		description = $.trim( description );
-		// eslint-disable-next-line vars-on-top
-		var match = description.match( /\[([^"]+)"(.*)"\]/ );
+		var match = description.trim().match( /\[([^"]+)"(.*)"\]/ );
 		if ( match ) {
-			// Technical debt incurred Dec 2019
-			// eslint-disable-next-line no-jquery/no-trim
-			this.descriptions[ $.trim( match[ 1 ] ) ] = match[ 2 ];
+			this.descriptions[ ( match[ 1 ] ).trim() ] = match[ 2 ];
 		}
 	};
 
@@ -750,7 +735,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		}
 
 		function addMoveLink( str, isMove, color ) {
-
 			var notation = $( '<span>' )
 				.addClass( isMove ? 'pgn-movelink' : 'pgn-steplink' )
 				.text( game.moveLinkText( str, color ) );
@@ -774,7 +758,6 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		this.boards.push( this.board.slice() );
 
 		while ( pgn.length ) {
-
 			if ( prevLen === pgn.length ) {
 				throw new Error( 'analysePgn encountered a problem. pgn is: ' + pgn );
 			}
@@ -783,22 +766,22 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			this.addComment( tryMatch( /^\s*\([^)]*\)\s*/ ) );
 
 			if ( ( match = tryMatch( /^\s*(\d+)\.+/ ) ) !== null ) {
-
 				turn = /\.{3}/.test( match ) ? BLACK : WHITE;
 				addMoveLink( match, false, turn );
 				continue;
 			}
 			if ( ( match = tryMatch( /^\s*[^ ]+ ?/ ) ) !== null ) {
-
 				this.createMove( turn, match );
 				addMoveLink( match, true, turn );
 				turn = BLACK;
 			}
 		}
 
-		this.index = this.descriptions.FirstMove ?
-			indexOfMoveNotation( this.descriptions.FirstMove ) :
-			this.descriptions.FEN ? 0 : this.boards.length - 1;
+		if ( this.descriptions.FirstMove ) {
+			this.index = indexOfMoveNotation( this.descriptions.FirstMove );
+		} else {
+			this.index = this.descriptions.FEN ? 0 : this.boards.length - 1;
+		}
 	};
 
 	Game.prototype.populateBoard = function ( fen ) {
@@ -869,9 +852,12 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 			fileCaption = config && config.translate && config.translate.file,
 			rl = '12345678'.split( '' ),
 			rowCaption = config && config.translate && config.translate.row;
+
 		gameSet.autoPlayButton = autoplay;
 		gameSet.ccButton = commentsToggle;
-		gameSet.descriptionsDiv = $( '<div>' ).addClass( 'pgn-descriptions' ).attr( 'id', infoId );
+		gameSet.descriptionsDiv = $( '<div>' )
+			.addClass( 'pgn-descriptions' )
+			.attr( 'id', infoId );
 		gameSet.fixedDelay = 'delay' in config;
 		if ( gameSet.fixedDelay ) {
 			gameSet.autoPlayDelay = Math.max( 500, config.delay );
@@ -880,25 +866,37 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		if ( $( '#' + notationId ) ) {
 			notationId += '_1';
 		}
-		gameSet.pgnDiv = $( '<div>' ).addClass( 'pgn-pgndiv' ).attr( 'id', notationId );
+
+		gameSet.pgnDiv = $( '<div>' )
+			.addClass( 'pgn-pgndiv' )
+			.attr( 'id', notationId );
 		gameSet.blockSize = Math.max( minBlockSize, Math.min( maxBlockSize, config.squareSize || defaultBlockSize ) );
 		gameSet.fenDiv = $( '<div>' )
 			.attr( 'id', fenId )
 			.css( { 'word-wrap': 'break-word' } );
-		gameSet.tabberDiv = $( '<div>' ).addClass( 'pgn-tabber' );
+		gameSet.tabberDiv = $( '<div>' )
+			.addClass( 'pgn-tabber' );
+
 		if ( mobile ) {
-			gameSet.tabberDiv
-				.append( gameSet.pgnDiv );
+			gameSet.tabberDiv.append( gameSet.pgnDiv );
 		} else {
 			gameSet.tabberDiv
-				.append( $( '<ul>' )
-					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + notationId ).text( tabnames.notation ) ) )
-					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + infoId ).text( tabnames.metadata ) ) )
-					.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', '#' + fenId ).text( tabnames.fen ) ) )
+				.append(
+					$( '<ul>' ).append(
+						$( '<li>' ).append( $( '<a>' )
+							.attr( 'href', '#' + notationId )
+							.text( tabnames.notation ) ),
+						$( '<li>' ).append( $( '<a>' )
+							.attr( 'href', '#' + infoId )
+							.text( tabnames.metadata ) ),
+						$( '<li>' ).append( $( '<a>' )
+							.attr( 'href', '#' + fenId )
+							.text( tabnames.fen ) )
+					),
+					gameSet.pgnDiv,
+					gameSet.descriptionsDiv,
+					gameSet.fenDiv
 				)
-				.append( gameSet.pgnDiv )
-				.append( gameSet.descriptionsDiv )
-				.append( gameSet.fenDiv )
 				.tabs();
 		}
 		// eslint-disable-next-line one-var, vars-on-top
@@ -914,7 +912,8 @@ window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		gameSet.boardDiv = $( '<div>' )
 			.addClass( 'pgn-board-div' );
 
-		gameSet.piecesDiv = $( '<div>' ).css( { position: 'absolute', left: '20px', top: '20px' } )
+		gameSet.piecesDiv = $( '<div>' )
+			.css( { position: 'absolute', left: '20px', top: '20px' } )
 			.addClass( chessboardClass )
 			.appendTo( gameSet.boardDiv );
 
