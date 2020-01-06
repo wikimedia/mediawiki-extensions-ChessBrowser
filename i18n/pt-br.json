@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"chessbrowser-desc": "Adiciona a etiqueta pgn para tornar a notação do jogo de xadrez interativa."
+}
