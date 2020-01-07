@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"chessbrowser-desc": "Ajoute la balise pgn pour rendre la notation de jeu d’échec interactive."
+}

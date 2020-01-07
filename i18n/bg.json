@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"StanProg"
+		]
+	},
+	"chessbrowser-desc": "Добавя pgn таг, за да бъде интерактивна шахматната нотация."
+}
