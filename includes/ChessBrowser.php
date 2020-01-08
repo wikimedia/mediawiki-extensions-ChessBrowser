@@ -21,21 +21,20 @@
  */
 
 class ChessBrowser {
-
 	/**
-	 * Show the chess game
-	 *
-	 * @param string $input
-	 * @param array $args
-	 * @param Parser $parser
-	 * @param PPFrame $frame
+	 * @since 0.1.0
+	 * @param string $input The wikitext placed between pgn tags
+	 * @param array $args Arguments passed as xml attributes
+	 * @param Parser $parser The MediaWiki parser object
+	 * @param PPFrame $frame Parent frame, provides context of the tage placement
 	 * @return string
 	 */
-	public static function pollRender( $input, array $args, Parser $parser, PPFrame $frame ) {
+	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) {
 		$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
-		$pgnParser = new PgnParser( $input );
+		$chessParser = new ChessParser();
+		$chessParser->setPgnContent( $input );
 		$ret = '<div class="pgn-source-wrapper"><div class="pgn-sourcegame">';
-		$ret .= $pgnParser->parseMovetext();
+		$ret .= $chessParser->createOutputJson();
 		$ret .= '</div></div>';
 		return $ret;
 	}
