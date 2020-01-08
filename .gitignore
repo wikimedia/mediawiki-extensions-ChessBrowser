@@ -5,3 +5,4 @@ vendor/*
 *.orig
 *~
 composer.lock
+*.bak
