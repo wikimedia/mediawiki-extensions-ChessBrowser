@@ -1,0 +1,124 @@
+<div class="pgnviewer" data-chess='{{data-chess}}'>
+	<div style="text-align:center">
+		<table class="mw-collapsible mw-collapsed pgn-metadata-table mw-made-collapsible" style="margin:auto;text-align:left;">
+			<tbody>
+				<tr>
+					<th colspan="2" style="text-align:center;">
+						<span class="mw-collapsible-toggle mw-collapsible-toggle-default mw-collapsible-toggle-collapsed" role="button" tabindex="0" aria-expanded="false">
+							<a class="mw-collapsible-text">
+								{{expand-button}}
+							</a>
+						</span>
+						{{game-detail}}
+					</th>
+				</tr>
+				<tr style="display: none;">
+					<td>{{event-label}}</td>
+					<td>{{event}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{site-label}}</td>
+					<td>{{site}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{date-label}}</td>
+					<td>{{date}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{round-label}}</td>
+					<td>{{round}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{white-label}}</td>
+					<td>{{white}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{black-label}}</td>
+					<td>{{black}}</td>
+				</tr>
+				<tr style="display: none;">
+					<td>{{result-label}}</td>
+					<td>{{result}}</td>
+				</tr>
+				{{#other-metadata}}
+					<tr style="display: none;">
+						<td>{{label}}</td>
+						<td>{{value}}</td>
+					</tr>
+				{{/other-metadata}}
+			</tbody>
+		</table>
+		<div class="pgn-notations" style="scroll-behavior:smooth;">
+			<p>
+				<span class="pgn-movelink" data-ply="0">⚃</span>
+				{{#move-set}}
+					{{#step-link}}
+						<span class="pgn-steplink">{{move-number}}</span>
+					{{/step-link}}
+					{{>move-span}}
+				{{/move-set}}
+			</p>
+	 	</div>
+	 	<div class="pgn-board-div" style="width:248px; height:248px;">
+	        <div class="pgn-board-img" style="position: absolute; left: 20px; top: 20px; width: 208px; height: 208px;">
+					{{>chess-piece}}
+	        </div>
+			<div class="pgn-row-legend pgn-row-left" style="top:20px;height:208px;width:20px;">
+				<span class="pgn-row-legend pgn-prow-0">{{1}}</span>
+				<span class="pgn-row-legend pgn-prow-1">{{2}}</span>
+				<span class="pgn-row-legend pgn-prow-2">{{3}}</span>
+				<span class="pgn-row-legend pgn-prow-3">{{4}}</span>
+				<span class="pgn-row-legend pgn-prow-4">{{5}}</span>
+				<span class="pgn-row-legend pgn-prow-5">{{6}}</span>
+				<span class="pgn-row-legend pgn-prow-6">{{7}}</span>
+				<span class="pgn-row-legend pgn-prow-7">{{8}}</span>
+			</div>
+			<div class="pgn-row-legend pgn-row-right" style="top:20px;left:228px;height:208px;width:20px;">
+				<span class="pgn-row-legend pgn-prow-0">{{1}}</span>
+				<span class="pgn-row-legend pgn-prow-1">{{2}}</span>
+				<span class="pgn-row-legend pgn-prow-2">{{3}}</span>
+				<span class="pgn-row-legend pgn-prow-3">{{4}}</span>
+				<span class="pgn-row-legend pgn-prow-4">{{5}}</span>
+				<span class="pgn-row-legend pgn-prow-5">{{6}}</span>
+				<span class="pgn-row-legend pgn-prow-6">{{7}}</span>
+				<span class="pgn-row-legend pgn-prow-7">{{8}}</span>
+			</div>
+			<div class="pgn-file-legend pgn-file-top" style="left:20px;width:208px;height:20px;">
+				<span class="pgn-file-legend pgn-pfile-0">{{a}}</span>
+				<span class="pgn-file-legend pgn-pfile-1">{{b}}</span>
+				<span class="pgn-file-legend pgn-pfile-2">{{c}}</span>
+				<span class="pgn-file-legend pgn-pfile-3">{{d}}</span>
+				<span class="pgn-file-legend pgn-pfile-4">{{e}}</span>
+				<span class="pgn-file-legend pgn-pfile-5">{{f}}</span>
+				<span class="pgn-file-legend pgn-pfile-6">{{g}}</span>
+				<span class="pgn-file-legend pgn-pfile-7">{{h}}</span>
+			</div>
+			{{!This label goes across bottom, so height and width switch, but for end user convenience, we use label-height for width here}}
+			<div class="pgn-file-legend pgn-file-bottom" style="left:20px;top:228px;width:208px;height:20px;">
+				<span class="pgn-file-legend pgn-pfile-0">{{a}}</span>
+				<span class="pgn-file-legend pgn-pfile-1">{{b}}</span>
+				<span class="pgn-file-legend pgn-pfile-2">{{c}}</span>
+				<span class="pgn-file-legend pgn-pfile-3">{{d}}</span>
+				<span class="pgn-file-legend pgn-pfile-4">{{e}}</span>
+				<span class="pgn-file-legend pgn-pfile-5">{{f}}</span>
+				<span class="pgn-file-legend pgn-pfile-6">{{g}}</span>
+				<span class="pgn-file-legend pgn-pfile-7">{{h}}</span>
+			</div>
+	    </div>
+	    <div class="pgn-controls" style="text-align: center;">
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-tostart" title="{{beginning}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-retreat" title="{{previous}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-slower" title="{{slower}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-play" title="{{play}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-faster" title="{{faster}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-advance" title="{{next}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-toend" title="{{final}}"></div>
+	        <div class="pgn-image-button pgn-image-button-off pgn-button-flip" title="{{flip}}"></div>
+	    </div>
+	    <div class="pgn-nojs-message" style="text-align: center;">
+			<p>
+				{{no-javascript}}
+			</p>
+	    </div>
+	</div>
+</div>

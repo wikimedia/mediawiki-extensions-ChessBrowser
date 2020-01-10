@@ -102,6 +102,7 @@
 	line-height: 20px;
 }
 
+.pgn-notations,
 .pgn-pgndiv {
 	unicode-bidi: isolate;
 	text-align: left;

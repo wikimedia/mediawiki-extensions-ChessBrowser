@@ -2,6 +2,7 @@
 	"extends": "stylelint-config-wikimedia",
 	"rules": {
 		"color-named": ["never", {"severity": "warning"}],
-		"function-url-no-scheme-relative": [true, {"severity": "warning"}]
+		"function-url-no-scheme-relative": [true, {"severity": "warning"}],
+		"no-descending-specificity": [true, {"severity":"warning"}]
 	}
 }

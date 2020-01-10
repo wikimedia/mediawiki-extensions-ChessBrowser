@@ -27,15 +27,201 @@ class ChessBrowser {
 	 * @param array $args Arguments passed as xml attributes
 	 * @param Parser $parser The MediaWiki parser object
 	 * @param PPFrame $frame Parent frame, provides context of the tage placement
-	 * @return string
+	 * @return array
 	 */
 	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) {
+		// Set variable so resource loader knows whether to send javascript
 		$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
+		// Initialize parsers
 		$chessParser = new ChessParser();
+		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
+		// The following can probably be combined with the original instantiation
+		// if the wrapper class is modified a bit
 		$chessParser->setPgnContent( $input );
-		$ret = '<div class="pgn-source-wrapper"><div class="pgn-sourcegame">';
-		$ret .= $chessParser->createOutputJson();
-		$ret .= '</div></div>';
-		return $ret;
+		$chessObject = $chessParser->createOutputJson();
+		// Set up template arguments
+		$templateArgs = [
+			'data-chess' => json_encode( $chessObject ),
+			// TODO One day these dimensions will be determined by the user
+			'board-height' => '248px',
+			'board-width' => '248px',
+			'label-height' => '208px',
+			'label-width' => '208px',
+			'move-set' => self::getMoveSet( $chessObject['tokens'] ),
+			'piece-set' => self::generatePieces( $chessObject['boards'][0] )
+		];
+		$localizedLabels = self::getLocalizedLabels();
+		$metadata = self::getMetadata( $chessObject['metadata'] );
+		$templateArgs = array_merge( $templateArgs, $localizedLabels, $metadata );
+		$board = $templateParser->processTemplate(
+			'ChessBoard',
+			$templateArgs
+		);
+		return [ $board, "markerType" => "nowiki" ];
+	}
+
+	/**
+	 * Create array of mustache arguments for chess-piece.mustache from a given FEN string
+	 * @since 0.2.0
+	 * @param string $fen
+	 * @return array
+	 */
+	public static function generatePieces( $fen ) {
+		$pieceArray = [];
+		$rankIndex = 0;
+		$fileIndex = 0;
+		$fenArray = str_split( $fen );
+		foreach ( $fenArray as $fenChar ) {
+			if ( is_numeric( $fenChar ) ) {
+				$fileIndex += $fenChar;
+			} elseif ( $fenChar == '/' ) {
+				$rankIndex += 1;
+				$fileIndex = 0;
+			} else {
+				array_push(
+					$pieceArray,
+					self::createPiece( $fenChar, $rankIndex, $fileIndex )
+				);
+				$fileIndex += 1;
+			}
+		}
+		return $pieceArray;
+	}
+
+	/**
+	 * Retrieve the interface text for the correct locale
+	 * @since 0.2.0
+	 * @return array
+	 */
+	public static function getLocalizedLabels() {
+		$labels = [
+			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
+			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
+			'event-label' => wfMessage( 'chessbrowser-event-label' )->text(),
+			'site-label' => wfMessage( 'chessbrowser-site-label' )->text(),
+			'date-label' => wfMessage( 'chessbrowser-date-label' )->text(),
+			'round-label' => wfMessage( 'chessbrowser-round-label' )->text(),
+			'white-label' => wfMessage( 'chessbrowser-white-label' )->text(),
+			'black-label' => wfMessage( 'chessbrowser-black-label' )->text(),
+			'result-label' => wfMessage( 'chessbrowser-result-label' )->text(),
+			'1' => wfMessage( 'chessbrowser-first-rank' )->text(),
+			'2' => wfMessage( 'chessbrowser-second-rank' )->text(),
+			'3' => wfMessage( 'chessbrowser-third-rank' )->text(),
+			'4' => wfMessage( 'chessbrowser-fourth-rank' )->text(),
+			'5' => wfMessage( 'chessbrowser-fifth-rank' )->text(),
+			'6' => wfMessage( 'chessbrowser-sixth-rank' )->text(),
+			'7' => wfMessage( 'chessbrowser-seventh-rank' )->text(),
+			'8' => wfMessage( 'chessbrowser-eighth-rank' )->text(),
+			'a' => wfMessage( 'chessbrowser-a-file' )->text(),
+			'b' => wfMessage( 'chessbrowser-b-file' )->text(),
+			'c' => wfMessage( 'chessbrowser-c-file' )->text(),
+			'd' => wfMessage( 'chessbrowser-d-file' )->text(),
+			'e' => wfMessage( 'chessbrowser-e-file' )->text(),
+			'f' => wfMessage( 'chessbrowser-f-file' )->text(),
+			'g' => wfMessage( 'chessbrowser-g-file' )->text(),
+			'h' => wfMessage( 'chessbrowser-h-file' )->text(),
+			'beginning' => wfMessage( 'chessbrowser-beginning-of-game' )->text(),
+			'previous' => wfMessage( 'chessbrowser-previous-move' )->text(),
+			'slower' => wfMessage( 'chessbrowser-slow-autoplay' )->text(),
+			'play' => wfMessage( 'chessbrowser-play-pause-button' )->text(),
+			'faster' => wfMessage( 'chessbrowser-fast-autoplay' )->text(),
+			'next' => wfMessage( 'chessbrowser-next-move' )->text(),
+			'final' => wfMessage( 'chessbrowser-end-of-game' )->text(),
+			'flip' => wfMessage( 'chessbrowser-flip-board' )->text(),
+			'no-javascript' => wfMessage( 'chessbrowser-no-javascript' )->text()
+		];
+		return $labels;
+	}
+
+	/**
+	 * Create array of mustache arguments for move-span.mustache from a given
+	 * array of ply tokens.
+	 * @since 0.2.0
+	 * @param array $tokens List of moves in Standard Algebraic Notation
+	 * @return array
+	 */
+	public static function getMoveSet( $tokens ) {
+		$moveSet = [];
+		$plys = count( $tokens );
+		for ( $i = 0; $i < $plys; $i++ ) {
+			$token = $tokens[$i];
+			$span = [
+				'step-link' => false
+			];
+			if ( $i % 2 == 0 ) {
+				$moveNumber = ( $i / 2 ) + 1;
+				$span['step-link'] = true;
+				$span['move-number'] = $moveNumber;
+			}
+			$plyNumber = $i + 1;
+			$span['move-token'] = $token;
+			$span['move-ply'] = $plyNumber;
+			array_push( $moveSet, $span );
+		}
+		return $moveSet;
+	}
+
+	/**
+	 * Create array of mustache arguments for ChessBoard.mustache from a given
+	 * associative array of tag pairs
+	 * @since 0.2.0
+	 * @param array $tagPairs
+	 * @return array
+	 */
+	public static function getMetadata( $tagPairs ) {
+		$metadata = [
+			'event' => $tagPairs['event'],
+			'site' => $tagPairs['site'],
+			'date' => $tagPairs['date'],
+			'round' => $tagPairs['round'],
+			'white' => $tagPairs['white'],
+			'black' => $tagPairs['black'],
+			'result' => $tagPairs['result'],
+			'other-metadata' => []
+		];
+		$keyList = array_keys( $tagPairs );
+		foreach ( $keyList as $key ) {
+			if ( array_key_exists( $key, $metadata ) ) {
+				continue;
+			}
+			$miscData = [
+				'label' => $key,
+				'value' => $tagPairs[$key]
+			];
+			array_push( $metadata['other-metadata'], $miscData );
+		}
+		return $metadata;
+	}
+
+	/**
+	 * Create an array of arguments for chess-piece.mustache for a single piece
+	 * at a given location on the board
+	 * @since 0.2.0
+	 * @param string $symbol The FEN symbol for the piece
+	 * @param string|int $rank
+	 * @param string|int $file
+	 * @return array
+	 */
+	public static function createPiece( $symbol, $rank, $file ) {
+		if ( $rank > 7 || $file > 7 || $rank < 0 || $file < 0 ) {
+			throw new ChessBrowserException( 'Impossible rank or file' );
+		}
+
+		$validTypes = [ 'b', 'k', 'n', 'p', 'q', 'r' ];
+		$type = strtolower( $symbol );
+
+		if ( !in_array( $type, $validTypes ) ) {
+			throw new ChessBrowserException( "Invalid piece type $type" );
+		}
+
+		$color = ( $type === $symbol ? 'd' : 'l' );
+
+		$piece = [
+			'piece-type' => $type,
+			'piece-color' => $color,
+			'piece-rank' => $rank,
+			'piece-file' => $file
+		];
+		return $piece;
 	}
 }

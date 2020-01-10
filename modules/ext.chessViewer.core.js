@@ -1,1017 +1,240 @@
-/*
-this work is placed by its authors in the public domain.
-it was created from scratch, and no part of it was copied from elsewhere.
-it can be used, copied, modified, redistributed, as-is or modified,
-	whole or in part, without restrictions.
-it can be embedded in a copyright protected work, as long as it's clear
-	that the copyright does not apply to the embedded parts themselves.
-please do not claim for yourself copyrights for this work or parts of it.
-the work comes with no warranty or guarantee, stated or implied, including
-	fitness for a particular purpose.
-*/
-'use strict';
-window.mw.hook( 'wikipage.content' ).add( function ( $content ) {
-	var // const, really, but linter...
-		WHITE = 'l',
-		BLACK = 'd',
-		acode = 'a'.charCodeAt( 0 ),
-		minBlockSize = 20,
-		maxBlockSize = 60,
-		boardPadding = 20,
-		wrapperSelector = 'div.pgn-source-wrapper',
-		defaultBlockSize = 36,
-		sides = [ 'n', 'e', 's', 'w' ], // used for legends
-		rowClassPrefix = 'pgn-prow-',
-		fileClassPrefix = 'pgn-pfile-',
-		allFilesAndColumnClasses = '01234567'
-			.split( '' )
-			.map( function ( i ) { return rowClassPrefix + i + ' ' + fileClassPrefix + i; } )
-			.join( ' ' ),
-		hiddenPiece = 'pgn-piece-hidden',
-		chessboardClass = 'pgn-board-img',
-		resetGameButtonClass = 'pgn-button-tostart',
-		ffButtonClass = 'pgn-button-toend',
-		advanceButtonClass = 'pgn-button-advance',
-		retreatButtonClass = 'pgn-button-retreat',
-		playButtonClass = 'pgn-button-play',
-		fasterButtonClass = 'pgn-button-faster',
-		slowerButtonClass = 'pgn-button-slower',
-		flipBoardButtonClass = 'pgn-button-flip',
-		ccButtonClass = 'pgn-button-cc',
+// Licensed under CC-BY-SA-4.0
+// Written by קיפודנחש (Kipod)
+// Original source taken from https://www.mediawiki.org/w/index.php?title=User:קיפודנחש/chess-animator.js
 
-		mw = window.mw,
-		$ = window.$,
-		mobile = mw.config.get( 'skin' ) === 'minerva';
+// Still some lint 12 Jan 2020
+// Doesn't work with PHP output yet, likely because output format
+//   is slightly different than JavaScript is expecting --12 Jan 2020
+$( function () {
 
-	// some global, utility functions.
-	function bindex( file, row ) {
-		return row === undefined ? file : 8 * file + row;
-	}
-	function file( ind ) {
-		return Math.floor( ind / 8 );
-	}
-	function row( ind ) {
-		return ind % 8;
-	}
-	function sign( a, b ) {
-		return a === b ? 0 : ( a < b ? 1 : -1 );
-	}
-	function fileOfStr( file ) {
-		return file && file.charCodeAt( 0 ) - acode;
-	}
-	function rowOfStr( row ) {
-		return row && ( row - 1 );
-	}
-	function indexOfMoveNotation( notation ) {
-		var match = notation.match( /(\d+)([ld])/ );
-		if ( match ) {
-			return ( parseInt( match[ 1 ] ) - 1 ) * 2 + ( match[ 2 ] === 'l' ? 1 : 2 );
+	var allPositionClasses = '01234567'
+		.split( '' )
+		.map( function ( r ) { return 'pgn-prow-' + r + ' pgn-pfile-' + r; } )
+		.join( ' ' );
+
+	function processOneDiv() {
+		var $div = $( this ),
+			data = $div.data( 'chess' ),
+			boards,
+			pieces = [],
+			timer,
+			delay = 800,
+			$boardDiv = $div.find( '.pgn-board-img' ),
+			currentPlyNum,
+			board,
+			ply,
+			display = data.display || data.plys.length,
+			ind;
+
+		function createPiece( letter ) {
+			var ll = letter.toLowerCase(),
+				color = letter === ll ? 'd' : 'l',
+				$piece = $( '<div>' )
+					.data( 'piece', letter )
+					.addClass( 'pgn-chessPiece pgn-ptype-color-' + ll + color )
+					.appendTo( $boardDiv );
+			pieces.push( $piece );
+			return $piece;
 		}
-		return 0;
-	}
-	function boardToFen( board ) {
-		var res = [],
-			len = function ( s ) {
-				return s.length;
-			},
-			r,
-			row,
-			f;
 
-		for ( r = 0; r < 8; r++ ) {
-			row = '';
-			for ( f = 0; f < 8; f++ ) {
-				row += board[ bindex( f, r ) ] ? board[ bindex( f, r ) ].fen() : ' ';
-			}
-			res.push( row.replace( /(\s+)/g, len ) );
+		function stopAutoplay() {
+			clearTimeout( timer );
+			$( '.pgn-button-play', $div ).removeClass( 'pgn-image-button-on' );
+			timer = null;
 		}
-		return res.reverse().join( '/' ); // fen begins with row 8 file a - go figure...
-	}
 
-	// Classes
-	function Button( className, action, stateful ) {
-		var button = this;
-		$.extend( button, {
-			state: 0,
-			setState: function ( state ) {
-				var oldState = this.state;
-				state = 0 + !!state;
-				this.state = state;
-				if ( stateful ) {
-					this.elem
-						.toggleClass( 'pgn-image-button-on', !!state )
-						.toggleClass( 'pgn-image-button-off', !state );
-				}
-				if ( ( !stateful || state !== oldState ) && typeof ( action ) === 'function' ) {
-					action( state );
-				}
-			},
-			setVisible: function ( visible ) {
-				this.elem.toggle( !!visible );
-			},
-			elem: $( '<div>' )
-				.addClass( 'pgn-image-button pgn-image-button-off ' + className )
-				.on( 'click', function () {
-					button.setState( !button.state );
-				} )
-		} );
-	}
+		function scrollNotationToView( $notation ) {
+			var $daddy = $notation.closest( '.pgn-notations' ),
+				daddysHeight = $daddy.height(),
+				notationHeight = $notation.height(),
+				notationTop = $notation.position().top,
+				toMove,
+				scrollTop;
 
-	function Gameset( wrapperDiv ) { // set of functions and features that depend on blocksize, and currentGame.
-		var gameSet = this;
-
-		$.extend( gameSet, {
-			wrapperDiv: wrapperDiv,
-			tabberDiv: null,
-			blockSize: defaultBlockSize,
-			allGames: [],
-			currentGame: null,
-			showDetails: false,
-			timer: null,
-			autoPlayDelay: 750,
-			// actions
-			faster: function () {
-				gameSet.autoPlayDelay -= 500;
-				if ( gameSet.autoPlayDelay < 500 ) {
-					gameSet.autoPlayDelay = 500;
-				}
-				gameSet.reportDelay();
-			},
-			slower: function () {
-				gameSet.autoPlayDelay += 500;
-				gameSet.reportDelay();
-			},
-			reportDelay: function () {
-				var message;
-				gameSet.toggleAutoPlay(); // no param means keep state, but use new delay
-				message = gameSet.config.delay_msg ?
-					gameSet.config.delay_msg.replace( '$sec$', 0.001 * gameSet.autoPlayDelay ) :
-					0.001 * gameSet.autoPlayDelay;
-				mw.notify( message, { tag: 'delay' } );
-				// eventurally use config and format better message.
-			},
-			// 6 is half letter size (assuming font-size 0.875em)
-			top: function ( row, l ) {
-				var pixels = ( ( this.isFlipped ? row : ( 7 - row ) ) + ( l ? 0.3 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding );
-				return pixels + 'px';
-			},
-			left: function ( file, l ) {
-				var pixels = ( ( this.isFlipped ? 7 - file : file ) + ( l ? 0.5 : 0 ) ) * this.blockSize + ( l ? boardPadding - 6 : boardPadding );
-				return pixels + 'px';
-			},
-			legendLocation: function ( side, num ) {
-				switch ( side ) {
-					case 'n':
-						return { top: 0, left: this.left( num, true ) };
-					case 'e':
-						return { top: this.top( num, true ), left: this.blockSize * 8 + boardPadding + 5 };
-					case 's':
-						return { top: this.blockSize * 8 + 20, left: this.left( num, true ) };
-					case 'w':
-						return { top: this.top( num, true ), left: 5 };
-				}
-			},
-			relocateLegends: function () {
-				var n,
-					si;
-				for ( si in sides ) {
-					for ( n = 0; n < 8; n++ ) {
-						this[ sides[ si ] ][ n ].css( this.legendLocation( sides[ si ], n ) );
-					}
-				}
-			},
-			selectGame: function ( val ) {
-				var game = this.allGames[ val ];
-				if ( game ) {
-					game.analyzePgn();
-					this.currentGame = game;
-					this.ccButton.setVisible( game.hasComments() );
-					game.show();
-				}
-			},
-			refreshFEN: function () {
-				var board = this.currentGame.boards[ this.currentGame.index ];
-				this.fenDiv.text( boardToFen( board ) );
-			},
-			drawIfNeedRefresh: function () {
-				if ( this.currentGame ) {
-					this.currentGame.drawBoard();
-				}
-			},
-			changeAppearance: function () {
-				this.currentGame.drawBoard();
-				this.relocateLegends();
-			},
-			setWidth: function ( width ) {
-				var actualWidth = width || this.blockSize,
-					widthPx = actualWidth * 8,
-					widthPxPlus = widthPx + 40;
-				this.tabberDiv // disgusting, but I could not get heightStyle of jquery tabs to do what I need.
-					.css( { height: widthPxPlus } )
-					.find( 'div' ).css( { height: mobile ? widthPxPlus : widthPx - 20 } );
-				this.blockSize = actualWidth;
-				this.piecesDiv.css( { width: widthPx, height: widthPx } );
-				this.boardDiv.css( { width: widthPxPlus, height: widthPxPlus } );
-				this.changeAppearance();
-			},
-			hideComments: function ( state ) {
-				this.wrapperDiv.toggleClass( 'pgn-comments-hidden', state );
-			},
-			isFlipped: false,
-			doFlip: function ( state ) {
-				this.isFlipped = state;
-				this.changeAppearance();
-			},
-			playing: false,
-			toggleAutoPlay: function ( state ) {
-				clearInterval( this.timer );
-				if ( state === undefined ) {
-					state = this.playing;
-				}
-				this.playing = state;
-				if ( state ) {
-					this.currentGame.wrapAround();
-					this.timer = setInterval( function () {
-						gameSet.currentGame.advance();
-					}, gameSet.autoPlayDelay );
-				}
-			},
-			stopAutoPlay: function () {
-				gameSet.autoPlayButton.setState( false );
-			}
-		} );
-	}
-
-	function ChessPiece( type, color, game ) {
-		var piece = this;
-
-		this.game = game;
-		this.type = type;
-		this.color = color;
-		this.avatar = $( '<div>' )
-			.addClass( 'pgn-chessPiece pgn-ptype-color-' + type + color )
-			.on( 'transitionstart', function () { $( this ).addClass( 'moving' ); } ) // supposedly elevates z-index
-			.on( 'transitionend', function () { $( this ).removeClass( 'moving' ); } );
-		$.extend( piece, {
-			appear: function ( file, row ) {
-				if ( game.gs.isFlipped ) {
-					file = 7 - file;
-					row = 7 - row;
-				}
-				this.avatar
-					.removeClass( hiddenPiece )
-					.removeClass( allFilesAndColumnClasses ) // remove them all
-					.addClass( rowClassPrefix + row )
-					.addClass( fileClassPrefix + file );
-			},
-			disappear: function () {
-				return this.avatar.addClass( hiddenPiece );
-			},
-			setSquare: function ( file, row ) {
-				this.file = file;
-				this.row = row;
-				this.onBoard = true;
-			},
-			capture: function ( file, row ) {
-				if ( this.type === 'p' && !this.game.pieceAt( file, row ) ) { // en passant
-					this.game.clearPieceAt( file, this.row );
-				} else {
-					this.game.clearPieceAt( file, row );
-				}
-				this.move( file, row );
-			},
-			move: function ( file, row ) {
-				// with chess960 castling, we sometimes have to test.
-				if ( this.game.pieceAt( this.file, this.row ) === this ) {
-					this.game.clearSquare( this.file, this.row );
-				}
-				this.game.pieceAt( file, row, this ); // place it on the board)
-			},
-			pawnDirection: function () {
-				return this.color === WHITE ? 1 : -1;
-			},
-			toString: function () {
-				return this.type + this.color;
-			},
-			fen: function () {
-				return this.color === WHITE ? this.type.toUpperCase() : this.type;
-			},
-			pawnStart: function () {
-				return this.color === WHITE ? 1 : 6;
-			},
-			remove: function () {
-				this.onBoard = false;
-			},
-			canMoveTo: function ( file, row, capture ) {
-				var rd = Math.abs( this.row - row ),
-					fd = Math.abs( this.file - file ),
-					dir = this.pawnDirection();
-
-				if ( !this.onBoard ) {
-					return false;
-				}
-
-				switch ( this.type ) {
-					case 'n':
-						return rd * fd === 2; // how nice that 2 is prime: its only factors are 2 and 1....
-					case 'p':
-						return ( ( this.row === this.pawnStart() && row === this.row + dir * 2 && !fd && this.game.roadIsClear( this.file, file, this.row, row ) && !capture ) ||
-							( this.row + dir === row && ( ( fd === 0 ) === ( !capture ) ) ) ); // advance 1, and either stay in file and no capture, or move exactly one
-					case 'k':
-						// Technical debt incurred Dec 2019
-						// eslint-disable-next-line no-bitwise
-						return ( rd | fd ) === 1; // we'll accept 1 and 1 or 1 and 0.
-					case 'q':
-						return ( rd - fd ) * rd * fd === 0 && this.game.roadIsClear( this.file, file, this.row, row ); // same row, same file or same diagonal.
-					case 'r':
-						return rd * fd === 0 && this.game.roadIsClear( this.file, file, this.row, row );
-					case 'b':
-						return rd === fd && this.game.roadIsClear( this.file, file, this.row, row );
-				}
-			}, // function canMoveTo
-			matches: function ( oldFile, oldRow, isCapture, file, row ) {
-				if ( typeof oldFile === 'number' && oldFile !== this.file ) {
-					return false;
-				}
-				if ( typeof oldRow === 'number' && oldRow !== this.row ) {
-					return false;
-				}
-
-				return this.canMoveTo( file, row, isCapture );
-			}
-		} ); // extend
-	}
-
-	function Game( gameSet ) {
-		$.extend( this, {
-			board: [],
-			boards: [],
-			pieces: [],
-			notations: [],
-			moves: [],
-			index: 0,
-			piecesByTypeCol: {},
-			descriptions: {},
-			comments: [],
-			analyzed: false,
-			gs: gameSet
-		} );
-	}
-
-	Game.prototype.moveLinkText = function ( notation, color ) {
-		var config = this.gs.config,
-			tpiece = config && config.translate && config.translate.piece,
-			tfile = config && config.translate && config.translate.file,
-			trow = config && config.translate && config.translate.row;
-		if ( tpiece ) {
-			tpiece = color === WHITE && tpiece.white ||
-				color === BLACK && tpiece.black ||
-				tpiece;
-			try {
-				notation = notation.replace( new RegExp( '(' + Object.keys( tpiece ).join( '|' ) + ')', 'g' ), function ( c ) {
-					return tpiece[ c ] || c;
+			if ( notationTop < 0 || notationTop + notationHeight > daddysHeight ) {
+				toMove = ( daddysHeight - notationHeight ) / 2 - notationTop;
+				scrollTop = $daddy.prop( 'scrollTop' );
+				$daddy.prop( {
+					scrollTop: scrollTop - toMove
 				} );
-			} catch ( e ) {
-				mw.log( 'bad config.translate.pieces' );
-				throw e;
 			}
 		}
 
-		if ( tfile ) {
-			try {
-				notation = notation.replace( /[abcdefgh]/g, function ( c ) {
-					return tfile[ c ] || c;
-				} );
-			} catch ( e ) {
-				mw.log( 'bad config.translate.file' );
-				throw e;
+		function gotoBoard( plyNum ) {
+			var previous = currentPlyNum,
+				board = boards[ plyNum ],
+				hiddenPieces = pieces.filter( function ( piece ) {
+					return board.indexOf( piece ) === -1;
+				} ),
+				appearNow = board.filter( function ( piece ) {
+					return typeof ( previous ) === 'number' && boards[ previous ].indexOf( piece ) === -1;
+				} ),
+				$notation,
+				i,
+				j;
+
+			currentPlyNum = plyNum;
+			for ( i in hiddenPieces ) {
+				hiddenPieces[ i ].addClass( 'pgn-piece-hidden' );
 			}
-		}
-		if ( trow ) {
-			try {
-				notation = notation.replace( /[12345678]/g, function ( c ) {
-					return trow[ c ] || c;
-				} );
-			} catch ( e ) {
-				mw.log( 'bad config.translate.row' );
-				throw e;
+			for ( j in board ) {
+				board[ j ]
+					.removeClass( allPositionClasses + ' pgn-piece-hidden' )
+					.toggleClass( 'pgn-transition-immediate', appearNow.indexOf( board[ j ] ) > -1 )
+					.addClass( 'pgn-prow-' + parseInt( j / 8 ) + ' pgn-pfile-' + j % 8 );
 			}
-		}
-
-		return notation.replace( /-/g, '\u2011' ).trim() + ' ';
-	};
-
-	Game.prototype.show = function () {
-		var desc = $.extend( {}, this.descriptions ),
-			rtl = desc.Direction === 'rtl',
-			gs = this.gs;
-
-		// cleanup from previous game.
-		gs.stopAutoPlay();
-
-		// setup descriptions
-		delete desc.Direction;
-		gs.descriptionsDiv
-			.empty()
-			.css( { direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' } );
-		// Technical debt incurred Dec 2019
-		// eslint-disable-next-line no-jquery/no-each-util
-		$.each( desc, function ( key, val ) {
-			gs.descriptionsDiv.append( key + ': ' + val + '<br />' );
-		} );
-
-		// setup pgn section
-		gs.pgnDiv.empty().append( this.notations );
-
-		// set the board.
-		this.gs.piecesDiv.empty().append( this.pieces.map( function ( piece ) {
-			return piece.disappear();
-		} ) );
-
-		this.drawBoard();
-	};
-
-	Game.prototype.done = function () {
-		return this.boards.length - 1 <= this.index;
-	};
-
-	Game.prototype.pieceAt = function ( file, row, piece ) {
-		var i = bindex( file, row );
-		if ( piece ) {
-			this.board[ i ] = piece;
-			piece.setSquare( file, row );
-		}
-		return this.board[ i ];
-	};
-
-	Game.prototype.clearSquare = function ( file, row ) {
-		delete this.board[ bindex( file, row ) ];
-	};
-
-	Game.prototype.clearPieceAt = function ( file, row ) {
-		var piece = this.pieceAt( file, row );
-		if ( piece ) {
-			piece.remove();
-		}
-		this.clearSquare( file, row );
-	};
-
-	Game.prototype.roadIsClear = function ( file1, file2, row1, row2 ) {
-		var file = file1,
-			row = row1,
-			steps = 0,
-			dfile = sign( file1, file2 ),
-			drow = sign( row1, row2 );
-		while ( true ) {
-			file += dfile;
-			row += drow;
-			if ( file === file2 && row === row2 ) {
-				return true;
+			if ( plyNum === boards.length - 1 ) {
+				stopAutoplay();
 			}
-			if ( this.pieceAt( file, row ) ) {
-				return false;
-			}
-			if ( steps++ > 10 ) {
-				throw new Error( 'something is wrong in function roadIsClear.' +
-					' file=' + file + ' file1=' + file1 + ' file2=' + file2 +
-					' row=' + row + ' row1=' + row1 + ' row2=' + row2 +
-					' dfile=' + dfile + ' drow=' + drow );
-			}
-		}
-	};
-
-	Game.prototype.addPieceToDicts = function ( piece ) {
-		var type = piece.type,
-			color = piece.color,
-			byType = this.piecesByTypeCol[ type ],
-			byTypeCol;
-		this.pieces.push( piece );
-		if ( !byType ) {
-			byType = this.piecesByTypeCol[ type ] = {};
-		}
-		byTypeCol = byType[ color ];
-		if ( !byTypeCol ) {
-			byTypeCol = byType[ color ] = [];
-		}
-		byTypeCol.push( piece );
-	};
-
-	Game.prototype.advance = function ( delta ) {
-		var m = this.index + ( delta || 1 ); // no param means 1 forward.
-		if ( m >= 0 && m < this.boards.length ) {
-			this.drawBoard( m );
-		} else {
-			this.gs.autoPlayButton.setState( false );
-		}
-	};
-
-	Game.prototype.showCurrentMoveLink = function () {
-		var moveLink = this.moves[ this.index ];
-		if ( moveLink ) {
-			moveLink.addClass( 'pgn-current-move' ).siblings().removeClass( 'pgn-current-move' );
-			moveLink.parent().stop().animate( {
-				scrollTop: moveLink.parent()[ 0 ].scrollTop + moveLink.position().top - moveLink.parent().height() / 2
-			}, 500 );
-		}
-	};
-
-	Game.prototype.drawBoard = function ( index ) {
-		var board, i, b;
-
-		if ( index === undefined ) {
-			index = this.index;
-		}
-		if ( index < 0 ) {
-			index += this.boards.length;
-		}
-		this.index = index;
-
-		for ( i in this.pieces ) {
-			this.pieces[ i ].disappear();
-		}
-
-		board = this.boards[ index ];
-		for ( b in board ) {
-			if ( board[ b ] ) {
-				board[ b ].appear( file( b ), row( b ) );
+			$( '.pgn-movelink', $div ).removeClass( 'pgn-current-move' );
+			$notation = $( '.pgn-movelink[data-ply=' + plyNum + ']', $div );
+			if ( $notation.length ) {
+				$notation.addClass( 'pgn-current-move' );
+				scrollNotationToView( $notation );
 			}
 		}
 
-		this.showCurrentMoveLink();
-		this.gs.refreshFEN();
-	};
-
-	Game.prototype.wrapAround = function () {
-		if ( this.index >= this.boards.length - 1 ) {
-			this.drawBoard( 0 );
-		}
-	};
-
-	Game.prototype.castle = function ( color, side, kingTargetFile, rookTargetFile ) {
-		var king = this.piecesByTypeCol.k[ color ][ 0 ],
-			rook = this.piecesByTypeCol.r[ color ][ side ];
-		if ( !rook || rook.type !== 'r' ) {
-			throw new Error( 'attempt to castle without rook on appropriate square' );
-		}
-		king.move( fileOfStr( kingTargetFile ), king.row );
-		rook.move( fileOfStr( rookTargetFile ), rook.row );
-	};
-
-	Game.prototype.kingSideCastle = function ( color ) {
-		this.castle( color, 1, 'g', 'f' );
-	};
-
-	Game.prototype.queenSideCastle = function ( color ) {
-		this.castle( color, 0, 'c', 'd' );
-	};
-
-	Game.prototype.promote = function ( piece, type, file, row, capture ) {
-		if ( capture ) {
-			piece.capture( file, row );
-		} else {
-			piece.move( file, row );
-		}
-		this.clearPieceAt( file, row );
-		this.createPiece( type, piece.color, file, row );
-	};
-
-	Game.prototype.createPiece = function ( type, color, file, row ) {
-		var piece = new ChessPiece( type, color, this );
-		this.pieceAt( file, row, piece );
-		this.addPieceToDicts( piece );
-		return piece;
-	};
-
-	Game.prototype.createMove = function ( color, moveStr ) {
-		moveStr = moveStr.replace( /^\s+|[!?+# ]*(\$\d{1,3})?$/g, '' ); // check, mate, comments, glyphs.
-		if ( !moveStr.length ) {
-			return false;
-		}
-		if ( moveStr === 'O-O' || moveStr === '0-0' ) {
-			return this.kingSideCastle( color );
-		}
-		if ( moveStr === 'O-O-O' || moveStr === '0-0-0' ) {
-			return this.queenSideCastle( color );
-		}
-		if ( moveStr === '1-0' || moveStr === '0-1' || moveStr === '1/2-1/2' || moveStr === '*' ) {
-			return moveStr; // end of game - white wins, black wins, draw, game halted/abandoned/unknown.
+		function advance() {
+			if ( currentPlyNum < boards.length - 1 ) {
+				gotoBoard( currentPlyNum + 1 );
+			}
 		}
 
-		// eslint-disable-next-line vars-on-top
-		var match = moveStr.match( /([RNBKQ])?([a-h])?([1-8])?(x)?([a-h])([1-8])(=[RNBKQ])?/ );
-
-		if ( !match ) {
-			return false;
+		function startAutoplay() {
+			timer = setInterval( advance, delay );
+			$( '.pgn-button-play', $div ).addClass( 'pgn-image-button-on' );
 		}
 
-		// eslint-disable-next-line one-var, vars-on-top
-		var type = match[ 1 ] ? match[ 1 ].toLowerCase() : 'p',
-			oldFile = fileOfStr( match[ 2 ] ),
-			oldRow = rowOfStr( match[ 3 ] ),
-			isCapture = !!match[ 4 ],
-			file = fileOfStr( match[ 5 ] ),
-			row = rowOfStr( match[ 6 ] ),
-			promotion = match[ 7 ],
-			thePiece;
+		function retreat() {
+			if ( currentPlyNum > 0 ) {
+				gotoBoard( currentPlyNum - 1 );
+			}
+		}
 
-		thePiece = $( this.piecesByTypeCol[ type ][ color ] ).filter( function () {
-			return this.matches( oldFile, oldRow, isCapture, file, row );
-		} );
+		function gotoStart() {
+			gotoBoard( 0 );
+			stopAutoplay();
+		}
 
-		if ( thePiece.length !== 1 ) {
-			/* eslint-disable one-var, vars-on-top */
-			var ok = false;
-			if ( thePiece.length === 2 ) { // maybe one of them can't move because it protects the king?
-				var king = this.piecesByTypeCol.k[ color ][ 0 ];
-				for ( var i = 0; i < 2; i++ ) {
-					var piece = thePiece[ i ];
-					// lift the piece, check if the king is under threat
-					delete this.board[ bindex( piece.file, piece.row ) ];
-					for ( var j in this.board ) {
-						var threat = this.board[ j ];
-						if ( threat && threat.color !== color && threat.canMoveTo( king.file, king.row, true ) ) { // found that this piece can't move, so it's the other one...
-							ok = true;
-							thePiece = thePiece[ 1 - i ];
-							break;
-						}
-					}
-					// put the piece back in place
-					this.board[ bindex( piece.file, piece.row ) ] = piece;
-					if ( ok ) {
-						break;
+		function gotoEnd() {
+			gotoBoard( boards.length - 1 );
+		}
+
+		function clickPlay() {
+			if ( currentPlyNum === boards.length - 1 ) {
+				gotoBoard( 0 );
+			}
+			if ( timer ) {
+				stopAutoplay();
+			} else {
+				startAutoplay();
+			}
+		}
+
+		function changeDelay() {
+			delay = Math.min( delay, 400 );
+			if ( timer ) {
+				stopAutoplay();
+				startAutoplay();
+			}
+		}
+
+		function slower() {
+			delay += Math.min( delay, 1600 );
+			changeDelay();
+		}
+
+		function faster() {
+			delay = delay > 3200 ? delay - 1600 : delay / 2;
+			changeDelay();
+		}
+
+		function flipBoard() {
+			// eslint-disable-next-line no-jquery/no-class-state
+			$div.toggleClass( 'pgn-flip' );
+
+			// eslint-disable-next-line no-jquery/no-class-state
+			$( '.pgn-button-flip', $div ).toggleClass( 'pgn-image-button-on' );
+		}
+
+		function clickNotation() {
+			stopAutoplay();
+			gotoBoard( $( this ).data( 'ply' ) );
+		}
+
+		function connectButtons() {
+			$( '.pgn-button-advance', $div ).on( 'click', advance );
+			$( '.pgn-button-retreat', $div ).on( 'click', retreat );
+			$( '.pgn-button-tostart', $div ).on( 'click', gotoStart );
+			$( '.pgn-button-toend', $div ).on( 'click', gotoEnd );
+			$( '.pgn-button-play', $div ).on( 'click', clickPlay );
+			$( '.pgn-button-faster', $div ).on( 'click', faster );
+			$( '.pgn-button-slower', $div ).on( 'click', slower );
+			$( '.pgn-button-flip', $div ).on( 'click', flipBoard );
+			$( '.pgn-movelink', $div ).on( 'click', clickNotation );
+		}
+
+		function processFen( fen ) {
+			var fenAr = fen.split( '/' ),
+				board = [],
+				l,
+				i,
+				j,
+				li,
+				letters;
+			for ( i in fenAr ) {
+				j = 0;
+				letters = fenAr[ i ].split( '' );
+				for ( li in letters ) {
+					l = letters[ li ];
+					if ( /[prnbqk]/i.test( l ) ) {
+						board[ ( 7 - i ) * 8 + j ] = createPiece( l );
+						j++;
+					} else {
+						j += parseInt( l );
 					}
 				}
 			}
-			/* eslint-enable one-var, vars-on-top */
-
-			if ( !ok ) {
-				throw new Error( 'could not find matching pieces. type="' + type + ' color=' + color + ' moveAGN="' + moveStr + '". found ' + thePiece.length + ' matching pieces' );
-			}
-		} else {
-			thePiece = thePiece[ 0 ];
-		}
-		if ( promotion ) {
-			this.promote( thePiece, promotion.toLowerCase().charAt( 1 ), file, row, isCapture );
-		} else if ( isCapture ) {
-			thePiece.capture( file, row );
-		} else {
-			thePiece.move( file, row );
-		}
-		return moveStr;
-	};
-
-	Game.prototype.addComment = function ( str ) {
-		if ( !str ) {
-			return;
-		}
-		this.notations.push( $( '<p>' )
-			.addClass( 'pgn-comment' )
-			.text( str.replace( /[{}()]/g, '' ) )
-		);
-	};
-
-	Game.prototype.addDescription = function ( description ) {
-		var match = description.trim().match( /\[([^"]+)"(.*)"\]/ );
-		if ( match ) {
-			this.descriptions[ ( match[ 1 ] ).trim() ] = match[ 2 ];
-		}
-	};
-
-	Game.prototype.description = function () {
-		var d = this.descriptions,
-			round = d.Round ? ' (' + d.Round + ')' : '',
-			s = d.Name || d[ 'שם' ] || (
-				( d.Event || d[ 'אירוע' ] || '' ) + ': ' +
-				( d.White || d[ 'לבן' ] || '' ) + ' - ' +
-				( d.Black || d[ 'שחור' ] || '' ) + round
-			);
-		return s;
-	};
-
-	Game.prototype.preAnalyzePgn = function ( pgn ) {
-		function tryMatch( regex ) {
-			var match = pgn.match( regex );
-			if ( match ) {
-				pgn = pgn.replace( match, '' );
-			}
-			return match && match[ 0 ];
+			return board;
 		}
 
-		// eslint-disable-next-line vars-on-top
-		var match;
-		while ( ( match = tryMatch( /^\s*\[[^\]]*\]/ ) ) !== null ) {
-			this.addDescription( match );
-		}
-		this.pgn = pgn;
-	};
-
-	Game.prototype.analyzePgn = function () {
-		var
-			match,
-			turn,
-			moveNum = '',
-			game = this,
-			pgn = this.pgn,
-			prevLen = -1;
-
-		if ( this.analyzed ) {
-			return;
-		}
-		this.analyzed = true;
-
-		function removeHead( match ) {
-			var ind = pgn.indexOf( match ) + match.length;
-			pgn = pgn.substring( ind );
-			return match;
-		}
-
-		function tryMatch( regex ) {
-			var rmatch = pgn.match( regex );
-			if ( rmatch ) {
-				removeHead( rmatch[ 0 ] );
-				moveNum = rmatch[ 1 ] || moveNum;
-			}
-			return rmatch && rmatch[ 0 ];
-		}
-
-		function addMoveLink( str, isMove, color ) {
-			var notation = $( '<span>' )
-				.addClass( isMove ? 'pgn-movelink' : 'pgn-steplink' )
-				.text( game.moveLinkText( str, color ) );
-			game.notations.push( notation );
-
-			if ( isMove ) {
-				game.boards.push( game.board.slice() );
-				game.moves.push( notation );
-			} else if ( game.moves.length === 0 ) {
-				game.moves.push( notation );
-			}
-
-			notation.on( 'click', function () {
-				game.gs.stopAutoPlay();
-				game.drawBoard( game.boards.length - 1 );
-			} );
-		}
-
-		pgn = pgn.replace( /;(.*)\n/g, ' {$1} ' ).replace( /\s+/g, ' ' ); // replace to-end-of-line comments with block comments, remove newlines and noramlize spaces to 1
-		this.populateBoard( this.descriptions.FEN || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' );
-		this.boards.push( this.board.slice() );
-
-		while ( pgn.length ) {
-			if ( prevLen === pgn.length ) {
-				throw new Error( 'analysePgn encountered a problem. pgn is: ' + pgn );
-			}
-			prevLen = pgn.length;
-			this.addComment( tryMatch( /^\s*\{[^}]*\}\s*/ ) );
-			this.addComment( tryMatch( /^\s*\([^)]*\)\s*/ ) );
-
-			if ( ( match = tryMatch( /^\s*(\d+)\.+/ ) ) !== null ) {
-				turn = /\.{3}/.test( match ) ? BLACK : WHITE;
-				addMoveLink( match, false, turn );
-				continue;
-			}
-			if ( ( match = tryMatch( /^\s*[^ ]+ ?/ ) ) !== null ) {
-				this.createMove( turn, match );
-				addMoveLink( match, true, turn );
-				turn = BLACK;
-			}
-		}
-
-		if ( this.descriptions.FirstMove ) {
-			this.index = indexOfMoveNotation( this.descriptions.FirstMove );
-		} else {
-			this.index = this.descriptions.FEN ? 0 : this.boards.length - 1;
-		}
-	};
-
-	Game.prototype.populateBoard = function ( fen ) {
-		var fenar = fen.split( /[/\s]/ );
-		if ( fenar.length < 8 ) {
-			throw new Error( 'illegal fen: "' + fen + '"' );
-		}
-		/* eslint-disable one-var, vars-on-top */
-		for ( var row = 0; row < 8; row++ ) {
-			var file = 0,
-				filear = fenar[ row ].split( '' );
-			for ( var i in filear ) {
-				var p = filear[ i ],
-					lp = p.toLowerCase();
-				if ( /[1-8]/.test( p ) ) {
-					file += parseInt( p, 10 );
-				} else if ( /[prnbkq]/.test( lp ) ) {
-					this.createPiece( lp, ( p === lp ? BLACK : WHITE ), file++, 7 - row );
-				} else {
-					throw new Error( 'illegal fen: "' + fen + '"' );
-				}
-			}
-		}
-		/* eslint-enable one-var, vars-on-top */
-	};
-
-	Game.prototype.hasComments = function () {
-		var hasComment = function ( n ) {
-			return n.hasClass( 'pgn-comment' );
-		};
-		return !!this.notations.filter( hasComment ).length;
-	};
-
-	function buildBoardDiv( container, selector, gameSet, ind ) {
-		var
-			id = container.attr( 'id' ) || 'pgn-viewer-' + ind,
-			config = gameSet.config = container.data( 'config' ) || {},
-			notationId = 'pgn-notation-' + id,
-			infoId = 'pgn-info-' + id,
-			fenId = 'pgn-fen-' + id,
-			controlsDiv,
-			createBotton = function ( className, param, todraw ) {
-				return new Button( className,
-					function () {
-						gameSet.stopAutoPlay();
-						if ( todraw ) {
-							gameSet.currentGame.drawBoard( param );
-						} else {
-							gameSet.currentGame.advance( param );
-						}
-					} );
-			},
-			gotoend = createBotton( ffButtonClass, -1, true ),
-			forward = createBotton( advanceButtonClass, 1 ),
-			backstep = createBotton( retreatButtonClass, -1 ),
-			gotostart = createBotton( resetGameButtonClass, 0, true ),
-			flip = new Button( flipBoardButtonClass, function ( state ) { gameSet.doFlip( state ); }, true ),
-			slower = new Button( slowerButtonClass, function () { gameSet.slower(); } ),
-			faster = new Button( fasterButtonClass, function () { gameSet.faster(); } ),
-			autoplay = new Button( playButtonClass, function ( state ) { gameSet.toggleAutoPlay( state ); }, true ),
-			commentsToggle = new Button( ccButtonClass, function ( state ) { gameSet.hideComments( state ); }, true ),
-			tabnames = $.extend( {
-				notation: 'Game Notation',
-				metadata: 'Information',
-				fen: 'FEN' },
-			config.tab_names ),
-			fl = 'abcdefgh'.split( '' ),
-			fileCaption = config && config.translate && config.translate.file,
-			rl = '12345678'.split( '' ),
-			rowCaption = config && config.translate && config.translate.row;
-
-		gameSet.autoPlayButton = autoplay;
-		gameSet.ccButton = commentsToggle;
-		gameSet.descriptionsDiv = $( '<div>' )
-			.addClass( 'pgn-descriptions' )
-			.attr( 'id', infoId );
-		gameSet.fixedDelay = 'delay' in config;
-		if ( gameSet.fixedDelay ) {
-			gameSet.autoPlayDelay = Math.max( 500, config.delay );
-		}
-
-		if ( $( '#' + notationId ) ) {
-			notationId += '_1';
-		}
-
-		gameSet.pgnDiv = $( '<div>' )
-			.addClass( 'pgn-pgndiv' )
-			.attr( 'id', notationId );
-		gameSet.blockSize = Math.max( minBlockSize, Math.min( maxBlockSize, config.squareSize || defaultBlockSize ) );
-		gameSet.fenDiv = $( '<div>' )
-			.attr( 'id', fenId )
-			.css( { 'word-wrap': 'break-word' } );
-		gameSet.tabberDiv = $( '<div>' )
-			.addClass( 'pgn-tabber' );
-
-		if ( mobile ) {
-			gameSet.tabberDiv.append( gameSet.pgnDiv );
-		} else {
-			gameSet.tabberDiv
-				.append(
-					$( '<ul>' ).append(
-						$( '<li>' ).append( $( '<a>' )
-							.attr( 'href', '#' + notationId )
-							.text( tabnames.notation ) ),
-						$( '<li>' ).append( $( '<a>' )
-							.attr( 'href', '#' + infoId )
-							.text( tabnames.metadata ) ),
-						$( '<li>' ).append( $( '<a>' )
-							.attr( 'href', '#' + fenId )
-							.text( tabnames.fen ) )
-					),
-					gameSet.pgnDiv,
-					gameSet.descriptionsDiv,
-					gameSet.fenDiv
-				)
-				.tabs();
-		}
-		// eslint-disable-next-line one-var, vars-on-top
-		var buttons = gameSet.fixedDelay ?
-			[ gotostart, backstep, autoplay, forward, gotoend, flip, commentsToggle ] :
-			[ gotostart, backstep, slower, autoplay, faster, forward, gotoend, flip, commentsToggle ];
-
-		controlsDiv = $( '<div>' )
-			.addClass( 'pgn-controls' )
-			.css( { textAlign: 'center' } ) // todo: move to css
-			.append( buttons.map( function ( x ) { return x.elem; } ) );
-
-		gameSet.boardDiv = $( '<div>' )
-			.addClass( 'pgn-board-div' );
-
-		gameSet.piecesDiv = $( '<div>' )
-			.css( { position: 'absolute', left: '20px', top: '20px' } )
-			.addClass( chessboardClass )
-			.appendTo( gameSet.boardDiv );
-
-		if ( fileCaption ) {
-			fl = fl.map( function ( c ) {
-				return fileCaption[ c ] || '';
-			} );
-		}
-		if ( rowCaption ) {
-			rl = rl.map( function ( c ) {
-				return rowCaption[ c ] || '';
-			} );
-		}
-
-		/* eslint-disable one-var, vars-on-top */
-		for ( var side in sides ) {
-			var
-				s = sides[ side ],
-				isFile = /n|s/.test( s ),
-				i;
-			gameSet[ s ] = [];
-			for ( i = 0; i < 8; i++ ) {
-				var sp = $( '<span>' )
-					.addClass( isFile ? 'pgn-file-legend' : 'pgn-row-legend' )
-					.text( isFile ? fl[ i ] : rl[ i ] )
-					.appendTo( gameSet.boardDiv )
-					.css( gameSet.legendLocation( s, i ) );
-				gameSet[ s ][ i ] = sp;
-			}
-		}
-		/* eslint-enable one-var, vars-on-top */
-
-		container
-			.append( selector || '' )
-			.append( $( '<div>' )
-				.append( gameSet.boardDiv )
-				.append( gameSet.tabberDiv )
-				.append( controlsDiv )
-			);
-	}
-
-	function doIt() {
-		$( wrapperSelector ).each( function ( ind ) {
-			var
-				wrapperDiv = $( this ),
-				initial = wrapperDiv.text(),
-				pgnSource = $( 'div.pgn-sourcegame', wrapperDiv ),
-				selector,
-				gameSet = new Gameset( wrapperDiv ),
-				game;
-			try {
-				if ( pgnSource.length > 1 ) {
-					selector = $( '<select>' )
-						.addClass( 'pgn-selector' )
-						.on( 'change', function () { gameSet.selectGame( this.value ); } );
-				}
-
-				buildBoardDiv( wrapperDiv, selector, gameSet, ind );
-				ind = 0;
-				pgnSource.each( function () {
-					try {
-						game = new Game( gameSet );
-						game.preAnalyzePgn( $( this ).text() );
-						wrapperDiv.data( { currentGame: game } );
-						ind++;
-						gameSet.allGames.push( game );
-						if ( selector ) {
-							selector.append( $( '<option>' )
-								.attr( 'value', gameSet.allGames.length - 1 )
-								.text( game.description() )
-								.css( 'direction', game.descriptions.Direction || 'ltr' )
-							);
-						}
-					} catch ( e ) {
-						mw.log( 'exception in game ' + ind + ' problem is: "' + e + '"' );
-						if ( game && game.descriptions ) {
-							// eslint-disable-next-line vars-on-top
-							for ( var d in game.descriptions ) {
-								mw.log( d + ':' + game.descriptions[ d ] );
-							}
-						}
+		function processPly( board, ply ) {
+			var newBoard = board.slice(),
+				source = ply[ 0 ],
+				destination = ply[ 1 ],
+				special = ply[ 2 ];
+			if ( typeof ( source ) === typeof ( ply ) ) { // castling. 2 source/dest pairs
+				newBoard = processPly( newBoard, source );
+				newBoard = processPly( newBoard, destination );
+			} else {
+				newBoard[ destination ] = newBoard[ source ];
+				delete newBoard[ source ];
+				if ( special ) {
+					if ( typeof ( special ) === 'string' ) {
+						newBoard[ destination ] = createPiece( special ); // promotion
+					} else {
+						delete newBoard[ special ]; // en passant
 					}
-				} );
-				gameSet.selectGame( 0 );
-				gameSet.setWidth();
-			} catch ( e ) {
-				mw.log( e );
-				mw.log( 'exception analyzing game :', initial );
-				wrapperDiv.empty();
+				}
 			}
-		} );
-	}
+			return newBoard;
+		}
 
-	if ( $( wrapperSelector, $content ).length ) {
-		if ( mobile ) {
-			doIt();
-		} else {
-			mw.loader.using( 'jquery.ui.tabs' ).done( doIt() );
+		if ( data ) {
+			$div.find( '.pgn-chessPiece' ).remove(); // the parser put its own pieces for "noscript" viewers
+			board = processFen( data.boards[0] );
+			boards = [ board ];
+			for ( ind in data.plys ) {
+				ply = data.plys[ ind ];
+				board = processPly( board, ply );
+				boards.push( board );
+			}
+			connectButtons();
+			gotoBoard( display );
 		}
 	}
+
+	// eslint-disable-next-line no-jquery/no-global-selector
+	$( '.pgnviewer' ).each( processOneDiv );
+
 } );
