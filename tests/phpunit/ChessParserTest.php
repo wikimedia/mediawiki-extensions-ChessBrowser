@@ -16,6 +16,10 @@ class ChessParserTest extends MediaWikiTestCase {
 		$this->emptyChessParser = new ChessParser();
 	}
 
+	protected function tearDown() : void {
+		parent::tearDown();
+	}
+
 	/**
 	 * @dataProvider provideCheckSpecialMove
 	 * @param string $message

@@ -1,240 +1,311 @@
-// Licensed under CC-BY-SA-4.0
-// Written by קיפודנחש (Kipod)
-// Original source taken from https://www.mediawiki.org/w/index.php?title=User:קיפודנחש/chess-animator.js
+/**
+ * This file is a part of ChessBrowser.
+ *
+ * This file is in the public domain. It is licensed under the CC0 1.0 license.
+ *
+ * Original source taken from https://www.mediawiki.org/w/index.php?title=User:קיפודנחש/chess-animator.js
+ *
+ * @ingroup ChessBrowser
+ * @author Kipod
+ * @author Wugapodes
+ */
 
-// Still some lint 12 Jan 2020
-// Doesn't work with PHP output yet, likely because output format
-//   is slightly different than JavaScript is expecting --12 Jan 2020
-$( function () {
+( function () {
+	var chessPage;
 
-	var allPositionClasses = '01234567'
-		.split( '' )
-		.map( function ( r ) { return 'pgn-prow-' + r + ' pgn-pfile-' + r; } )
-		.join( ' ' );
+	function Game( identifier ) {
+		var me = this;
+		this.id = identifier;
+		this.$div = $( '#' + this.id );
+		this.$pgnBoardImg = this.$div.find( '.pgn-board-img' );
+		this.data = this.$div.data( 'chess' );
+		this.boards = this.data.boards;
+		this.plys = this.data.plys;
+		this.tokens = this.data.tokens;
+		this.metadata = this.data.metadata;
+		this.boardStates = [];
+		this.pieces = [];
+		this.currentPlyNumber = 1;
+		this.timer = null;
+		this.delay = 800;
+		this.allPositionClasses = '01234567'
+			.split( '' )
+			.map( function ( r ) { return 'pgn-prow-' + r + ' pgn-pfile-' + r; } )
+			.join( ' ' );
 
-	function processOneDiv() {
-		var $div = $( this ),
-			data = $div.data( 'chess' ),
-			boards,
-			pieces = [],
-			timer,
-			delay = 800,
-			$boardDiv = $div.find( '.pgn-board-img' ),
-			currentPlyNum,
-			board,
-			ply,
-			display = data.display || data.plys.length,
-			ind;
-
-		function createPiece( letter ) {
-			var ll = letter.toLowerCase(),
-				color = letter === ll ? 'd' : 'l',
-				$piece = $( '<div>' )
-					.data( 'piece', letter )
-					.addClass( 'pgn-chessPiece pgn-ptype-color-' + ll + color )
-					.appendTo( $boardDiv );
-			pieces.push( $piece );
-			return $piece;
-		}
-
-		function stopAutoplay() {
-			clearTimeout( timer );
-			$( '.pgn-button-play', $div ).removeClass( 'pgn-image-button-on' );
-			timer = null;
-		}
-
-		function scrollNotationToView( $notation ) {
-			var $daddy = $notation.closest( '.pgn-notations' ),
-				daddysHeight = $daddy.height(),
-				notationHeight = $notation.height(),
-				notationTop = $notation.position().top,
-				toMove,
-				scrollTop;
-
-			if ( notationTop < 0 || notationTop + notationHeight > daddysHeight ) {
-				toMove = ( daddysHeight - notationHeight ) / 2 - notationTop;
-				scrollTop = $daddy.prop( 'scrollTop' );
-				$daddy.prop( {
-					scrollTop: scrollTop - toMove
-				} );
+		this.makeBoard = function ( display ) {
+			var board,
+				plyIndex,
+				ply;
+			// display is an optional argument; defaults to last board state if undefined
+			display = display || me.plys.length - 1;
+			// the parser put its own pieces for "noscript" viewers, remove those first
+			me.$div.find( '.pgn-chessPiece' ).remove();
+			board = me.processFen( me.metadata.fen );
+			me.boardStates.push( board );
+			for ( plyIndex in me.plys ) {
+				ply = me.plys[ plyIndex ];
+				board = me.processPly( board, ply );
+				me.boardStates.push( board );
 			}
-		}
+			me.connectButtons();
+			me.goToBoard( display );
+		};
 
-		function gotoBoard( plyNum ) {
-			var previous = currentPlyNum,
-				board = boards[ plyNum ],
-				hiddenPieces = pieces.filter( function ( piece ) {
-					return board.indexOf( piece ) === -1;
-				} ),
-				appearNow = board.filter( function ( piece ) {
-					return typeof ( previous ) === 'number' && boards[ previous ].indexOf( piece ) === -1;
-				} ),
-				$notation,
-				i,
-				j;
-
-			currentPlyNum = plyNum;
-			for ( i in hiddenPieces ) {
-				hiddenPieces[ i ].addClass( 'pgn-piece-hidden' );
-			}
-			for ( j in board ) {
-				board[ j ]
-					.removeClass( allPositionClasses + ' pgn-piece-hidden' )
-					.toggleClass( 'pgn-transition-immediate', appearNow.indexOf( board[ j ] ) > -1 )
-					.addClass( 'pgn-prow-' + parseInt( j / 8 ) + ' pgn-pfile-' + j % 8 );
-			}
-			if ( plyNum === boards.length - 1 ) {
-				stopAutoplay();
-			}
-			$( '.pgn-movelink', $div ).removeClass( 'pgn-current-move' );
-			$notation = $( '.pgn-movelink[data-ply=' + plyNum + ']', $div );
-			if ( $notation.length ) {
-				$notation.addClass( 'pgn-current-move' );
-				scrollNotationToView( $notation );
-			}
-		}
-
-		function advance() {
-			if ( currentPlyNum < boards.length - 1 ) {
-				gotoBoard( currentPlyNum + 1 );
-			}
-		}
-
-		function startAutoplay() {
-			timer = setInterval( advance, delay );
-			$( '.pgn-button-play', $div ).addClass( 'pgn-image-button-on' );
-		}
-
-		function retreat() {
-			if ( currentPlyNum > 0 ) {
-				gotoBoard( currentPlyNum - 1 );
-			}
-		}
-
-		function gotoStart() {
-			gotoBoard( 0 );
-			stopAutoplay();
-		}
-
-		function gotoEnd() {
-			gotoBoard( boards.length - 1 );
-		}
-
-		function clickPlay() {
-			if ( currentPlyNum === boards.length - 1 ) {
-				gotoBoard( 0 );
-			}
-			if ( timer ) {
-				stopAutoplay();
-			} else {
-				startAutoplay();
-			}
-		}
-
-		function changeDelay() {
-			delay = Math.min( delay, 400 );
-			if ( timer ) {
-				stopAutoplay();
-				startAutoplay();
-			}
-		}
-
-		function slower() {
-			delay += Math.min( delay, 1600 );
-			changeDelay();
-		}
-
-		function faster() {
-			delay = delay > 3200 ? delay - 1600 : delay / 2;
-			changeDelay();
-		}
-
-		function flipBoard() {
-			// eslint-disable-next-line no-jquery/no-class-state
-			$div.toggleClass( 'pgn-flip' );
-
-			// eslint-disable-next-line no-jquery/no-class-state
-			$( '.pgn-button-flip', $div ).toggleClass( 'pgn-image-button-on' );
-		}
-
-		function clickNotation() {
-			stopAutoplay();
-			gotoBoard( $( this ).data( 'ply' ) );
-		}
-
-		function connectButtons() {
-			$( '.pgn-button-advance', $div ).on( 'click', advance );
-			$( '.pgn-button-retreat', $div ).on( 'click', retreat );
-			$( '.pgn-button-tostart', $div ).on( 'click', gotoStart );
-			$( '.pgn-button-toend', $div ).on( 'click', gotoEnd );
-			$( '.pgn-button-play', $div ).on( 'click', clickPlay );
-			$( '.pgn-button-faster', $div ).on( 'click', faster );
-			$( '.pgn-button-slower', $div ).on( 'click', slower );
-			$( '.pgn-button-flip', $div ).on( 'click', flipBoard );
-			$( '.pgn-movelink', $div ).on( 'click', clickNotation );
-		}
-
-		function processFen( fen ) {
-			var fenAr = fen.split( '/' ),
-				board = [],
-				l,
+		this.processFen = function ( fen ) {
+			var fenArray = fen.split( '/' ),
+				fenLine,
+				fenTokenList,
+				fenToken,
+				file,
+				piecePosition,
 				i,
 				j,
-				li,
-				letters;
-			for ( i in fenAr ) {
-				j = 0;
-				letters = fenAr[ i ].split( '' );
-				for ( li in letters ) {
-					l = letters[ li ];
-					if ( /[prnbqk]/i.test( l ) ) {
-						board[ ( 7 - i ) * 8 + j ] = createPiece( l );
-						j++;
+				board = [],
+				rank;
+			for ( i in fenArray ) {
+				file = 0;
+				rank = 7 - i;
+				fenLine = fenArray[ i ];
+				fenTokenList = fenLine.split( '' );
+				for ( j in fenTokenList ) {
+					fenToken = fenTokenList[ j ];
+					if ( file > 7 ) {
+						break;
+					}
+					if ( /[prnbqk]/i.test( fenToken ) ) {
+						piecePosition = file * 8 + rank;
+						board[ piecePosition ] = me.createPiece( fenToken, rank, file );
+						file++;
 					} else {
-						j += parseInt( l );
+						file += parseInt( fenToken );
 					}
 				}
 			}
 			return board;
-		}
+		};
 
-		function processPly( board, ply ) {
+		this.processPly = function ( board, ply ) {
 			var newBoard = board.slice(),
 				source = ply[ 0 ],
 				destination = ply[ 1 ],
-				special = ply[ 2 ];
-			if ( typeof ( source ) === typeof ( ply ) ) { // castling. 2 source/dest pairs
-				newBoard = processPly( newBoard, source );
-				newBoard = processPly( newBoard, destination );
-			} else {
-				newBoard[ destination ] = newBoard[ source ];
-				delete newBoard[ source ];
-				if ( special ) {
-					if ( typeof ( special ) === 'string' ) {
-						newBoard[ destination ] = createPiece( special ); // promotion
-					} else {
-						delete newBoard[ special ]; // en passant
-					}
-				}
+				special = ply[ 2 ],
+				specialType = special[ 0 ];
+
+			newBoard[ destination ] = newBoard[ source ];
+			delete newBoard[ source ];
+			switch ( specialType ) {
+				case 'en passant':
+					delete newBoard[ special[ 1 ] ];
+					break;
+				case 'castle':
+					newBoard[ special[ 1 ][ 1 ] ] = newBoard[ special[ 1 ][ 0 ] ];
+					delete newBoard[ special[ 1 ][ 0 ] ];
+					break;
+				case 'promotion':
+					newBoard[ destination ] = me.createPiece( special[ 1 ], source[ 0 ], source[ 1 ] );
+					break;
 			}
 			return newBoard;
-		}
+		};
 
-		if ( data ) {
-			$div.find( '.pgn-chessPiece' ).remove(); // the parser put its own pieces for "noscript" viewers
-			board = processFen( data.boards[0] );
-			boards = [ board ];
-			for ( ind in data.plys ) {
-				ply = data.plys[ ind ];
-				board = processPly( board, ply );
-				boards.push( board );
+		this.createPiece = function ( symbol, rank, file ) {
+			var lowerSymbol = symbol.toLowerCase(),
+				color = symbol === lowerSymbol ? 'd' : 'l',
+				$pieceObject = $( '<div>' )
+					.data( 'piece', symbol )
+					.addClass( 'pgn-chessPiece pgn-ptype-color-' + lowerSymbol + color )
+					.addClass( 'pgn-prow-' + rank )
+					.addClass( 'pgn-pfile-' + file );
+			me.pieces.push( $pieceObject );
+			$pieceObject.appendTo( me.$pgnBoardImg );
+			return $pieceObject;
+		};
+
+		this.isOnBoard = function ( board ) {
+			return function ( piece ) {
+				if ( board.indexOf( piece ) === -1 ) {
+					return false;
+				} else {
+					return true;
+				}
+			};
+		};
+
+		this.goToBoard = function ( index ) {
+			var $piece,
+				pieceIndex,
+				$notation,
+				previousPlyNumber = me.currentPlyNumber,
+				board = me.boardStates[ index + 1 ],
+				piecesToAppear = board.filter(
+					me.isOnBoard( board )
+				),
+				toHide = me.pieces.filter(
+					me.isOnBoard( me.boardStates[ previousPlyNumber ] )
+				);
+			for ( pieceIndex in toHide ) {
+				toHide[ pieceIndex ].addClass( 'pgn-piece-hidden' );
 			}
-			connectButtons();
-			gotoBoard( display );
-		}
+
+			for ( pieceIndex in board ) {
+				$piece = board[ pieceIndex ];
+				if ( typeof piece === 'undefined' ) {
+					continue;
+				}
+				$piece.removeClass( me.allPositionClasses + ' pgn-piece-hidden' )
+					.toggleClass(
+						'pgn-transition-immediate',
+						piecesToAppear.indexOf( $piece ) > -1
+					)
+					.addClass(
+						'pgn-prow-' +
+						parseInt( pieceIndex % 8 ) +
+						' pgn-pfile-' +
+						parseInt( Math.floor( pieceIndex / 8 ) )
+					);
+			}
+
+			if ( index === me.boards.length - 1 ) {
+				me.stopAutoplay();
+			}
+
+			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
+			me.currentPlyNumber = index;
+			$notation = $( "[data-ply='" + ( me.currentPlyNumber + 1 ) + "']", me.$div );
+			if ( $notation.length === 1 ) {
+				$notation.addClass( 'pgn-current-move' );
+				me.scrollNotationToView( $notation );
+			}
+		};
+
+		this.scrollNotationToView = function ( $notation ) {
+			var $parent = $notation.closest( '.pgn-notations' ),
+				parentsHeight = $parent.height(),
+				notationHeight = $notation.height(),
+				notationTop = $notation.position().top,
+				toMove,
+				scrollTop,
+				newScrolltop;
+
+			if ( notationTop < 0 || notationTop + notationHeight > parentsHeight ) {
+				toMove = ( parentsHeight - notationHeight ) / 2 - notationTop;
+				scrollTop = $parent.prop( 'scrollTop' );
+				$parent.prop( {
+					scrollTop: scrollTop - toMove
+				} );
+			}
+		};
+
+		this.connectButtons = function () {
+			$( '.pgn-button-advance', me.$div ).on( 'click', me.advance );
+			$( '.pgn-button-retreat', me.$div ).on( 'click', me.retreat );
+			$( '.pgn-button-tostart', me.$div ).on( 'click', me.goToStart );
+			$( '.pgn-button-toend', me.$div ).on( 'click', me.goToEnd );
+			$( '.pgn-button-play', me.$div ).on( 'click', me.clickPlay );
+			$( '.pgn-button-faster', me.$div ).on( 'click', me.faster );
+			$( '.pgn-button-slower', me.$div ).on( 'click', me.slower );
+			$( '.pgn-button-flip', me.$div ).on( 'click', me.flipBoard );
+			$( '.pgn-movelink', me.$div ).on( 'click', me.clickNotation );
+		};
+
+		this.advance = function () {
+			if ( me.currentPlyNumber < me.boards.length - 1 ) {
+				me.goToBoard( me.currentPlyNumber + 1 );
+			}
+		};
+
+		this.retreat = function () {
+			if ( me.currentPlyNumber > 0 ) {
+				me.goToBoard( me.currentPlyNumber - 1 );
+			}
+		};
+
+		this.goToStart = function () {
+			me.goToBoard( 0 );
+			me.stopAutoplay();
+		};
+
+		this.goToEnd = function () {
+			me.goToBoard( me.boards.length - 1 );
+		};
+
+		this.clickPlay = function () {
+			if ( me.currentPlyNumber === me.boards.length - 1 ) {
+				me.goToBoard( 0 );
+			}
+			if ( me.timer ) {
+				me.stopAutoplay();
+			} else {
+				me.startAutoplay();
+			}
+		};
+
+		this.faster = function () {
+			me.delay = me.delay > 3200 ? me.delay - 1600 : me.delay / 2;
+			me.changeDelay();
+		};
+
+		this.slower = function () {
+			me.delay += Math.min( me.delay, 1600 );
+			me.changeDelay();
+		};
+
+		this.flipBoard = function () {
+			// eslint-disable-next-line no-jquery/no-class-state
+			me.$div.toggleClass( 'pgn-flip' );
+			// eslint-disable-next-line no-jquery/no-class-state
+			$( '.pgn-button-flip', me.$div ).toggleClass( 'pgn-image-button-on' );
+		};
+
+		this.clickNotation = function () {
+			me.stopAutoplay();
+			// Importantly, 'this' is the object which was clicked, NOT the object instance
+			me.goToBoard( $( this ).data( 'ply' ) );
+		};
+
+		this.startAutoplay = function () {
+			me.timer = setInterval( me.advance, me.delay );
+			$( '.pgn-button-play', me.$div ).addClass( 'pgn-image-button-on' );
+		};
+
+		this.stopAutoplay = function () {
+			clearTimeout( me.timer );
+			$( '.pgn-button-play', me.$div ).removeClass( 'pgn-image-button-on' );
+			me.timer = null;
+		};
+
+		this.changeDelay = function () {
+			if ( me.delay < 400 ) {
+				me.delay = 400;
+			}
+			if ( me.timer ) {
+				me.stopAutoplay();
+				me.startAutoplay();
+			}
+		};
 	}
 
-	// eslint-disable-next-line no-jquery/no-global-selector
-	$( '.pgnviewer' ).each( processOneDiv );
+	function ChessPage() {
+		var me = this;
+		this.gameInstances = [];
+		// eslint-disable-next-line no-undef
+		this.identifierList = mw.config.get( 'wgChessBrowserDivIdentifiers' );
 
-} );
+		this.gameFactory = function () {
+			var index,
+				newGameInstance;
+			for ( index in me.identifierList ) {
+				newGameInstance = new Game( me.identifierList[ index ] );
+				newGameInstance.makeBoard();
+				me.gameInstances.push( newGameInstance );
+			}
+		};
+
+		this.gameFactory();
+	}
+
+	chessPage = new ChessPage();
+	// eslint-disable-next-line no-undef
+	mw.config.set( 'wgChessBrowserPage', chessPage );
+}() );
