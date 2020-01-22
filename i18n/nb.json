@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"chessbrowser-desc": "Legger til pgn-tagg for å gjøre sjakknotasjon interaktiv."
+}
