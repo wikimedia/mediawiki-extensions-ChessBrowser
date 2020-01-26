@@ -113,6 +113,11 @@ class PgnParser {
 		return substr( $this->movetext, $start, $end - $start );
 	}
 
+	/**
+	 * @param int $index
+	 * @return string
+	 * @throws Exception
+	 */
 	public function parseVariation( $index ) {
 		$stack = 1;
 		$start = $index;
@@ -137,6 +142,11 @@ class PgnParser {
 		throw new Exception( 'Variation does not terminate' );
 	}
 
+	/**
+	 * @param int $index
+	 * @return string
+	 * @throws Exception
+	 */
 	public function parseComment( $index ) {
 		# Does not handle "Rest of line" comments as
 		#   specified in section 5 of the PGN standard
@@ -155,6 +165,11 @@ class PgnParser {
 		throw new Exception( 'Comment not terminated' );
 	}
 
+	/**
+	 * @param int $index
+	 * @return string
+	 * @throws Exception
+	 */
 	public function parseString( $index ) {
 		$start = $index;
 		$index += 1;
@@ -173,6 +188,11 @@ class PgnParser {
 							. ' not terminated' );
 	}
 
+	/**
+	 * @param int $index
+	 * @return string
+	 * @throws Exception
+	 */
 	public function parseNumericAnnotationGlyph( $index ) {
 		$start = $index;
 		$index += 1;
@@ -190,6 +210,10 @@ class PgnParser {
 		throw new Exception( 'Numeric annotation glyph not terminated.' );
 	}
 
+	/**
+	 * @param int $cur
+	 * @return string
+	 */
 	public function parseStandardAlgebraicNotation( $cur ) {
 		$start = $cur;
 		while ( $cur < $this->EOG ) {
@@ -223,6 +247,11 @@ class PgnParser {
 		}
 	}
 
+	/**
+	 * @param int $index
+	 * @return array
+	 * @throws Exception
+	 */
 	public function parseTagPair( $index ) {
 		$start = $index;
 		$index += 1;
@@ -243,6 +272,10 @@ class PgnParser {
 		return [ $key,$value ];
 	}
 
+	/**
+	 * @param int $index
+	 * @return bool
+	 */
 	public function checkEscape( $index ) {
 		$stack = 0;
 		while ( $index >= 0 ) {
@@ -257,6 +290,10 @@ class PgnParser {
 		return ( $stack % 2 == 1 );
 	}
 
+	/**
+	 * @param array $tokenList
+	 * @return string
+	 */
 	public function exportPgn( $tokenList ) {
 		$tags = $this->tags;
 		$line = '';
