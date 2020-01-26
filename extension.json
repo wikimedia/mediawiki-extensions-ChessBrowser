@@ -12,7 +12,8 @@
 	"AutoloadClasses": {
 		"ChessBrowser": "includes/ChessBrowser.php",
 		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
-		"PgnParser": "includes/PgnParser.php"
+		"PgnParser": "includes/PgnParser.php",
+		"ChessBrowserException": "includes/ChessBrowserException.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",

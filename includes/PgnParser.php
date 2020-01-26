@@ -89,11 +89,12 @@ class PgnParser {
 	 * @param null|int $index Location of character in string. If null, defaults
 	 *   to the current $cursor location.
 	 * @return string Character at $index
+	 * @throws ChessBrowserException
 	 */
 	public function getChar( $index = null ) {
 		$index = ( isset( $index ) ? $index : $this->cursor );
 		if ( $index > $this->EOG || $index < 0 ) {
-			throw new Exception( "Invalid index" );
+			throw new ChessBrowserException( "Invalid index" );
 		}
 		$char = $this->movetext[$index];
 		return $char;
@@ -103,12 +104,13 @@ class PgnParser {
 	 * @param int $start
 	 * @param int $end
 	 * @return string Substring of $movetext from $start to $end (inclusive)
+	 * @throws ChessBrowserException
 	 */
 	public function cut( $start, $end ) {
 		# If $start === $end, cut is equivalent to getChar($start)
 		$end += 1;
 		if ( $start > $end ) {
-			throw new Exception( 'End index is before start index.' );
+			throw new ChessBrowserException( 'End index is before start index.' );
 		}
 		return substr( $this->movetext, $start, $end - $start );
 	}
@@ -116,7 +118,7 @@ class PgnParser {
 	/**
 	 * @param int $index
 	 * @return string
-	 * @throws Exception
+	 * @throws ChessBrowserException
 	 */
 	public function parseVariation( $index ) {
 		$stack = 1;
@@ -139,13 +141,13 @@ class PgnParser {
 				$index += 1;
 			}
 		}
-		throw new Exception( 'Variation does not terminate' );
+		throw new ChessBrowserException( 'Variation does not terminate' );
 	}
 
 	/**
 	 * @param int $index
 	 * @return string
-	 * @throws Exception
+	 * @throws ChessBrowserException
 	 */
 	public function parseComment( $index ) {
 		# Does not handle "Rest of line" comments as
@@ -162,13 +164,13 @@ class PgnParser {
 			}
 			$index += 1;
 		}
-		throw new Exception( 'Comment not terminated' );
+		throw new ChessBrowserException( 'Comment not terminated' );
 	}
 
 	/**
 	 * @param int $index
 	 * @return string
-	 * @throws Exception
+	 * @throws ChessBrowserException
 	 */
 	public function parseString( $index ) {
 		$start = $index;
@@ -183,13 +185,13 @@ class PgnParser {
 			}
 			$index += 1;
 		}
-		throw new Exception( "String token starting at $start not terminated" );
+		throw new ChessBrowserException( "String token starting at $start not terminated" );
 	}
 
 	/**
 	 * @param int $index
 	 * @return string
-	 * @throws Exception
+	 * @throws ChessBrowserException
 	 */
 	public function parseNumericAnnotationGlyph( $index ) {
 		$start = $index;
@@ -205,7 +207,7 @@ class PgnParser {
 			}
 			$index += 1;
 		}
-		throw new Exception( 'Numeric annotation glyph not terminated.' );
+		throw new ChessBrowserException( 'Numeric annotation glyph not terminated.' );
 	}
 
 	/**
@@ -248,7 +250,7 @@ class PgnParser {
 	/**
 	 * @param int $index
 	 * @return array
-	 * @throws Exception
+	 * @throws ChessBrowserException
 	 */
 	public function parseTagPair( $index ) {
 		$start = $index;
@@ -260,7 +262,7 @@ class PgnParser {
 			$index += 1;
 		}
 		if ( $index === $this->EOG ) {
-			throw new Exception( 'Tag does not terminate' );
+			throw new ChessBrowserException( 'Tag does not terminate' );
 		}
 		$tagPair = $this->cut( $start + 1, $index - 1 );
 		$tagArray = explode( '"', $tagPair );
