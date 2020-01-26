@@ -105,7 +105,7 @@ class PgnParser {
 	 * @return string Substring of $movetext from $start to $end (inclusive)
 	 */
 	public function cut( $start, $end ) {
-		# If $start == $end, cut is equivalent to getChar($start)
+		# If $start === $end, cut is equivalent to getChar($start)
 		$end += 1;
 		if ( $start > $end ) {
 			throw new Exception( 'End index is before start index.' );
@@ -124,15 +124,15 @@ class PgnParser {
 		$index += 1;
 		while ( $index < $this->EOG ) {
 			$char = $this->getChar( $index );
-			if ( $char == ')' ) {
+			if ( $char === ')' ) {
 				$stack -= 1;
-			} elseif ( $char == '(' ) {
+			} elseif ( $char === '(' ) {
 				$stack += 1;
 			}
 			if ( $stack < 1 ) {
 				# This should probably return bool and have the open
-				#   parenthesis be its own token so that the cursor
-				#   doesn't have to jump any nested variations.
+				# parenthesis be its own token so that the cursor
+				# doesn't have to jump any nested variations.
 				$this->cursor = $index;
 				return $this->cut( $start, $index );
 			} else {
@@ -149,12 +149,12 @@ class PgnParser {
 	 */
 	public function parseComment( $index ) {
 		# Does not handle "Rest of line" comments as
-		#   specified in section 5 of the PGN standard
+		# specified in section 5 of the PGN standard
 		$start = $index;
 		$index += 1;
 		while ( $index < $this->EOG ) {
 			$char = $this->getChar( $index );
-			if ( $char == '}' ) {
+			if ( $char === '}' ) {
 				if ( !$this->checkEscape( $index ) ) {
 					$this->cursor = $index;
 					return $this->cut( $start, $index );
@@ -175,7 +175,7 @@ class PgnParser {
 		$index += 1;
 		while ( $index < $this->EOG ) {
 			$char = $this->getChar( $index );
-			if ( $char == '"' ) {
+			if ( $char === '"' ) {
 				if ( !$this->checkEscape( $index ) ) {
 					$this->cursor = $index;
 					return $this->cut( $start, $index );
@@ -183,9 +183,7 @@ class PgnParser {
 			}
 			$index += 1;
 		}
-		throw new Exception( 'String token starting at '
-							. $start
-							. ' not terminated' );
+		throw new Exception( "String token starting at $start not terminated" );
 	}
 
 	/**
@@ -261,7 +259,7 @@ class PgnParser {
 			}
 			$index += 1;
 		}
-		if ( $index == $this->EOG ) {
+		if ( $index === $this->EOG ) {
 			throw new Exception( 'Tag does not terminate' );
 		}
 		$tagPair = $this->cut( $start + 1, $index - 1 );
@@ -284,7 +282,7 @@ class PgnParser {
 			if ( $char == "\\" ) {
 				$stack += 1;
 			} else {
-				break 1;
+				break;
 			}
 		}
 		return ( $stack % 2 == 1 );
