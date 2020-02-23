@@ -1,0 +1,338 @@
+[Event ""]
+[Site ""]
+[Date ""]
+[White "Svidler"]
+[Black "Shirov"]
+[Result "1-0"]
+[Source "Russian Chess"]
+[Annotator "Svidler"]
+
+1. e4 e5
+{In my preparation to this tournament, I (and probably everybody else) paid the most serious attention to two openingsx Ruy Lopez with Bc5 and Najdorf, since most of the participants seem to play them both. Needless to say, refuting Najdorf is tough, but I thought I came close to refuting Ruy Lopez with 5...b5 and 6...Bc5, provided Black responded to 7.a4 with 7...Rb8. But the opening ceremony dealt a heavy blow to mex I was the last one to play Shirov with White. And indeed, in Rounds 7&8 Shirov faced the position after 7.a4 against Kasparov & Anand. But to my relief, he must have thought that these guys know something and replied 7...Bb7. I was still in business.}
+2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O b5 6. Bb3 Bc5 7. a4 Rb8
+{Played without hesitation, as I and Nigel correctly guessed he wouldx his 7...Bb7 was not broken, but quite bent in the game vs Vishy, and also I probably don't give the impression of a man capable to prepare anything at all.}
+8. c3 d6 9. d4 Bb6 10. Na3 Bg4 11. axb5 axb5 12. Nxb5 O-O
+{One of the strangest tabyias of modern times. Black is a pawn down and is prepared to take on f3, strengthening White's centre and giving him the advantage of two Bishops.}
+13. Re1
+{This position saw also 13.Bc2 and 13.Be3, but Black is doing relatively fine there.}
+13...Bxf3 14. gxf3 Nh5
+{Shirov is repeating his game vs Ivanchuk from Belgrade, where he had no problems whatsoever.}
+15. Kh1 $1
+{Novelty which, in my opinion, almost kills the entire line. Kasparov, however, seemed to be sceptical. During the closing ceremony he asked me a couple of questions concerning the game, and then remarked that he would do a far better job as White if he was given a chance. It remains a mystery whether his improvement over my play was before or after move 15. Anand, on the other hand, is rumoured to have prepared the same stuff. } (15.Be3 Qf6 16.Kh1 exd4 17.cxd4 Ba5 $1 18.Rg1 Rxb5 19.Ba4 Rxb2 20.Bxc6 Bb6) { was played in Ivanchuk-Shirov. Black is completely out of danger.}
+15...Qf6
+{Played very quickly again. Other moves arex } (15...Qh4 16.Be3 exd4 17.cxd4 Ba5 18.Nc3 { and since Black queen is not attacking f3, White is just a pawn up. })
+(15...exd4 16.Nxd4 $1 (16.cxd4 $6 Qf6 17.Be3 Ba5 {transposes to Ivanchuk-Shirov}) 16...Bxd4 (16...Nxd4 17.cxd4 Qf6 18.Ra4+) 17.cxd4 Nxd4 (17...Qf6 18.Ra4+) 18.Qxd4 Rxb3 { and here comes the highpoint of White's ideax } 19.Qd5 $1 $20)
+16. Rg1 $1
+{Winning an important tempo.}
+16...Nf4
+(16...h6 17.Be3 {is much better for White, since his rook is on g1 and cannot be attacked by Ba5 }) (16...exd4 17.Bg5 Qe5 18.Bd5+)
+17. Be3 Ne6 $133
+{The only possible source of counterplay.}
+18. Bxe6 fxe6 19. Rg3 Kh8 $1
+{A good prophylactic move} (19...exd4 20.Nxd4 $5 (20.cxd4 {is also OK, since} 20...e5 {is bad} 21.Bg5 $1 Qf7 22.Bh6 $20) 20...Ne5 (20...Bxd4 21.cxd4 Rxb2 22.Rc1 Ne7 23.Bg5 $1 Qf7 24.Rxc7 $20) 21.f4 Nc4 22.Qe2 Nxe3 (22...Nxb2 23.Ra2 $20) 23.fxe3+)
+20. Qd3
+{This move does not spoil anything, but it was probably better to play 20.Rc1, and Black is left with almost no counterplay at all.}
+20...exd4 21. cxd4 e5 22. d5
+(22.Rc1 $2 Nxd4 23.Bxd4 exd4 24.Nxc7 $4 Rbc8 $21)
+22...Ne7
+{Here I spent half an hour calculating this position to the end, and played}
+23. Bxb6 Rxb6 24. Nxc7 Rxb2
+(24...Ng6 25.Ne6 Nf4 26.Qe3 $20)
+25. Ne6 Rg8 26. Kg1 $1
+{Many other ideas are tempting, but this is the best. White chases away the enemy rook and then goes on the offensive.}
+26...Ng6 27. Qa3 Rb6
+(27...Rc2 $5 {A very nice variation could happen if Black went} 28.Qxd6 Nf4 {Here Black's initiative is quite strong, so White returns some of the material: } 29.Qd7 Ne2+ (29...Rgc8 30.Rf1 Ne2+ 31.Kg2 Nxg3 32.hxg3 R2c3 33.f4 exf4 34.Nxf4 $20) 30.Kg2 Nxg3 31.hxg3 Rc3 $1 32.f4 $1 {going for it!} 32...exf4 33.Nxf4 Rxg3+ 34.fxg3 Qb2+ $1 (34...Qxa1 {is a big mistakex } 35.Ng6+ hxg6 36.Qh3#) 35.Kf3 Qc3+ 36.Ke2 Qb2+ 37.Kd3 Qb3+ 38.Kd4 Qb2+ (38...Qb4+ 39.Ke5 Qb6 $5 {trying to discoordinate White's pieces} 40.Qe7 $1 Qb2+ 41.Ke6 Qxa1 {and once again} 42.Ng6+ hxg6 43.Qh4#) 39.Kc5 Qc3+ 40.Kd6 Qb4+ (40...Qf6+ 41.Qe6 Rd8+ 42.Kc7 $20) 41.Ke6 Qxe4+ 42.Kf7 {what a journey!} 42...g5 43.Qe6 Rg7+ 44.Kf6 Qd4+ 45.Qe5 $20)
+28. Kh1 $1
+{The point. White is perfectly coordinated and is ready to tie Black completely with 29.Rag1.}
+28...Nf4 $2
+({During the game I was very worried about} 28...Nf8 $5. {I had seen the right ideax} 29.Qa7 $1 Rb3 $1 30.Ng5 h6 31.Nf7+ Kh7  32.Rh3 $1 ({after} 32.Rag1 $2 {with idea 33.Nxd6} Rxf3 $1) {Black is suddenly even better and Black is forced to go for} 32...Rxf3 (32...Ng6 33.Rxh6+ gxh6 34.Ng5+ Kh8 35.Qh7#) 33.Ng5+ Qxg5 34.Rxf3 $20})
+29. Nxg7 Ne2 30. Nf5 $1
+{That's what Alexei probably missed. White has no intention of protecting the exchange - once Black take on g3, the game will be over.}
+30...Rgb8 31. Qd3 Rb2 32. Rf1 $1
+{Probably something like 32.Rg4 was winning also, but this move is better- Black will be forced to take on g3 quite soon.}
+32...Ra8
+(32...Nxg3+ 33.hxg3 R2b3 34.Qd1 $1 (34.Qe2 Rb1 {with some chances}) 34...Rb1 35.Qxb1 Rxb1 36.Rxb1 {offers no hopes.})
+33. Qc4 Nxg3+ 34. hxg3
+{White is now winning easily.}
+34...Qd8 35. Qc1 Rb3 36. Kg2 Qf8 37. Qc7
+
+[Event "?"]
+[White "Capablanca"]
+[Black "Spielmann"]
+[Date "1927.??.??"]
+[Result "1-0"]
+
+{Queens' Gambit Declined, 26 moves. Capablanca gets an advantage out of the opening. Just when Spielmann finds a move that appears to hold everything together, Capablanca makes a brilliant piece sacrifice. Capablanca was world champion from 1921-1927.}
+1. d4 {A move that usually leads to closed positions.}
+1... d5
+2. Nf3
+2... e6
+3. c4 {The opening is now a Queen's Gambit Declined by transposition of moves. This position could have arisen from 1. d4 d5 2. c4 e6 3. Nf3.}
+3... Nd7 {Not 3... Nc6 blocking the c pawn.}
+4. Nc3
+4... Ngf6 {Defending the pawn on d5.}
+5. Bg5 {Pinning the knight and therefore threatening the pawn on d5. The usual move for Black here is 5... Be7 breaking the pin.}
+5... Bb4 {This is an aggressive way to protect the pawn.}
+6. cxd5
+6... exd5
+7. Qa4
+7... Bxc3+
+8. bxc3
+8... 0-0
+9. e3 {White is developing normally.}
+9... c5 {Putting some presure on White's center.}
+10. Bd3
+10... c4 {Although this move gains space on the queenside, it takes pressure off the center. White now strives to play e4.}
+11. Bc2
+11... Qe7
+12. 0-0 {The rook will go to e1 to support the pawn move to e4.}
+12... a6
+13. Rfe1 {White now threatens 14. e4 dxe4 15. Bxe4 with an overwhelming position. The pin of the knight prevents 15... Nxe4.}
+13... Qe6 {Breaking the pin. Note that White has developed all his pieces except the rook on a1; Black hasn't developed either rook or the queen's bishop.}
+14. Nd2 {The point is to play 15. e4.}
+14... b5
+15. Qa5
+15... Ne4 {Stopping 16. e4. White now turns his attention to Black's weak pawns.}
+16. Nxe4
+16... dxe4 {Black has successfully prevented e4, but at a cost. White is ahead in development and Black is left with weak queenside pawns that White can use his advantave in development to attack.}
+17. a4 {Threatening 18. axb5 and Black cannot play 18... axb5 because of 19. Qxa8. If Black plays 17... bxa4 then his pawn formation is shattered. }
+17... Qd5 {This looks like a saving move since it gains time by attacking the bishop. After 18. Bf4 Black can play 18... Bb7 guarding the rook on a8 so that 19. axb5 could be answered with 19... axb5.}
+18. axb5 $3 {When you are ahead in development, you must strike before your opponent has time to mobilize. Black cannot play 18... axb5 because of 19. Qxa1.}
+18... Qxg5
+19. Bxe4 {If now 19... Ra7 then 20. b6 $1 Qxa5 21. bxa7 $1 Bb7 22. Rxa5 Bxe4 23. Rxa6 with a winning position.}
+19... Rb8
+20. bxa6 {White has enormous compensation for the knight including a threatening passed pawn on a6, a lead in development, and very actively placed pieces. Black cannot hold on for long. If 21... Qxa5 then 22. Rxa5 and the threat of 23. a7 cannot be stopped.}
+20... Rb5
+21. Qc7 {The threat is 22. a7 and 23 a8=Q.}
+21... Nb6
+22. a7
+22... Bh3 {The pawn on g2 cannot capture the bishop because it is pinned. This move indirectly reduces the bishop on e4's support of the a pawn's advance since the biship is needed to prevent ... Qxg2#.}
+23. Reb1
+23... Rxb1+
+24. Rxb1 {If 24... Na4 then 25. Rg8 wins immediately.}
+24... f5
+25. Bf3
+25... f4 {Desperation.}
+26. exf4 {Black resigned. If 26... Qxf4 27. Qxf4 Rxf4 28. Rxb6.}
+1-0
+
+[Event "?"]
+[Site "Hastings"]
+[Date "1895"]
+[White "Pillsbury"]
+[Black "Tarasch"]
+[Result "1-0"]
+
+1. d4 d5
+2. c4 e6
+3. Nc3 Nf6
+4. Bg5 {It was Pillsbury who first demonstrated the
+strength of the this move, which today is routine}
+4..Be7
+5. Nf3 Nd7
+6. Rc1 O-O
+7. e3 b6 {In order to develop the Queen Bishop on
+Bb7. This was the most popular way of defending the
+Queen's gambit declined at the time.}
+8. cxd5 {Depriving Black of the opportunity to play
+dxc4 when the diagonal b7-g2 would be open for his
+Queen Bishop.} 8...exd5 ({The classical
+continuation more common today is} 8..Nf6xd5 {which
+accomplishes some exchanging after} 9. Bxe7, Qxe7 10.
+Nxd5, e6xd5)
+9. Bd3 Bb7
+10. O-O c5 {A strategical necessity. Otherwise, this
+pawn will remain backward and vulnerable to White's
+Rook on the half open Queen Bishop file.}
+11. Re1 {Whatever the purpose of this move, it turns
+out to be a loss of time, for the Rook later goes
+back to f1.}
+11...c4 {This move releases the
+tension in the center in order to commence a queen
+side attack. White will counter this by an attack on
+the other wing.}
+12. Bb1 a6 {In order to play b5. Black's plan is to
+advance his queen side pawns with the ultimate aim of
+obtaining a passed pawn.}
+13. Ne5 {The knight is here aggressively posted in the
+neighborhood of Black's King.} 13...b5
+14. f4 {This move furthers White's attack in several
+ways.  Should Black ever play Nxe5, White will
+recapture with the Bishop Pawn and open his King
+Bishop file. The White's King Bishop Pawn may later
+in the game advance to f5, threatening to break up
+Black's kingside by f6. White's King Rook now can
+advance to Black's kingside by Rf1-Rf3 and Rg3 or
+Rh3.} 14...Re8 {To be able to bring his Queen Knight
+to Nf8, where it is an excellent defensive piece.}
+15. Qf3 {Bringing the Queen to the attack.} 15...Nf8
+16. Ne2 {Transferring the Knight to the kingside.}
+16...Ne4 $1 {Black blocks the White King Bishop
+diagonal and exchanges off his King Bishop. Each
+exchange favors Black, for they lessen the vigor of a
+kingside attack.  Queen side attacks, by contrast,
+are concerned with obtaining a passed pawn, which is
+even more advantageous in the end game then the
+middle game.}
+17. Bxe7 {Black was threatening to win a piece with
+f6} 17...Rxe7
+18. Bxe4 {White is not happy to give up his King
+Bishop, but there is no way to drive away Black's
+Knight at e4, and as long as it remains there it is
+more effective than the Bishop, whose diagonal itblocks.}
+ 18...dxe4
+19. Qg3 {Black is not the only one who has gained
+something from these exchanges. Now that Black's
+Queen Bishop Pawn no longer has the support of a
+Queen Pawn, he is much less free to advance his queen
+side pawns, and his attack on the queen side is thus
+slowed.  White's backward King Pawn, which previously
+was indirectly under  pressure by Black's King Rook,
+now has shelter behind Black's Pawn at the latter
+e4.} 19...f6 {This slightly weakens Black's
+kingside, but it is worth it to prevent White's King
+Bishop Pawn from ever advancing to f6.}
+20. Ng4 {Threatening 21. Nxf6+.} 20...Kh8
+21. f5 {Cramping Black's kingside and vacating his f4
+which can now be occupied by a Rook or a Knight.}
+21...Qd7
+22. Rf1 {See note at move 11.} 22...Rd8 {Preparing
+Qd6 to defend his f6 pawn a second time.}
+23. Rf4 {White is embarking upon a plan to attack
+Black's isolated King Pawn , and tie up Black's
+pieces to its defense.} 23...Qd6
+24. Qh4 Rde8
+25. Nc3 Bd5 {To be able to guard the King Pawn again
+by Qc6.}
+26. Nf2 Qc6
+27. Rf1 {White must be careful now about removing any
+pieces from the queen side, for Black can play b4,
+followed by Qa4, menacing White's queen side pawns.}
+ 27...b4
+28. Ne2 Qa4 ({If Black tries to advance his c Pawn with} 28..c3 {there follows} 29. bxc3, bxc3 30. Nd1, c2 31. Ndc3, Bc4 32. d5, Bxd5 33. Rc1
+{and Black loses his Queen Bishop Pawn.})
+29 Ng4 Nd7 (29...Qxa2? 30. Nxf6 g7xf6  31.
+Qxf6+ Kg8 (31..Rg7 32. Rg4) 32. Rg4+ {winning} )
+30. R4f2 $1 {Defending the Queen Rook Pawn by a
+clever combination.} Kg8
+(30..Qxa2 31. Nf4, Bf7
+32. Ng6 $1, Bxg6 33. f5xg6 h6 (33..Nf8 34. Nxf6, g7xf6 35.Rxf6, Kg8 36. Rf7
+{forces mate.}) 34.Nxh6, g7xh6 35. Qxh6+, Kg8 36. Rf5 $1 { and black is
+ defenseless against 37. Rh5 and Qh8} )
+31. Nc1 {Guarding his Queen Rook Pawn. If he had done
+this on move
+ twenty-nine, Black would have had the crushing reply
+Qc7.} 31...c3
+ {Black gets a passed Pawn.}
+32. b3 Qc6  {Both sides now have clear cut plans.
+Black will advance his
+ Queen Rook Pawn to a4, exchange pawns and bring a
+Rook to a3  winning White's Queen Knight Pawn. White
+will counter by advancing his King Knight Pawn to g5
+and opening up his King Knight file.}
+33. h3 {Making room for the Knight at h2.} 33...a5
+34. Nh2 {White's attack looks slower than Blacks, but
+White has a
+ stroke of genius prepared.} 34...a4
+35. g4 axb3
+36. axb3  Ra8 {With hindsight, the defensive 36..h6
+might have been
+ better.}
+37. g5
+37..Ra3 (37...fxg5 38. Qxg5 Nf6 (38...Qf6  39. Qg3 -- 40. Ng4 ) 39. Ng4 {taking advantage
+of black's pinned Knight, Followed by 40. Ne5, when the Knight will be devastatingly
+ powerful.} )
+38. Ng4 Bb3  ({At this moment neither Tarasch nor the
+onlookers had any doubt that white was finished. In
+the February 1971 issue of Chess Review, Frank
+Rhoden relates that Mr. E.G. Taylor, a Hastings chess
+ club member who actually witnessed the game, told him
+that after Tarasch made his 38th move, "The
+spectators began to drift away, thinking there was
+nothing more to see." But now comes one of the most
+dramatic surprises ever seen on a chessboard. With
+hindsight, several annotators have advocated that
+black play 38.. Rxb3, which sacrifices the exchange
+for a pawn. Black would then have his Bishop
+available for the defense and obtain two dangerous
+connected passed pawns. But 38...Rxb3 is no better
+than the move played.}
+ 38..Rxb3 39.Nxb3, Bxb3 40. Rg2, Kh8 41. g5xf6, g7xf6 42.
+Ne5 $1, Nxe5  43.dxe5 c2 (43..Rxe5 44. Qh6
+{ threatening mate at both g7 and f8 wins.}) 44. e6
+{and black is finished. If then} 44.. Qc3 45. Qh7
+ {These variations were given by Horowitz and Reinfeld
+in their revision of R.N. Cole's book, Battles Royal of the Chessboard.
+ })
+39. Rg2 {Threatening to win a piece with 40. gxf6,
+Nxf6 41. Nxf6+}
+ 39...Kh8
+40. gxf6  gxf6 {If 40...Nxf6 41. Ne5 followed by
+42. Ng6+}
+41. Nxb3   Rxb3
+42. Nh6  Rg7 {White threatened 43. Rg8#, and if
+42...Re8, 43. Nf7#}
+43. Rxg7  Kxg7
+44. Qg3 $3 {The move that turns the
+tables....If 44..Kf8 45. Qg8+ 46. Qxb3}  Kxh6
+45. Kh1 $1 {Threatening 46. Rg1 and 47. Qh4#. The only
+was for Black to prevent this is to play as he does.}
+ 45...Qd5
+46. Rg1  Qxf5
+47. Qh4+  Qh5
+48. Qf4+  Qg5
+49. Rxg5  fxg5
+50. Qd6+  Kh5
+51. Qxd7   c2
+({A blunder, but Black was lost. If}
+51..Rb1+ ( 51..Kg6 52. Qe6+ ) 52. Kg2, Rb2+ 53. Kg3, Kg6 54. Qc6+ Kf5 55. d5 {wins
+easily.})
+52. Qxh7#
+1-0
+
+[Event "?"]
+[White "Botvinnik"]
+[Black "Capablanca"]
+[Date "1938.??.??"]
+[Result "1-0"]
+
+{Nimzo-Indian, 41 moves. Botvinnik gives up a pawn for a king-side attack in which he sacrifices a bishop and then a knight as part of a brilliant combination. Capablance was world champion from 1921-1927; Botvinnik from 1948-1957, 1958-1960, and 1961-1963.}
+1. d4 {This move often leads to positional struggles.}
+1... Nf6 {Prevents 2. e4 and keeps open numerous options.}
+2. c4 {The normal follow-up to 1. d4. White puts pressure on d5.}
+2... e6 {Black frees the bishop on f8 and leaves open the possibility of a future ...d5.}
+3. Nc3 {White is threatening 4. e4.}
+3... Bb4 {Stopping 4. e4. This variation is called the Nimzo-Indian.}
+4. e3 {This is one of many possible moves for White including 4. Qc2, 4. Nf3, 4. a3, and 4. Qb3}
+4... d5 {Black does not want to give up the center to White.}
+5. a3 Bxc3+ 6. bxc3 c5 {Trying to put pressure on White's center which is, however, pretty solidly defended.}
+7. cxd5 exd5 8. Bd3 {This is White's active bishop. The other bishop is blocked by its own pawns.}
+8... 0-0 9. Ne2 {Better than 9. Nf3 that allows the annoying pin 9... Bg4.}
+9... b6 {Black plans to move the bishop to a6 and trade it for White's powerful bishop.}
+10. 0-0 Ba6 11. Bxa6 Nxa6
+12. Bb2 {The bishop has little mobility.}
+12... Qd7 {Black plans ... Qa4 if White moves his queen away.}
+13. a4 Rfe8 14. Qd3 c4 {This move takes the pressure off the center, which is usually bad. Here, Black calculates that he will have a strong queenside attack after moving his knight to b3 via b8, c6, and a5.}
+15. Qc2 {White's next several moves are in preparation for e4.}
+15... Nb8 {The first step toward b3.}
+16. Rae1 Nc6 17. Ng3 Na5
+18. f3 {The preparations for e4 are complete.}
+18... Nb3 {Cutting off the defense of the pawn on a4.}
+19. e4 {Will White's attack be worth the loss of a pawn?}
+19... Qxa4 20. e5 Nd7 {Black now plans 21... Nbc5 22. Qe2 (Not 22. dxc5 Qxc2) Nd3.}
+21. Qf2 {White would like to play 22. Nf5 with threats against the Black king and the possibility of playing Nd6.}
+21... g6 22. f4 {Intending f5 opening lines against the Black king.}
+22... f5 23. exf6 Nxf6 24. f5 {White has a strong attack.}
+24... Rxe1 {Black decides to trade off as much material as possible.}
+25. Rxe1 Re8 26. Re6 $1 {Forcing Black to give White a powerful passed pawn.}
+26... Rxe6 ( 26... Kg7  27.Rxf6 Kxf6 28. fxg6+ Kxg6 29. Qf5+ Kg7 30. Nh5+ Kh6 31. g4 {Threatening Qf6#} Qc6 27. Ba3 Qg6 28. Bf8+ Rxf8 29 Qxf8+ Kg5 30. Qf4+ Kh4 31. Qg3+ Kg5 32. h4+ Kh6 33. Qf4+ Qg5 34. Qxg5#) 27. fxe6 Kg7 28. Qf4 {Threatening 29. Nf5+ gxf5 30. Qb5+ Kf8 31. Qxf6+}
+28... Qe8 29. Qe5 {Defending the pawn and preparing to bring the long-lost bishop into play with 30. Ba3.}
+29... Qe7 {To prevent Ba3.}
+30. Ba3 $3 Qxa3 {Black cannot afford to let the bishop into play.}
+31. Nh5+ $1 gxh5 {All White is left to attack with is his queen and his advanced e pawn, but that is enough.}
+ 32. Qg5+ {Forcing the king away from the knight.}
+32... Kf8 33. Qxf6+ Kg8 34. e7 {White threatens e8=queen and Qf8#.}
+34... Qc1+ {Black's only hope is to try for a perpetual check.}
+35. Kf2 Qc2+ 36. Kg3 Qd3+ 37. Kh4 Qe4+ 38. Kxh5 Qe2+
+39. Kh4 Qe4+ 40. g4 Qe1+ 41. Kh5
+1-0

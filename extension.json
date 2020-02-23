@@ -1,19 +1,26 @@
 {
 	"name": "ChessBrowser",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"author": [
 		"Wugapodes",
 		"Kipod"
 	],
 	"descriptionmsg": "chessbrowser-desc",
 	"type": "parserhook",
-	"license-name": "CC0-1.0",
+	"license-name": "GPL-3.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:ChessBrowser",
 	"AutoloadClasses": {
 		"ChessBrowser": "includes/ChessBrowser.php",
 		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
-		"PgnParser": "includes/PgnParser.php",
-		"ChessBrowserException": "includes/ChessBrowserException.php"
+		"ChessBrowserException": "includes/ChessBrowserException.php",
+		"PgnParser": "includes/PgnParser/PgnParser.php",
+		"GameParser": "includes/PgnParser/GameParser.php",
+		"PgnGameParser": "includes/PgnParser/PgnGameParser.php",
+		"MoveBuilder": "includes/PgnParser/MoveBuilder.php",
+		"ChessJson": "includes/PgnParser/ChessJson.php",
+		"Board0x88Config": "includes/PgnParser/Board0x88Config.php",
+		"FenParser0x88": "includes/PgnParser/FenParser0x88.php",
+		"FenParser0x88Exception": "includes/PgnParser/FenParser0x88Exception.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",
