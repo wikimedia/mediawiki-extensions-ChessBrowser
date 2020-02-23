@@ -5,7 +5,7 @@ This is the chess parser used in DHTML Chess at dhtml-chess.com
 
 ####License: LGPL (Lesser General Public License).
 
-#####Example of use: 
+#####Example of use:
 
 ######1) Import games from PGN file:
 
@@ -299,7 +299,7 @@ $parser->move("g1f3");
 $notation =  $parser->getNotation(); // returns Nf3
 $fen = $parser->getFen();
 // $fen = rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1
-``` 
+```
 
 ######4) Get valid moves
 

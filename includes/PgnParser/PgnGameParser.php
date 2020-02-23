@@ -13,6 +13,11 @@ class PgnGameParser {
 		'timecontrol','round','date','annotator','termination'
 	];
 
+	/**
+	 * Create a new parser
+	 *
+	 * @param string|null $pgnGame
+	 */
 	public function __construct( $pgnGame = null ) {
 		if ( isset( $pgnGame ) ) {
 			$this->pgnGame = trim( $pgnGame );
@@ -20,18 +25,33 @@ class PgnGameParser {
 		}
 	}
 
+	/**
+	 * Set or reset the parser's pgn
+	 *
+	 * @param string $pgnGame
+	 */
 	public function setPgn( $pgnGame ) {
 		$this->pgnGame = trim( $pgnGame );
 		$this->gameData = [];
 		$this->moveBuilder = new MoveBuilder();
 	}
 
+	/**
+	 * Get the parsed data
+	 *
+	 * @return array
+	 */
 	public function getParsedData() {
 		$this->gameData = $this->getMetadata();
 		$this->gameData[ChessJson::MOVE_MOVES] = $this->getMoves();
 		return $this->gameData;
 	}
 
+	/**
+	 * Get the metadata
+	 *
+	 * @return array
+	 */
 	private function getMetadata() {
 		$ret = [
 			ChessJson::GAME_METADATA => []
@@ -56,6 +76,12 @@ class PgnGameParser {
 		return $ret;
 	}
 
+	/**
+	 * Get the metadata key and value from a string
+	 *
+	 * @param string $metadataString
+	 * @return array
+	 */
 	private function getMetadataKeyAndValue( $metadataString ) {
 		$metadataString = preg_replace( "/[\[\]]/s", "", $metadataString );
 		$metadataString = str_replace( '"', '', $metadataString );
@@ -67,11 +93,24 @@ class PgnGameParser {
 		return $ret;
 	}
 
+	/**
+	 * Convert a key to lowercase
+	 *
+	 * TODO is this really needed?
+	 *
+	 * @param string $key
+	 * @return string
+	 */
 	private function getValidKey( $key ) {
 		$key = strtolower( $key );
 		return $key;
 	}
 
+	/**
+	 * Get the moves
+	 *
+	 * @return array
+	 */
 	private function getMoves() {
 		$parts = $this->getMovesAndComments();
 		for ( $i = 0, $count = count( $parts ); $i < $count; $i++ ) {
@@ -100,16 +139,27 @@ class PgnGameParser {
 								$this->moveBuilder->addMoves( $move );
 						}
 					}
+					break;
 			}
 		}
 
 		return $this->moveBuilder->getMoves();
 	}
 
+	/**
+	 * Add a game comment
+	 *
+	 * @param string $comment
+	 */
 	private function addGameComment( $comment ) {
 		$this->gameData[ChessJson::GAME_METADATA][ChessJson::MOVE_COMMENT] = $comment;
 	}
 
+	/**
+	 * Get the moves and comments
+	 *
+	 * @return array
+	 */
 	private function getMovesAndComments() {
 		$ret = preg_split( "/({|})/s", $this->getMoveString(), 0, PREG_SPLIT_DELIM_CAPTURE );
 		if ( !$ret[0] ) {
@@ -118,6 +168,14 @@ class PgnGameParser {
 		return $ret;
 	}
 
+	/**
+	 * Get the moves and variations from a string
+	 *
+	 * TODO make static
+	 *
+	 * @param string $string
+	 * @return array
+	 */
 	private function getMovesAndVariationFromString( $string ) {
 		$string = " " . $string;
 
@@ -129,6 +187,11 @@ class PgnGameParser {
 		return preg_split( "/(\(|\))/s", $string, 0, PREG_SPLIT_DELIM_CAPTURE );
 	}
 
+	/**
+	 * Get a move string
+	 *
+	 * @return string
+	 */
 	private function getMoveString() {
 		$tokens = preg_split( "/\]\n\n/s", $this->pgnGame );
 		if ( count( $tokens ) < 2 ) {
