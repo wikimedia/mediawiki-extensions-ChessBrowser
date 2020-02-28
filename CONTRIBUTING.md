@@ -11,11 +11,7 @@ Once you have set up your MediaWiki environment, navigate to your extensions
 directory and clone the repository using
 
 ```
-git clone --recurse-submodules ssh://gerrit.wikimedia.org:29418/mediawiki/extensions/ChessBrowser
+git clone ssh://gerrit.wikimedia.org:29418/mediawiki/extensions/ChessBrowser
 ```
-
-This project (for now) uses git submodules and so it is important to use the
-`--recurse-submodules` option. If you cloned the repository without it, you can
-run `git submodule update --init` to initialize and update the submodules.
 
 Finally, in your LocalSettings.php file, add `wfLoadExtension( 'ChessBrowser' );`

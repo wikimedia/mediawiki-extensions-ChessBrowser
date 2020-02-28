@@ -1,5 +1,6 @@
 <?php
 
+// TODO figure out where these are used / why these are public, and clean up duplication
 class Board0x88Config {
 
 	public static $squares = [
@@ -43,7 +44,10 @@ class Board0x88Config {
 	];
 
 	public static $colorAbbreviations = [ 'w' => 'white', 'b' => 'black' ];
+
 	public static $oppositeColors = [ 'white' => 'black', 'black' => 'white' ];
+
+	// $files[letter] + 16 * ( number - 1 )
 	public static $mapping = [
 		'a1' => 0,
 		'b1' => 1,
@@ -111,6 +115,7 @@ class Board0x88Config {
 		'h8' => 119
 	];
 
+	// just lowercase
 	public static $pieceAbbr = [
 		'Q' => 'q',
 		'R' => 'r',
@@ -118,6 +123,7 @@ class Board0x88Config {
 		'B' => 'b'
 	];
 
+	// array_flip( $mapping )
 	public static $numberToSquareMapping = [
 		'0' => 'a1',
 		'1' => 'b1',
@@ -185,6 +191,7 @@ class Board0x88Config {
 		'119' => 'h8'
 	];
 
+	// floor( num / 8 ) * 16 + num % 8
 	public static $numericMapping = [
 		'0' => 0,
 		'1' => 1,
@@ -251,7 +258,10 @@ class Board0x88Config {
 		'62' => 118,
 		'63' => 119
 	];
-	public static $keySquares = [ ',0,',
+
+	// array_map( function( $key ) { return ",$key,"; }, array_values( $mapping ) )
+	public static $keySquares = [
+		',0,',
 		',1,',
 		',2,',
 		',3,',
@@ -386,6 +396,8 @@ class Board0x88Config {
 		'r' => 0x0E,
 		'q' => 0x0F
 	];
+
+	// array_flip( $pieces )
 	public static $pieceMapping = [
 		0x01 => 'P',
 		0x02 => 'N',
@@ -441,6 +453,7 @@ class Board0x88Config {
 
 	];
 
+	// just check case
 	public static $colorMapping = [
 		'p' => 'black',
 		'n' => 'black',
@@ -464,6 +477,7 @@ class Board0x88Config {
 		'q' => 1
 	];
 
+	// intval( $num ) <= 8
 	public static $numbers = [
 		'0' => 1,
 		'1' => 1,
@@ -491,7 +505,9 @@ class Board0x88Config {
 		0X0B => [ -17, -16, -15, -1, 1, 15, 16, 17 ]
 	];
 
-	public static $distances = [ '241' => 1,
+	// What is this?
+	public static $distances = [
+		'241' => 1,
 		'242' => 2,
 		'243' => 3,
 		'244' => 4,
@@ -717,6 +733,7 @@ class Board0x88Config {
 		'9' => 7
 	];
 
+	// array_fill_key( array_values( $mapping ), 0 )
 	public static $defaultBoard = [
 		0 => 0,
 		1 => 0,
@@ -837,16 +854,22 @@ class Board0x88Config {
 		116 => 0,
 		117 => 0,
 		118 => 0,
-		119 => 0 ];
+		119 => 0
+	];
 
-	public static $fileMapping = [ 'a',
+	// array_keys( $files )
+	public static $fileMapping = [
+		'a',
 		'b',
 		'c',
 		'd',
 		'e',
 		'f',
 		'g',
-		'h' ];
+		'h'
+	];
+
+	// num / 16 + 1
 	public static $rankMapping = [
 		0 => 1,
 		16 => 2,
@@ -857,6 +880,7 @@ class Board0x88Config {
 		96 => 7,
 		112 => 8
 	];
+
 	public static $files = [
 		'a' => 0,
 		'b' => 1,

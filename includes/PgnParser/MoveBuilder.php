@@ -10,6 +10,11 @@ class MoveBuilder {
 		$this->moveReferences[0] =& $this->moves;
 	}
 
+	/**
+	 * Add moves, separated by spaces
+	 *
+	 * @param sting $moveString
+	 */
 	public function addMoves( $moveString ) {
 		$moves = explode( " ", $moveString );
 		foreach ( $moves as $move ) {
@@ -17,6 +22,11 @@ class MoveBuilder {
 		}
 	}
 
+	/**
+	 * Add a single move
+	 *
+	 * @param string $move
+	 */
 	private function addMove( $move ) {
 		if ( !$this->isChessMove( $move ) ) {
 			return;
@@ -26,13 +36,25 @@ class MoveBuilder {
 		$this->currentIndex++;
 	}
 
+	/**
+	 * Check if a string is a valid chess move
+	 *
+	 * @param string $move
+	 * @return bool
+	 */
 	private function isChessMove( $move ) {
-		if ( $move == '--' ) { return true;
+		if ( $move == '--' ) {
+			return true;
 		}
 		$regex = "/([PNBRQK]?[a-h]?[1-8]?x?[a-h][1-8](?:\=[PNBRQK])?|O(-?O){1,2})[\+#]?(\s*[\!\?]+)?/s";
 		return preg_match( $regex, $move );
 	}
 
+	/**
+	 * Insert a comment before the first move
+	 *
+	 * @param string $comment
+	 */
 	public function addCommentBeforeFirstMove( $comment ) {
 		$comment = trim( $comment );
 		if ( !strlen( $comment ) ) {
@@ -42,6 +64,11 @@ class MoveBuilder {
 		$this->addComment( $comment );
 	}
 
+	/**
+	 * Insert a comment at the current location
+	 *
+	 * @param string $comment
+	 */
 	public function addComment( $comment ) {
 		$comment = trim( $comment );
 		if ( !strlen( $comment ) ) {
@@ -69,22 +96,27 @@ class MoveBuilder {
 		$comment = preg_replace(
 			'/\[%'
 			. ChessJson::PGN_KEY_ACTION_ARROW
-			. '[^\]]+?\]/si', '', $comment );
+			. '[^\]]+?\]/si', '', $comment
+		);
 		$comment = preg_replace(
 			'/\[%'
 			. ChessJson::PGN_KEY_ACTION_CLR_ARROW
-			. '[^\]]+?\]/si', '', $comment );
+			. '[^\]]+?\]/si', '', $comment
+		);
 		$comment = preg_replace(
 			'/\[%'
 			. ChessJson::PGN_KEY_ACTION_HIGHLIGHT
-			. '[^\]]+?\]/si', '', $comment );
+			. '[^\]]+?\]/si', '', $comment
+		);
 		$comment = preg_replace(
 			'/\[%'
 			. ChessJson::PGN_KEY_ACTION_CLR_HIGHLIGHT
-			. '[^\]]+?\]/si', '', $comment );
+			. '[^\]]+?\]/si', '', $comment
+		);
 		$comment = trim( $comment );
 
-		if ( empty( $comment ) ) { return;
+		if ( empty( $comment ) ) {
+			return;
 		}
 
 		if ( $index === -1 ) {
@@ -93,17 +125,25 @@ class MoveBuilder {
 			$this->currentIndex++;
 		} else {
 			$this->moveReferences[$this->pointer][$index][ChessJson::MOVE_COMMENT] = $comment;
-
 		}
 	}
 
+	/**
+	 * getActions
+	 *
+	 * TODO document
+	 *
+	 * @param string $comment
+	 * @return array
+	 */
 	private function getActions( $comment ) {
 		$ret = [];
 		if ( strstr( $comment, '[%' . ChessJson::PGN_KEY_ACTION_ARROW ) ) {
 			$arrow = preg_replace(
 				'/.*?\[%'
 				. ChessJson::PGN_KEY_ACTION_ARROW
-				. ' ([^\]]+?)\].*/si', '$1', $comment );
+				. ' ([^\]]+?)\].*/si', '$1', $comment
+			);
 			$arrows = explode( ",", $arrow );
 
 			foreach ( $arrows as $arrow ) {
@@ -125,11 +165,11 @@ class MoveBuilder {
 			$arrow = preg_replace(
 				'/.*?\[%'
 				. ChessJson::PGN_KEY_ACTION_CLR_ARROW
-				. ' ([^\]]+?)\].*/si', '$1', $comment );
+				. ' ([^\]]+?)\].*/si', '$1', $comment
+			);
 			$arrows = explode( ",", $arrow );
 
 			foreach ( $arrows as $arrow ) {
-
 				$len = strlen( $arrow );
 				$color = "G";
 				if ( $len === 5 ) {
@@ -141,12 +181,11 @@ class MoveBuilder {
 				if ( strlen( $arrow ) === 4 ) {
 					$action = [
 						"from" => substr( $arrow, 0, 2 ),
-						"to" => substr( $arrow, 2, 2 )
+						"to" => substr( $arrow, 2, 2 ),
+						"color" => $color
 					];
-					$action["color"] = $color;
 					$ret[] = $this->toAction( "arrow", $action );
 				}
-
 			}
 		}
 
@@ -154,7 +193,8 @@ class MoveBuilder {
 			$arrow = preg_replace(
 				'/.*?\[%'
 				. ChessJson::PGN_KEY_ACTION_HIGHLIGHT
-				. ' ([^\]]+?)\].*/si', '$1', $comment );
+				. ' ([^\]]+?)\].*/si', '$1', $comment
+			);
 			$arrows = explode( ",", $arrow );
 
 			foreach ( $arrows as $arrow ) {
@@ -175,7 +215,8 @@ class MoveBuilder {
 			$arrow = preg_replace(
 				'/.*?\[%'
 				. ChessJson::PGN_KEY_ACTION_CLR_HIGHLIGHT
-				. ' ([^\]]+?)\].*/si', '$1', $comment );
+				. ' ([^\]]+?)\].*/si', '$1', $comment
+			);
 			$arrows = explode( ",", $arrow );
 
 			foreach ( $arrows as $arrow ) {
@@ -186,11 +227,10 @@ class MoveBuilder {
 				}
 
 				if ( strlen( $arrow ) === 2 ) {
-
 					$action = [
-						"square" => substr( $arrow, 0, 2 )
+						"square" => substr( $arrow, 0, 2 ),
+						"color" => $color
 					];
-					$action["color"] = $color;
 					$ret[] = $this->toAction( "highlight", $action );
 				}
 			}
@@ -200,9 +240,12 @@ class MoveBuilder {
 	}
 
 	/**
+	 * toAction
+	 *
+	 * TODO document
+	 *
 	 * @param string $key
 	 * @param array $val
-	 *
 	 * @return array
 	 */
 	private function toAction( $key, $val ) {
@@ -210,6 +253,9 @@ class MoveBuilder {
 		return $val;
 	}
 
+	/**
+	 * Begin a variation at the current index
+	 */
 	public function startVariation() {
 		$index = count( $this->moveReferences[$this->pointer] ) - 1;
 		if ( !isset( $this->moveReferences[$this->pointer][$index][ChessJson::MOVE_VARIATIONS] ) ) {
@@ -222,11 +268,19 @@ class MoveBuilder {
 		$this->pointer++;
 	}
 
+	/**
+	 * End a variation
+	 */
 	public function endVariation() {
 		array_pop( $this->moveReferences );
 		$this->pointer--;
 	}
 
+	/**
+	 * Get the moves
+	 *
+	 * @return array
+	 */
 	public function getMoves() {
 		return $this->moves;
 	}

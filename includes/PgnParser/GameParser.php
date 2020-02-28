@@ -33,12 +33,22 @@ class GameParser {
 		$this->game[ChessJson::GAME_METADATA][ChessJson::MOVE_PARSED] = 1;
 	}
 
+	/**
+	 * Parse each move
+	 *
+	 * @param array &$moves
+	 */
 	private function parseMoves( &$moves ) {
 		foreach ( $moves as &$move ) {
 			$this->parseAMove( $move );
 		}
 	}
 
+	/**
+	 * Parse a move
+	 *
+	 * @param array &$move
+	 */
 	private function parseAMove( &$move ) {
 		if (
 			!isset( $move[ChessJson::MOVE_NOTATION] )
@@ -61,6 +71,11 @@ class GameParser {
 		$move = $this->fenParser0x88->getParsed( $move );
 	}
 
+	/**
+	 * Parse variations
+	 *
+	 * @param array &$variations
+	 */
 	private function parseVariations( &$variations ) {
 		foreach ( $variations as &$variation ) {
 			$fen = $this->fenParser0x88->getFen();
@@ -69,6 +84,13 @@ class GameParser {
 		}
 	}
 
+	/**
+	 * Get the start fen
+	 *
+	 * TODO document
+	 *
+	 * @return mixed
+	 */
 	private function getStartFen() {
 		return $this->game[ChessJson::FEN];
 	}

@@ -9,12 +9,18 @@ class PgnParser {
 	private $pgnGameParser;
 	private $fullParsing = true;
 
+	/**
+	 * Construct a new PgnParser
+	 *
+	 * @param string $pgnFile
+	 * @param bool $fullParsing
+	 */
 	public function __construct( $pgnFile = '', $fullParsing = true ) {
 		if ( $pgnFile ) {
 			$this->pgnFile = $this->sanitize( $pgnFile );
 
 			if ( !file_exists( $this->pgnFile ) ) {
-				throw new Exception( 'File not found: ' . $this->pgnFile );
+				throw new ChessBrowserException( 'File not found: ' . $this->pgnFile );
 			}
 		}
 
@@ -23,9 +29,18 @@ class PgnParser {
 		$this->pgnGameParser = new PgnGameParser();
 	}
 
+	/**
+	 * Sanitize a file path
+	 *
+	 * TODO make static
+	 *
+	 * @param string $filePath
+	 * @return string|null
+	 */
 	private function sanitize( $filePath ) {
 		$extension = $this->getExtension( $filePath );
-		if ( $extension != 'pgn' ) { return null;
+		if ( $extension != 'pgn' ) {
+			return null;
 		}
 
 		if ( class_exists( "LudoDBRegistry" ) ) {
@@ -35,28 +50,48 @@ class PgnParser {
 		}
 
 		if ( isset( $tempPath ) && substr( $filePath, 0, strlen( $tempPath ) ) == $tempPath ) {
-
+			// TODO clean this up
 		} else {
-			if ( substr( $filePath, 0, 1 ) === "/" ) { return null;
+			if ( substr( $filePath, 0, 1 ) === "/" ) {
+				return null;
 			}
 		}
 		$filePath = preg_replace( "/[^0-9\.a-z_\-\/]/si", "", $filePath );
 
-		if ( !file_exists( $filePath ) ) { return null;
+		if ( !file_exists( $filePath ) ) {
+			return null;
 		}
 
 		return $filePath;
 	}
 
+	/**
+	 * Get a file extension
+	 *
+	 * TODO make static
+	 *
+	 * @param string $filePath
+	 * @return string
+	 */
 	private function getExtension( $filePath ) {
 		$tokens = explode( ".", $filePath );
 		return strtolower( array_pop( $tokens ) );
 	}
 
+	/**
+	 * Set the pgn content
+	 *
+	 * @param string $content
+	 */
 	public function setPgnContent( $content ) {
 		$this->pgnContent = $content;
 	}
 
+	/**
+	 * Get a clean version of the pgn content
+	 *
+	 * @return string
+	 */
 	private function cleanPgn() {
 		$c = $this->pgnContent;
 
@@ -83,14 +118,38 @@ class PgnParser {
 		return $c;
 	}
 
+	/**
+	 * Get the array of games from a pgn
+	 *
+	 * TODO this and splitPgnIntoGames are identical
+	 *
+	 * @param string $pgn
+	 * @return array
+	 */
 	public static function getArrayOfGames( $pgn ) {
 		return self::getPgnGamesAsArray( $pgn );
 	}
 
+	/**
+	 * Get the array of games from a pgn
+	 *
+	 * TODO this and getArrayOfGames are identical
+	 *
+	 * @param string $pgnString
+	 * @return array
+	 */
 	private function splitPgnIntoGames( $pgnString ) {
 		return $this->getPgnGamesAsArray( $pgnString );
 	}
 
+	/**
+	 * Get the array of pgn games
+	 *
+	 * TODO is this static or not
+	 *
+	 * @param string $pgn
+	 * @return array
+	 */
 	private function getPgnGamesAsArray( $pgn ) {
 		$ret = [];
 		$content = "\n\n" . $pgn;
@@ -108,18 +167,36 @@ class PgnParser {
 		return $ret;
 	}
 
+	/**
+	 * Get games encoded as json
+	 *
+	 * @return string
+	 */
 	public function getGamesAsJSON() {
 		return json_encode( $this->getGames() );
 	}
 
+	/**
+	 * Get the full parsing
+	 *
+	 * TODO document
+	 *
+	 * @return mixed
+	 */
 	private function fullParsing() {
 		return $this->fullParsing;
 	}
 
+	/**
+	 * Get games that aren't parsed
+	 *
+	 * TODO document
+	 *
+	 * @return mixed
+	 */
 	public function getUnparsedGames() {
 		if ( !isset( $this->pgnGames ) ) {
 			if ( $this->pgnFile && !isset( $this->pgnContent ) ) {
-
 				$this->pgnContent = file_get_contents( $this->pgnFile );
 			}
 			$this->pgnGames = $this->splitPgnIntoGames( $this->cleanPgn( $this->pgnContent ) );
@@ -128,19 +205,41 @@ class PgnParser {
 		return $this->pgnGames;
 	}
 
+	/**
+	 * Get count of games that aren't parsed
+	 *
+	 * @return int
+	 */
 	public function countGames() {
-		$games = $this->getUnparsedGames();
-		return count( $games );
+		return count( $this->getUnparsedGames() );
 	}
 
+	/**
+	 * Get a clean pgn
+	 *
+	 * @return string
+	 */
 	public function getCleanPgn() {
 		return $this->cleanPgn( $this->pgnContent );
 	}
 
+	/**
+	 * Get the first game
+	 *
+	 * @return array|null
+	 */
 	public function getFirstGame() {
 		return $this->getGameByIndex( 0 );
 	}
 
+	/**
+	 * Get the game at an index, with the moves shortened
+	 *
+	 * TODO make a wrapper for getGameByIndex
+	 *
+	 * @param int $index
+	 * @return array|null
+	 */
 	public function getGameByIndexShort( $index ) {
 		$games = $this->getUnparsedGames();
 		if ( count( $games ) && count( $games ) > $index ) {
@@ -151,6 +250,12 @@ class PgnParser {
 		return null;
 	}
 
+	/**
+	 * Get the game at an index
+	 *
+	 * @param int $index
+	 * @return array|null
+	 */
 	public function getGameByIndex( $index ) {
 		$games = $this->getUnparsedGames();
 		if ( count( $games ) && count( $games ) > $index ) {
@@ -159,14 +264,30 @@ class PgnParser {
 		return null;
 	}
 
+	/**
+	 * Get the games
+	 *
+	 * @return array
+	 */
 	public function getGames() {
 		return $this->getParsedGames( false );
 	}
 
+	/**
+	 * Get the games, with moves shortened
+	 *
+	 * @return array
+	 */
 	public function getGamesShort() {
 		return $this->getParsedGames( true );
 	}
 
+	/**
+	 * Get the games
+	 *
+	 * @param bool $short
+	 * @return array
+	 */
 	private function getParsedGames( $short = false ) {
 		$games = $this->getUnparsedGames();
 		$ret = [];
@@ -174,17 +295,23 @@ class PgnParser {
 			try {
 				$g = $short ? $this->getParsedGameShort( $games[$i] ) : $this->getParsedGame( $games[$i] );
 				$ret[] = $g;
-
 			} catch ( Exception $e ) {
-
+				// Do nothing
 			}
 		}
 		return $ret;
 	}
 
+	/**
+	 * Convert to shortversion
+	 *
+	 * TODO document
+	 *
+	 * @param array $branch
+	 * @return array
+	 */
 	private function toShortVersion( $branch ) {
 		foreach ( $branch as &$move ) {
-
 			if ( isset( $move["from"] ) ) {
 				$move["n"] = $move["from"] . $move["to"];
 				unset( $move["fen"] );
@@ -198,11 +325,16 @@ class PgnParser {
 				}
 				unset( $move["variations"] );
 			}
-
 		}
 		return $branch;
 	}
 
+	/**
+	 * Parse a game
+	 *
+	 * @param string $unParsedGame
+	 * @return array
+	 */
 	private function getParsedGame( $unParsedGame ) {
 		$this->pgnGameParser->setPgn( $unParsedGame );
 		$ret = $this->pgnGameParser->getParsedData();
@@ -212,6 +344,12 @@ class PgnParser {
 		return $ret;
 	}
 
+	/**
+	 * Parse a game with shortened moves
+	 *
+	 * @param string $unParsedGame
+	 * @return array
+	 */
 	private function getParsedGameShort( $unParsedGame ) {
 		$this->pgnGameParser->setPgn( $unParsedGame );
 		$ret = $this->pgnGameParser->getParsedData();

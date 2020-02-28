@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Created by IntelliJ IDEA.
- * User: alfmagne1
- * Date: 13/03/2017
- * Time: 19:00
+ * Originally by alfmagne1
+ * Created 13/03/2017
  */
+
 class JsonToPgnParser {
 
 	private $games;
@@ -28,15 +27,25 @@ class JsonToPgnParser {
 		$this->games[] = $json;
 	}
 
+	/**
+	 * Get as pgn
+	 *
+	 * @return string
+	 */
 	public function asPgn() {
 		$ret = [];
 		foreach ( $this->games as $game ) {
 			$ret[] = $this->gameToPgn( $game );
-
 		}
 		return implode( "\n\n", $ret );
 	}
 
+	/**
+	 * Convert a game to pgn
+	 *
+	 * @param arary $game
+	 * @return string
+	 */
 	private function gameToPgn( $game ) {
 		$moves = [];
 		$metadata = [];
@@ -50,22 +59,38 @@ class JsonToPgnParser {
 					if ( is_string( $value ) ) {
 						$metadata[] = '[' . ucfirst( $key ) . ' "' . $value . '"]';
 					}
+					break;
 			}
 
 		}
 		return implode( "\n", $metadata ) . "\n\n" . $moves;
 	}
 
+	/**
+	 * Get the first move
+	 *
+	 * @param array $game
+	 * @return int
+	 */
 	private function getStartMove( $game ) {
-		if ( empty( $game["fen"] ) ) { return 1;
+		if ( empty( $game["fen"] ) ) {
+			return 1;
 		}
 		$tokens = explode( " ", $game["fen"] );
 		$ret = array_pop( $tokens );
-		if ( $tokens[1] == "b" ) { $ret += 0.5;
+		if ( $tokens[1] == "b" ) {
+			$ret += 0.5;
 		}
 		return $ret;
 	}
 
+	/**
+	 * Convert moves to pgn
+	 *
+	 * @param array $moves
+	 * @param int $startMove
+	 * @return string
+	 */
 	private function movesToPgn( $moves, $startMove ) {
 		$ret = [];
 
