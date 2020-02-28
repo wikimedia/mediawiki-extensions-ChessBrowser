@@ -287,7 +287,7 @@ class ChessBrowserTest extends MediaWikiTestCase {
 					'final' => 'Go to last move',
 					'flip' => 'Flip board perspective',
 					'no-javascript' => 'JavaScript is not enabled on this page. '
-						. 'To view the game interactively, please enable Javascript.'
+						. 'To view the game interactively, please enable JavaScript.'
 				]
 			]
 		];
