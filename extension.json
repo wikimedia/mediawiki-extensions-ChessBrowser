@@ -13,6 +13,7 @@
 		"ChessBrowser": "includes/ChessBrowser.php",
 		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
 		"ChessBrowserException": "includes/ChessBrowserException.php",
+		"ChessParser": "includes/ChessParser.php",
 		"PgnParser": "includes/PgnParser/PgnParser.php",
 		"GameParser": "includes/PgnParser/GameParser.php",
 		"PgnGameParser": "includes/PgnParser/PgnGameParser.php",

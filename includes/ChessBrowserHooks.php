@@ -28,7 +28,7 @@ class ChessBrowserHooks {
 	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setHook( 'pgn', [ ChessBrowser::class, 'pollRender' ] );
+		$parser->setHook( 'pgn', [ ChessBrowser::class, 'newGame' ] );
 	}
 
 	/**
