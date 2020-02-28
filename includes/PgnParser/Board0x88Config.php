@@ -47,149 +47,29 @@ class Board0x88Config {
 
 	public static $oppositeColors = [ 'white' => 'black', 'black' => 'white' ];
 
-	// $files[letter] + 16 * ( number - 1 )
-	public static $mapping = [
-		'a1' => 0,
-		'b1' => 1,
-		'c1' => 2,
-		'd1' => 3,
-		'e1' => 4,
-		'f1' => 5,
-		'g1' => 6,
-		'h1' => 7,
-		'a2' => 16,
-		'b2' => 17,
-		'c2' => 18,
-		'd2' => 19,
-		'e2' => 20,
-		'f2' => 21,
-		'g2' => 22,
-		'h2' => 23,
-		'a3' => 32,
-		'b3' => 33,
-		'c3' => 34,
-		'd3' => 35,
-		'e3' => 36,
-		'f3' => 37,
-		'g3' => 38,
-		'h3' => 39,
-		'a4' => 48,
-		'b4' => 49,
-		'c4' => 50,
-		'd4' => 51,
-		'e4' => 52,
-		'f4' => 53,
-		'g4' => 54,
-		'h4' => 55,
-		'a5' => 64,
-		'b5' => 65,
-		'c5' => 66,
-		'd5' => 67,
-		'e5' => 68,
-		'f5' => 69,
-		'g5' => 70,
-		'h5' => 71,
-		'a6' => 80,
-		'b6' => 81,
-		'c6' => 82,
-		'd6' => 83,
-		'e6' => 84,
-		'f6' => 85,
-		'g6' => 86,
-		'h6' => 87,
-		'a7' => 96,
-		'b7' => 97,
-		'c7' => 98,
-		'd7' => 99,
-		'e7' => 100,
-		'f7' => 101,
-		'g7' => 102,
-		'h7' => 103,
-		'a8' => 112,
-		'b8' => 113,
-		'c8' => 114,
-		'd8' => 115,
-		'e8' => 116,
-		'f8' => 117,
-		'g8' => 118,
-		'h8' => 119
-	];
+	/**
+	 * @param string $square
+	 * @return int|false
+	 */
+	public static function mapSquareToNumber( string $square ) {
+		if ( strlen( $square ) !== 2 ) {
+			return false;
+		}
 
-	// just lowercase
-	public static $pieceAbbr = [
-		'Q' => 'q',
-		'R' => 'r',
-		'N' => 'n',
-		'B' => 'b'
-	];
+		list( $file, $row ) = str_split( $square );
+		$ret = self::$files[ $file ] + ( 16 * ( intval( $row ) - 1 ) );
+		return $ret;
+	}
 
-	// array_flip( $mapping )
-	public static $numberToSquareMapping = [
-		'0' => 'a1',
-		'1' => 'b1',
-		'2' => 'c1',
-		'3' => 'd1',
-		'4' => 'e1',
-		'5' => 'f1',
-		'6' => 'g1',
-		'7' => 'h1',
-		'16' => 'a2',
-		'17' => 'b2',
-		'18' => 'c2',
-		'19' => 'd2',
-		'20' => 'e2',
-		'21' => 'f2',
-		'22' => 'g2',
-		'23' => 'h2',
-		'32' => 'a3',
-		'33' => 'b3',
-		'34' => 'c3',
-		'35' => 'd3',
-		'36' => 'e3',
-		'37' => 'f3',
-		'38' => 'g3',
-		'39' => 'h3',
-		'48' => 'a4',
-		'49' => 'b4',
-		'50' => 'c4',
-		'51' => 'd4',
-		'52' => 'e4',
-		'53' => 'f4',
-		'54' => 'g4',
-		'55' => 'h4',
-		'64' => 'a5',
-		'65' => 'b5',
-		'66' => 'c5',
-		'67' => 'd5',
-		'68' => 'e5',
-		'69' => 'f5',
-		'70' => 'g5',
-		'71' => 'h5',
-		'80' => 'a6',
-		'81' => 'b6',
-		'82' => 'c6',
-		'83' => 'd6',
-		'84' => 'e6',
-		'85' => 'f6',
-		'86' => 'g6',
-		'87' => 'h6',
-		'96' => 'a7',
-		'97' => 'b7',
-		'98' => 'c7',
-		'99' => 'd7',
-		'100' => 'e7',
-		'101' => 'f7',
-		'102' => 'g7',
-		'103' => 'h7',
-		'112' => 'a8',
-		'113' => 'b8',
-		'114' => 'c8',
-		'115' => 'd8',
-		'116' => 'e8',
-		'117' => 'f8',
-		'118' => 'g8',
-		'119' => 'h8'
-	];
+	/**
+	 * @param string|int $number
+	 * @return string
+	 */
+	public static function mapNumberToSquare( $number ) : string {
+		$number = intval( $number );
+		$square = self::$files[ $number % 8 ] . (string)( floor( $number / 16 ) + 1 );
+		return $square;
+	}
 
 	// floor( num / 8 ) * 16 + num % 8
 	public static $numericMapping = [
