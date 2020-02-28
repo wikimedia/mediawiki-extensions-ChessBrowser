@@ -32,6 +32,15 @@ class ChessBrowser {
 	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) {
 		// Set variable so resource loader knows whether to send javascript
 		$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
+		// Get number of games so div id property is unique
+		$gameNum = $parser->getOutput()->getExtensionData( 'ChessViewerNumGames' );
+		if ( !isset( $gameNum ) ) {
+			$gameNum = 1;
+		} else {
+			$gameNum += 1;
+		}
+		// Increment number of games
+		$parser->getOutput()->setExtensionData( 'ChessViewerNumGames', $gameNum );
 		// Initialize parsers
 		$chessParser = new ChessParser();
 		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
@@ -42,6 +51,7 @@ class ChessBrowser {
 		// Set up template arguments
 		$templateArgs = [
 			'data-chess' => json_encode( $chessObject ),
+			'div-number' => $gameNum,
 			// TODO One day these dimensions will be determined by the user
 			'board-height' => '248px',
 			'board-width' => '248px',
