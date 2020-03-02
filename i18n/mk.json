@@ -4,5 +4,23 @@
 			"Bjankuloski06"
 		]
 	},
-	"chessbrowser-desc": "Става ознака „pgn“, и со тоа го прави интерактивен шаховскиот запис во партии."
+	"chessbrowser-desc": "Става ознака „pgn“, и со тоа го прави интерактивен шаховскиот запис во партии.",
+	"chessbrowser-expand-button": "Расклопи",
+	"chessbrowser-game-detail": "Подробно за партијата",
+	"chessbrowser-event-label": "Настан",
+	"chessbrowser-site-label": "Место",
+	"chessbrowser-date-label": "Датум",
+	"chessbrowser-round-label": "Круг",
+	"chessbrowser-white-label": "Бели",
+	"chessbrowser-black-label": "Црни",
+	"chessbrowser-result-label": "Исход",
+	"chessbrowser-beginning-of-game": "Оди на првиот потег",
+	"chessbrowser-previous-move": "Претходен потег",
+	"chessbrowser-slow-autoplay": "Побавно",
+	"chessbrowser-play-pause-button": "Пушти/Запри",
+	"chessbrowser-fast-autoplay": "Побрзо",
+	"chessbrowser-next-move": "Следен потег",
+	"chessbrowser-end-of-game": "Оди на последниот потег",
+	"chessbrowser-flip-board": "Префрли гледиште",
+	"chessbrowser-no-javascript": "JavaScript не е овозможен на страницава. За да ја гледате партијата интерактивно, ќе мора да го овозможите."
 }

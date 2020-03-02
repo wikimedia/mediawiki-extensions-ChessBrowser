@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido",
+			"Ihojose"
+		]
+	},
+	"chessbrowser-expand-button": "Expandir",
+	"chessbrowser-game-detail": "Detalles de partida",
+	"chessbrowser-event-label": "Evento",
+	"chessbrowser-site-label": "Sitio",
+	"chessbrowser-date-label": "Fecha",
+	"chessbrowser-round-label": "Ronda",
+	"chessbrowser-white-label": "Blanco",
+	"chessbrowser-black-label": "Negro",
+	"chessbrowser-result-label": "Resultado",
+	"chessbrowser-beginning-of-game": "Ir al primer movimiento",
+	"chessbrowser-previous-move": "Movimiento anterior",
+	"chessbrowser-slow-autoplay": "Más lento",
+	"chessbrowser-play-pause-button": "Jugar/Pausar",
+	"chessbrowser-fast-autoplay": "Más rápido",
+	"chessbrowser-next-move": "Siguiente movimiento",
+	"chessbrowser-end-of-game": "Ir al último movimiento",
+	"chessbrowser-no-javascript": "JavaScript no está habilitado en esta página. Para ver el juego interactivo, por favor habilite Javascript."
+}

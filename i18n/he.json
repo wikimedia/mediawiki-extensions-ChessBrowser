@@ -1,8 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"YaronSh"
 		]
 	},
-	"chessbrowser-desc": "הוספת תג pgn להצגת משחקי שחמט באופן אינטראקטיבי."
+	"chessbrowser-desc": "הוספת תג pgn להצגת משחקי שחמט באופן אינטראקטיבי.",
+	"chessbrowser-expand-button": "הרחבה",
+	"chessbrowser-game-detail": "פרטי המשחק",
+	"chessbrowser-event-label": "אירוע",
+	"chessbrowser-site-label": "אתר",
+	"chessbrowser-date-label": "תאריך",
+	"chessbrowser-round-label": "סיבוב",
+	"chessbrowser-white-label": "לבן",
+	"chessbrowser-black-label": "שחור",
+	"chessbrowser-result-label": "תוצאה",
+	"chessbrowser-beginning-of-game": "מעבר למהלך הראשון",
+	"chessbrowser-previous-move": "המהלך הקודם",
+	"chessbrowser-slow-autoplay": "אטי יותר",
+	"chessbrowser-fast-autoplay": "מהיר יותר",
+	"chessbrowser-next-move": "המהלך הבא",
+	"chessbrowser-end-of-game": "מעבר למהלך האחרון"
 }

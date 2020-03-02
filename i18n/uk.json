@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piramidion",
+			"Ата"
+		]
+	},
+	"chessbrowser-desc": "Додає тег pgn, аби робити шахову нотацію інтерактивною.",
+	"chessbrowser-expand-button": "Розгорнути",
+	"chessbrowser-game-detail": "Деталі гри",
+	"chessbrowser-event-label": "Подія",
+	"chessbrowser-site-label": "Сайт",
+	"chessbrowser-date-label": "Дата",
+	"chessbrowser-round-label": "Раунд",
+	"chessbrowser-white-label": "Білі",
+	"chessbrowser-black-label": "Чорні",
+	"chessbrowser-result-label": "Результат",
+	"chessbrowser-beginning-of-game": "Перейти до першого ходу",
+	"chessbrowser-previous-move": "Попередній хід",
+	"chessbrowser-slow-autoplay": "Повільніше",
+	"chessbrowser-play-pause-button": "Грати/Пауза",
+	"chessbrowser-fast-autoplay": "Швидше",
+	"chessbrowser-next-move": "Наступний хід",
+	"chessbrowser-end-of-game": "Перейти до останнього ходу",
+	"chessbrowser-flip-board": "Розвернути дошку",
+	"chessbrowser-no-javascript": "JavaScript не увімкнений на цій сторінці. Щоб інтерактивно переглянути гру, будь ласка, увімкніть JavaScript."
+}

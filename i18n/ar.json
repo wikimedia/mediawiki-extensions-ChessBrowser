@@ -1,8 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"ديفيد"
+			"ديفيد",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
-	"chessbrowser-desc": "يضيف وسم pgn لجعل تدوين لعبة الشطرنج تفاعليا."
+	"chessbrowser-desc": "يضيف وسم pgn لجعل تدوين لعبة الشطرنج تفاعليا.",
+	"chessbrowser-game-detail": "تفاصيل اللعبة",
+	"chessbrowser-date-label": "التاريخ",
+	"chessbrowser-round-label": "الدورة",
+	"chessbrowser-white-label": "الأبيض",
+	"chessbrowser-black-label": "الأسود",
+	"chessbrowser-slow-autoplay": "أبطأ"
 }

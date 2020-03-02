@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saederup92"
+		]
+	},
+	"chessbrowser-game-detail": "Spildetaljer",
+	"chessbrowser-date-label": "Dato",
+	"chessbrowser-round-label": "Runde",
+	"chessbrowser-white-label": "Hvid",
+	"chessbrowser-black-label": "Sort",
+	"chessbrowser-slow-autoplay": "Langsommer",
+	"chessbrowser-fast-autoplay": "Hurtigere"
+}

@@ -4,5 +4,23 @@
 			"BaRaN6161 TURK"
 		]
 	},
-	"chessbrowser-desc": "Satranç oyunu notasyonunu interaktif hale getirmek için pgn etiketi ekler."
+	"chessbrowser-desc": "Satranç oyunu notasyonunu interaktif hale getirmek için pgn etiketi ekler.",
+	"chessbrowser-expand-button": "Genişlet",
+	"chessbrowser-game-detail": "Oyun detayları",
+	"chessbrowser-event-label": "Olay",
+	"chessbrowser-site-label": "Site",
+	"chessbrowser-date-label": "Tarih",
+	"chessbrowser-round-label": "Raund",
+	"chessbrowser-white-label": "Beyaz",
+	"chessbrowser-black-label": "Siyah",
+	"chessbrowser-result-label": "Sonuç",
+	"chessbrowser-beginning-of-game": "İlk hamleye git",
+	"chessbrowser-previous-move": "Önceki hamle",
+	"chessbrowser-slow-autoplay": "Daha yavaş",
+	"chessbrowser-play-pause-button": "Oynat/Durdur",
+	"chessbrowser-fast-autoplay": "Daha hızlı",
+	"chessbrowser-next-move": "Sonraki hamle",
+	"chessbrowser-end-of-game": "Son hamleye git",
+	"chessbrowser-flip-board": "Pano perspektifi çevir",
+	"chessbrowser-no-javascript": "JavaScript bu sayfada etkin değil. Oyunu etkileşimli olarak görüntülemek için lütfen JavaScript'i etkinleştirin."
 }

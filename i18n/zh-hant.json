@@ -4,5 +4,23 @@
 			"Kly"
 		]
 	},
-	"chessbrowser-desc": "添加 pgn 標籤來建立棋盤遊戲符號互動。"
+	"chessbrowser-desc": "添加 pgn 標籤來建立棋盤遊戲符號互動。",
+	"chessbrowser-expand-button": "展開",
+	"chessbrowser-game-detail": "遊戲詳細資料",
+	"chessbrowser-event-label": "事件",
+	"chessbrowser-site-label": "站台",
+	"chessbrowser-date-label": "日期",
+	"chessbrowser-round-label": "回合",
+	"chessbrowser-white-label": "白",
+	"chessbrowser-black-label": "黑",
+	"chessbrowser-result-label": "結果",
+	"chessbrowser-beginning-of-game": "前往第一步",
+	"chessbrowser-previous-move": "上一步",
+	"chessbrowser-slow-autoplay": "較慢",
+	"chessbrowser-play-pause-button": "遊玩/暫停",
+	"chessbrowser-fast-autoplay": "較快",
+	"chessbrowser-next-move": "下一步",
+	"chessbrowser-end-of-game": "前往最後一步",
+	"chessbrowser-flip-board": "棋盤轉換",
+	"chessbrowser-no-javascript": "JavaScript 在此頁面上未啟用。要互動地觀看遊戲，請啟用 Javascript。"
 }

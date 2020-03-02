@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"chessbrowser-event-label": "Esdeveniment",
+	"chessbrowser-site-label": "Lloc",
+	"chessbrowser-date-label": "Data",
+	"chessbrowser-white-label": "Blanc",
+	"chessbrowser-black-label": "Negre",
+	"chessbrowser-no-javascript": "El JavaScript no s’ha activat a aquesta pàgina. Per a veure el joc interactiu, activeu el JavaScript."
+}
