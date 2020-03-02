@@ -60,16 +60,16 @@ class ChessBrowserTest extends MediaWikiTestCase {
 	 * @param function $testFunction
 	 * @param array $args
 	 * @param class $expectedException
-	 * @param string $expectedMessage
+	 * @param function $expectedMessage
 	 */
 	public function testThrowsProperException(
 		callable $testFunction,
 		array $args,
 		$expectedException,
-		$expectedMessage
+		callable $expectedMessage
 	) {
 		$this->expectException( $expectedException );
-		$this->expectExceptionMessage( $expectedMessage );
+		$this->expectExceptionMessage( $expectedMessage( ...$args ) );
 		$testFunction( ...$args );
 	}
 
@@ -78,7 +78,9 @@ class ChessBrowserTest extends MediaWikiTestCase {
 		$callback = function ( ...$args ) {
 			return ChessBrowser::createPiece( ...$args );
 		};
-		$message = 'Impossible rank or file';
+		$message = function ( $symbol, $rank, $file ) {
+			return "Impossible rank ($rank) or file ($file)";
+		};
 		$badRankOrFile = [
 			[
 				$callback,
@@ -121,6 +123,9 @@ class ChessBrowserTest extends MediaWikiTestCase {
 				$message
 			]
 		];
+		$badPieceTypeMessage = function ( $symbol, $rank, $file ) {
+			return "Invalid piece type $symbol";
+		};
 		$badPieceType = [
 			[
 				$callback,
@@ -130,7 +135,7 @@ class ChessBrowserTest extends MediaWikiTestCase {
 					0
 				],
 				ChessBrowserException::class,
-				'Invalid piece type 0'
+				$badPieceTypeMessage
 			]
 		];
 		return array_merge( $badRankOrFile, $badPieceType );

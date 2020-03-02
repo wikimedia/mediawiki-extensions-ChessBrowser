@@ -88,6 +88,9 @@ class ChessBrowser {
 				$rankIndex += 1;
 				$fileIndex = 0;
 			} else {
+				if ( $fileIndex > 7 ) {
+					continue;
+				}
 				array_push(
 					$pieceArray,
 					self::createPiece( $fenChar, $rankIndex, $fileIndex )
@@ -214,7 +217,7 @@ class ChessBrowser {
 	 */
 	public static function createPiece( $symbol, $rank, $file ) {
 		if ( $rank > 7 || $file > 7 || $rank < 0 || $file < 0 ) {
-			throw new ChessBrowserException( 'Impossible rank or file' );
+			throw new ChessBrowserException( "Impossible rank ($rank) or file ($file)" );
 		}
 
 		$validTypes = [ 'b', 'k', 'n', 'p', 'q', 'r' ];

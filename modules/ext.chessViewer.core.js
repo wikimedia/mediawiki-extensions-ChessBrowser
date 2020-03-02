@@ -38,7 +38,7 @@
 				plyIndex,
 				ply;
 			// display is an optional argument; defaults to last board state if undefined
-			display = display || me.plys.length - 1;
+			display = display || me.plys.length;
 			// the parser put its own pieces for "noscript" viewers, remove those first
 			me.$div.find( '.pgn-chessPiece' ).remove();
 			board = me.processFen( me.metadata.fen );
@@ -103,7 +103,11 @@
 					delete newBoard[ special[ 1 ][ 0 ] ];
 					break;
 				case 'promotion':
-					newBoard[ destination ] = me.createPiece( special[ 1 ], source[ 0 ], source[ 1 ] );
+					newBoard[ destination ] = me.createPiece(
+						special[ 1 ],
+						source[ 0 ],
+						source[ 1 ]
+					);
 					break;
 			}
 			return newBoard;
@@ -123,8 +127,8 @@
 		};
 
 		this.isOnBoard = function ( board ) {
-			return function ( piece ) {
-				if ( board.indexOf( piece ) === -1 ) {
+			return function ( $piece ) {
+				if ( board.indexOf( $piece ) === -1 ) {
 					return false;
 				} else {
 					return true;
@@ -136,21 +140,21 @@
 			var $piece,
 				pieceIndex,
 				$notation,
-				previousPlyNumber = me.currentPlyNumber,
-				board = me.boardStates[ index + 1 ],
+				board = me.boardStates[ index ],
 				piecesToAppear = board.filter(
 					me.isOnBoard( board )
 				),
 				toHide = me.pieces.filter(
-					me.isOnBoard( me.boardStates[ previousPlyNumber ] )
+					me.isOnBoard( me.boardStates[ me.currentPlyNumber ] )
 				);
+
 			for ( pieceIndex in toHide ) {
 				toHide[ pieceIndex ].addClass( 'pgn-piece-hidden' );
 			}
 
 			for ( pieceIndex in board ) {
 				$piece = board[ pieceIndex ];
-				if ( typeof piece === 'undefined' ) {
+				if ( typeof $piece === 'undefined' ) {
 					continue;
 				}
 				$piece.removeClass( me.allPositionClasses + ' pgn-piece-hidden' )
@@ -166,17 +170,15 @@
 					);
 			}
 
-			if ( index === me.boards.length - 1 ) {
+			if ( index === me.boards.length ) {
 				me.stopAutoplay();
 			}
 
 			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
 			me.currentPlyNumber = index;
-			$notation = $( "[data-ply='" + ( me.currentPlyNumber + 1 ) + "']", me.$div );
-			if ( $notation.length === 1 ) {
-				$notation.addClass( 'pgn-current-move' );
-				me.scrollNotationToView( $notation );
-			}
+			$notation = $( "[data-ply='" + ( me.currentPlyNumber ) + "']", me.$div );
+			$notation.addClass( 'pgn-current-move' );
+			me.scrollNotationToView( $notation );
 		};
 
 		this.scrollNotationToView = function ( $notation ) {
@@ -185,8 +187,7 @@
 				notationHeight = $notation.height(),
 				notationTop = $notation.position().top,
 				toMove,
-				scrollTop,
-				newScrolltop;
+				scrollTop;
 
 			if ( notationTop < 0 || notationTop + notationHeight > parentsHeight ) {
 				toMove = ( parentsHeight - notationHeight ) / 2 - notationTop;
@@ -210,7 +211,7 @@
 		};
 
 		this.advance = function () {
-			if ( me.currentPlyNumber < me.boards.length - 1 ) {
+			if ( me.currentPlyNumber < me.boards.length ) {
 				me.goToBoard( me.currentPlyNumber + 1 );
 			}
 		};
@@ -227,7 +228,7 @@
 		};
 
 		this.goToEnd = function () {
-			me.goToBoard( me.boards.length - 1 );
+			me.goToBoard( me.boards.length );
 		};
 
 		this.clickPlay = function () {
@@ -305,7 +306,11 @@
 		this.gameFactory();
 	}
 
+	// eslint-disable-next-line
 	chessPage = new ChessPage();
+	$( chessPage.gameInstances ).each( function ( game ) {
+		$( '.pgn-nojs-message', game.$div ).hide();
+	} );
 	// eslint-disable-next-line no-undef
 	mw.config.set( 'wgChessBrowserPage', chessPage );
 }() );
