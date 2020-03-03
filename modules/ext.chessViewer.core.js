@@ -35,8 +35,7 @@
 
 		this.makeBoard = function ( display ) {
 			var board,
-				plyIndex,
-				ply;
+				plyIndex;
 			// display is an optional argument; defaults to last board state if undefined
 			display = display || me.plys.length;
 			// the parser put its own pieces for "noscript" viewers, remove those first
@@ -44,8 +43,7 @@
 			board = me.processFen( me.metadata.fen );
 			me.boardStates.push( board );
 			for ( plyIndex in me.plys ) {
-				ply = me.plys[ plyIndex ];
-				board = me.processPly( board, ply );
+				board = me.processPly( board, me.plys[ plyIndex ] );
 				me.boardStates.push( board );
 			}
 			me.connectButtons();
@@ -118,7 +116,8 @@
 				color = symbol === lowerSymbol ? 'd' : 'l',
 				$pieceObject = $( '<div>' )
 					.data( 'piece', symbol )
-					.addClass( 'pgn-chessPiece pgn-ptype-color-' + lowerSymbol + color )
+					.addClass( 'pgn-chessPiece' )
+					.addClass( 'pgn-ptype-color-' + lowerSymbol + color )
 					.addClass( 'pgn-prow-' + rank )
 					.addClass( 'pgn-pfile-' + file );
 			me.pieces.push( $pieceObject );
@@ -128,11 +127,7 @@
 
 		this.isOnBoard = function ( board ) {
 			return function ( $piece ) {
-				if ( board.indexOf( $piece ) === -1 ) {
-					return false;
-				} else {
-					return true;
-				}
+				return board.indexOf( $piece ) !== -1;
 			};
 		};
 
@@ -157,15 +152,18 @@
 				if ( typeof $piece === 'undefined' ) {
 					continue;
 				}
-				$piece.removeClass( me.allPositionClasses + ' pgn-piece-hidden' )
+				$piece.removeClass( me.allPositionClasses )
+					.removeClass( 'pgn-piece-hidden' )
 					.toggleClass(
 						'pgn-transition-immediate',
 						piecesToAppear.indexOf( $piece ) > -1
 					)
 					.addClass(
 						'pgn-prow-' +
-						parseInt( pieceIndex % 8 ) +
-						' pgn-pfile-' +
+						parseInt( pieceIndex % 8 )
+					)
+					.addClass(
+						'pgn-pfile-' +
 						parseInt( Math.floor( pieceIndex / 8 ) )
 					);
 			}
