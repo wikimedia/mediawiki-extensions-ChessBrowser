@@ -118,7 +118,7 @@ class FenParser0x88 {
 	 */
 	private function parseFen() {
 		$pos = 0;
-		$this->cache['board'] = Board0x88Config::$defaultBoard;
+		$this->cache['board'] = Board0x88Config::getDefaultBoard();
 		$squares = Board0x88Config::$fenSquares;
 		for ( $i = 0, $len = strlen( $this->fenParts['pieces'] ); $i < $len; $i++ ) {
 			$token = $this->fenParts['pieces'][$i];
