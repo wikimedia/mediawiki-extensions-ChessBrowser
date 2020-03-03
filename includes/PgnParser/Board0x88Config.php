@@ -67,7 +67,7 @@ class Board0x88Config {
 	 */
 	public static function mapNumberToSquare( $number ) : string {
 		$number = intval( $number );
-		$square = self::$files[ $number % 8 ] . (string)( floor( $number / 16 ) + 1 );
+		$square = self::$fileMapping[ $number % 8 ] . (string)( floor( $number / 16 ) + 1 );
 		return $square;
 	}
 
