@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"chessbrowser-date-label": "Datums",
+	"chessbrowser-round-label": "Kārta",
+	"chessbrowser-white-label": "Baltie",
+	"chessbrowser-black-label": "Melnie"
+}
