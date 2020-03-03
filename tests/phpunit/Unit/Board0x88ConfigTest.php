@@ -21,7 +21,7 @@
  *
  * @covers Board0x88Config
  */
-class Board0x88ConfigTest extends MediaWikiTestCase {
+class Board0x88ConfigTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideMapSquareToNumber
