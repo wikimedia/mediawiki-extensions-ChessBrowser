@@ -24,16 +24,33 @@
 class Board0x88ConfigTest extends \MediaWikiUnitTestCase {
 
 	/**
-	 * @dataProvider provideMapSquareToNumber
+	 * @dataProvider provideSquaresToNumbers
 	 * @param string $square
-	 * @param int $expected
+	 * @param int $expectedNumber
 	 */
-	public function testMapSquareToNumber( string $square, int $expected ) {
+	public function testMapSquareToNumber( string $square, int $expectedNumber ) {
 		$number = Board0x88Config::mapSquareToNumber( $square );
-		$this->assertEquals( $expected, $number );
+		$this->assertSame( $expectedNumber, $number );
 	}
 
-	public static function provideMapSquareToNumber() {
+	public function testMapSquareToNumber_bad() {
+		$this->assertFalse(
+			Board0x88Config::mapSquareToNumber( 'InvalidSquare' ),
+			'Invalid squares return false'
+		);
+	}
+
+	/**
+	 * @dataProvider provideSquaresToNumbers
+	 * @param string $expectedSquare
+	 * @param int $number
+	 */
+	public function testMapNumberToSquare( string $expectedSquare, int $number ) {
+		$square = Board0x88Config::mapNumberToSquare( $number );
+		$this->assertSame( $expectedSquare, $square );
+	}
+
+	public static function provideSquaresToNumbers() {
 		return [
 			[ 'a1', 0 ],
 			[ 'b1', 1 ],
