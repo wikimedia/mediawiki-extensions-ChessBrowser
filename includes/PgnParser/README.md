@@ -1,13 +1,13 @@
-##PGN to PHP array parser
+## PGN to PHP array parser
 PHP class for conversion of Chess PGN files to PHP array or JSON.
 
 This is the chess parser used in DHTML Chess at dhtml-chess.com
 
-####License: LGPL (Lesser General Public License).
+#### License: LGPL (Lesser General Public License).
 
-#####Example of use:
+##### Example of use:
 
-######1) Import games from PGN file:
+###### 1) Import games from PGN file:
 
 ```PHP
 <?php
@@ -253,7 +253,7 @@ This will give you data in this format:
 ```
 
 
-######2) Create parser from PGN String
+###### 2) Create parser from PGN String
 
 ```PHP
 $pgn = '[Event "Moscow Championship (blitz) 2015"]
@@ -289,7 +289,7 @@ echo json_encode($game);
 
 ```
 
-######3) Create a game programatically.
+###### 3) Create a game programatically.
 This uses the FenParser0x88 class:
 
 ```PHP
@@ -301,7 +301,7 @@ $fen = $parser->getFen();
 // $fen = rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1
 ```
 
-######4) Get valid moves
+###### 4) Get valid moves
 
 ```PHP
 $parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
