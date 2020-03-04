@@ -21,7 +21,7 @@ class GameParser {
 	public function getParsedGame( $game, $short = false ) {
 		$this->game = $game;
 		$this->shortVersion = $short;
-		$this->fen = $this->getStartFen();
+		$this->fen = $game[ChessJson::FEN];
 
 		$this->fenParser0x88->newGame( $this->fen );
 		$this->parseMoves( $this->game[ChessJson::MOVE_MOVES] );
@@ -84,14 +84,4 @@ class GameParser {
 		}
 	}
 
-	/**
-	 * Get the start fen
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	private function getStartFen() {
-		return $this->game[ChessJson::FEN];
-	}
 }
