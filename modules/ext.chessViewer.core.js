@@ -15,8 +15,8 @@
 
 	function Game( identifier ) {
 		var me = this;
-		this.id = identifier;
-		this.$div = $( '#' + this.id );
+
+		this.$div = $( '#' + identifier );
 		this.$pgnBoardImg = this.$div.find( '.pgn-board-img' );
 		this.data = this.$div.data( 'chess' );
 		this.boards = this.data.boards;
@@ -36,8 +36,6 @@
 		this.makeBoard = function ( display ) {
 			var board,
 				plyIndex;
-			// display is an optional argument; defaults to last board state if undefined
-			display = display || me.plys.length;
 			// the parser put its own pieces for "noscript" viewers, remove those first
 			me.$div.find( '.pgn-chessPiece' ).remove();
 			board = me.processFen( me.metadata.fen );
@@ -47,7 +45,9 @@
 				me.boardStates.push( board );
 			}
 			me.connectButtons();
-			me.goToBoard( display );
+
+			// display is an optional argument; defaults to last board state if undefined
+			me.goToBoard( display || me.plys.length );
 		};
 
 		this.processFen = function ( fen ) {
@@ -67,10 +67,11 @@
 				fenLine = fenArray[ i ];
 				fenTokenList = fenLine.split( '' );
 				for ( j in fenTokenList ) {
-					fenToken = fenTokenList[ j ];
 					if ( file > 7 ) {
 						break;
 					}
+
+					fenToken = fenTokenList[ j ];
 					if ( /[prnbqk]/i.test( fenToken ) ) {
 						piecePosition = file * 8 + rank;
 						board[ piecePosition ] = me.createPiece( fenToken, rank, file );
@@ -92,6 +93,7 @@
 
 			newBoard[ destination ] = newBoard[ source ];
 			delete newBoard[ source ];
+
 			switch ( specialType ) {
 				case 'en passant':
 					delete newBoard[ special[ 1 ] ];
@@ -108,6 +110,7 @@
 					);
 					break;
 			}
+
 			return newBoard;
 		};
 
@@ -120,6 +123,7 @@
 					.addClass( 'pgn-ptype-color-' + lowerSymbol + color )
 					.addClass( 'pgn-prow-' + rank )
 					.addClass( 'pgn-pfile-' + file );
+
 			me.pieces.push( $pieceObject );
 			$pieceObject.appendTo( me.$pgnBoardImg );
 			return $pieceObject;
@@ -174,8 +178,9 @@
 
 			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
 			me.currentPlyNumber = index;
-			$notation = $( "[data-ply='" + ( me.currentPlyNumber ) + "']", me.$div );
-			$notation.addClass( 'pgn-current-move' );
+
+			$notation = $( "[data-ply='" + ( me.currentPlyNumber ) + "']", me.$div )
+				.addClass( 'pgn-current-move' );
 			me.scrollNotationToView( $notation );
 		};
 
