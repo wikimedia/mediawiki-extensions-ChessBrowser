@@ -7,6 +7,9 @@
 
 class JsonToPgnParser {
 
+	/**
+	 * @var array
+	 */
 	private $games;
 
 	public function __construct() {
@@ -43,7 +46,7 @@ class JsonToPgnParser {
 	/**
 	 * Convert a game to pgn
 	 *
-	 * @param arary $game
+	 * @param array $game
 	 * @return string
 	 */
 	private function gameToPgn( $game ) {
@@ -70,7 +73,7 @@ class JsonToPgnParser {
 	 * Get the first move
 	 *
 	 * @param array $game
-	 * @return int
+	 * @return int|float
 	 */
 	private function getStartMove( $game ) {
 		if ( empty( $game["fen"] ) ) {

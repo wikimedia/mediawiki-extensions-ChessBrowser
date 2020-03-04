@@ -1,6 +1,5 @@
 <?php
 
-
 class GameParser {
 
 	private $game;
@@ -25,12 +24,8 @@ class GameParser {
 
 		$this->fenParser0x88->newGame( $this->fen );
 		$this->parseMoves( $this->game[ChessJson::MOVE_MOVES] );
-		$this->addParsedProperty();
-		return $this->game;
-	}
-
-	private function addParsedProperty() {
 		$this->game[ChessJson::GAME_METADATA][ChessJson::MOVE_PARSED] = 1;
+		return $this->game;
 	}
 
 	/**
@@ -57,12 +52,11 @@ class GameParser {
 				&& isset( $move[ChessJson::MOVE_FROM] )
 				&& isset( $move[ChessJson::MOVE_TO] )
 			)
+			|| strlen( $move[ChessJson::MOVE_NOTATION] ) < 2
 		) {
 			return;
 		}
 
-		if ( strlen( $move[ChessJson::MOVE_NOTATION] ) < 2 ) { return;
-		}
 		if ( isset( $move[ChessJson::MOVE_VARIATIONS] ) ) {
 			$fen = $this->fenParser0x88->getFen();
 			$this->parseVariations( $move[ChessJson::MOVE_VARIATIONS] );
