@@ -89,21 +89,11 @@ class PgnGameParser {
 
 		$key = $tokens[0];
 		$value = implode( " ", array_slice( $tokens, 1 ) );
-		$ret = [ 'key' => $this->getValidKey( $key ),  'value' => $value ];
+		$ret = [
+			'key' => strtolower( $key ),
+			'value' => $value
+		];
 		return $ret;
-	}
-
-	/**
-	 * Convert a key to lowercase
-	 *
-	 * TODO is this really needed?
-	 *
-	 * @param string $key
-	 * @return string
-	 */
-	private function getValidKey( $key ) {
-		$key = strtolower( $key );
-		return $key;
 	}
 
 	/**
