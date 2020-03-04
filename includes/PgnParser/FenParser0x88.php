@@ -265,6 +265,8 @@ class FenParser0x88 {
 			}
 		}
 
+		# New code section
+		# The above should be spun out
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
 			'@phan-var int[] $piece';
@@ -403,8 +405,9 @@ class FenParser0x88 {
 						$directions = [];
 					}
 				}
+				$oldSquare = $square;
 				foreach ( $directions as $aValue ) {
-					$square += $aValue;
+					$square = $oldSquare + $aValue;
 					while ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
 							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
@@ -422,8 +425,9 @@ class FenParser0x88 {
 				if ( $isPinned ) {
 					break;
 				}
+				$oldSquare = $square;
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-					$square += $directions[$a];
+					$square = $oldSquare + $directions[$a];
 					if ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
 							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
@@ -437,8 +441,9 @@ class FenParser0x88 {
 				break;
 			case ChessPiece::WHITE_KING:
 			case ChessPiece::BLACK_KING:
+				$oldSquare = $square;
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-					$square += $directions[$a];
+					$square = $oldSquare + $directions[$a];
 					if ( ( $square & 0x88 ) === 0 &&
 						strpos( $protectiveMoves, $this->keySquares[$square] ) === false
 					) {
@@ -451,6 +456,7 @@ class FenParser0x88 {
 						}
 					}
 				}
+				$square = $oldSquare;
 
 				if ( $kingSideCastle
 					&& !( $board[$square + 1] )
@@ -807,24 +813,34 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get a count of the checks
+	 * Counts the number of pieces checking the $king
 	 *
-	 * TODO document what that means, and what the params can be
+	 * $king is set by FenParser0x88::parseFen and FenParser0x88::updatePieces
+	 *  where $king['s'] is the square the king occupies. To determine if the
+	 *  $king is in check, this method evaluates whether the square the king is
+	 *  on---$king['s']---is one (or more) of the squares the opponent's pieces
+	 *  can move to.
 	 *
-	 * @param mixed $kingColor
-	 * @param mixed $moves
+	 * Because FenParser0x88::getCaptureAndProtectiveMoves returns a string, this
+	 *  method searches that string to see how many times the king's square is in
+	 *  that list. Because the string '2' would match both '2' and '22', we
+	 *  ensure that it matches all and only the integer representing the king's
+	 *  square by searching for the integer surrounded by commas. The mapping from
+	 *  integer to substring (needle) is stored in Board0x88Config::$keySquares.
+	 *
+	 * @param string $kingColor Color of the king being checked; either
+	 *  'white' or 'black'
+	 * @param string $moveString a comma-delimited string of move targets, output
+	 *  by FenParser0x88::getCaptureAndProtectiveMoves. Each field is a
+	 *  square (represented by an integer) where the other player's pieces
+	 *  can move to.
+	 * @see FenParser0x88::getCaptureAndProtectiveMoves
+	 * @see Board0x88Config::$keySquares
 	 * @return int
 	 */
-	public function getCountChecks( $kingColor, $moves ) {
+	public function getCountChecks( $kingColor, $moveString ) {
 		$king = $this->cache['king' . $kingColor];
-		$index = strpos( $moves, $this->keySquares[$king['s']] );
-		if ( $index > 0 ) {
-			if ( strpos( $moves, $this->keySquares[$king['s']], $index + 1 ) > 0 ) {
-				return 2;
-			}
-			return 1;
-		}
-		return 0;
+		return substr_count( $moveString, $this->keySquares[$king['s']] );
 	}
 
 	/**
@@ -1116,7 +1132,7 @@ class FenParser0x88 {
 	 * $move can be a string like Nf3, g1f3 or an array with from and to squares,
 	 * like array("from" => "g1", "to"=>"f3")
 	 *
-	 * @param mixed $move
+	 * @param string|array $move
 	 * @throws ChessBrowserException
 	 */
 	public function move( $move ) {
@@ -1301,6 +1317,8 @@ class FenParser0x88 {
 
 	/**
 	 * Convert a move to notation
+	 *
+	 * Does NOT add + or #, so it is an incomplete notation
 	 *
 	 * @param array $move
 	 * @return string
