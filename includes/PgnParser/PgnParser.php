@@ -177,17 +177,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get the full parsing
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	private function fullParsing() {
-		return $this->fullParsing;
-	}
-
-	/**
 	 * Get games that aren't parsed
 	 *
 	 * TODO document
@@ -338,7 +327,7 @@ class PgnParser {
 	private function getParsedGame( $unParsedGame ) {
 		$this->pgnGameParser->setPgn( $unParsedGame );
 		$ret = $this->pgnGameParser->getParsedData();
-		if ( $this->fullParsing() ) {
+		if ( $this->fullParsing ) {
 			$ret = $this->gameParser->getParsedGame( $ret );
 		}
 		return $ret;
@@ -353,7 +342,7 @@ class PgnParser {
 	private function getParsedGameShort( $unParsedGame ) {
 		$this->pgnGameParser->setPgn( $unParsedGame );
 		$ret = $this->pgnGameParser->getParsedData();
-		if ( $this->fullParsing() ) {
+		if ( $this->fullParsing ) {
 			$ret = $this->gameParser->getParsedGame( $ret, true );
 			$moves = &$ret["moves"];
 			$moves = $this->toShortVersion( $moves );
