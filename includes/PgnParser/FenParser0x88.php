@@ -2141,11 +2141,12 @@ class FenParser0x88 {
 		for ( $rank = 7; $rank >= 0; $rank-- ) {
 			for ( $file = 0; $file < 8; $file++ ) {
 				$index = ( $rank * 8 ) + $file;
-				if ( $board[Board0x88Config::$numericMapping[$index]] ) {
+				$mapped = Board0x88Config::mapNumber( $index );
+				if ( $board[$mapped] ) {
 					if ( $emptyCounter ) {
 						$fen .= $emptyCounter;
 					}
-					$fen .= Board0x88Config::$pieceMapping[$board[Board0x88Config::$numericMapping[$index]]];
+					$fen .= Board0x88Config::$pieceMapping[$board[$mapped]];
 					$emptyCounter = 0;
 				} else {
 					$emptyCounter++;
