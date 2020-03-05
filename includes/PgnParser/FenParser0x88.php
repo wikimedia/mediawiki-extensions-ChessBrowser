@@ -406,15 +406,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the active color (which player's turn it is)
-	 *
-	 * @return string
-	 */
-	private function getColorCode() {
-		return $this->fenParts['color'];
-	}
-
-	/**
 	 * Returns whether white can castle queen side (from current fen)
 	 *
 	 * @return bool
@@ -2175,7 +2166,7 @@ class FenParser0x88 {
 		}
 		$returnValue = $fen
 			. ' '
-			. $this->getColorCode()
+			. $this->fenParts['color']
 			. ' '
 			. $this->getCastle()
 			. ' '
