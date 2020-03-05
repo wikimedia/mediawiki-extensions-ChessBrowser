@@ -881,25 +881,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get getValidSquaresOnCheck($color) in chess coordinates system
-	 *
-	 * example: array("g2","g3","g4","g5","g6",g7","g8")
-	 * $color is either "white" or "black"
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getValidSquaresOnCheckBoardCoordinates( $color ) {
-		$squares = $this->getValidSquaresOnCheck( $color );
-
-		$ret = [];
-		foreach ( $squares as $square ) {
-			$ret[] = Board0x88Config::mapNumberToSquare( $square );
-		}
-		return $ret;
-	}
-
-	/**
 	 * Get valid squares for other pieces than king to move to when in check
 	 *
 	 * i.e. squares which avoids the check.
