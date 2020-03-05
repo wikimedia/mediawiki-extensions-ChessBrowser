@@ -402,10 +402,11 @@ class FenParser0x88 {
 					) {
 						if ( !$this->cache['board'][$piece['s'] + 16] ) {
 							$paths[] = $piece['s'] + 16;
-							if ( $piece['s'] < 32 ) {
-								if ( !$this->cache['board'][$piece['s'] + 32] ) {
-									$paths[] = $piece['s'] + 32;
-								}
+							if (
+								$piece['s'] < 32
+								&& !$this->cache['board'][$piece['s'] + 32]
+							) {
+								$paths[] = $piece['s'] + 32;
 							}
 						}
 					}
@@ -446,10 +447,11 @@ class FenParser0x88 {
 					) {
 						if ( !$this->cache['board'][$piece['s'] - 16] ) {
 							$paths[] = $piece['s'] - 16;
-							if ( $piece['s'] > 87 ) {
-								if ( !$this->cache['board'][$piece['s'] - 32] ) {
-									$paths[] = $piece['s'] - 32;
-								}
+							if (
+								$piece['s'] > 87
+								&& !$this->cache['board'][$piece['s'] - 32]
+							) {
+								$paths[] = $piece['s'] - 32;
 							}
 						}
 					}
@@ -501,10 +503,10 @@ class FenParser0x88 {
 						$square = $piece['s'] + $directions[$a];
 						while ( ( $square & 0x88 ) === 0 ) {
 							if ( $this->cache['board'][$square] ) {
-								if ( (
-									$WHITE && $this->cache['board'][$square] & 0x8 )
-									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 )
-								) ) {
+								if (
+									( $WHITE && $this->cache['board'][$square] & 0x8 )
+									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+								) {
 									$paths[] = $square;
 								}
 								break;
@@ -526,10 +528,10 @@ class FenParser0x88 {
 
 						if ( ( $square & 0x88 ) === 0 ) {
 							if ( $this->cache['board'][$square] ) {
-								if ( (
-									$WHITE && $this->cache['board'][$square] & 0x8 )
-									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 )
-								) ) {
+								if (
+									( $WHITE && $this->cache['board'][$square] & 0x8 )
+									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+								) {
 									$paths[] = $square;
 								}
 							} else {
@@ -549,10 +551,10 @@ class FenParser0x88 {
 							if ( !strstr( $protectiveMoves, Board0x88Config::$keySquares[$square] ) ) {
 								# if ($protectiveMoves.indexOf(Board0x88Config::$keySquares[$square]) == -1) {
 								if ( $this->cache['board'][$square] ) {
-									if ( (
-										$WHITE && $this->cache['board'][$square] & 0x8 )
-										|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 )
-									) ) {
+									if (
+										( $WHITE && $this->cache['board'][$square] & 0x8 )
+										|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+									) {
 										$paths[] = $square;
 									}
 								} else {
@@ -567,14 +569,9 @@ class FenParser0x88 {
 						&& !( $this->cache['board'][$piece['s'] + 2] )
 						&& ( $this->cache['board'][$piece['s'] + 3] )
 						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] )
-						&& (
-							$piece['s'] < 118
-							&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1] )
-						)
-						&& (
-							$piece['s'] < 117
-							&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2] )
-						)
+						&& $piece['s'] < 117
+						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1] )
+						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2] )
 					) {
 						$paths[] = $piece['s'] + 2;
 					}
@@ -846,14 +843,8 @@ class FenParser0x88 {
 				$squares[] = $square;
 				if ( $this->cache['board'][$square] ) {
 					$countOpposite++;
-					// TODO XOR?
-					if (
-						( !$WHITE && $this->cache['board'][$square] & 0x8 )
-						|| (
-							$WHITE
-							&& !( $this->cache['board'][$square] & 0x8 )
-						)
-					) {
+
+					if ( $WHITE xor ( $this->cache['board'][$square] & 0x8 ) ) {
 						$pinning = $square;
 					} else {
 						break;
@@ -1072,7 +1063,6 @@ class FenParser0x88 {
 		if ( $this->isEnPassantMove( $move ) ) {
 			if ( $color == 'black' ) {
 				$square = $move['to'] + 16;
-
 			} else {
 				$square = $move['to'] - 16;
 			}
@@ -1231,10 +1221,7 @@ class FenParser0x88 {
 		$ret = [ 'promoteTo' => $this->getPromoteByNotation( $notation ) ];
 		$color = $this->getColor();
 
-		$offset = 0;
-		if ( $color === 'black' ) {
-			$offset = 112;
-		}
+		$offset = ( $color === 'black' ? 112 : 0 );
 
 		$foundPieces = [];
 		$fromRank = $this->getFromRankByNotation( $notation );
@@ -1283,7 +1270,6 @@ class FenParser0x88 {
 					break;
 				case 0x03:
 				case 0x0B:
-
 					if ( $notation === 'O-O' ) {
 						$foundPieces[] = ( $offset + 4 );
 						$ret['to'] = $offset + 6;
@@ -1497,11 +1483,12 @@ class FenParser0x88 {
 	 * @throws FenParser0x88Exception
 	 */
 	public function move( $move ) {
-		if ( is_string( $move ) && strlen( $move ) == 4 ) {
-			$move = $this->getFromAndToByLongNotation( $move );
-
-		} elseif ( is_string( $move ) ) {
-			$move = $this->getFromAndToByNotation( $move );
+		if ( is_string( $move ) ) {
+			if ( strlen( $move ) === 4 ) {
+				$move = $this->getFromAndToByLongNotation( $move );
+			} else {
+				$move = $this->getFromAndToByNotation( $move );
+			}
 		}
 
 		$validMoves = $this->validMoves();
@@ -1524,10 +1511,8 @@ class FenParser0x88 {
 
 		if ( $config['result'] === 1 || $config['result'] === -1 ) {
 			$this->notation .= '#';
-		} else {
-			if ( $config['check'] > 0 ) {
-				$this->notation .= '+';
-			}
+		} elseif ( $config['check'] > 0 ) {
+			$this->notation .= '+';
 		}
 	}
 
@@ -1584,11 +1569,8 @@ class FenParser0x88 {
 		$color = ( $movedPiece & 0x8 ) ? 'black' : 'white';
 		$enPassant = '-';
 
-		if ( $this->cache['board'][$move['to']] ) {
-			$incrementHalfMoves = false;
-		} else {
-			$incrementHalfMoves = true;
-		}
+		$incrementHalfMoves = !( $this->cache['board'][$move['to']] );
+
 		if (
 			( $this->cache['board'][$move['from']] === 0x01
 				|| $this->cache['board'][$move['from']] == 0x09 )
@@ -1680,16 +1662,14 @@ class FenParser0x88 {
 			case 0x06:
 				if ( $from === 0 ) {
 					$this->setCastle( preg_replace( "/[Q]/s", "", $this->getCastle() ) );
-				}
-				if ( $from === 7 ) {
+				} elseif ( $from === 7 ) {
 					$this->setCastle( preg_replace( "/[K]/s", "", $this->getCastle() ) );
 				}
 				break;
 			case 0x0E:
 				if ( $from === 112 ) {
 					$this->setCastle( preg_replace( "/[q]/s", "", $this->getCastle() ) );
-				}
-				if ( $from === 119 ) {
+				} elseif ( $from === 119 ) {
 					$this->setCastle( preg_replace( "/[k]/s", "", $this->getCastle() ) );
 				}
 				break;
@@ -1776,13 +1756,15 @@ class FenParser0x88 {
 
 				$configMoves = $config['moves'];
 				foreach ( $configMoves as $square => $moves ) {
-					if ( $square != $move['from'] && $this->cache['board'][$square] === $type ) {
-						if ( array_search( $move['to'], $moves ) !== false ) {
-							if ( ( $square & 15 ) != ( $move['from'] & 15 ) ) {
-								$ret .= Board0x88Config::$fileMapping[$move['from'] & 15];
-							} elseif ( ( $square & 240 ) != ( $move['from'] & 240 ) ) {
-								$ret .= Board0x88Config::$rankMapping[$move['from'] & 240];
-							}
+					if (
+						$square != $move['from']
+						&& $this->cache['board'][$square] === $type
+						&& array_search( $move['to'], $moves ) !== false
+					) {
+						if ( ( $square & 15 ) != ( $move['from'] & 15 ) ) {
+							$ret .= Board0x88Config::$fileMapping[$move['from'] & 15];
+						} elseif ( ( $square & 240 ) != ( $move['from'] & 240 ) ) {
+							$ret .= Board0x88Config::$rankMapping[$move['from'] & 240];
 						}
 					}
 				}
@@ -1805,9 +1787,8 @@ class FenParser0x88 {
 					if ( $this->cache['board'][$move['to']] ) {
 						$ret .= 'x';
 					}
-					$ret .= Board0x88Config::$fileMapping[$move['to'] & 15]
-						. ''
-						. Board0x88Config::$rankMapping[$move['to'] & 240];
+					$ret .= Board0x88Config::$fileMapping[$move['to'] & 15];
+					$ret .= Board0x88Config::$rankMapping[$move['to'] & 240];
 				}
 				break;
 
