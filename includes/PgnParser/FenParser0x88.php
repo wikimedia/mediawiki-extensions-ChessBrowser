@@ -215,43 +215,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Return square of white king, example: "g1"
-	 *
-	 * Example:
-	 * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
-	 * $whiteKing = $parser->getWhiteKingSquare(); // returns g1
-	 *
-	 * @return string
-	 */
-	public function getWhiteKingSquare() {
-		return $this->getKingSquareBoardCoordinates( "white" );
-	}
-
-	/**
-	 * Returns square of black king, example "g8"
-	 *
-	 * Example:
-	 * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
-	 * $whiteKing = $parser->getBlackKingSquare(); // returns g8
-	 *
-	 * @return string
-	 */
-	public function getBlackKingSquare() {
-		return $this->getKingSquareBoardCoordinates( "black" );
-	}
-
-	/**
-	 * Get the coordinate of the square a king is on
-	 *
-	 * @param sting $color
-	 * @return string
-	 */
-	public function getKingSquareBoardCoordinates( $color ) {
-		$king = $this->getKing( $color );
-		return Board0x88Config::mapNumberToSquare( $king["s"] );
-	}
-
-	/**
 	 * Returns king square in numeric format.
 	 *
 	 * Example:
