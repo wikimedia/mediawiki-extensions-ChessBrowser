@@ -273,22 +273,6 @@ class Board0x88Config {
 
 	];
 
-	// just check case
-	public static $colorMapping = [
-		'p' => 'black',
-		'n' => 'black',
-		'b' => 'black',
-		'r' => 'black',
-		'q' => 'black',
-		'k' => 'black',
-		'P' => 'white',
-		'N' => 'white',
-		'B' => 'white',
-		'R' => 'white',
-		'Q' => 'white',
-		'K' => 'white'
-	];
-
 	public static $castle = [
 		'-' => 0,
 		'K' => 8,
