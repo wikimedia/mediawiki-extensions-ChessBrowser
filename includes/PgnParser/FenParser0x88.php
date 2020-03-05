@@ -1157,15 +1157,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Make a new move from a given notation
-	 *
-	 * @param string $notation
-	 */
-	public function makeMoveByNotation( $notation ) {
-		$this->makeMove( $this->getFromAndToByNotation( $notation ) );
-	}
-
-	/**
 	 * Make a new move from an array
 	 *
 	 * @param array $move
