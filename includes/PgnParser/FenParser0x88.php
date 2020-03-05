@@ -282,16 +282,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns pieces in given color
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getPiecesOfAColor( $color ) {
-		return $this->cache[$color];
-	}
-
-	/**
 	 * Returns en passant square or null
 	 *
 	 * @return string|null
