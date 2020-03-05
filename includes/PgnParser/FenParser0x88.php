@@ -309,24 +309,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns count half moves made (1. e4 e5 2 Nf3 Nf6 counts as 4 half moves)
-	 *
-	 * @return int
-	 */
-	public function getHalfMoves() {
-		return $this->fenParts['halfMoves'];
-	}
-
-	/**
-	 * Returns count full moves made (1. e4 e5 2 Nf3 Nf6 counts as 2 full moves)
-	 *
-	 * @return int
-	 */
-	public function getFullMoves() {
-		return $this->fenParts['fullMoves'];
-	}
-
-	/**
 	 * Returns whether white can castle king side
 	 *
 	 * Example:
@@ -2118,9 +2100,9 @@ class FenParser0x88 {
 			. ' '
 			. $this->fenParts['enPassant']
 			. ' '
-			. $this->getHalfMoves()
+			. $this->fenParts['halfMoves']
 			. ' '
-			. $this->getFullMoves();
+			. $this->fenParts['fullMoves'];
 		return $returnValue;
 	}
 }
