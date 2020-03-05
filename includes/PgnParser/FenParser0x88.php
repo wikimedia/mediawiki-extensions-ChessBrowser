@@ -1806,15 +1806,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the castle code
-	 *
-	 * @return int
-	 */
-	public function getCastleCode() {
-		return $this->fenParts['castleCode'];
-	}
-
-	/**
 	 * updateBoardData based on passed move
 	 *
 	 * @param array $move
