@@ -291,34 +291,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns whether white can castle king side
-	 *
-	 * Example:
-	 * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-	 * $parser = new FenParser0x88($fen);
-	 * $whiteCanCastle = $parser->canWhiteCastleKingSide();
-	 *
-	 * @return bool
-	 */
-	public function canWhiteCastleKingSide() {
-		return $this->canCastleKingSide( "white" );
-	}
-
-	/**
-	 * Returns whether black can castle king side
-	 *
-	 * Example:
-	 * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-	 * $parser = new FenParser0x88($fen);
-	 * $blackCanCastle = $parser->canBlackCastleKingSide();
-	 *
-	 * @return bool
-	 */
-	public function canBlackCastleKingSide() {
-		return $this->canCastleKingSide( "black" );
-	}
-
-	/**
 	 * Return boolean true if king side castling is possible for a color
 	 *
 	 * Example:
@@ -358,24 +330,6 @@ class FenParser0x88 {
 	 */
 	public function switchColor() {
 		$this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
-	}
-
-	/**
-	 * Returns whether white can castle queen side (from current fen)
-	 *
-	 * @return bool
-	 */
-	public function canWhiteCastleQueenSide() {
-		return $this->canCastleQueenSide( "white" );
-	}
-
-	/**
-	 * Returns whether black can castle queen side (from current fen)
-	 *
-	 * @return bool
-	 */
-	public function canBlackCastleQueenSide() {
-		return $this->canCastleQueenSide( "black" );
 	}
 
 	/**
