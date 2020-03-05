@@ -1747,7 +1747,7 @@ class FenParser0x88 {
 	 * like array("from" => "g1", "to"=>"f3")
 	 *
 	 * @param mixed $move
-	 * @throws FenParser0x99Exception
+	 * @throws FenParser0x88Exception
 	 */
 	public function move( $move ) {
 		if ( is_string( $move ) && strlen( $move ) == 4 ) {
