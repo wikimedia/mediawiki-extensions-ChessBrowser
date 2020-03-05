@@ -299,16 +299,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns array of sliding pieces (i.e. bishop, rook and queens) for a color
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getSlidingPieces( $color ) {
-		return $this->cache[$color . 'Sliding'];
-	}
-
-	/**
 	 * Returns whether white can castle king side
 	 *
 	 * Example:
