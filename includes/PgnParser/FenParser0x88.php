@@ -1888,13 +1888,14 @@ class FenParser0x88 {
 		}
 
 		if ( $color === 'black' ) {
-			$this->incrementFullMoves();
+			$this->fenParts['fullMoves']++;
 		}
 		if ( $incrementHalfMoves ) {
-			$this->incrementHalfMoves();
+			$this->fenParts['halfMoves']++;
 		} else {
-			$this->resetHalfMoves();
+			$this->fenParts['halfMoves'] = 0;
 		}
+
 		$this->cache['board'][$move['to']] = $this->cache['board'][$move['from']];
 		$this->cache['board'][$move['from']] = null;
 		if ( $move['promoteTo'] ) {
@@ -1967,27 +1968,6 @@ class FenParser0x88 {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Increase the number of full moves by one
-	 */
-	private function incrementFullMoves() {
-		$this->fenParts['fullMoves']++;
-	}
-
-	/**
-	 * Increase the number of half moves by one
-	 */
-	private function incrementHalfMoves() {
-		$this->fenParts['halfMoves']++;
-	}
-
-	/**
-	 * Reset the number of half moves to zero
-	 */
-	private function resetHalfMoves() {
-		$this->fenParts['halfMoves'] = 0;
 	}
 
 	/**
