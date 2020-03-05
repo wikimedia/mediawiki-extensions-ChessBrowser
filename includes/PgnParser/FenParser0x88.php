@@ -384,9 +384,18 @@ class FenParser0x88 {
 	 * Return color to move, "white" or "black"
 	 *
 	 * @return string
+	 * @throws FenParser0x88Exception
 	 */
 	public function getColor() {
-		return Board0x88Config::$colorAbbreviations[$this->fenParts['color']];
+		$color = $this->fenParts['color'];
+		switch ( $color ) {
+			case 'w':
+				return 'white';
+			case 'b':
+				return 'black';
+			default:
+				throw new FenParser0x88Exception( "Unknown color: $color" );
+		}
 	}
 
 	/**

@@ -42,8 +42,6 @@ class Board0x88Config {
 		'K' => 'whiteKing'
 	];
 
-	public static $colorAbbreviations = [ 'w' => 'white', 'b' => 'black' ];
-
 	public static $oppositeColors = [ 'white' => 'black', 'black' => 'white' ];
 
 	/**
