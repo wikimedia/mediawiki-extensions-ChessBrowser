@@ -1183,19 +1183,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get extended move information
-	 *
-	 * TODO this is the same as getParsed
-	 *
-	 * @param string|array $move
-	 * @return array
-	 */
-	public function getExtendedMoveInfo( $move ) {
-		$move = $this->getParsed( $move );
-		return $move;
-	}
-
-	/**
 	 * Get the parsed form of a move
 	 *
 	 * @param string|array $move
