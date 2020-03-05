@@ -1920,17 +1920,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the pieces involved in the last move
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	public function getPiecesInvolvedInLastMove() {
-		return $this->piecesInvolved;
-	}
-
-	/**
 	 * Get the notation
 	 *
 	 * TODO document
