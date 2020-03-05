@@ -1739,7 +1739,12 @@ class FenParser0x88 {
 			$move = $this->getFromAndToByNotation( $move );
 		}
 
-		if ( !$this->canMoveFromTo( $move["from"], $move["to"] ) ) {
+		$validMoves = $this->validMoves();
+
+		$from = Board0x88Config::mapSquareToNumber( $move['from'] );
+		$to = Board0x88Config::mapSquareToNumber( $move['to'] );
+
+		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
 			throw new FenParser0x88Exception(
 				"Invalid move " . $this->getColor() . " - " . json_encode( $move )
 			);
@@ -1760,27 +1765,6 @@ class FenParser0x88 {
 				$this->notation .= '+';
 			}
 		}
-	}
-
-	/**
-	 * Is a move from $from to $to valid
-	 *
-	 * TODO just return if
-	 *
-	 * @param string $from
-	 * @param string $to
-	 * @return bool
-	 */
-	private function canMoveFromTo( $from, $to ) {
-		$validMoves = $this->validMoves();
-
-		$from = Board0x88Config::mapSquareToNumber( $from );
-		$to = Board0x88Config::mapSquareToNumber( $to );
-
-		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
