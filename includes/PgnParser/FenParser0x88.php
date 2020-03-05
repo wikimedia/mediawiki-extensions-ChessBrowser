@@ -279,13 +279,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Switch the active color (which player's turn it is)
-	 */
-	public function switchColor() {
-		$this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
-	}
-
-	/**
 	 * Returns whether queen side castle for given color is possible (based on
 	 * fen only, i.e. no checks or obstructions are checked).
 	 *
@@ -1198,7 +1191,10 @@ class FenParser0x88 {
 		if ( isset( $move['m'] ) ) {
 			if ( $move['m'] == '--' ) {
 				$this->fen = null;
-				$this->switchColor();
+
+				// Switch active color
+				$this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
+
 				return [
 					'm' => $move['m'],
 					'fen' => $this->getFen()
