@@ -134,7 +134,9 @@ class FenParser0x88 {
 				$this->cache['board'][$index] = $type;
 
 				// White and black array
-				$this->cache[Board0x88Config::$colorMapping[$token]][] = $piece;
+				// Black tokens are already lowercase
+				$color = ( $token === strtolower( $token ) ? 'black' : 'white' );
+				$this->cache[$color][] = $piece;
 
 				// King array
 				if ( Board0x88Config::$typeMapping[$type] == 'king' ) {
@@ -145,16 +147,6 @@ class FenParser0x88 {
 				$pos += intval( $token );
 			}
 		}
-	}
-
-	/**
-	 * Returns the piece on a square given the square's coordinate
-	 *
-	 * @param string $square
-	 * @return array|null
-	 */
-	public function getPieceOnSquareBoardCoordinate( $square ) {
-		return $this->getPieceOnSquare( Board0x88Config::mapSquareToNumber( $square ) );
 	}
 
 	/**
@@ -223,43 +215,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Return square of white king, example: "g1"
-	 *
-	 * Example:
-	 * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
-	 * $whiteKing = $parser->getWhiteKingSquare(); // returns g1
-	 *
-	 * @return string
-	 */
-	public function getWhiteKingSquare() {
-		return $this->getKingSquareBoardCoordinates( "white" );
-	}
-
-	/**
-	 * Returns square of black king, example "g8"
-	 *
-	 * Example:
-	 * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
-	 * $whiteKing = $parser->getBlackKingSquare(); // returns g8
-	 *
-	 * @return string
-	 */
-	public function getBlackKingSquare() {
-		return $this->getKingSquareBoardCoordinates( "black" );
-	}
-
-	/**
-	 * Get the coordinate of the square a king is on
-	 *
-	 * @param sting $color
-	 * @return string
-	 */
-	public function getKingSquareBoardCoordinates( $color ) {
-		$king = $this->getKing( $color );
-		return Board0x88Config::mapNumberToSquare( $king["s"] );
-	}
-
-	/**
 	 * Returns king square in numeric format.
 	 *
 	 * Example:
@@ -280,87 +235,12 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns pieces in given color
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getPiecesOfAColor( $color ) {
-		return $this->cache[$color];
-	}
-
-	/**
 	 * Returns en passant square or null
 	 *
 	 * @return string|null
 	 */
 	public function getEnPassantSquare() {
 		return ( $this->fenParts['enPassant'] != '-' ) ? $this->fenParts['enPassant'] : null;
-	}
-
-	/**
-	 * Set the en passant square
-	 *
-	 * @param string $square
-	 */
-	private function setEnPassantSquare( $square ) {
-		$this->fenParts['enPassant'] = $square;
-	}
-
-	/**
-	 * Returns array of sliding pieces (i.e. bishop, rook and queens) for a color
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getSlidingPieces( $color ) {
-		return $this->cache[$color . 'Sliding'];
-	}
-
-	/**
-	 * Returns count half moves made (1. e4 e5 2 Nf3 Nf6 counts as 4 half moves)
-	 *
-	 * @return int
-	 */
-	public function getHalfMoves() {
-		return $this->fenParts['halfMoves'];
-	}
-
-	/**
-	 * Returns count full moves made (1. e4 e5 2 Nf3 Nf6 counts as 2 full moves)
-	 *
-	 * @return int
-	 */
-	public function getFullMoves() {
-		return $this->fenParts['fullMoves'];
-	}
-
-	/**
-	 * Returns whether white can castle king side
-	 *
-	 * Example:
-	 * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-	 * $parser = new FenParser0x88($fen);
-	 * $whiteCanCastle = $parser->canWhiteCastleKingSide();
-	 *
-	 * @return bool
-	 */
-	public function canWhiteCastleKingSide() {
-		return $this->canCastleKingSide( "white" );
-	}
-
-	/**
-	 * Returns whether black can castle king side
-	 *
-	 * Example:
-	 * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-	 * $parser = new FenParser0x88($fen);
-	 * $blackCanCastle = $parser->canBlackCastleKingSide();
-	 *
-	 * @return bool
-	 */
-	public function canBlackCastleKingSide() {
-		return $this->canCastleKingSide( "black" );
 	}
 
 	/**
@@ -403,24 +283,6 @@ class FenParser0x88 {
 	 */
 	public function switchColor() {
 		$this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
-	}
-
-	/**
-	 * Returns whether white can castle queen side (from current fen)
-	 *
-	 * @return bool
-	 */
-	public function canWhiteCastleQueenSide() {
-		return $this->canCastleQueenSide( "white" );
-	}
-
-	/**
-	 * Returns whether black can castle queen side (from current fen)
-	 *
-	 * @return bool
-	 */
-	public function canBlackCastleQueenSide() {
-		return $this->canCastleQueenSide( "black" );
 	}
 
 	/**
@@ -489,22 +351,6 @@ class FenParser0x88 {
 		}
 
 		return $ret;
-	}
-
-	/**
-	 * Returns result
-	 *
-	 * Key:
-	 *   0 = undecided
-	 *   0.5 = draw
-	 *   1 = white wins
-	 *   -1 = black wins)
-	 *
-	 * @return int
-	 */
-	public function getResult() {
-		$movesAndResult = $this->getValidMovesAndResult();
-		return $movesAndResult["result"];
 	}
 
 	/**
@@ -1748,7 +1594,12 @@ class FenParser0x88 {
 			$move = $this->getFromAndToByNotation( $move );
 		}
 
-		if ( !$this->canMoveFromTo( $move["from"], $move["to"] ) ) {
+		$validMoves = $this->validMoves();
+
+		$from = Board0x88Config::mapSquareToNumber( $move['from'] );
+		$to = Board0x88Config::mapSquareToNumber( $move['to'] );
+
+		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
 			throw new FenParser0x88Exception(
 				"Invalid move " . $this->getColor() . " - " . json_encode( $move )
 			);
@@ -1769,27 +1620,6 @@ class FenParser0x88 {
 				$this->notation .= '+';
 			}
 		}
-	}
-
-	/**
-	 * Is a move from $from to $to valid
-	 *
-	 * TODO just return if
-	 *
-	 * @param string $from
-	 * @param string $to
-	 * @return bool
-	 */
-	private function canMoveFromTo( $from, $to ) {
-		$validMoves = $this->validMoves();
-
-		$from = Board0x88Config::mapSquareToNumber( $from );
-		$to = Board0x88Config::mapSquareToNumber( $to );
-
-		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -1828,15 +1658,6 @@ class FenParser0x88 {
 	 */
 	public function getCastle() {
 		return $this->fenParts['castle'];
-	}
-
-	/**
-	 * Get the castle code
-	 *
-	 * @return int
-	 */
-	public function getCastleCode() {
-		return $this->fenParts['castleCode'];
 	}
 
 	/**
@@ -1884,7 +1705,7 @@ class FenParser0x88 {
 			}
 		}
 
-		$this->setEnPassantSquare( $enPassant );
+		$this->fenParts['enPassant'] = $enPassant;
 
 		if ( $this->isCastleMove( [ 'from' => $move['from'], 'to' => $move['to'] ] ) ) {
 			$castle = $this->getCastle();
@@ -1913,13 +1734,14 @@ class FenParser0x88 {
 		}
 
 		if ( $color === 'black' ) {
-			$this->incrementFullMoves();
+			$this->fenParts['fullMoves']++;
 		}
 		if ( $incrementHalfMoves ) {
-			$this->incrementHalfMoves();
+			$this->fenParts['halfMoves']++;
 		} else {
-			$this->resetHalfMoves();
+			$this->fenParts['halfMoves'] = 0;
 		}
+
 		$this->cache['board'][$move['to']] = $this->cache['board'][$move['from']];
 		$this->cache['board'][$move['from']] = null;
 		if ( $move['promoteTo'] ) {
@@ -1992,38 +1814,6 @@ class FenParser0x88 {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Increase the number of full moves by one
-	 */
-	private function incrementFullMoves() {
-		$this->fenParts['fullMoves']++;
-	}
-
-	/**
-	 * Increase the number of half moves by one
-	 */
-	private function incrementHalfMoves() {
-		$this->fenParts['halfMoves']++;
-	}
-
-	/**
-	 * Reset the number of half moves to zero
-	 */
-	private function resetHalfMoves() {
-		$this->fenParts['halfMoves'] = 0;
-	}
-
-	/**
-	 * Get the pieces involved in the last move
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	public function getPiecesInvolvedInLastMove() {
-		return $this->piecesInvolved;
 	}
 
 	/**
@@ -2172,9 +1962,9 @@ class FenParser0x88 {
 			. ' '
 			. $this->fenParts['enPassant']
 			. ' '
-			. $this->getHalfMoves()
+			. $this->fenParts['halfMoves']
 			. ' '
-			. $this->getFullMoves();
+			. $this->fenParts['fullMoves'];
 		return $returnValue;
 	}
 }
