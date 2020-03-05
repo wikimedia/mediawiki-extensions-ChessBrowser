@@ -71,13 +71,11 @@ class Board0x88Config {
 	 * @return int|false
 	 */
 	public static function mapSquareToNumber( string $square ) {
-		if ( strlen( $square ) !== 2 ) {
+		$square = ChessSquare::newFromCoords( $square );
+		if ( $square === false ) {
 			return false;
 		}
-
-		list( $file, $row ) = str_split( $square );
-		$ret = self::$files[ $file ] + ( 16 * ( intval( $row ) - 1 ) );
-		return $ret;
+		return $square->getNumber();
 	}
 
 	/**
@@ -85,9 +83,8 @@ class Board0x88Config {
 	 * @return string
 	 */
 	public static function mapNumberToSquare( $number ) : string {
-		$number = intval( $number );
-		$square = self::$fileMapping[ $number % 8 ] . (string)( floor( $number / 16 ) + 1 );
-		return $square;
+		// TODO what if the number is invalid?
+		return ChessSquare::newFromNumber( intval( $number ) )->getCoords();
 	}
 
 	/**

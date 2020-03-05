@@ -21,7 +21,8 @@
 		"ChessJson": "includes/PgnParser/ChessJson.php",
 		"Board0x88Config": "includes/PgnParser/Board0x88Config.php",
 		"FenParser0x88": "includes/PgnParser/FenParser0x88.php",
-		"FenParser0x88Exception": "includes/PgnParser/FenParser0x88Exception.php"
+		"FenParser0x88Exception": "includes/PgnParser/FenParser0x88Exception.php",
+		"ChessSquare": "includes/ChessSquare.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",
