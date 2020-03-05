@@ -455,22 +455,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns result
-	 *
-	 * Key:
-	 *   0 = undecided
-	 *   0.5 = draw
-	 *   1 = white wins
-	 *   -1 = black wins)
-	 *
-	 * @return int
-	 */
-	public function getResult() {
-		$movesAndResult = $this->getValidMovesAndResult();
-		return $movesAndResult["result"];
-	}
-
-	/**
 	 * Returns valid moves in 0x88 numeric format and result
 	 *
 	 * TODO document $color doesn't have to be null
