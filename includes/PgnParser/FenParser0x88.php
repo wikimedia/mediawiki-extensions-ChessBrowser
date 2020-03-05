@@ -1487,17 +1487,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Make a move based on long notation
-	 *
-	 * @param string $notation
-	 */
-	public function moveByLongNotation( $notation ) {
-		$fromAndTo = $this->getFromAndToByLongNotation( $notation );
-
-		$this->move( $fromAndTo );
-	}
-
-	/**
 	 * Make a move on the board
 	 *
 	 * Example:
