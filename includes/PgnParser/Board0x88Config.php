@@ -25,8 +25,6 @@ class Board0x88Config {
 		'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
 	];
 
-	public static $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-
 	public static $fenPieces = [
 		'p' => 'blackPawns',
 		'b' => 'blackBishops',
