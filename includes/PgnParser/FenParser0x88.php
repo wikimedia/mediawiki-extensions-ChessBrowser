@@ -299,15 +299,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Set the en passant square
-	 *
-	 * @param string $square
-	 */
-	private function setEnPassantSquare( $square ) {
-		$this->fenParts['enPassant'] = $square;
-	}
-
-	/**
 	 * Returns array of sliding pieces (i.e. bishop, rook and queens) for a color
 	 *
 	 * @param string $color
@@ -1884,7 +1875,7 @@ class FenParser0x88 {
 			}
 		}
 
-		$this->setEnPassantSquare( $enPassant );
+		$this->fenParts['enPassant'] = $enPassant;
 
 		if ( $this->isCastleMove( [ 'from' => $move['from'], 'to' => $move['to'] ] ) ) {
 			$castle = $this->getCastle();
