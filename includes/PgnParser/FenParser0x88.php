@@ -1494,7 +1494,6 @@ class FenParser0x88 {
 	 * $parser = new FenParser0x88();
 	 * $parser->newGame();
 	 * $parser->move("Nf3");
-	 * $notation =  $parser->getNotation();
 	 *
 	 * $move can be a string like Nf3, g1f3 or an array with from and to squares,
 	 * like array("from" => "g1", "to"=>"f3")
@@ -1730,17 +1729,6 @@ class FenParser0x88 {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Get the notation
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	public function getNotation() {
-		return $this->notation;
 	}
 
 	/**
