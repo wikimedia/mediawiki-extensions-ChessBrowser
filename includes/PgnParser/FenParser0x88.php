@@ -881,17 +881,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the cached board
-	 *
-	 * TODO what is the return type here
-	 *
-	 * @return mixed
-	 */
-	public function getBoardCache() {
-		return $this->cache['board'];
-	}
-
-	/**
 	 * Get getValidSquaresOnCheck($color) in chess coordinates system
 	 *
 	 * example: array("g2","g3","g4","g5","g6",g7","g8")
