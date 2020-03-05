@@ -1393,27 +1393,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Check if fens include a threefold repetition
-	 *
-	 * @param array $fens
-	 * @return bool
-	 */
-	public function hasThreeFoldRepetition( $fens = [] ) {
-		if ( !count( $fens ) ) {
-			return false;
-		}
-		$shortenedFens = [];
-		foreach ( $fens as $fen ) {
-			$fen = array_slice( explode( " ", $fen ), 0, 3 );
-			$fen = implode( " ", $fen );
-			$shortenedFens[] = $fen;
-		}
-		$lastFen = $shortenedFens[count( $shortenedFens ) - 1];
-		$count = array_count_values( $shortenedFens );
-		return $count[$lastFen] >= 2;
-	}
-
-	/**
 	 * Get the promotion from notation
 	 *
 	 * If the notation token contains an equal sign then it's a promotion
