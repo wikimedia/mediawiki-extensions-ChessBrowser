@@ -5,7 +5,6 @@ class FenParser0x88 {
 	private $previousFen;
 	private $cache;
 
-	private $piecesInvolved;
 	private $notation;
 	private $validMoves = null;
 	private $fenParts = [];
@@ -1518,7 +1517,6 @@ class FenParser0x88 {
 
 		$this->fen = null;
 		$this->validMoves = null;
-		$this->piecesInvolved = $this->getPiecesInvolvedInMove( $move );
 		$this->notation = $this->getNotationForAMove( $move );
 		$this->updateBoardData( $move );
 
