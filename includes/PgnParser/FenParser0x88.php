@@ -150,16 +150,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns the piece on a square given the square's coordinate
-	 *
-	 * @param string $square
-	 * @return array|null
-	 */
-	public function getPieceOnSquareBoardCoordinate( $square ) {
-		return $this->getPieceOnSquare( Board0x88Config::mapSquareToNumber( $square ) );
-	}
-
-	/**
 	 * Returns the piece on a given square
 	 *
 	 * Example:
