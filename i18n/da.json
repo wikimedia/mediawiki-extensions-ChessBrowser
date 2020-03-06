@@ -4,11 +4,17 @@
 			"Saederup92"
 		]
 	},
+	"chessbrowser-expand-button": "Udvid",
 	"chessbrowser-game-detail": "Spildetaljer",
 	"chessbrowser-date-label": "Dato",
 	"chessbrowser-round-label": "Runde",
 	"chessbrowser-white-label": "Hvid",
 	"chessbrowser-black-label": "Sort",
+	"chessbrowser-result-label": "Resultat",
+	"chessbrowser-beginning-of-game": "Gå til første træk",
 	"chessbrowser-slow-autoplay": "Langsommer",
-	"chessbrowser-fast-autoplay": "Hurtigere"
+	"chessbrowser-play-pause-button": "Afspil/Sæt på pause",
+	"chessbrowser-fast-autoplay": "Hurtigere",
+	"chessbrowser-next-move": "Næste træk",
+	"chessbrowser-end-of-game": "Gå til sidste træk"
 }
