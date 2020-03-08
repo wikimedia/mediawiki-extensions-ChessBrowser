@@ -73,26 +73,16 @@ class PgnParser {
 	 * @return string|null
 	 */
 	private function sanitize( $filePath ) {
+		if ( substr( $filePath, 0, 1 ) === "/" ) {
+			return null;
+		}
+
 		$extension = $this->getExtension( $filePath );
 		if ( $extension != 'pgn' ) {
 			return null;
 		}
 
-		if ( class_exists( "LudoDBRegistry" ) ) {
-			$tempPath = LudoDBRegistry::get( 'FILE_UPLOAD_PATH' );
-		} else {
-			$tempPath = null;
-		}
-
-		if ( isset( $tempPath ) && substr( $filePath, 0, strlen( $tempPath ) ) == $tempPath ) {
-			// TODO clean this up
-		} else {
-			if ( substr( $filePath, 0, 1 ) === "/" ) {
-				return null;
-			}
-		}
 		$filePath = preg_replace( "/[^0-9\.a-z_\-\/]/si", "", $filePath );
-
 		if ( !file_exists( $filePath ) ) {
 			return null;
 		}
