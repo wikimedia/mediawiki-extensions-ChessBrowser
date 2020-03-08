@@ -19,7 +19,7 @@
  * @ingroup ChessBrowser
  * @author Wugapodes
  */
-// PgnParser is from DHTMLchess submodule
+
 class ChessParser extends PgnParser {
 	/**
 	 * To move up a rank, add 1; down a rank subtract 1
