@@ -63,30 +63,4 @@ class ChessJson {
 	public const PGN_KEY_ACTION_CLR_HIGHLIGHT = "csl";
 	public const PGN_KEY_ACTION_CLR_ARROW = "cal";
 
-	private static $jsKeys = [
-		'MOVE_FROM',
-		'MOVE_TO',
-		'MOVE_NOTATION',
-		'FEN',
-		'MOVE_COMMENT',
-		'MOVE_ACTION',
-		'MOVE_VARIATIONS',
-		'MOVE_MOVES',
-		'MOVE_CAPTURE',
-		'MOVE_PROMOTE_TO',
-		'MOVE_CASTLE',
-		'GAME_METADATA',
-		'GAME_EVENT',
-		'GAME_WHITE',
-		'GAME_BLACK',
-		'GAME_ECO',
-	];
-
-	public static function toJavascript() {
-		$ret = [];
-		foreach ( self::$jsKeys as $key ) {
-			$ret[$key] = constant( "ChessJson::" . $key );
-		}
-		return 'ludo.ChessJson_KEY = ' . json_encode( $ret ) . ';';
-	}
 }
