@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Quentí"
+		]
+	},
+	"chessbrowser-expand-button": "Desplegar",
+	"chessbrowser-game-detail": "Detalhs del jòc",
+	"chessbrowser-event-label": "Eveniment",
+	"chessbrowser-site-label": "Site",
+	"chessbrowser-date-label": "Data",
+	"chessbrowser-white-label": "Blanc",
+	"chessbrowser-black-label": "Negre",
+	"chessbrowser-result-label": "Resultat",
+	"chessbrowser-slow-autoplay": "Mai lent",
+	"chessbrowser-fast-autoplay": "Mai rapid"
+}
