@@ -67,27 +67,6 @@ class Board0x88Config {
 	public static $oppositeColors = [ 'white' => 'black', 'black' => 'white' ];
 
 	/**
-	 * @param string $square
-	 * @return int|false
-	 */
-	public static function mapSquareToNumber( string $square ) {
-		$square = ChessSquare::newFromCoords( $square );
-		if ( $square === false ) {
-			return false;
-		}
-		return $square->getNumber();
-	}
-
-	/**
-	 * @param string|int $number
-	 * @return string
-	 */
-	public static function mapNumberToSquare( $number ) : string {
-		// TODO what if the number is invalid?
-		return ChessSquare::newFromNumber( intval( $number ) )->getCoords();
-	}
-
-	/**
 	 * TODO find a better name for this
 	 *
 	 * @param int $number
