@@ -114,8 +114,9 @@ class FenParser0x88 {
 		$fromSquare = $move['from'];
 		$toSquare = $move['to'];
 
-		$type = $this->cache['board'][Board0x88Config::mapSquareToNumber( $move['from'] )];
-		$type = Board0x88Config::$typeMapping[$type];
+		$fromNumber = ChessSquare::newFromCoords( $fromSquare )->getNumber();
+		$piece = $this->cache['board'][$fronNumber];
+		$type = Board0x88Config::$typeMapping[$piece];
 		$separator = strstr( $shortNotation, 'x' ) >= 0 ? 'x' : '-';
 
 		$ret = $type . $fromSquare . $separator . $toSquare;
@@ -158,7 +159,7 @@ class FenParser0x88 {
 			$token = $this->fenParts['pieces'][$i];
 
 			if ( isset( Board0x88Config::$fenPieces[$token] ) ) {
-				$index = Board0x88Config::mapSquareToNumber( $squares[$pos] );
+				$index = ChessSquare::newFromCoords( $squares[$pos] )->getNumber();
 				$type = Board0x88Config::$pieces[$token];
 				$piece = [
 					't' => $type,
@@ -189,7 +190,7 @@ class FenParser0x88 {
 	 * Example:
 	 * $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
 	 * $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
-	 * $bishop = $parser->getPieceOnSquare(Board0x88Config::mapSquareToNumber( 'b3' ));
+	 * $bishop = $parser->getPieceOnSquare(ChessSquare::newFromCoords( 'b3' )->getNumber());
 	 * var_dump($bishop).
 	 *
 	 * Returns an array
@@ -211,7 +212,7 @@ class FenParser0x88 {
 		$piece = $this->cache['board'][$square];
 		if ( isset( $piece ) ) {
 			return [
-				'square' => Board0x88Config::mapNumberToSquare( $square ),
+				'square' => ChessSquare::newFromNumber( $square )->getCoords(),
 				's' => $square,
 				't' => $piece,
 				'type' => Board0x88Config::$typeMapping[$piece],
@@ -237,8 +238,8 @@ class FenParser0x88 {
 			$move['to'] = $fromAndTo['to'];
 
 		}
-		$from = Board0x88Config::mapSquareToNumber( $move['from'] );
-		$to = Board0x88Config::mapSquareToNumber( $move['to'] );
+		$from = ChessSquare::newFromCoords( $move['from'] )->getNumber();
+		$to = ChessSquare::newFromCoords( $move['to'] )->getNumber();
 
 		$obj = $this->getValidMovesAndResult();
 		$moves = $obj['moves'];
@@ -259,7 +260,7 @@ class FenParser0x88 {
 	 * returns array("t" : 11, "s" : 128).
 	 *
 	 * where "t" is type, and "s" is square. Square can be converted to board coordinates using
-	 * Board0x88Config::mapNumberToSquare( $array["s"] )
+	 * ChessSquare::newFromNumber( $array['s'] )->getCoords()
 	 *
 	 * @param string $color
 	 * @return array
@@ -367,11 +368,11 @@ class FenParser0x88 {
 
 		$ret = [];
 		foreach ( $moves as $from => $toSquares ) {
-			$fromSquare = Board0x88Config::mapNumberToSquare( $from );
+			$fromSquare = ChessSquare::newFromNumber( $from )->getCoords();
 
 			$squares = [];
 			foreach ( $toSquares as $square ) {
-				$squares[] = Board0x88Config::mapNumberToSquare( $square );
+				$squares[] = ChessSquare::newFromNumber( $square )->getCoords();
 			}
 
 			$ret[$fromSquare] = $squares;
@@ -396,7 +397,7 @@ class FenParser0x88 {
 		$ret = [];
 		$enPassantSquare = $this->getEnPassantSquare();
 		if ( $enPassantSquare ) {
-			$enPassantSquare = Board0x88Config::mapSquareToNumber( $enPassantSquare );
+			$enPassantSquare = ChessSquare::newFromCoords( $enPassantSquare )->getNumber();
 		}
 
 		$kingSideCastle = $this->canCastleKingSide( $color );
@@ -845,8 +846,8 @@ class FenParser0x88 {
 		$ret = [];
 		foreach ( $pinned as $square => $by ) {
 			$ret[] = [
-				"square" => Board0x88Config::mapNumberToSquare( $square ),
-				"pinnedBy" => Board0x88Config::mapNumberToSquare( $by["by"] ),
+				"square" => ChessSquare::newFromNumber( $square )->getCoords(),
+				"pinnedBy" => ChessSquare::newFromNumber( $by['by'] )->getCoords(),
 				"direction" => $by["direction"]
 			];
 		}
@@ -916,7 +917,7 @@ class FenParser0x88 {
 
 		$enPassantSquare = $this->getEnPassantSquare();
 		if ( $enPassantSquare ) {
-			$enPassantSquare = Board0x88Config::mapSquareToNumber( $enPassantSquare );
+			$enPassantSquare = ChessSquare::newFromCoords( $enPassantSquare )->getNumber();
 		}
 
 		for ( $i = 0, $len = count( $pieces ); $i < $len; $i++ ) {
@@ -1085,11 +1086,14 @@ class FenParser0x88 {
 	 */
 	public function getPiecesInvolvedInMove( $move ) {
 		$ret = [
-			[ 'from' => $move['from'], 'to' => $move['to'] ]
+			[
+				'from' => $move['from'],
+				'to' => $move['to']
+			]
 		];
 		$move = [
-			'from' => Board0x88Config::mapSquareToNumber( $move['from'] ),
-			'to' => Board0x88Config::mapSquareToNumber( $move['to'] ),
+			'from' => ChessSquare::newFromCoords( $move['from'] )->getNumber(),
+			'to' => ChessSquare::newFromCoords( $move['to'] )->getNumber(),
 			'promoteTo' => isset( $move['promoteTo'] ) ? $move['promoteTo'] : null
 		];
 
@@ -1101,7 +1105,7 @@ class FenParser0x88 {
 			} else {
 				$square = $move['to'] - 16;
 			}
-			$ret[] = [ 'capture' => Board0x88Config::mapNumberToSquare( $square ) ];
+			$ret[] = [ 'capture' => ChessSquare::newFromNumber( $square )->getCoords() ];
 		}
 
 		if ( $this->isCastleMove( $move ) ) {
@@ -1121,7 +1125,7 @@ class FenParser0x88 {
 		if ( $move['promoteTo'] ) {
 			$ret[] = ( [
 				'promoteTo' => $move['promoteTo'],
-				'square' => Board0x88Config::mapNumberToSquare( $move['to'] )
+				'square' => ChessSquare::newFromNumber( $move['to'] )->getCoords()
 			] );
 		}
 		return $ret;
@@ -1263,8 +1267,8 @@ class FenParser0x88 {
 		$fromFile = $this->getFromFileByNotation( $notation );
 
 		if ( strlen( $notation ) === 2 ) {
-			$square = Board0x88Config::mapSquareToNumber( $notation );
-			$ret['to'] = Board0x88Config::mapSquareToNumber( $notation );
+			$square = ChessSquare::newFromCoords( $notation )->getNumber();
+			$ret['to'] = $square;
 			$direction = $color === 'white' ? -16 : 16;
 			if ( $this->cache['board'][$square + $direction] ) {
 				$foundPieces[] = $square + $direction;
@@ -1402,8 +1406,8 @@ class FenParser0x88 {
 				. implode( ",", $foundPieces );
 			throw new FenParser0x88Exception( $msg );
 		}
-		$ret['from'] = Board0x88Config::mapNumberToSquare( $ret['from'] );
-		$ret['to'] = Board0x88Config::mapNumberToSquare( $ret['to'] );
+		$ret['from'] = ChessSquare::newFromNumber( $ret['from'] )->getCoords();
+		$ret['to'] = ChessSquare::newFromNumber( $ret['to'] )->getCoords();
 
 		return $ret;
 	}
@@ -1472,11 +1476,11 @@ class FenParser0x88 {
 	 */
 	public function getToSquareByNotation( $notation ) {
 		$notation = preg_replace( "/.*([a-h][1-8]).*/s", '$1', $notation );
-		$ret = Board0x88Config::mapSquareToNumber( $notation );
-		if ( $ret === false ) {
-			$ret = '';
+		$square = ChessSquare::newFromCoords( $notation );
+		if ( $square === false ) {
+			return '';
 		}
-		return $ret;
+		return $square->getNumber();
 	}
 
 	/**
@@ -1528,8 +1532,8 @@ class FenParser0x88 {
 
 		$validMoves = $this->validMoves();
 
-		$from = Board0x88Config::mapSquareToNumber( $move['from'] );
-		$to = Board0x88Config::mapSquareToNumber( $move['to'] );
+		$from = ChessSquare::newFromCoords( $move['from'] )->getNumber();
+		$to = ChessSquare::newFromCoords( $move['to'] )->getNumber();
 
 		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
 			throw new FenParser0x88Exception(
@@ -1596,8 +1600,8 @@ class FenParser0x88 {
 	 */
 	private function updateBoardData( $move ) {
 		$move = [
-			'from' => Board0x88Config::mapSquareToNumber( $move['from'] ),
-			'to' => Board0x88Config::mapSquareToNumber( $move['to'] ),
+			'from' => ChessSquare::newFromCoords( $move['from'] )->getNumber(),
+			'to' => ChessSquare::newFromCoords( $move['to'] )->getNumber(),
 			'promoteTo' => isset( $move['promoteTo'] ) ? $move['promoteTo'] : ''
 		];
 		$movedPiece = $this->cache['board'][$move['from']];
@@ -1624,10 +1628,11 @@ class FenParser0x88 {
 				&& $this->getDistance( $move['from'], $move['to'] ) == 2
 			) {
 				if ( $color === 'white' ) {
-					$enPassant = Board0x88Config::mapNumberToSquare( $move['from'] + 16 );
+					$number = $move['from'] + 16;
 				} else {
-					$enPassant = Board0x88Config::mapNumberToSquare( $move['from'] - 16 );
+					$number = $move['from'] - 16;
 				}
+				$enPassant = ChessSquare::newFromNumber( $number )->getCoords();
 			}
 		}
 
@@ -1759,8 +1764,8 @@ class FenParser0x88 {
 	 * @return string
 	 */
 	private function getNotationForAMove( $move ) {
-		$move['from'] = Board0x88Config::mapSquareToNumber( $move['from'] );
-		$move['to'] = Board0x88Config::mapSquareToNumber( $move['to'] );
+		$move['from'] = ChessSquare::newFromCoords( $move['from'] )->getNumber();
+		$move['to'] = ChessSquare::newFromCoords( $move['from'] )->getNumber();
 		$type = $this->cache['board'][$move['from']];
 
 		$ret = Board0x88Config::$notationMapping[$this->cache['board'][$move['from']]];
