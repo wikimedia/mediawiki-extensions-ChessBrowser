@@ -299,7 +299,7 @@ class FenParser0x88 {
 	 * Return color to move, "white" or "black"
 	 *
 	 * @return string
-	 * @throws FenParser0x88Exception
+	 * @throws ChessBrowserException
 	 */
 	public function getColor() {
 		$color = $this->fenParts['color'];
@@ -309,7 +309,7 @@ class FenParser0x88 {
 			case 'b':
 				return 'black';
 			default:
-				throw new FenParser0x88Exception( "Unknown color: $color" );
+				throw new ChessBrowserException( "Unknown color: $color" );
 		}
 	}
 
@@ -1253,6 +1253,7 @@ class FenParser0x88 {
 	 *
 	 * @param string $notation
 	 * @return array
+	 * @throws ChessBrowserException
 	 */
 	public function getFromAndToByNotation( $notation ) {
 		$notation = str_replace( ".", "", $notation );
@@ -1404,7 +1405,7 @@ class FenParser0x88 {
 				. count( $foundPieces )
 				. ", "
 				. implode( ",", $foundPieces );
-			throw new FenParser0x88Exception( $msg );
+			throw new ChessBrowserException( $msg );
 		}
 		$ret['from'] = ChessSquare::newFromNumber( $ret['from'] )->getCoords();
 		$ret['to'] = ChessSquare::newFromNumber( $ret['to'] )->getCoords();
@@ -1519,7 +1520,7 @@ class FenParser0x88 {
 	 * like array("from" => "g1", "to"=>"f3")
 	 *
 	 * @param mixed $move
-	 * @throws FenParser0x88Exception
+	 * @throws ChessBrowserException
 	 */
 	public function move( $move ) {
 		if ( is_string( $move ) ) {
@@ -1536,7 +1537,7 @@ class FenParser0x88 {
 		$to = ChessSquare::newFromCoords( $move['to'] )->getNumber();
 
 		if ( empty( $validMoves[$from] ) || !in_array( $to, $validMoves[$from] ) ) {
-			throw new FenParser0x88Exception(
+			throw new ChessBrowserException(
 				"Invalid move " . $this->getColor() . " - " . json_encode( $move )
 			);
 		}
