@@ -168,9 +168,7 @@ class FenParser0x88 {
 				// Board array
 				$this->cache['board'][$index] = $type;
 
-				// White and black array
-				// Black tokens are already lowercase
-				$color = ( $token === strtolower( $token ) ? 'black' : 'white' );
+				$color = ( new ChessPiece( $token ) )->getColor();
 				$this->cache[$color][] = $piece;
 
 				// King array
