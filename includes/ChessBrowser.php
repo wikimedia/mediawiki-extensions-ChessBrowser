@@ -30,17 +30,20 @@ class ChessBrowser {
 	 * @return array
 	 */
 	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) {
+		$out = $parser->getOutput();
+
 		// Set variable so resource loader knows whether to send javascript
-		$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
+		$out->setExtensionData( 'ChessViewerTrigger', 'true' );
 		// Get number of games so div id property is unique
-		$gameNum = $parser->getOutput()->getExtensionData( 'ChessViewerNumGames' );
+		$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
 		if ( !isset( $gameNum ) ) {
 			$gameNum = 1;
 		} else {
 			$gameNum += 1;
 		}
 		// Increment number of games
-		$parser->getOutput()->setExtensionData( 'ChessViewerNumGames', $gameNum );
+		$out->setExtensionData( 'ChessViewerNumGames', $gameNum );
+
 		// Initialize parsers
 		$chessParser = new ChessParser();
 		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
