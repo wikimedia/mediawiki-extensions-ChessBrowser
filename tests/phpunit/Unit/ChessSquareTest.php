@@ -24,6 +24,8 @@
 class ChessSquareTest extends \MediaWikiUnitTestCase {
 
 	/**
+	 * @covers ChessSquare::newFromCoords
+	 * @covers ChessSquare::getNumber
 	 * @dataProvider provideCoordsAndNumbers
 	 * @param string $coords
 	 * @param int $expectedNumber
@@ -36,6 +38,8 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 	}
 
 	/**
+	 * @covers ChessSquare::newFromNumber
+	 * @covers ChessSquare::getCoords
 	 * @dataProvider provideCoordsAndNumbers
 	 * @param string $expectedCoords
 	 * @param int $number
@@ -113,6 +117,20 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 			[ 'g8', 118 ],
 			[ 'h8', 119 ]
 		];
+	}
+
+	/**
+	 * @covers ChessSquare::newFromCoords
+	 */
+	public function testNewFromCoords_bad() {
+		$this->assertFalse(
+			ChessSquare::newFromCoords( 'xyz' ),
+			'String that does not have a length of 2 is invalid'
+		);
+		$this->assertFalse(
+			ChessSquare::newFromCoords( 'q1' ),
+			'String with an invalid file is invalid'
+		);
 	}
 
 }
