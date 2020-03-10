@@ -4,5 +4,23 @@
 			"Jon Harald Søby"
 		]
 	},
-	"chessbrowser-desc": "Legger til pgn-tagg for å gjøre sjakknotasjon interaktiv."
+	"chessbrowser-desc": "Legger til pgn-tagg for å gjøre sjakknotasjon interaktiv.",
+	"chessbrowser-expand-button": "Utvid",
+	"chessbrowser-game-detail": "Spilldetaljer",
+	"chessbrowser-event-label": "Hendelse",
+	"chessbrowser-site-label": "Nettsted",
+	"chessbrowser-date-label": "Dato",
+	"chessbrowser-round-label": "Runde",
+	"chessbrowser-white-label": "Hvit",
+	"chessbrowser-black-label": "Svart",
+	"chessbrowser-result-label": "Resultat",
+	"chessbrowser-beginning-of-game": "Gå til første trekk",
+	"chessbrowser-previous-move": "Forrige trekk",
+	"chessbrowser-slow-autoplay": "Saktere",
+	"chessbrowser-play-pause-button": "Spill/pause",
+	"chessbrowser-fast-autoplay": "Fortere",
+	"chessbrowser-next-move": "Neste trekk",
+	"chessbrowser-end-of-game": "Gå til siste trekk",
+	"chessbrowser-flip-board": "Endre brettets perspektiv",
+	"chessbrowser-no-javascript": "JavaScript er ikke slått på på denne siden. Slå på JavaScript for å vise spillet interaktivt."
 }

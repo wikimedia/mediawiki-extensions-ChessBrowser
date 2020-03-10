@@ -9,5 +9,6 @@
 	"chessbrowser-date-label": "Data",
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Negre",
+	"chessbrowser-result-label": "Resultat",
 	"chessbrowser-no-javascript": "El JavaScript no s’ha activat a aquesta pàgina. Per a veure el joc interactiu, activeu el JavaScript."
 }
