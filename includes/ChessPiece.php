@@ -66,6 +66,37 @@ class ChessPiece {
 	}
 
 	/**
+	 * Create from the hex representation, for use in FenParser0x88
+	 *
+	 * @param int $hex
+	 * @return ChessPiece
+	 * @throws ChessBrowserException
+	 */
+	public static function newFromHex( int $hex ) : ChessPiece {
+		$mappings = [
+			0x01 => 'P',
+			0x02 => 'N',
+			0x03 => 'K',
+			0x05 => 'B',
+			0x06 => 'R',
+			0x07 => 'Q',
+			0x09 => 'p',
+			0x0A => 'n',
+			0x0B => 'k',
+			0x0D => 'b',
+			0x0E => 'r',
+			0x0F => 'q',
+		];
+
+		if ( !array_key_exists( $hex, $mappings ) ) {
+			throw new ChessBrowserException( "Unknown hex representation '$hex'" );
+		}
+
+		$piece = new ChessPiece( $mappings[$hex] );
+		return $piece;
+	}
+
+	/**
 	 * Get the symbol for the piece
 	 *
 	 * @return string
@@ -114,6 +145,35 @@ class ChessPiece {
 		];
 
 		return $mappings[$this->symbol];
+	}
+
+	/**
+	 * Get the possible moves
+	 *
+	 * @return array
+	 */
+	public function getMovePatterns() : array {
+		switch ( $this->symbol ) {
+			case 'P':
+				return [ 16, 32, 15, 17 ];
+			case 'p':
+				return [ -16, -32, -15, -17 ];
+			case 'N':
+			case 'n':
+				return [ -33, -31, -18, -14, 14, 18, 31, 33 ];
+			case 'K':
+			case 'k':
+				return [ -17, -16, -15, -1, 1, 15, 16, 17 ];
+			case 'B':
+			case 'b':
+				return [ -15, -17, 15, 17 ];
+			case 'R':
+			case 'r':
+				return [ -1, 1, -16, 16 ];
+			case 'Q':
+			case 'q':
+				return [ -15, -17, 15, 17, -1, 1, -16, 16 ];
+		}
 	}
 
 }

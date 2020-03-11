@@ -423,7 +423,7 @@ class FenParser0x88 {
 				case 0x0D:
 				case 0x0E:
 				case 0x0F:
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					if ( isset( $pinned[$piece['s']] ) ) {
 						if ( array_search( $pinned[$piece['s']]['direction'], $directions ) !== false ) {
 							$directions = [ $pinned[$piece['s']]['direction'], $pinned[$piece['s']]['direction'] * -1 ];
@@ -454,7 +454,7 @@ class FenParser0x88 {
 					if ( isset( $pinned[$piece['s']] ) ) {
 						break;
 					}
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 
@@ -476,7 +476,7 @@ class FenParser0x88 {
 				// Black king
 				case 0X03:
 				case 0X0B:
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 						if ( ( $square & 0x88 ) === 0 ) {
@@ -615,7 +615,7 @@ class FenParser0x88 {
 				case 0x0D:
 				case 0x0E:
 				case 0x0F:
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenA = count( $directions ); $a < $lenA; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 						while ( ( $square & 0x88 ) === 0 ) {
@@ -632,7 +632,7 @@ class FenParser0x88 {
 				case 0x02:
 				case 0x0A:
 					// White knight
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenA = count( $directions ); $a < $lenA; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 
@@ -644,7 +644,7 @@ class FenParser0x88 {
 				// king
 				case 0X03:
 				case 0X0B:
-					$directions = Board0x88Config::$movePatterns[$piece['t']];
+					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 						if ( ( $square & 0x88 ) === 0 ) {
@@ -796,7 +796,7 @@ class FenParser0x88 {
 				case 0x02:
 				case 0x0A:
 					if ( $this->getDistance( $piece['s'], $king['s'] ) === 2 ) {
-						$directions = Board0x88Config::$movePatterns[$piece['t']];
+						$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 						for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 							$square = $piece['s'] + $directions[$a];
 							if ( $square === $king['s'] ) {
@@ -1122,7 +1122,7 @@ class FenParser0x88 {
 					break;
 				case 0x02:
 				case 0x0A:
-					$pattern = Board0x88Config::$movePatterns[$pieceType];
+					$pattern = ChessPiece::newFromHex( $pieceType )->getMovePatterns();
 					for ( $i = 0, $len = count( $pattern ); $i < $len; $i++ ) {
 						$sq = $ret['to'] + $pattern[$i];
 						if ( !( $sq & 0x88 ) ) {
@@ -1134,7 +1134,7 @@ class FenParser0x88 {
 					break;
 				// Sliding pieces
 				default:
-					$patterns = Board0x88Config::$movePatterns[$pieceType];
+					$patterns = ChessPiece::newFromHex( $pieceType )->getMovePatterns();
 					for ( $i = 0, $len = count( $patterns ); $i < $len; $i++ ) {
 						$sq = $ret['to'] + $patterns[$i];
 						while ( !( $sq & 0x88 ) ) {
