@@ -64,8 +64,6 @@ class Board0x88Config {
 		'K' => 'whiteKing'
 	];
 
-	public static $oppositeColors = [ 'white' => 'black', 'black' => 'white' ];
-
 	/**
 	 * TODO find a better name for this
 	 *
