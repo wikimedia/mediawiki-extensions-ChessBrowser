@@ -214,21 +214,6 @@ class Board0x88Config {
 		0x0F => 'q'
 	];
 
-	public static $typeMapping = [
-		0x01 => 'pawn',
-		0x02 => 'knight',
-		0x03 => 'king',
-		0x05 => 'bishop',
-		0x06 => 'rook',
-		0x07 => 'queen',
-		0x09 => 'pawn',
-		0x0A => 'knight',
-		0x0B => 'king',
-		0x0D => 'bishop',
-		0x0E => 'rook',
-		0x0F => 'queen'
-	];
-
 	public static $notationMapping = [
 		0x01 => '',
 		0x02 => 'N',
