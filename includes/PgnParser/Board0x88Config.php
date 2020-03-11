@@ -184,22 +184,6 @@ class Board0x88Config {
 		',119,'
 	];
 
-	// array_flip( $pieces )
-	public static $pieceMapping = [
-		0x01 => 'P',
-		0x02 => 'N',
-		0x03 => 'K',
-		0x05 => 'B',
-		0x06 => 'R',
-		0x07 => 'Q',
-		0x09 => 'p',
-		0x0A => 'n',
-		0x0B => 'k',
-		0x0D => 'b',
-		0x0E => 'r',
-		0x0F => 'q'
-	];
-
 	public static $notationMapping = [
 		0x01 => '',
 		0x02 => 'N',

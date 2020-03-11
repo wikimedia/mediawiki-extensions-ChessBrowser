@@ -1645,7 +1645,8 @@ class FenParser0x88 {
 					if ( $emptyCounter ) {
 						$fen .= $emptyCounter;
 					}
-					$fen .= Board0x88Config::$pieceMapping[$board[$mapped]];
+					$fen .= ChessPiece::newFromHex( $board[$mapped] )
+						->getSymbol();
 					$emptyCounter = 0;
 				} else {
 					$emptyCounter++;
