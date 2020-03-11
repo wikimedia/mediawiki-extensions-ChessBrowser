@@ -931,59 +931,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the pieces involved in a move
-	 *
-	 * @param array $move
-	 * @return array
-	 */
-	public function getPiecesInvolvedInMove( $move ) {
-		$ret = [
-			[
-				'from' => $move['from'],
-				'to' => $move['to']
-			]
-		];
-		$move = [
-			'from' => ChessSquare::newFromCoords( $move['from'] )->getNumber(),
-			'to' => ChessSquare::newFromCoords( $move['to'] )->getNumber(),
-			'promoteTo' => isset( $move['promoteTo'] ) ? $move['promoteTo'] : null
-		];
-
-		$color = ( $this->cache['board'][$move['from']] & 0x8 ) ? 'black' : 'white';
-
-		if ( $this->isEnPassantMove( $move ) ) {
-			if ( $color == 'black' ) {
-				$square = $move['to'] + 16;
-			} else {
-				$square = $move['to'] - 16;
-			}
-			$ret[] = [ 'capture' => ChessSquare::newFromNumber( $square )->getCoords() ];
-		}
-
-		if ( $this->isCastleMove( $move ) ) {
-			if ( ( $move['from'] & 15 ) < ( $move['to'] & 15 ) ) {
-				$ret[] = ( [
-					'from' => 'h' . ( $color == 'white' ? 1 : 8 ),
-					'to' => 'f' . ( $color == 'white' ? 1 : 8 )
-				] );
-			} else {
-				$ret[] = ( [
-					'from' => 'a' . ( $color == 'white' ? 1 : 8 ),
-					'to' => 'd' . ( $color == 'white' ? 1 : 8 )
-				] );
-			}
-		}
-
-		if ( $move['promoteTo'] ) {
-			$ret[] = ( [
-				'promoteTo' => $move['promoteTo'],
-				'square' => ChessSquare::newFromNumber( $move['to'] )->getCoords()
-			] );
-		}
-		return $ret;
-	}
-
-	/**
 	 * Check if a move is en passant
 	 *
 	 * TODO combine ifs
