@@ -711,47 +711,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns array of pinned pieces in standard chess coordinate system.
-	 *
-	 * Example:
-	 * // pawn on g2 pinned by rook on a2
-	 * $parser = new FenParser0x88('5k2/8/8/8/8/8/r5PK/8 w - - 0 1');
-	 * // find pinned white pieces
-	 * $pinned = $parser->getPinnedBoardCoordinates('white');
-	 * var_dump($pinned);
-	 *
-	 * returns
-	 * array(1) {
-	 * [0]=>
-	 * array(3) {
-	 * ["square"]=>
-	 * string(2) "g2"
-	 * ["pinnedBy"]=>
-	 * string(2) "a2"
-	 * ["direction"]=>
-	 * int(1)
-	 * }
-	 * }
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getPinnedBoardCoordinates( $color ) {
-		$pinned = $this->getPinned( $color );
-
-		$ret = [];
-		foreach ( $pinned as $square => $by ) {
-			$ret[] = [
-				"square" => ChessSquare::newFromNumber( $square )->getCoords(),
-				"pinnedBy" => ChessSquare::newFromNumber( $by['by'] )->getCoords(),
-				"direction" => $by["direction"]
-			];
-		}
-
-		return $ret;
-	}
-
-	/**
 	 * Return numeric squares(0x88) of pinned pieces
 	 *
 	 * @param string $color
