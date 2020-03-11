@@ -178,8 +178,8 @@ class FenParser0x88 {
 				$this->cache[$color][] = $piece;
 
 				// King array
-				if ( Board0x88Config::$typeMapping[$type] == 'king' ) {
-					$this->cache['king' . ( $piece['t'] & 0x8 ? 'black' : 'white' )] = $piece;
+				if ( $pieceObject->getType() === 'k' ) {
+					$this->cache['king' . $color] = $piece;
 				}
 				$pos++;
 			} elseif ( $i < $len - 1 && isset( Board0x88Config::$numbers[$token] ) ) {
