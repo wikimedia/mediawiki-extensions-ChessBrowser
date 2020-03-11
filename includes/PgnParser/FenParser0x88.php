@@ -270,10 +270,14 @@ class FenParser0x88 {
 	/**
 	 * Returns en passant square or null
 	 *
-	 * @return string|null
+	 * @return int|null
 	 */
 	public function getEnPassantSquare() {
-		return ( $this->fenParts['enPassant'] != '-' ) ? $this->fenParts['enPassant'] : null;
+		$enPassantSquare = $this->fenParts['enPassant'];
+		if ( $enPassantSquare === '-' ) {
+			return null;
+		}
+		return ChessSquare::newFromCoords( $enPassantSquare )->getNumber();
 	}
 
 	/**
@@ -360,9 +364,6 @@ class FenParser0x88 {
 
 		$ret = [];
 		$enPassantSquare = $this->getEnPassantSquare();
-		if ( $enPassantSquare ) {
-			$enPassantSquare = ChessSquare::newFromCoords( $enPassantSquare )->getNumber();
-		}
 
 		$kingSideCastle = $this->canCastleKingSide( $color );
 		$queenSideCastle = $this->canCastleQueenSide( $color );
@@ -880,9 +881,6 @@ class FenParser0x88 {
 		$pieces = $this->cache[$color === 'white' ? 'black' : 'white'];
 
 		$enPassantSquare = $this->getEnPassantSquare();
-		if ( $enPassantSquare ) {
-			$enPassantSquare = ChessSquare::newFromCoords( $enPassantSquare )->getNumber();
-		}
 
 		for ( $i = 0, $len = count( $pieces ); $i < $len; $i++ ) {
 			$piece = $pieces[$i];
