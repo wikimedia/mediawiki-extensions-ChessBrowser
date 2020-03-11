@@ -1243,8 +1243,6 @@ class FenParser0x88 {
 	/**
 	 * Get the file of a notation
 	 *
-	 * TODO use \d
-	 *
 	 * @param string $notation
 	 * @return null|int
 	 */
@@ -1253,7 +1251,18 @@ class FenParser0x88 {
 		if ( strlen( $notation ) > 1 ) {
 			return null;
 		}
-		return Board0x88Config::$files[$notation];
+
+		$files = [
+			'a' => 0,
+			'b' => 1,
+			'c' => 2,
+			'd' => 3,
+			'e' => 4,
+			'f' => 5,
+			'g' => 6,
+			'h' => 7
+		];
+		return $files[$notation];
 	}
 
 	/**
