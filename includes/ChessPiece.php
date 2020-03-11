@@ -92,4 +92,28 @@ class ChessPiece {
 		return $this->color;
 	}
 
+	/**
+	 * Get the hex representation of the piece
+	 *
+	 * @return int
+	 */
+	public function getAsHex() : int {
+		$mappings = [
+			'P' => 0x01,
+			'N' => 0x02,
+			'K' => 0x03,
+			'B' => 0x05,
+			'R' => 0x06,
+			'Q' => 0x07,
+			'p' => 0x09,
+			'n' => 0x0A,
+			'k' => 0x0B,
+			'b' => 0x0D,
+			'r' => 0x0E,
+			'q' => 0x0F
+		];
+
+		return $mappings[$this->symbol];
+	}
+
 }

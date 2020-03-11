@@ -130,7 +130,7 @@ class FenParser0x88 {
 
 			if ( $pieceObject !== false ) {
 				$index = ChessSquare::newFromCoords( $squares[$pos] )->getNumber();
-				$type = Board0x88Config::$pieces[$token];
+				$type = $pieceObject->getAsHex();
 				$piece = [
 					't' => $type,
 					's' => $index
@@ -1298,7 +1298,7 @@ class FenParser0x88 {
 			$pieceType = preg_match( "/[NRBQK]/", $token ) ? $token : 'P';
 		}
 
-		$pieceType = Board0x88Config::$pieces[$pieceType];
+		$pieceType = ( new ChessPiece( $pieceType ) )->getAsHex();
 		if ( $color === 'black' ) {
 			$pieceType += 8;
 		}
