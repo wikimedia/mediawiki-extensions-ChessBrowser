@@ -3,7 +3,8 @@
 	"version": "0.2.0",
 	"author": [
 		"Wugapodes",
-		"Kipod"
+		"Kipod",
+		"DannyS712"
 	],
 	"descriptionmsg": "chessbrowser-desc",
 	"type": "parserhook",
