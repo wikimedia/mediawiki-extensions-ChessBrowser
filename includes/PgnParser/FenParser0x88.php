@@ -348,40 +348,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns array of valid moves for given color in real board coordinates.
-	 *
-	 * Example:
-	 * $parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
-	 * $validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
-	 *
-	 * returns {"g8":["f7","h7","f8","h8"],"g7":["g6","g5"],"e6":[]}
-	 *
-	 * where the array key(example "g8") is from square and ["f7","h7","f8","h8"] are valid square for
-	 * the piece on "g8"
-	 *
-	 * @param string|null $color
-	 * @return array
-	 */
-	public function getValidMovesBoardCoordinates( $color = null ) {
-		$movesAndResult = $this->getValidMovesAndResult( $color );
-		$moves = $movesAndResult["moves"];
-
-		$ret = [];
-		foreach ( $moves as $from => $toSquares ) {
-			$fromSquare = ChessSquare::newFromNumber( $from )->getCoords();
-
-			$squares = [];
-			foreach ( $toSquares as $square ) {
-				$squares[] = ChessSquare::newFromNumber( $square )->getCoords();
-			}
-
-			$ret[$fromSquare] = $squares;
-		}
-
-		return $ret;
-	}
-
-	/**
 	 * Returns valid moves in 0x88 numeric format and result
 	 *
 	 * TODO document $color doesn't have to be null
