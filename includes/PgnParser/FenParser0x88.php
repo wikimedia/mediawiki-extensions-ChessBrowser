@@ -919,7 +919,7 @@ class FenParser0x88 {
 				case 0x05:
 				case 0x0D:
 					$checks = $this->getBishopCheckPath( $piece, $king );
-					if ( isset( $checks ) && is_array( $checks ) ) {
+					if ( $checks !== [] ) {
 						return $checks;
 					}
 					break;
@@ -927,18 +927,18 @@ class FenParser0x88 {
 				case 0x06:
 				case 0x0E:
 					$checks = $this->getRookCheckPath( $piece, $king );
-					if ( isset( $checks ) && is_array( $checks ) ) {
+					if ( $checks !== [] ) {
 						return $checks;
 					}
 					break;
 				case 0x07:
 				case 0x0F:
 					$checks = $this->getRookCheckPath( $piece, $king );
-					if ( isset( $checks ) && is_array( $checks ) ) {
+					if ( $checks !== [] ) {
 						return $checks;
 					}
 					$checks = $this->getBishopCheckPath( $piece, $king );
-					if ( isset( $checks ) && is_array( $checks ) ) {
+					if ( $checks !== [] ) {
 						return $checks;
 					}
 					break;
@@ -953,9 +953,9 @@ class FenParser0x88 {
 	 *
 	 * @param array $piece
 	 * @param array $king
-	 * @return array|null
+	 * @return array
 	 */
-	public function getBishopCheckPath( $piece, $king ) {
+	public function getBishopCheckPath( $piece, $king ) : array {
 		if ( ( $king['s'] - $piece['s'] ) % 15 === 0 || ( $king['s'] - $piece['s'] ) % 17 === 0 ) {
 			$direction = ( $king['s'] - $piece['s'] ) / $this->getDistance( $piece['s'], $king['s'] );
 			$square = $piece['s'] + $direction;
@@ -972,7 +972,7 @@ class FenParser0x88 {
 				return $squares;
 			}
 		}
-		return null;
+		return [];
 	}
 
 	/**
@@ -980,9 +980,9 @@ class FenParser0x88 {
 	 *
 	 * @param array $piece
 	 * @param array $king
-	 * @return array|null
+	 * @return array
 	 */
-	public function getRookCheckPath( $piece, $king ) {
+	public function getRookCheckPath( $piece, $king ) : array {
 		$direction = null;
 		if ( $this->isOnSameFile( $piece['s'], $king['s'] ) ) {
 			$direction = ( $king['s'] - $piece['s'] ) / $this->getDistance( $piece['s'], $king['s'] );
@@ -1005,7 +1005,7 @@ class FenParser0x88 {
 				return $squares;
 			}
 		}
-		return null;
+		return [];
 	}
 
 	/**
