@@ -36,6 +36,7 @@ class ChessPiece {
 
 	/**
 	 * @param string $symbol
+	 * @throws ChessBrowserException
 	 */
 	public function __construct( string $symbol ) {
 		wfDebugLog(
@@ -44,6 +45,12 @@ class ChessPiece {
 		);
 
 		$type = strtolower( $symbol );
+
+		$validTypes = [ 'p', 'b', 'n', 'r', 'q', 'k' ];
+
+		if ( !in_array( $type, $validTypes ) ) {
+			throw new ChessBrowserException( "Unkown type for '$symbol'" );
+		}
 
 		if ( $type === $symbol ) {
 			// Piece was already lowercase, so black

@@ -49,21 +49,6 @@ class Board0x88Config {
 		'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
 	];
 
-	public static $fenPieces = [
-		'p' => 'blackPawns',
-		'b' => 'blackBishops',
-		'n' => 'blackKnights',
-		'r' => 'blackRooks',
-		'q' => 'blackQueens',
-		'k' => 'blackKing',
-		'P' => 'whitePawns',
-		'B' => 'whiteBishops',
-		'N' => 'whiteKnights',
-		'R' => 'whiteRooks',
-		'Q' => 'whiteQueens',
-		'K' => 'whiteKing'
-	];
-
 	/**
 	 * TODO find a better name for this
 	 *

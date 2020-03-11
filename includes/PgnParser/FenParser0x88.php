@@ -158,7 +158,13 @@ class FenParser0x88 {
 		for ( $i = 0, $len = strlen( $this->fenParts['pieces'] ); $i < $len; $i++ ) {
 			$token = $this->fenParts['pieces'][$i];
 
-			if ( isset( Board0x88Config::$fenPieces[$token] ) ) {
+			try {
+				$pieceObject = new ChessPiece( $token );
+			} catch ( ChessBrowserException $ex ) {
+				$pieceObject = false;
+			}
+
+			if ( $pieceObject !== false ) {
 				$index = ChessSquare::newFromCoords( $squares[$pos] )->getNumber();
 				$type = Board0x88Config::$pieces[$token];
 				$piece = [
@@ -168,7 +174,7 @@ class FenParser0x88 {
 				// Board array
 				$this->cache['board'][$index] = $type;
 
-				$color = ( new ChessPiece( $token ) )->getColor();
+				$color = $pieceObject->getColor();
 				$this->cache[$color][] = $piece;
 
 				// King array
