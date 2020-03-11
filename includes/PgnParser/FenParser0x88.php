@@ -153,45 +153,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns the piece on a given square
-	 *
-	 * Example:
-	 * $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
-	 * $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
-	 * $bishop = $parser->getPieceOnSquare(ChessSquare::newFromCoords( 'b3' )->getNumber());
-	 * var_dump($bishop).
-	 *
-	 * Returns an array
-	 * {
-	 *   "square" : "b3",
-	 *   "s" : 33,
-	 *   "t" : 5,
-	 *   "type" : "bishop",
-	 *   "color": "white",
-	 *   "sliding" : 4
-	 * }
-	 *
-	 * sliding is greater than 0 for bishop, rook and queen.
-	 *
-	 * @param int $square
-	 * @return array|null
-	 */
-	public function getPieceOnSquare( $square ) {
-		$piece = $this->cache['board'][$square];
-		if ( isset( $piece ) ) {
-			return [
-				'square' => ChessSquare::newFromNumber( $square )->getCoords(),
-				's' => $square,
-				't' => $piece,
-				'type' => Board0x88Config::$typeMapping[$piece],
-				'color' => $piece & 0x8 ? 'black' : 'white',
-				'sliding' => $piece & 0x4
-			];
-		}
-		return null;
-	}
-
-	/**
 	 * Check if a move is valid
 	 *
 	 * @param array $move
