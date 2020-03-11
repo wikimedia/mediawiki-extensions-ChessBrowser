@@ -480,8 +480,7 @@ class FenParser0x88 {
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 						if ( ( $square & 0x88 ) === 0 ) {
-							if ( !strstr( $protectiveMoves, Board0x88Config::$keySquares[$square] ) ) {
-								# if ($protectiveMoves.indexOf(Board0x88Config::$keySquares[$square]) == -1) {
+							if ( strpos( $protectiveMoves, Board0x88Config::$keySquares[$square] ) === false ) {
 								if ( $this->cache['board'][$square] ) {
 									if (
 										( $WHITE && $this->cache['board'][$square] & 0x8 )
@@ -500,10 +499,10 @@ class FenParser0x88 {
 						&& !( $this->cache['board'][$piece['s'] + 1] )
 						&& !( $this->cache['board'][$piece['s'] + 2] )
 						&& ( $this->cache['board'][$piece['s'] + 3] )
-						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] )
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] ) === false
 						&& $piece['s'] < 117
-						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1] )
-						&& !strstr( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2] )
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1] ) === false
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2] ) === false
 					) {
 						$paths[] = $piece['s'] + 2;
 					}
@@ -513,18 +512,9 @@ class FenParser0x88 {
 						&& !( $this->cache['board'][$piece['s'] - 2] )
 						&& !( $this->cache['board'][$piece['s'] - 3] )
 						&& ( $this->cache['board'][$piece['s'] - 4] )
-						&& !strstr(
-							$protectiveMoves,
-							Board0x88Config::$keySquares[$piece['s']]
-						)
-						&& !strstr(
-							$protectiveMoves,
-							Board0x88Config::$keySquares[$piece['s'] - 1]
-						)
-						&& !strstr(
-							$protectiveMoves,
-							Board0x88Config::$keySquares[$piece['s'] - 2]
-						)
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] ) === false
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 1] ) === false
+						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 2] ) === false
 					) {
 						$paths[] = $piece['s'] - 2;
 					}
@@ -1221,7 +1211,7 @@ class FenParser0x88 {
 	 * @return string
 	 */
 	public function getPromoteByNotation( $notation ) {
-		if ( strstr( $notation, '=' ) ) {
+		if ( strpos( $notation, '=' ) !== false ) {
 			$piece = preg_replace( "/^.*?=([QRBN]).*$/", '$1', $notation );
 			return strtolower( $piece );
 		}
