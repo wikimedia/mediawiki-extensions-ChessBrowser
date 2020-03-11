@@ -92,42 +92,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the long notation
-	 *
-	 * @return string
-	 */
-	public function getLongNotation() {
-		return $this->longNotation;
-	}
-
-	/**
-	 * Get the long notation for a specific move
-	 *
-	 * @param array $move
-	 * @param bool $shortNotation
-	 * @return string
-	 */
-	public function getLongNotationForAMove( $move, $shortNotation ) {
-		if ( strstr( $shortNotation, 'O-' ) ) {
-			return $shortNotation;
-		}
-		$fromSquare = $move['from'];
-		$toSquare = $move['to'];
-
-		$fromNumber = ChessSquare::newFromCoords( $fromSquare )->getNumber();
-		$piece = $this->cache['board'][$fronNumber];
-		$type = Board0x88Config::$typeMapping[$piece];
-		$separator = strstr( $shortNotation, 'x' ) >= 0 ? 'x' : '-';
-
-		$ret = $type . $fromSquare . $separator . $toSquare;
-
-		if ( isset( $move['promoteTo'] ) ) {
-			$ret .= '=' . $move['promoteTo'];
-		}
-		return $ret;
-	}
-
-	/**
 	 * Update fenParts from fen
 	 */
 	private function updateFenArray() {
