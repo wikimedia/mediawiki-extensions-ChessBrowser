@@ -43,7 +43,6 @@ class FenParser0x88 {
 	private $notation;
 	private $validMoves = null;
 	private $fenParts = [];
-	private $longNotation;
 
 	/**
 	 * Create a new FenParser
