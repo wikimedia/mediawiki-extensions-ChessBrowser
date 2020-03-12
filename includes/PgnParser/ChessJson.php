@@ -46,16 +46,9 @@ class ChessJson {
 	public const MOVE_ACTIONS = 'actions';
 	public const MOVE_VARIATIONS = 'variations';
 	public const MOVE_MOVES = 'moves';
-	public const MOVE_CAPTURE = 'capture';
-	public const MOVE_PROMOTE_TO = 'promoteTo';
-	public const MOVE_CASTLE = 'castle';
 	public const MOVE_PARSED = 'castle';
 
 	public const GAME_METADATA = 'metadata';
-	public const GAME_EVENT = 'event';
-	public const GAME_WHITE = 'white';
-	public const GAME_BLACK = 'black';
-	public const GAME_ECO = 'black';
 
 	public const PGN_KEY_ACTION_ARROW = "ar";
 	public const PGN_KEY_ACTION_HIGHLIGHT = "sq";
