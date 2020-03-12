@@ -1278,11 +1278,12 @@ class FenParser0x88 {
 	 */
 	public function getToSquareByNotation( $notation ) {
 		$notation = preg_replace( "/.*([a-h][1-8]).*/s", '$1', $notation );
-		$square = ChessSquare::newFromCoords( $notation );
-		if ( $square === false ) {
+		try {
+			$square = ChessSquare::newFromCoords( $notation );
+			return $square->getNumber();
+		} catch ( ChessBrowserException $e ) {
 			return '';
 		}
-		return $square->getNumber();
 	}
 
 	/**

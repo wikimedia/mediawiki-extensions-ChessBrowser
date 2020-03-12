@@ -121,15 +121,31 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @covers ChessSquare::newFromCoords
+	 * @dataProvider provideTestThrowsProperException
+	 * @param string $coords
+	 * @param string $expectedMessage
 	 */
-	public function testNewFromCoords_bad() {
-		$this->assertFalse(
-			ChessSquare::newFromCoords( 'xyz' ),
-			'String that does not have a length of 2 is invalid'
-		);
-		$this->assertFalse(
-			ChessSquare::newFromCoords( 'q1' ),
-			'String with an invalid file is invalid'
+	public function testNewFromCoords_bad(
+		string $coords,
+		string $expectedMessage
+	) {
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( $expectedMessage );
+		ChessSquare::newFromCoords( $coords );
+	}
+
+	public static function provideTestThrowsProperException() {
+		return [
+			[ 'xyz', 'Coordinates (xyz) too long' ],
+			[ 'q1', 'No such file: q' ]
+		];
+	}
+
+	public function testNewFromCoords_good() {
+		$result = ChessSquare::newFromCoords( 'f3' );
+		$this->assertInstanceOf(
+			ChessSquare::class,
+			$result
 		);
 	}
 

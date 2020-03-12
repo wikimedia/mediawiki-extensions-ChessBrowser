@@ -74,11 +74,12 @@ class ChessSquare {
 
 	/**
 	 * @param string $coords
-	 * @return ChessSquare|false false if invalid
+	 * @return ChessSquare
+	 * @throws ChessBrowserException if invalid
 	 */
-	public static function newFromCoords( string $coords ) {
+	public static function newFromCoords( string $coords ) : ChessSquare {
 		if ( strlen( $coords ) !== 2 ) {
-			return false;
+			throw new ChessBrowserException( "Coordinates ($coords) too long" );
 		}
 
 		list( $fileLetter, $rankNumber ) = str_split( $coords );
@@ -96,7 +97,7 @@ class ChessSquare {
 		];
 
 		if ( !isset( $files[ $fileLetter ] ) ) {
-			return false;
+			throw new ChessBrowserException( "No such file: $fileLetter" );
 		}
 
 		$number = $files[ $fileLetter ] + ( 16 * ( $rankNumber - 1 ) );
