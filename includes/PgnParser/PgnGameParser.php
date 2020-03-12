@@ -48,18 +48,6 @@ class PgnGameParser {
 	];
 
 	/**
-	 * Create a new parser
-	 *
-	 * @param string|null $pgnGame
-	 */
-	public function __construct( $pgnGame = null ) {
-		if ( isset( $pgnGame ) ) {
-			$this->pgnGame = trim( $pgnGame );
-			$this->moveBuilder = new MoveBuilder();
-		}
-	}
-
-	/**
 	 * Set or reset the parser's pgn
 	 *
 	 * @param string $pgnGame
