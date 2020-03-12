@@ -3,7 +3,7 @@
  * @group ChessBrowser
  * @covers ChessParser
  */
-class ChessParserTest extends MediaWikiTestCase {
+class ChessParserTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @var ChessParser $emptyChessParser
