@@ -35,7 +35,6 @@
  * @author Alf Magne Kalleland
  */
 
-// TODO figure out where these are used / why these are public, and clean up duplication
 class Board0x88Config {
 
 	public static $fenSquares = [
