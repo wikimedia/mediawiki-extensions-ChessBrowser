@@ -39,9 +39,9 @@ class ChessBrowserHooks {
 	 */
 	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
 		$trigger = $parserOutput->getExtensionData( 'ChessViewerTrigger' );
-		$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
 		if ( $trigger ) {
 			$out->addModules( 'ext.chessViewer' );
+			$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
 			$gameIdentifiers = array_map(
 				function ( $index ) {
 					$id = 'chess-browser-div-' . $index;

@@ -46,15 +46,10 @@ class ChessBrowserHooksTest extends \MediaWikiUnitTestCase {
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$mockPO->expects( $this->exactly( 2 ) )
+		$mockPO->expects( $this->once() )
 			->method( 'getExtensionData' )
-			->withConsecutive(
-				[ $this->equalTo( 'ChessViewerTrigger' ) ],
-				[ $this->equalTo( 'ChessViewerNumGames' ) ]
-			)
-			->will(
-				$this->onConsecutiveCalls( false, false )
-			);
+			->with( 'ChessViewerTrigger' )
+			->willReturn( false );
 
 		// if $trigger is false, no methods on outputpage are called
 		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
