@@ -184,21 +184,6 @@ class Board0x88Config {
 		',119,'
 	];
 
-	public static $notationMapping = [
-		0x01 => '',
-		0x02 => 'N',
-		0x03 => 'K',
-		0x05 => 'B',
-		0x06 => 'R',
-		0x07 => 'Q',
-		0x09 => '',
-		0x0A => 'N',
-		0x0B => 'K',
-		0x0D => 'B',
-		0x0E => 'R',
-		0x0F => 'Q'
-	];
-
 	public static $typeToNumberMapping = [
 		'p' => 0x01,
 		'n' => 0x02,

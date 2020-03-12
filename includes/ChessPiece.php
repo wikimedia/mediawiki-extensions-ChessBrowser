@@ -176,4 +176,16 @@ class ChessPiece {
 		}
 	}
 
+	/**
+	 * Get the symbol to use for notation
+	 *
+	 * @return string
+	 */
+	public function getNotation() : string {
+		if ( $this->type === 'p' ) {
+			return '';
+		}
+		return strtoupper( $this->type );
+	}
+
 }

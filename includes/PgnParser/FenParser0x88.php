@@ -1567,7 +1567,7 @@ class FenParser0x88 {
 		$move['to'] = ChessSquare::newFromCoords( $move['from'] )->getNumber();
 		$type = $this->cache['board'][$move['from']];
 
-		$ret = Board0x88Config::$notationMapping[$this->cache['board'][$move['from']]];
+		$ret = ChessPiece::newFromHex( $type )->getNotation();
 
 		switch ( $type ) {
 			case 0x01:
@@ -1580,7 +1580,7 @@ class FenParser0x88 {
 					. Board0x88Config::$rankMapping[$move['to'] & 240];
 				if ( isset( $move['promoteTo'] ) && $move['promoteTo'] ) {
 					$numType = Board0x88Config::$typeToNumberMapping[$move['promoteTo']];
-					$ret .= '=' . Board0x88Config::$notationMapping[$numType];
+					$ret .= '=' . ChessPiece::newFromHex( $numType )->getNotation();
 				}
 				break;
 			case 0x02:
