@@ -582,7 +582,8 @@ class FenParser0x88 {
 	 * @return string
 	 */
 	public function getCaptureAndProtectiveMoves( $color ) {
-		$ret = [];
+		$possible = [];
+		$actual = [];
 
 		$pieces = $this->cache[$color];
 
@@ -593,20 +594,12 @@ class FenParser0x88 {
 			switch ( $piece['t'] ) {
 				// pawns
 				case 0x01:
-					if ( ( ( $piece['s'] + 15 ) & 0x88 ) === 0 ) {
-						$ret[] = $piece['s'] + 15;
-					}
-					if ( ( ( $piece['s'] + 17 ) & 0x88 ) === 0 ) {
-						$ret[] = $piece['s'] + 17;
-					}
+					$possible[] = $piece['s'] + 15;
+					$possible[] = $piece['s'] + 17;
 					break;
 				case 0x09:
-					if ( ( ( $piece['s'] - 15 ) & 0x88 ) === 0 ) {
-						$ret[] = $piece['s'] - 15;
-					}
-					if ( ( ( $piece['s'] - 17 ) & 0x88 ) === 0 ) {
-						$ret[] = $piece['s'] - 17;
-					}
+					$possible[] = $piece['s'] - 15;
+					$possible[] = $piece['s'] - 17;
 					break;
 				// Sliding pieces
 				case 0x05:
@@ -620,10 +613,10 @@ class FenParser0x88 {
 						$square = $piece['s'] + $directions[$a];
 						while ( ( $square & 0x88 ) === 0 ) {
 							if ( $this->cache['board'][$square] && $square !== $oppositeKingSquare ) {
-								$ret[] = $square;
+								$actual[] = $square;
 								break;
 							}
-							$ret[] = $square;
+							$actual[] = $square;
 							$square += $directions[$a];
 						}
 					}
@@ -634,11 +627,7 @@ class FenParser0x88 {
 					// White knight
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenA = count( $directions ); $a < $lenA; $a++ ) {
-						$square = $piece['s'] + $directions[$a];
-
-						if ( ( $square & 0x88 ) === 0 ) {
-							$ret[] = $square;
-						}
+						$possible[] = $piece['s'] + $directions[$a];
 					}
 					break;
 				// king
@@ -646,16 +635,20 @@ class FenParser0x88 {
 				case 0X0B:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-						$square = $piece['s'] + $directions[$a];
-						if ( ( $square & 0x88 ) === 0 ) {
-							$ret[] = $square;
-						}
+						$possible[] = $piece['s'] + $directions[$a];
 					}
 					break;
 			}
 
 		}
-		return ',' . implode( ",", $ret ) . ',';
+
+		foreach ( $possible as $square ) {
+			if ( ( $square & 0x88 ) === 0 ) {
+				$actual[] = $square;
+			}
+		}
+
+		return ',' . implode( ",", $actual ) . ',';
 	}
 
 	/**
