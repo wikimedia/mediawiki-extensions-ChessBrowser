@@ -49,7 +49,7 @@ class ChessPiece {
 		$validTypes = [ 'p', 'b', 'n', 'r', 'q', 'k' ];
 
 		if ( !in_array( $type, $validTypes ) ) {
-			throw new ChessBrowserException( "Unkown type for '$symbol'" );
+			throw new ChessBrowserException( "Unknown type for '$symbol'" );
 		}
 
 		if ( $type === $symbol ) {
