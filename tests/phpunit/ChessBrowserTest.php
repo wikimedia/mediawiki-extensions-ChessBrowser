@@ -57,93 +57,30 @@ class ChessBrowserTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideTestThrowsProperException
-	 * @param function $testFunction
-	 * @param array $args
-	 * @param class $expectedException
-	 * @param function $expectedMessage
+	 * @param string $expectedMessage
+	 * @param string $symbol
+	 * @param string|int $rank
+	 * @param string|int $file
 	 */
 	public function testThrowsProperException(
-		callable $testFunction,
-		array $args,
-		$expectedException,
-		callable $expectedMessage
+		string $expectedMessage,
+		string $symbol,
+		$rank,
+		$file
 	) {
-		$this->expectException( $expectedException );
-		$this->expectExceptionMessage( $expectedMessage( ...$args ) );
-		$testFunction( ...$args );
-	}
-
-	public static function provideCreatePieceTests() {
-		$class = ChessBrowserException::class;
-		$callback = function ( ...$args ) {
-			return ChessBrowser::createPiece( ...$args );
-		};
-		$message = function ( $symbol, $rank, $file ) {
-			return "Impossible rank ($rank) or file ($file)";
-		};
-		$badRankOrFile = [
-			[
-				$callback,
-				[
-					'p',
-					8,
-					0
-				],
-				$class,
-				$message
-			],
-			[
-				$callback,
-				[
-					'p',
-					-1,
-					0
-				],
-				$class,
-				$message
-			],
-			[
-				$callback,
-				[
-					'p',
-					0,
-					8
-				],
-				$class,
-				$message
-			],
-			[
-				$callback,
-				[
-					'p',
-					0,
-					-1
-				],
-				$class,
-				$message
-			]
-		];
-		$badPieceTypeMessage = function ( $symbol, $rank, $file ) {
-			return "Invalid piece type $symbol";
-		};
-		$badPieceType = [
-			[
-				$callback,
-				[
-					'0',
-					0,
-					0
-				],
-				ChessBrowserException::class,
-				$badPieceTypeMessage
-			]
-		];
-		return array_merge( $badRankOrFile, $badPieceType );
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( $expectedMessage );
+		ChessBrowser::createPiece( $symbol, $rank, $file );
 	}
 
 	public static function provideTestThrowsProperException() {
-		$createPieceTests = self::provideCreatePieceTests();
-		return $createPieceTests;
+		return [
+			[ "Impossible rank (8) or file (0)", 'p', 8, 0 ],
+			[ "Impossible rank (-1) or file (0)", 'p', -1, 0 ],
+			[ "Impossible rank (0) or file (8)", 'p', 0, 8 ],
+			[ "Impossible rank (0) or file (-1)", 'p', 0, -1 ],
+			[ "Invalid piece type 0", '0', 0, 0 ],
+		];
 	}
 
 	public static function provideGetMetadata() {
