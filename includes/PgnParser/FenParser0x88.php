@@ -88,6 +88,7 @@ class FenParser0x88 {
 		}
 		$this->fen = $fen;
 		$this->updateFenArray();
+		$this->cacheBlankBoard();
 		$this->parseFen();
 	}
 
@@ -113,11 +114,20 @@ class FenParser0x88 {
 	}
 
 	/**
+	 * Create the default board as empty
+	 */
+	private function cacheBlankBoard() {
+		$this->cache['board'] = [];
+		for ( $square = 0; $square <= 119; $square++ ) {
+			$this->cache['board'][ $square ] = 0;
+		}
+	}
+
+	/**
 	 * Parse the stored fenParts
 	 */
 	private function parseFen() {
 		$pos = 0;
-		$this->cache['board'] = Board0x88Config::getDefaultBoard();
 		$squares = Board0x88Config::$fenSquares;
 		for ( $i = 0, $len = strlen( $this->fenParts['pieces'] ); $i < $len; $i++ ) {
 			$token = $this->fenParts['pieces'][$i];

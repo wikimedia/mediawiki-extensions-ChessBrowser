@@ -444,17 +444,6 @@ class Board0x88Config {
 		'9' => 7
 	];
 
-	/**
-	 * @return array
-	 */
-	public static function getDefaultBoard() {
-		$squares = [];
-		for ( $square = 0; $square <= 119; $square++ ) {
-			$squares[ $square ] = 0;
-		}
-		return $squares;
-	}
-
 	// array_keys( $files )
 	public static $fileMapping = [
 		'a',
