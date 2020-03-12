@@ -46,7 +46,7 @@ class ChessJson {
 	public const MOVE_ACTIONS = 'actions';
 	public const MOVE_VARIATIONS = 'variations';
 	public const MOVE_MOVES = 'moves';
-	public const MOVE_PARSED = 'castle';
+	public const MOVE_PARSED = 'parsed';
 
 	public const GAME_METADATA = 'metadata';
 
