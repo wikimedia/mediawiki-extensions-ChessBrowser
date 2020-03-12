@@ -1224,14 +1224,13 @@ class FenParser0x88 {
 	/**
 	 * Get the rank of a notation
 	 *
-	 * TODO use \d
 	 * TODO add an explicit cast of $notation from string to int
 	 *
 	 * @param string $notation
 	 * @return null|int
 	 */
 	public function getFromRankByNotation( $notation ) {
-		$notation = preg_replace( "/^.+([0-9]).+[0-9].*$/s", '$1', $notation );
+		$notation = preg_replace( "/^.+(\d).+\d.*$/s", '$1', $notation );
 		if ( strlen( $notation ) > 1 ) {
 			return null;
 		}

@@ -82,7 +82,7 @@ class PgnParser {
 			return null;
 		}
 
-		$filePath = preg_replace( "/[^0-9\.a-z_\-\/]/si", "", $filePath );
+		$filePath = preg_replace( "/[^\.\w\-\/]/si", "", $filePath );
 		if ( !file_exists( $filePath ) ) {
 			return null;
 		}
@@ -121,11 +121,11 @@ class PgnParser {
 		$c = $this->pgnContent;
 
 		$c = preg_replace( '/"\]\s{0,10}\[/s', "]\n[", $c );
-		$c = preg_replace( '/"\]\s{0,10}([\.0-9]|{)/s', "\"]\n\n$1", $c );
+		$c = preg_replace( '/"\]\s{0,10}([\.\d{])/s', "\"]\n\n$1", $c );
 
 		$c = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $c );
 
-		$c = preg_replace( "/\\$[0-9]+/s", "", $c );
+		$c = preg_replace( "/\\$\d+/s", "", $c );
 		$c = str_replace( "({", "( {", $c );
 		$c = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c );
 		$c = preg_replace( "/\r/s", "", $c );
