@@ -118,7 +118,7 @@ class FenParser0x88 {
 	 */
 	private function cacheBlankBoard() {
 		$this->cache['board'] = [];
-		for ( $square = 0; $square <= 119; $square++ ) {
+		foreach ( range( 0, 119 ) as $square ) {
 			$this->cache['board'][ $square ] = 0;
 		}
 	}
@@ -328,8 +328,7 @@ class FenParser0x88 {
 		}
 
 		$totalCountMoves = 0;
-		for ( $i = 0, $count = count( $pieces ); $i < $count; $i++ ) {
-			$piece = $pieces[$i];
+		foreach ( $pieces as $piece ) {
 			$paths = [];
 
 			switch ( $piece['t'] ) {
@@ -567,9 +566,9 @@ class FenParser0x88 {
 	 */
 	private function excludeInvalidSquares( $squares, $validSquares ) {
 		$ret = [];
-		for ( $i = 0, $len = count( $squares ); $i < $len; $i++ ) {
-			if ( in_array( $squares[$i], $validSquares ) ) {
-				$ret[] = $squares[$i];
+		foreach ( $squares as $square ) {
+			if ( in_array( $square, $validSquares ) ) {
+				$ret[] = $square;
 			}
 		}
 		return $ret;
@@ -589,8 +588,8 @@ class FenParser0x88 {
 
 		$oppositeKing = $this->getKing( $color === 'white' ? 'black' : 'white' );
 		$oppositeKingSquare = $oppositeKing['s'];
-		for ( $i = 0, $len = count( $pieces ); $i < $len; $i++ ) {
-			$piece = $pieces[$i];
+
+		foreach ( $pieces as $piece ) {
 			switch ( $piece['t'] ) {
 				// pawns
 				case 0x01:
@@ -639,7 +638,6 @@ class FenParser0x88 {
 					}
 					break;
 			}
-
 		}
 
 		foreach ( $possible as $square ) {
@@ -661,8 +659,8 @@ class FenParser0x88 {
 		$ret = [];
 		$king = $this->cache['king' . ( $color === 'white' ? 'black' : 'white' )];
 		$pieces = $this->cache[$color];
-		for ( $i = 0, $len = count( $pieces ); $i < $len; $i++ ) {
-			$piece = $pieces[$i];
+
+		foreach ( $pieces as $piece ) {
 			if ( $piece['t'] & 0x4 ) {
 				$numericDistance = $king['s'] - $piece['s'];
 				$boardDistance = $numericDistance / $this->getDistance( $king['s'], $piece['s'] );
@@ -765,9 +763,7 @@ class FenParser0x88 {
 
 		$enPassantSquare = $this->getEnPassantSquare();
 
-		for ( $i = 0, $len = count( $pieces ); $i < $len; $i++ ) {
-			$piece = $pieces[$i];
-
+		foreach ( $pieces as $piece ) {
 			switch ( $piece['t'] ) {
 				case 0x01:
 					if ( $king['s'] === $piece['s'] + 15 || $king['s'] === $piece['s'] + 17 ) {
@@ -1528,9 +1524,10 @@ class FenParser0x88 {
 		$this->cache['white'] = [];
 		$this->cache['black'] = [];
 		$piece = null;
-		for ( $i = 0; $i < 120; $i++ ) {
+
+		foreach ( range( 0, 119 ) as $i ) {
 			if ( $i & 0x88 ) {
-				$i += 8;
+				continue;
 			}
 			$piece = $this->cache['board'][$i];
 			if ( $piece ) {
