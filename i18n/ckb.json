@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Arya sarhan"
+		]
+	},
+	"chessbrowser-site-label": "پێگە",
+	"chessbrowser-date-label": "ڕێکەوت",
+	"chessbrowser-white-label": "سپی",
+	"chessbrowser-black-label": "ڕەش",
+	"chessbrowser-slow-autoplay": "ھێواشتر",
+	"chessbrowser-fast-autoplay": "خێراتر"
+}
