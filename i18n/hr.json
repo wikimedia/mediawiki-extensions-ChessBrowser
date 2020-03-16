@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Neptune, the Mystic"
+		]
+	},
+	"chessbrowser-expand-button": "Proširi",
+	"chessbrowser-white-label": "Bijeli",
+	"chessbrowser-black-label": "Crni",
+	"chessbrowser-slow-autoplay": "Uspori",
+	"chessbrowser-fast-autoplay": "Ubrzaj"
+}
