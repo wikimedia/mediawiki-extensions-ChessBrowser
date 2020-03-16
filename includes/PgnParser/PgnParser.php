@@ -41,7 +41,6 @@ class PgnParser {
 	private $pgnContent;
 	private $pgnGames;
 	private $gameParser;
-	private $pgnGameParser;
 	private $fullParsing = true;
 
 	/**
@@ -61,7 +60,6 @@ class PgnParser {
 
 		$this->fullParsing = $fullParsing;
 		$this->gameParser = new GameParser();
-		$this->pgnGameParser = new PgnGameParser();
 	}
 
 	/**
@@ -350,8 +348,7 @@ class PgnParser {
 	 * @return array
 	 */
 	private function getParsedGame( $unParsedGame ) {
-		$this->pgnGameParser->setPgn( $unParsedGame );
-		$ret = $this->pgnGameParser->getParsedData();
+		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
 		if ( $this->fullParsing ) {
 			$ret = $this->gameParser->getParsedGame( $ret );
 		}
@@ -365,8 +362,7 @@ class PgnParser {
 	 * @return array
 	 */
 	private function getParsedGameShort( $unParsedGame ) {
-		$this->pgnGameParser->setPgn( $unParsedGame );
-		$ret = $this->pgnGameParser->getParsedData();
+		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
 		if ( $this->fullParsing ) {
 			$ret = $this->gameParser->getParsedGame( $ret, true );
 			$moves = &$ret["moves"];

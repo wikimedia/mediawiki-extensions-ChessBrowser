@@ -38,24 +38,32 @@
 class PgnGameParser {
 
 	private $pgnGame;
+
 	private $defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
-	private $gameData = [];
-
 	private $specialMetadata = [
-		'event','site','white','black','result','plycount','eco','fen',
-		'timecontrol','round','date','annotator','termination'
+		'event',
+		'site',
+		'white',
+		'black',
+		'result',
+		'plycount',
+		'eco',
+		'fen',
+		'timecontrol',
+		'round',
+		'date',
+		'annotator',
+		'termination'
 	];
 
 	/**
-	 * Set or reset the parser's pgn
+	 * Set the parser's pgn
 	 *
 	 * @param string $pgnGame
 	 */
-	public function setPgn( $pgnGame ) {
+	public function __construct( $pgnGame ) {
 		$this->pgnGame = trim( $pgnGame );
-		$this->gameData = [];
-		$this->moveBuilder = new MoveBuilder();
 	}
 
 	/**
@@ -64,9 +72,9 @@ class PgnGameParser {
 	 * @return array
 	 */
 	public function getParsedData() {
-		$this->gameData = $this->getMetadata();
-		$this->gameData[ChessJson::MOVE_MOVES] = $this->getMoves();
-		return $this->gameData;
+		$gameData = $this->getMetadata();
+		$gameData[ChessJson::MOVE_MOVES] = $this->getMoves();
+		return $gameData;
 	}
 
 	/**
@@ -124,6 +132,8 @@ class PgnGameParser {
 	 * @return array
 	 */
 	private function getMoves() {
+		$moveBuilder = new MoveBuilder();
+
 		$parts = $this->getMovesAndComments();
 		for ( $i = 0, $count = count( $parts ); $i < $count; $i++ ) {
 			$move = trim( $parts[$i] );
@@ -131,9 +141,9 @@ class PgnGameParser {
 			switch ( $move ) {
 				case '{':
 					if ( $i == 0 ) {
-						$this->moveBuilder->addCommentBeforeFirstMove( $parts[$i + 1] );
+						$moveBuilder->addCommentBeforeFirstMove( $parts[$i + 1] );
 					} else {
-						$this->moveBuilder->addComment( $parts[$i + 1] );
+						$moveBuilder->addComment( $parts[$i + 1] );
 					}
 					$i += 2;
 					break;
@@ -142,20 +152,20 @@ class PgnGameParser {
 					foreach ( $moves as $move ) {
 						switch ( $move ) {
 							case '(':
-								$this->moveBuilder->startVariation();
+								$moveBuilder->startVariation();
 								break;
 							case ')':
-								$this->moveBuilder->endVariation();
+								$moveBuilder->endVariation();
 								break;
 							default:
-								$this->moveBuilder->addMoves( $move );
+								$moveBuilder->addMoves( $move );
 						}
 					}
 					break;
 			}
 		}
 
-		return $this->moveBuilder->getMoves();
+		return $moveBuilder->getMoves();
 	}
 
 	/**
