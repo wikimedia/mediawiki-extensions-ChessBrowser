@@ -191,7 +191,7 @@ class PgnGameParser {
 	private function getMovesAndVariationFromString( $string ) {
 		$string = " " . $string;
 
-		$string = preg_replace( "/[0-9]+?\./s", "", $string );
+		$string = preg_replace( "/\d+?\./s", "", $string );
 		$string = str_replace( " ..", "", $string );
 		$string = str_replace( "  ", " ", $string );
 		$string = trim( $string );
