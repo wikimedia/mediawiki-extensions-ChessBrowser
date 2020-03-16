@@ -185,13 +185,14 @@ class MoveBuilder {
 				$tokens = explode( ";", $arrow );
 				if ( strlen( $tokens[0] ) == 4 ) {
 					$action = [
-						"from" => substr( $arrow, 0, 2 ),
-						"to" => substr( $arrow, 2, 2 )
+						'from' => substr( $arrow, 0, 2 ),
+						'to' => substr( $arrow, 2, 2 ),
+						'type' => 'arrow'
 					];
 					if ( count( $tokens ) > 1 ) {
-						$action["color"] = $tokens[1];
+						$action['color'] = $tokens[1];
 					}
-					$ret[] = $this->toAction( "arrow", $action );
+					$ret[] = $action;
 				}
 			}
 		}
@@ -215,11 +216,12 @@ class MoveBuilder {
 
 				if ( strlen( $arrow ) === 4 ) {
 					$action = [
-						"from" => substr( $arrow, 0, 2 ),
-						"to" => substr( $arrow, 2, 2 ),
-						"color" => $color
+						'from' => substr( $arrow, 0, 2 ),
+						'to' => substr( $arrow, 2, 2 ),
+						'color' => $color,
+						'type' => 'arrow',
 					];
-					$ret[] = $this->toAction( "arrow", $action );
+					$ret[] = $action;
 				}
 			}
 		}
@@ -236,12 +238,13 @@ class MoveBuilder {
 				$tokens = explode( ";", $arrow );
 				if ( strlen( $tokens[0] ) == 2 ) {
 					$action = [
-						"square" => substr( $arrow, 0, 2 )
+						'square' => substr( $arrow, 0, 2 ),
+						'type' => 'highlight',
 					];
 					if ( count( $tokens ) > 1 ) {
 						$action["color"] = $tokens[1];
 					}
-					$ret[] = $this->toAction( "highlight", $action );
+					$ret[] = $action;
 				}
 			}
 		}
@@ -263,29 +266,16 @@ class MoveBuilder {
 
 				if ( strlen( $arrow ) === 2 ) {
 					$action = [
-						"square" => substr( $arrow, 0, 2 ),
-						"color" => $color
+						'square' => substr( $arrow, 0, 2 ),
+						'color' => $color,
+						'type' => 'highlight',
 					];
-					$ret[] = $this->toAction( "highlight", $action );
+					$ret[] = $action;
 				}
 			}
 		}
 
 		return $ret;
-	}
-
-	/**
-	 * toAction
-	 *
-	 * TODO document
-	 *
-	 * @param string $key
-	 * @param array $val
-	 * @return array
-	 */
-	private function toAction( $key, $val ) {
-		$val["type"] = $key;
-		return $val;
 	}
 
 	/**
