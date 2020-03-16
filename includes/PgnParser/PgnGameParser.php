@@ -159,15 +159,6 @@ class PgnGameParser {
 	}
 
 	/**
-	 * Add a game comment
-	 *
-	 * @param string $comment
-	 */
-	private function addGameComment( $comment ) {
-		$this->gameData[ChessJson::GAME_METADATA][ChessJson::MOVE_COMMENT] = $comment;
-	}
-
-	/**
 	 * Get the moves and comments
 	 *
 	 * @return array
