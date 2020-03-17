@@ -129,19 +129,7 @@ class PgnParser {
 	}
 
 	/**
-	 * Get the array of games from a pgn
-	 *
-	 * @param string $pgnString
-	 * @return array
-	 */
-	private function splitPgnIntoGames( $pgnString ) {
-		return $this->getPgnGamesAsArray( $pgnString );
-	}
-
-	/**
 	 * Get the array of pgn games
-	 *
-	 * TODO is this static or not
 	 *
 	 * @param string $pgn
 	 * @return array
@@ -181,7 +169,7 @@ class PgnParser {
 	 */
 	public function getUnparsedGames() {
 		if ( !isset( $this->pgnGames ) ) {
-			$this->pgnGames = $this->splitPgnIntoGames( $this->cleanPgn( $this->pgnContent ) );
+			$this->pgnGames = $this->getPgnGamesAsArray( $this->cleanPgn( $this->pgnContent ) );
 		}
 
 		return $this->pgnGames;
