@@ -53,37 +53,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get a clean version of the pgn content
-	 *
-	 * @return string
-	 */
-	private function cleanPgn() {
-		$c = $this->pgnContent;
-
-		$c = preg_replace( '/"\]\s{0,10}\[/s', "]\n[", $c );
-		$c = preg_replace( '/"\]\s{0,10}([\.\d{])/s', "\"]\n\n$1", $c );
-
-		$c = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $c );
-
-		$c = preg_replace( "/\\$\d+/s", "", $c );
-		$c = str_replace( "({", "( {", $c );
-		$c = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c );
-		$c = preg_replace( "/\r/s", "", $c );
-		$c = preg_replace( "/\t/s", "", $c );
-		$c = preg_replace( "/\]\s+\[/s", "]\n[", $c );
-		$c = str_replace( " [", "[", $c );
-		$c = preg_replace( "/([^\]])(\n+)\[/si", "$1\n\n[", $c );
-		$c = preg_replace( "/\n{3,}/s", "\n\n", $c );
-		$c = str_replace( "-SB-", "[", $c );
-		$c = str_replace( "0-0-0", "O-O-O", $c );
-		$c = str_replace( "0-0", "O-O", $c );
-
-		$c = preg_replace( '/^([^\[])*?\[/', '[', $c );
-
-		return $c;
-	}
-
-	/**
 	 * Get the array of pgn games
 	 *
 	 * @param string $pgn
@@ -124,7 +93,29 @@ class PgnParser {
 	 */
 	public function getUnparsedGames() {
 		if ( !isset( $this->pgnGames ) ) {
-			$this->pgnGames = $this->getPgnGamesAsArray( $this->cleanPgn( $this->pgnContent ) );
+			$clean = $this->pgnContent;
+
+			$clean = preg_replace( '/"\]\s{0,10}\[/s', "]\n[", $clean );
+			$clean = preg_replace( '/"\]\s{0,10}([\.\d{])/s', "\"]\n\n$1", $clean );
+
+			$clean = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $clean );
+
+			$clean = preg_replace( "/\\$\d+/s", "", $clean );
+			$clean = str_replace( "({", "( {", $clean );
+			$clean = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $clean );
+			$clean = preg_replace( "/\r/s", "", $clean );
+			$clean = preg_replace( "/\t/s", "", $clean );
+			$clean = preg_replace( "/\]\s+\[/s", "]\n[", $clean );
+			$clean = str_replace( " [", "[", $clean );
+			$clean = preg_replace( "/([^\]])(\n+)\[/si", "$1\n\n[", $clean );
+			$clean = preg_replace( "/\n{3,}/s", "\n\n", $clean );
+			$clean = str_replace( "-SB-", "[", $clean );
+			$clean = str_replace( "0-0-0", "O-O-O", $clean );
+			$clean = str_replace( "0-0", "O-O", $clean );
+
+			$clean = preg_replace( '/^([^\[])*?\[/', '[', $clean );
+
+			$this->pgnGames = $this->getPgnGamesAsArray( $clean );
 		}
 
 		return $this->pgnGames;
