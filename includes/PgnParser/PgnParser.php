@@ -110,15 +110,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get count of games that aren't parsed
-	 *
-	 * @return int
-	 */
-	public function countGames() {
-		return count( $this->getUnparsedGames() );
-	}
-
-	/**
 	 * Get the first game
 	 *
 	 * @return array|null
