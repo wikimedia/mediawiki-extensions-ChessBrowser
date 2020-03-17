@@ -50,45 +50,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Sanitize a file path
-	 *
-	 * TODO make static
-	 *
-	 * @param string $filePath
-	 * @return string|null
-	 */
-	private function sanitize( $filePath ) {
-		if ( substr( $filePath, 0, 1 ) === "/" ) {
-			return null;
-		}
-
-		$extension = $this->getExtension( $filePath );
-		if ( $extension != 'pgn' ) {
-			return null;
-		}
-
-		$filePath = preg_replace( "/[^\.\w\-\/]/si", "", $filePath );
-		if ( !file_exists( $filePath ) ) {
-			return null;
-		}
-
-		return $filePath;
-	}
-
-	/**
-	 * Get a file extension
-	 *
-	 * TODO make static
-	 *
-	 * @param string $filePath
-	 * @return string
-	 */
-	private function getExtension( $filePath ) {
-		$tokens = explode( ".", $filePath );
-		return strtolower( array_pop( $tokens ) );
-	}
-
-	/**
 	 * Set the pgn content
 	 *
 	 * @param string $content
