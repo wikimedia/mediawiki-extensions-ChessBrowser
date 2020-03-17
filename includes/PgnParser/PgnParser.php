@@ -140,15 +140,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get a clean pgn
-	 *
-	 * @return string
-	 */
-	public function getCleanPgn() {
-		return $this->cleanPgn( $this->pgnContent );
-	}
-
-	/**
 	 * Get the first game
 	 *
 	 * @return array|null
