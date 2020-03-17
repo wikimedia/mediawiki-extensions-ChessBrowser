@@ -43,19 +43,13 @@ class PgnParser {
 
 	/**
 	 * Construct a new PgnParser
+	 *
+	 * @param string $pgnContent
 	 */
-	public function __construct() {
+	public function __construct( $pgnContent ) {
+		$this->pgnContent = $pgnContent;
 		// TODO relocate this
 		$this->gameParser = new GameParser();
-	}
-
-	/**
-	 * Set the pgn content
-	 *
-	 * @param string $content
-	 */
-	public function setPgnContent( $content ) {
-		$this->pgnContent = $content;
 	}
 
 	/**

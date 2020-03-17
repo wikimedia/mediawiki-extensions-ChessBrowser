@@ -13,7 +13,7 @@ class ChessParserTest extends \MediaWikiUnitTestCase {
 
 	protected function setUp() : void {
 		parent::setUp();
-		$this->emptyChessParser = new ChessParser();
+		$this->emptyChessParser = new ChessParser( '' );
 	}
 
 	/**

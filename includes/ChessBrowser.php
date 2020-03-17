@@ -45,13 +45,10 @@ class ChessBrowser {
 		$out->setExtensionData( 'ChessViewerNumGames', $gameNum );
 
 		// Initialize parsers
-		$chessParser = new ChessParser();
-		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
-		// The following can probably be combined with the original instantiation
-		// if the wrapper class is modified a bit
-		$chessParser->setPgnContent( $input );
+		$chessParser = new ChessParser( $input );
 		$chessObject = $chessParser->createOutputJson();
 		// Set up template arguments
+		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
 		$templateArgs = [
 			'data-chess' => json_encode( $chessObject ),
 			'div-number' => $gameNum,
