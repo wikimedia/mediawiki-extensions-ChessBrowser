@@ -38,29 +38,28 @@
 class GameParser {
 
 	private $game;
-	private $fen;
 	private $fenParser0x88;
-
-	private $shortVersion;
-
-	public function __construct() {
-		$this->fenParser0x88 = new FenParser0x88();
-	}
 
 	/**
 	 * @param array $game
-	 * @param bool $short for only from and to squares
-	 * @return mixed
 	 */
-	public function getParsedGame( $game, $short = false ) {
+	public function __construct( array $game ) {
+		$this->fenParser0x88 = new FenParser0x88();
 		$this->game = $game;
-		$this->shortVersion = $short;
-		$this->fen = $game[ChessJson::FEN];
+	}
 
-		$this->fenParser0x88->newGame( $this->fen );
-		$this->parseMoves( $this->game[ChessJson::MOVE_MOVES] );
-		$this->game[ChessJson::GAME_METADATA][ChessJson::MOVE_PARSED] = 1;
-		return $this->game;
+	/**
+	 * @return array
+	 */
+	public function getParsedGame() {
+		$game = $this->game;
+
+		$this->fenParser0x88->newGame( $game[ChessJson::FEN] );
+		$this->parseMoves( $game[ChessJson::MOVE_MOVES] );
+
+		$game[ChessJson::GAME_METADATA][ChessJson::MOVE_PARSED] = 1;
+
+		return $game;
 	}
 
 	/**

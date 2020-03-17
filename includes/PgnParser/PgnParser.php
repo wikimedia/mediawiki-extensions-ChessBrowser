@@ -39,7 +39,6 @@ class PgnParser {
 
 	private $pgnContent;
 	private $pgnGames;
-	private $gameParser;
 
 	/**
 	 * Construct a new PgnParser
@@ -48,8 +47,6 @@ class PgnParser {
 	 */
 	public function __construct( $pgnContent ) {
 		$this->pgnContent = $pgnContent;
-		// TODO relocate this
-		$this->gameParser = new GameParser();
 	}
 
 	/**
@@ -139,8 +136,8 @@ class PgnParser {
 	 * @return array
 	 */
 	private function getParsedGame( $unParsedGame ) {
-		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
-		$ret = $this->gameParser->getParsedGame( $ret );
+		$parsedData = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
+		$ret = ( new GameParser( $parsedData ) )->getParsedGame();
 		return $ret;
 	}
 }
