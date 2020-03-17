@@ -131,20 +131,6 @@ class PgnParser {
 	/**
 	 * Get the array of games from a pgn
 	 *
-	 * TODO this and splitPgnIntoGames are identical
-	 *
-	 * @param string $pgn
-	 * @return array
-	 */
-	public static function getArrayOfGames( $pgn ) {
-		return self::getPgnGamesAsArray( $pgn );
-	}
-
-	/**
-	 * Get the array of games from a pgn
-	 *
-	 * TODO this and getArrayOfGames are identical
-	 *
 	 * @param string $pgnString
 	 * @return array
 	 */
