@@ -112,7 +112,7 @@ class PgnParser {
 	 * @return string
 	 */
 	public function getGamesAsJSON() {
-		return json_encode( $this->getGames() );
+		return json_encode( $this->getParsedGames() );
 	}
 
 	/**
@@ -194,32 +194,12 @@ class PgnParser {
 	 *
 	 * @return array
 	 */
-	public function getGames() {
-		return $this->getParsedGames( false );
-	}
-
-	/**
-	 * Get the games, with moves shortened
-	 *
-	 * @return array
-	 */
-	public function getGamesShort() {
-		return $this->getParsedGames( true );
-	}
-
-	/**
-	 * Get the games
-	 *
-	 * @param bool $short
-	 * @return array
-	 */
-	private function getParsedGames( $short = false ) {
+	private function getParsedGames() {
 		$games = $this->getUnparsedGames();
 		$ret = [];
 		for ( $i = 0, $count = count( $games ); $i < $count; $i++ ) {
 			try {
-				$g = $short ? $this->getParsedGameShort( $games[$i] ) : $this->getParsedGame( $games[$i] );
-				$ret[] = $g;
+				$ret[] = $this->getParsedGame( $games[$i] );
 			} catch ( Exception $e ) {
 				// Do nothing
 			}
