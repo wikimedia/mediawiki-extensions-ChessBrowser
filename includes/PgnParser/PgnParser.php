@@ -110,24 +110,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get the game at an index, with the moves shortened
-	 *
-	 * TODO make a wrapper for getGameByIndex
-	 *
-	 * @param int $index
-	 * @return array|null
-	 */
-	public function getGameByIndexShort( $index ) {
-		$games = $this->getUnparsedGames();
-		if ( count( $games ) && count( $games ) > $index ) {
-			$game = $this->getParsedGame( $games[$index] );
-			$game["moves"] = $this->toShortVersion( $game["moves"] );
-			return $game;
-		}
-		return null;
-	}
-
-	/**
 	 * Get the game at an index
 	 *
 	 * @param int $index
