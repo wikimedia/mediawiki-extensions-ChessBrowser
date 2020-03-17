@@ -110,15 +110,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get the first game
-	 *
-	 * @return array|null
-	 */
-	public function getFirstGame() {
-		return $this->getGameByIndex( 0 );
-	}
-
-	/**
 	 * Get the game at an index, with the moves shortened
 	 *
 	 * TODO make a wrapper for getGameByIndex
