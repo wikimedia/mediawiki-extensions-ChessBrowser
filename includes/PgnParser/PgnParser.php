@@ -53,29 +53,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get the array of pgn games
-	 *
-	 * @param string $pgn
-	 * @return array
-	 */
-	private function getPgnGamesAsArray( $pgn ) {
-		$ret = [];
-		$content = "\n\n" . $pgn;
-		$games = preg_split( "/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE );
-
-		file_put_contents( "parsed.pgn", $content );
-
-		for ( $i = 1, $count = count( $games ); $i < $count; $i++ ) {
-			$gameContent = trim( "[" . $games[$i] );
-			if ( strlen( $gameContent ) > 10 ) {
-				array_push( $ret, $gameContent );
-			}
-		}
-
-		return $ret;
-	}
-
-	/**
 	 * Get games encoded as json
 	 *
 	 * @return string
@@ -115,7 +92,18 @@ class PgnParser {
 
 			$clean = preg_replace( '/^([^\[])*?\[/', '[', $clean );
 
-			$this->pgnGames = $this->getPgnGamesAsArray( $clean );
+			$ret = [];
+			$content = "\n\n" . $clean;
+			$games = preg_split( "/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE );
+
+			for ( $i = 1, $count = count( $games ); $i < $count; $i++ ) {
+				$gameContent = trim( "[" . $games[$i] );
+				if ( strlen( $gameContent ) > 10 ) {
+					array_push( $ret, $gameContent );
+				}
+			}
+
+			$this->pgnGames = $ret;
 		}
 
 		return $this->pgnGames;
