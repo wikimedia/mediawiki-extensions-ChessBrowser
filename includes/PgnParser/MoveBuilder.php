@@ -42,7 +42,7 @@ class MoveBuilder {
 	private $currentIndex = 0;
 
 	public function __construct() {
-		$this->moveReferences[0] =& $this->moves;
+		$this->moveReferences[0] = &$this->moves;
 	}
 
 	/**
