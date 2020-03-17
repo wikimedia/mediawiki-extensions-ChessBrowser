@@ -142,33 +142,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Convert to shortversion
-	 *
-	 * TODO document
-	 *
-	 * @param array $branch
-	 * @return array
-	 */
-	private function toShortVersion( $branch ) {
-		foreach ( $branch as &$move ) {
-			if ( isset( $move["from"] ) ) {
-				$move["n"] = $move["from"] . $move["to"];
-				unset( $move["fen"] );
-				unset( $move["from"] );
-				unset( $move["to"] );
-				if ( isset( $move["variations"] ) ) {
-					$move["v"] = [];
-					foreach ( $move["variations"] as $variation ) {
-						$move["v"][] = $this->toShortVersion( $variation );
-					}
-				}
-				unset( $move["variations"] );
-			}
-		}
-		return $branch;
-	}
-
-	/**
 	 * Parse a game
 	 *
 	 * @param string $unParsedGame
@@ -177,20 +150,6 @@ class PgnParser {
 	private function getParsedGame( $unParsedGame ) {
 		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
 		$ret = $this->gameParser->getParsedGame( $ret );
-		return $ret;
-	}
-
-	/**
-	 * Parse a game with shortened moves
-	 *
-	 * @param string $unParsedGame
-	 * @return array
-	 */
-	private function getParsedGameShort( $unParsedGame ) {
-		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
-		$ret = $this->gameParser->getParsedGame( $ret, true );
-		$moves = &$ret["moves"];
-		$moves = $this->toShortVersion( $moves );
 		return $ret;
 	}
 }
