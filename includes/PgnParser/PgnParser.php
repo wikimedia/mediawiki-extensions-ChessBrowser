@@ -58,7 +58,16 @@ class PgnParser {
 	 * @return string
 	 */
 	public function getGamesAsJSON() {
-		return json_encode( $this->getParsedGames() );
+		$games = $this->getUnparsedGames();
+		$ret = [];
+		for ( $i = 0, $count = count( $games ); $i < $count; $i++ ) {
+			try {
+				$ret[] = $this->getParsedGame( $games[$i] );
+			} catch ( Exception $e ) {
+				// Do nothing
+			}
+		}
+		return json_encode( $ret );
 	}
 
 	/**
@@ -121,24 +130,6 @@ class PgnParser {
 			return $this->getParsedGame( $games[$index] );
 		}
 		return null;
-	}
-
-	/**
-	 * Get the games
-	 *
-	 * @return array
-	 */
-	private function getParsedGames() {
-		$games = $this->getUnparsedGames();
-		$ret = [];
-		for ( $i = 0, $count = count( $games ); $i < $count; $i++ ) {
-			try {
-				$ret[] = $this->getParsedGame( $games[$i] );
-			} catch ( Exception $e ) {
-				// Do nothing
-			}
-		}
-		return $ret;
 	}
 
 	/**
