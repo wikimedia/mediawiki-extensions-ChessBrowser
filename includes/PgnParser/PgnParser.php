@@ -37,28 +37,15 @@
 
 class PgnParser {
 
-	private $pgnFile;
 	private $pgnContent;
 	private $pgnGames;
 	private $gameParser;
-	private $fullParsing = true;
 
 	/**
 	 * Construct a new PgnParser
-	 *
-	 * @param string $pgnFile
-	 * @param bool $fullParsing
 	 */
-	public function __construct( $pgnFile = '', $fullParsing = true ) {
-		if ( $pgnFile ) {
-			$this->pgnFile = $this->sanitize( $pgnFile );
-
-			if ( !file_exists( $this->pgnFile ) ) {
-				throw new ChessBrowserException( 'File not found: ' . $this->pgnFile );
-			}
-		}
-
-		$this->fullParsing = $fullParsing;
+	public function __construct() {
+		// TODO relocate this
 		$this->gameParser = new GameParser();
 	}
 
@@ -208,9 +195,6 @@ class PgnParser {
 	 */
 	public function getUnparsedGames() {
 		if ( !isset( $this->pgnGames ) ) {
-			if ( $this->pgnFile && !isset( $this->pgnContent ) ) {
-				$this->pgnContent = file_get_contents( $this->pgnFile );
-			}
 			$this->pgnGames = $this->splitPgnIntoGames( $this->cleanPgn( $this->pgnContent ) );
 		}
 
@@ -349,9 +333,7 @@ class PgnParser {
 	 */
 	private function getParsedGame( $unParsedGame ) {
 		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
-		if ( $this->fullParsing ) {
-			$ret = $this->gameParser->getParsedGame( $ret );
-		}
+		$ret = $this->gameParser->getParsedGame( $ret );
 		return $ret;
 	}
 
@@ -363,11 +345,9 @@ class PgnParser {
 	 */
 	private function getParsedGameShort( $unParsedGame ) {
 		$ret = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
-		if ( $this->fullParsing ) {
-			$ret = $this->gameParser->getParsedGame( $ret, true );
-			$moves = &$ret["moves"];
-			$moves = $this->toShortVersion( $moves );
-		}
+		$ret = $this->gameParser->getParsedGame( $ret, true );
+		$moves = &$ret["moves"];
+		$moves = $this->toShortVersion( $moves );
 		return $ret;
 	}
 }
