@@ -53,7 +53,7 @@ class ChessSquare {
 	 * @param int $number
 	 * @return ChessSquare
 	 */
-	public static function newFromNumber( int $number ) {
+	public static function newFromNumber( int $number ) : ChessSquare {
 		$files = [
 			0 => 'a',
 			1 => 'b',
