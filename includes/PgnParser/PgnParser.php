@@ -106,20 +106,14 @@ class PgnParser {
 	public function getGameByIndex( $index ) {
 		$games = $this->getUnparsedGames();
 		if ( count( $games ) && count( $games ) > $index ) {
-			return $this->getParsedGame( $games[$index] );
+			$pgnGameParser = new PgnGameParser( $games[$index] );
+			$parsedData = $pgnGameParser->getParsedData();
+
+			$gameParser = new GameParser( $parsedData );
+			$parsedGame = $gameParser->getParsedGame();
+
+			return $parsedGame;
 		}
 		return null;
-	}
-
-	/**
-	 * Parse a game
-	 *
-	 * @param string $unParsedGame
-	 * @return array
-	 */
-	private function getParsedGame( $unParsedGame ) {
-		$parsedData = ( new PgnGameParser( $unParsedGame ) )->getParsedData();
-		$ret = ( new GameParser( $parsedData ) )->getParsedGame();
-		return $ret;
 	}
 }
