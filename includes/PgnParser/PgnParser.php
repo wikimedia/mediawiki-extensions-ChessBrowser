@@ -50,24 +50,6 @@ class PgnParser {
 	}
 
 	/**
-	 * Get games encoded as json
-	 *
-	 * @return string
-	 */
-	public function getGamesAsJSON() {
-		$games = $this->getUnparsedGames();
-		$ret = [];
-		for ( $i = 0, $count = count( $games ); $i < $count; $i++ ) {
-			try {
-				$ret[] = $this->getParsedGame( $games[$i] );
-			} catch ( Exception $e ) {
-				// Do nothing
-			}
-		}
-		return json_encode( $ret );
-	}
-
-	/**
 	 * Get games that aren't parsed
 	 *
 	 * TODO document
