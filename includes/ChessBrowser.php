@@ -29,7 +29,7 @@ class ChessBrowser {
 	 * @param PPFrame $frame Parent frame, provides context of the tage placement
 	 * @return array
 	 */
-	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) {
+	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) : array {
 		$out = $parser->getOutput();
 
 		// Set variable so resource loader knows whether to send javascript
@@ -76,7 +76,7 @@ class ChessBrowser {
 	 * @param string $fen
 	 * @return array
 	 */
-	public static function generatePieces( $fen ) {
+	public static function generatePieces( $fen ) : array {
 		$pieceArray = [];
 		$rankIndex = 0;
 		$fileIndex = 0;
@@ -106,7 +106,7 @@ class ChessBrowser {
 	 * @since 0.2.0
 	 * @return array
 	 */
-	public static function getLocalizedLabels() {
+	public static function getLocalizedLabels() : array {
 		$labels = [
 			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
 			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
@@ -153,7 +153,7 @@ class ChessBrowser {
 	 * @param array $tokens List of moves in Standard Algebraic Notation
 	 * @return array
 	 */
-	public static function getMoveSet( $tokens ) {
+	public static function getMoveSet( $tokens ) : array {
 		$moveSet = [];
 		$plys = count( $tokens );
 		for ( $i = 0; $i < $plys; $i++ ) {
@@ -181,7 +181,7 @@ class ChessBrowser {
 	 * @param array $tagPairs
 	 * @return array
 	 */
-	public static function getMetadata( $tagPairs ) {
+	public static function getMetadata( $tagPairs ) : array {
 		$metadata = [
 			'event' => $tagPairs['event'],
 			'site' => $tagPairs['site'],
@@ -215,7 +215,7 @@ class ChessBrowser {
 	 * @param string|int $file
 	 * @return array
 	 */
-	public static function createPiece( $symbol, $rank, $file ) {
+	public static function createPiece( $symbol, $rank, $file ) : array {
 		if ( $rank > 7 || $file > 7 || $rank < 0 || $file < 0 ) {
 			throw new ChessBrowserException( "Impossible rank ($rank) or file ($file)" );
 		}
