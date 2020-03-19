@@ -48,19 +48,6 @@ class Board0x88Config {
 		'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
 	];
 
-	/**
-	 * TODO remove this after tests show no change to functionality
-	 *
-	 * @param int $number
-	 * @return int
-	 */
-	public static function mapNumber( $number ) : int {
-		// Convert from 0-63 to hex
-		$square = ChessSquare::newFrom64( $number );
-		$ret = $square->getNumber();
-		return $ret;
-	}
-
 	public static $castle = [
 		'-' => 0,
 		'K' => 8,
