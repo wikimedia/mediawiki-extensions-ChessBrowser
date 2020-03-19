@@ -1586,9 +1586,10 @@ class FenParser0x88 {
 				if ( $this->isEnPassantMove( $move ) || $this->cache['board'][$move['to']] ) {
 					$ret .= Board0x88Config::$fileMapping[$move['from'] & 15] . 'x';
 				}
-				$ret .= Board0x88Config::$fileMapping[$move['to'] & 15]
-					. ''
-					. Board0x88Config::$rankMapping[$move['to'] & 240];
+
+				$targetSquare = ChessSquare::newFromNumber( $move['to'] );
+				$ret .= $targetSquare->getCoords();
+
 				if ( isset( $move['promoteTo'] ) && $move['promoteTo'] ) {
 					$promotedTo = new ChessPiece( $move['promoteTo'] );
 					$ret .= '=' . $promotedTo->getNotation();
@@ -1622,8 +1623,9 @@ class FenParser0x88 {
 				if ( $this->cache['board'][$move['to']] ) {
 					$ret .= 'x';
 				}
-				$ret .= Board0x88Config::$fileMapping[$move['to'] & 15];
-				$ret .= Board0x88Config::$rankMapping[$move['to'] & 240];
+
+				$targetSquare = ChessSquare::newFromNumber( $move['to'] );
+				$ret .= $targetSquare->getCoords();
 				break;
 			case 0x03:
 			case 0x0B:
@@ -1637,8 +1639,9 @@ class FenParser0x88 {
 					if ( $this->cache['board'][$move['to']] ) {
 						$ret .= 'x';
 					}
-					$ret .= Board0x88Config::$fileMapping[$move['to'] & 15];
-					$ret .= Board0x88Config::$rankMapping[$move['to'] & 240];
+
+					$targetSquare = ChessSquare::newFromNumber( $move['to'] );
+					$ret .= $targetSquare->getCoords();
 				}
 				break;
 
