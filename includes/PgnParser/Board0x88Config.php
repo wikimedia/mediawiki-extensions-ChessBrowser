@@ -49,13 +49,15 @@ class Board0x88Config {
 	];
 
 	/**
-	 * TODO find a better name for this
+	 * TODO remove this after tests show no change to functionality
 	 *
 	 * @param int $number
 	 * @return int
 	 */
 	public static function mapNumber( $number ) : int {
-		$ret = ( floor( $number / 8 ) * 16 ) + ( $number % 8 );
+		// Convert from 0-63 to hex
+		$square = ChessSquare::newFrom64( $number );
+		$ret = $square->getNumber();
 		return $ret;
 	}
 

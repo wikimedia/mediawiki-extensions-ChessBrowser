@@ -1663,7 +1663,7 @@ class FenParser0x88 {
 		for ( $rank = 7; $rank >= 0; $rank-- ) {
 			for ( $file = 0; $file < 8; $file++ ) {
 				$index = ( $rank * 8 ) + $file;
-				$mapped = Board0x88Config::mapNumber( $index );
+				$mapped = ChessSquare::newFrom64( $index )->getNumber();
 				if ( $board[$mapped] ) {
 					if ( $emptyCounter ) {
 						$fen .= $emptyCounter;

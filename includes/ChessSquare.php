@@ -73,6 +73,18 @@ class ChessSquare {
 	}
 
 	/**
+	 * For conversion from a 0-63 representation
+	 *
+	 * @param int $number
+	 * @return ChessSquare
+	 */
+	public static function newFrom64( int $number ) : ChessSquare {
+		$inHex = ( floor( $number / 8 ) * 16 ) + ( $number % 8 );
+		$square = self::newFromNumber( $inHex );
+		return $square;
+	}
+
+	/**
 	 * @param string $coords
 	 * @return ChessSquare
 	 * @throws ChessBrowserException if invalid
@@ -107,6 +119,27 @@ class ChessSquare {
 			$rankNumber,
 			$number
 		);
+	}
+
+	/**
+	 * Get the 0-63 representation
+	 *
+	 * @return int
+	 */
+	public function getAs64() : int {
+		$files = [
+			'a' => 0,
+			'b' => 1,
+			'c' => 2,
+			'd' => 3,
+			'e' => 4,
+			'f' => 5,
+			'g' => 6,
+			'h' => 7
+		];
+		$fileValue = $files[$this->fileLetter];
+		$ret = ( $fileValue * 8 ) + ( $this->rankNumber - 1 );
+		return $ret;
 	}
 
 	/**
