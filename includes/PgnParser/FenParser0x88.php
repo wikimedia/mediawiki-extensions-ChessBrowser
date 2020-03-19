@@ -301,16 +301,10 @@ class FenParser0x88 {
 	/**
 	 * Returns valid moves in 0x88 numeric format and result
 	 *
-	 * TODO document $color doesn't have to be null
-	 *
-	 * @param null $color
 	 * @return array|null
 	 */
-	public function getValidMovesAndResult( $color = null ) {
-		if ( !$color ) {
-			$color = $this->getColor();
-		}
-
+	public function getValidMovesAndResult() {
+		$color = $this->getColor();
 		$ret = [];
 		$enPassantSquare = $this->getEnPassantSquare();
 
