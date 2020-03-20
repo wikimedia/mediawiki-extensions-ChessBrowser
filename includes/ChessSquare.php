@@ -160,4 +160,22 @@ class ChessSquare {
 		return $this->number;
 	}
 
+	/**
+	 * Get the rank number
+	 *
+	 * @return int
+	 */
+	public function getRank() : int {
+		return $this->rankNumber;
+	}
+
+	/**
+	 * Get the file letter
+	 *
+	 * @return string
+	 */
+	public function getFile() : string {
+		return $this->fileLetter;
+	}
+
 }

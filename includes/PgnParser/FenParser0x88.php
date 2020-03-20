@@ -1568,8 +1568,10 @@ class FenParser0x88 {
 	 * @return string
 	 */
 	private function getNotationForAMove( $move ) {
-		$move['from'] = ChessSquare::newFromCoords( $move['from'] )->getNumber();
-		$move['to'] = ChessSquare::newFromCoords( $move['from'] )->getNumber();
+		$fromSquare = ChessSquare::newFromCoords( $move['from'] );
+		$toSquare = ChessSquare::newFromCoords( $move['from'] );
+		$move['from'] = $fromSquare->getNumber();
+		$move['to'] = $toSquare->getNumber();
 		$type = $this->cache['board'][$move['from']];
 
 		$ret = ChessPiece::newFromHex( $type )->getNotation();
@@ -1578,11 +1580,10 @@ class FenParser0x88 {
 			case 0x01:
 			case 0x09:
 				if ( $this->isEnPassantMove( $move ) || $this->cache['board'][$move['to']] ) {
-					$ret .= Board0x88Config::$fileMapping[$move['from'] & 15] . 'x';
+					$ret .= $fromSquare->getFile() . 'x';
 				}
 
-				$targetSquare = ChessSquare::newFromNumber( $move['to'] );
-				$ret .= $targetSquare->getCoords();
+				$ret .= $toSquare->getCoords();
 
 				if ( isset( $move['promoteTo'] ) && $move['promoteTo'] ) {
 					$promotedTo = new ChessPiece( $move['promoteTo'] );
@@ -1607,9 +1608,9 @@ class FenParser0x88 {
 						&& array_search( $move['to'], $moves ) !== false
 					) {
 						if ( ( $square & 15 ) != ( $move['from'] & 15 ) ) {
-							$ret .= Board0x88Config::$fileMapping[$move['from'] & 15];
+							$ret .= $fromSquare->getFile();
 						} elseif ( ( $square & 240 ) != ( $move['from'] & 240 ) ) {
-							$ret .= Board0x88Config::$rankMapping[$move['from'] & 240];
+							$ret .= (string)$fromSquare->getRank();
 						}
 					}
 				}
@@ -1618,8 +1619,7 @@ class FenParser0x88 {
 					$ret .= 'x';
 				}
 
-				$targetSquare = ChessSquare::newFromNumber( $move['to'] );
-				$ret .= $targetSquare->getCoords();
+				$ret .= $toSquare->getCoords();
 				break;
 			case 0x03:
 			case 0x0B:
@@ -1634,8 +1634,7 @@ class FenParser0x88 {
 						$ret .= 'x';
 					}
 
-					$targetSquare = ChessSquare::newFromNumber( $move['to'] );
-					$ret .= $targetSquare->getCoords();
+					$ret .= $toSquare->getCoords();
 				}
 				break;
 

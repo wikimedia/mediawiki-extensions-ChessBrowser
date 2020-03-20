@@ -298,28 +298,4 @@ class Board0x88Config {
 		'9' => 7
 	];
 
-	// array_keys( $files )
-	public static $fileMapping = [
-		'a',
-		'b',
-		'c',
-		'd',
-		'e',
-		'f',
-		'g',
-		'h'
-	];
-
-	// num / 16 + 1
-	public static $rankMapping = [
-		0 => 1,
-		16 => 2,
-		32 => 3,
-		48 => 4,
-		64 => 5,
-		80 => 6,
-		96 => 7,
-		112 => 8
-	];
-
 }
