@@ -44,6 +44,8 @@ class FenParser0x88 {
 	private $validMoves = null;
 	private $fenParts = [];
 
+	private $keySquares;
+
 	/**
 	 * Create a new FenParser
 	 *
@@ -53,6 +55,13 @@ class FenParser0x88 {
 		if ( isset( $fen ) ) {
 			$this->setFen( $fen );
 		}
+
+		// Set up $keySquares
+		$keySquares = [];
+		foreach ( range( 0, 119 ) as $square ) {
+			$keySquares[] = ",$square,";
+		}
+		$this->keySquares = $keySquares;
 	}
 
 	/**
@@ -488,7 +497,7 @@ class FenParser0x88 {
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
 						if ( ( $square & 0x88 ) === 0 ) {
-							if ( strpos( $protectiveMoves, Board0x88Config::$keySquares[$square] ) === false ) {
+							if ( strpos( $protectiveMoves, $this->keySquares[$square] ) === false ) {
 								if ( $this->cache['board'][$square] ) {
 									if (
 										( $WHITE && $this->cache['board'][$square] & 0x8 )
@@ -507,10 +516,10 @@ class FenParser0x88 {
 						&& !( $this->cache['board'][$piece['s'] + 1] )
 						&& !( $this->cache['board'][$piece['s'] + 2] )
 						&& ( $this->cache['board'][$piece['s'] + 3] )
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s']] ) === false
 						&& $piece['s'] < 117
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1] ) === false
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] + 1] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] + 2] ) === false
 					) {
 						$paths[] = $piece['s'] + 2;
 					}
@@ -520,9 +529,9 @@ class FenParser0x88 {
 						&& !( $this->cache['board'][$piece['s'] - 2] )
 						&& !( $this->cache['board'][$piece['s'] - 3] )
 						&& ( $this->cache['board'][$piece['s'] - 4] )
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s']] ) === false
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 1] ) === false
-						&& strpos( $protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 2] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s']] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] - 1] ) === false
+						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] - 2] ) === false
 					) {
 						$paths[] = $piece['s'] - 2;
 					}
@@ -897,9 +906,9 @@ class FenParser0x88 {
 	 */
 	public function getCountChecks( $kingColor, $moves ) {
 		$king = $this->cache['king' . $kingColor];
-		$index = strpos( $moves, Board0x88Config::$keySquares[$king['s']] );
+		$index = strpos( $moves, $this->keySquares[$king['s']] );
 		if ( $index > 0 ) {
-			if ( strpos( $moves, Board0x88Config::$keySquares[$king['s']], $index + 1 ) > 0 ) {
+			if ( strpos( $moves, $this->keySquares[$king['s']], $index + 1 ) > 0 ) {
 				return 2;
 			}
 			return 1;
