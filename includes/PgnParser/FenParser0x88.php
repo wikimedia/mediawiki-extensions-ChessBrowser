@@ -1578,8 +1578,8 @@ class FenParser0x88 {
 					. ''
 					. Board0x88Config::$rankMapping[$move['to'] & 240];
 				if ( isset( $move['promoteTo'] ) && $move['promoteTo'] ) {
-					$numType = Board0x88Config::$typeToNumberMapping[$move['promoteTo']];
-					$ret .= '=' . ChessPiece::newFromHex( $numType )->getNotation();
+					$promotedTo = new ChessPiece( $move['promoteTo'] );
+					$ret .= '=' . $promotedTo->getNotation();
 				}
 				break;
 			case 0x02:
