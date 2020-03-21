@@ -183,16 +183,6 @@ class Board0x88Config {
 		',119,'
 	];
 
-	public static $typeToNumberMapping = [
-		'p' => 0x01,
-		'n' => 0x02,
-		'k' => 0x03,
-		'b' => 0x05,
-		'r' => 0x06,
-		'q' => 0x07
-
-	];
-
 	public static $castle = [
 		'-' => 0,
 		'K' => 8,

@@ -1473,10 +1473,13 @@ class FenParser0x88 {
 		$this->cache['board'][$move['to']] = $this->cache['board'][$move['from']];
 		$this->cache['board'][$move['from']] = null;
 		if ( $move['promoteTo'] ) {
-			$this->cache['board'][$move['to']] = Board0x88Config::$typeToNumberMapping[$move['promoteTo']];
-			if ( $color === 'black' ) {
-				$this->cache['board'][$move['to']] += 8;
+			$pieceStr = $move['promoteTo'];
+			if ( $color === 'white' ) {
+				// $move stores target as lowercase, regardless of color
+				$pieceStr = strtoupper( $pieceStr );
 			}
+			$piece = new ChessPiece( $pieceStr );
+			$this->cache['board'][$move['to']] = $piece->getAsHex();
 		}
 		$this->setNewColor();
 		$this->updatePieces();
