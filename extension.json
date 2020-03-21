@@ -10,6 +10,9 @@
 	"type": "parserhook",
 	"license-name": "GPL-3.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:ChessBrowser",
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
 	"AutoloadClasses": {
 		"ChessBrowser": "includes/ChessBrowser.php",
 		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
