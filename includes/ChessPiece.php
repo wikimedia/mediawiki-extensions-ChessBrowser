@@ -39,8 +39,6 @@ class ChessPiece {
 	 * @throws ChessBrowserException
 	 */
 	public function __construct( string $symbol ) {
-		wfDebug( __CLASS__ . ' constructed: ' . $symbol );
-
 		$type = strtolower( $symbol );
 
 		$validTypes = [ 'p', 'b', 'n', 'r', 'q', 'k' ];
