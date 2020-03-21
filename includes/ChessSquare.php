@@ -39,9 +39,9 @@ class ChessSquare {
 	 * @param int $number
 	 */
 	private function __construct( string $fileLetter, int $rankNumber, int $number ) {
-		wfDebugLog(
-			'ChessBrowser',
-			'Square constructed: ' . $fileLetter . (string)$rankNumber . " ($number)"
+		wfDebug(
+			__CLASS__ . ' constructed: ' .
+			$fileLetter . (string)$rankNumber . " ($number)"
 		);
 
 		$this->fileLetter = $fileLetter;

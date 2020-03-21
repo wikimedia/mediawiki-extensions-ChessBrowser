@@ -39,10 +39,7 @@ class ChessPiece {
 	 * @throws ChessBrowserException
 	 */
 	public function __construct( string $symbol ) {
-		wfDebugLog(
-			'ChessBrowser',
-			'Piece constructed: ' . $symbol
-		);
+		wfDebug( __CLASS__ . ' constructed: ' . $symbol );
 
 		$type = strtolower( $symbol );
 
