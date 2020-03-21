@@ -9,6 +9,7 @@
 	margin: 0 auto;
 	border: 8px ridge grey;
 	border-radius: 10px;
+	transition: 500ms;
 }
 
 .pgn-tabber {
@@ -219,12 +220,17 @@
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/1/1d/Ic_closed_caption_48px.svg );
 }
 
-.pgn-button-flip.pgn-image-button-on {
-	transform: rotate( 180deg );
-}
-
 .pgn-button-play.pgn-image-button-on {
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/9/95/Ic_pause_48px.svg );
+}
+
+/* Flipping */
+.pgn-flip .pgn-board-div,
+.pgn-flip .pgn-board-div div.pgn-row-legend span,
+.pgn-flip .pgn-board-div div.pgn-file-legend span,
+.pgn-flip .pgn-board-div .pgn-chessPiece,
+.pgn-button-flip.pgn-image-button-on {
+	transform: rotate( 180deg );
 }
 
 /* row % */
