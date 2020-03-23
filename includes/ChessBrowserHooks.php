@@ -29,12 +29,13 @@ use ParserOutput;
 class ChessBrowserHooks {
 
 	/**
-	 * Register parser hook
+	 * Register parser hooks
 	 *
 	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
 		$parser->setHook( 'pgn', [ ChessBrowser::class, 'newGame' ] );
+		$parser->setHook( 'fen', [ ChessBrowser::class, 'newPosition' ] );
 	}
 
 	/**

@@ -38,13 +38,21 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->expects( $this->once() )
+		$mock->expects( $this->exactly( 2 ) )
 			->method( 'setHook' )
-			->with(
-				$this->equalTo( 'pgn' ),
-				$this->callback( static function ( $param ) {
-					 return is_callable( $param );
-				} )
+			->withConsecutive(
+				[
+					$this->equalTo( 'pgn' ),
+					$this->callback( static function ( $param ) {
+						 return is_callable( $param );
+					} )
+				],
+				[
+					$this->equalTo( 'fen' ),
+					$this->callback( static function ( $param ) {
+						 return is_callable( $param );
+					} )
+				]
 			);
 
 		ChessBrowserHooks::onParserFirstCallInit( $mock );
