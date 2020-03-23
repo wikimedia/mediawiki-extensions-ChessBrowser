@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"chessbrowser-expand-button": "ودھاؤ",
+	"chessbrowser-event-label": "ایونٹ",
+	"chessbrowser-site-label": "سائٹ",
+	"chessbrowser-date-label": "تریخ",
+	"chessbrowser-round-label": "گول",
+	"chessbrowser-white-label": "بگّا",
+	"chessbrowser-black-label": "کالا",
+	"chessbrowser-result-label": "نتیجہ",
+	"chessbrowser-slow-autoplay": "مٹھا",
+	"chessbrowser-fast-autoplay": "تکھیرا"
+}
