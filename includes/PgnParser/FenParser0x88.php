@@ -1569,7 +1569,7 @@ class FenParser0x88 {
 	 */
 	private function getNotationForAMove( $move ) {
 		$fromSquare = ChessSquare::newFromCoords( $move['from'] );
-		$toSquare = ChessSquare::newFromCoords( $move['from'] );
+		$toSquare = ChessSquare::newFromCoords( $move['to'] );
 		$move['from'] = $fromSquare->getNumber();
 		$move['to'] = $toSquare->getNumber();
 		$type = $this->cache['board'][$move['from']];
