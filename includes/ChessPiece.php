@@ -34,6 +34,20 @@ class ChessPiece {
 	public const COLOR_WHITE = 'white';
 	public const COLOR_BLACK = 'black';
 
+	public const WHITE_PAWN = 0x01;
+	public const WHITE_KNIGHT = 0x02;
+	public const WHITE_KING = 0x03;
+	public const WHITE_BISHOP = 0x05;
+	public const WHITE_ROOK = 0x06;
+	public const WHITE_QUEEN = 0x07;
+
+	public const BLACK_PAWN = 0x09;
+	public const BLACK_KNIGHT = 0x0A;
+	public const BLACK_KING = 0x0B;
+	public const BLACK_BISHOP = 0x0D;
+	public const BLACK_ROOK = 0x0E;
+	public const BLACK_QUEEN = 0x0F;
+
 	/**
 	 * @param string $symbol
 	 * @throws ChessBrowserException
@@ -69,18 +83,18 @@ class ChessPiece {
 	 */
 	public static function newFromHex( int $hex ) : ChessPiece {
 		$mappings = [
-			0x01 => 'P',
-			0x02 => 'N',
-			0x03 => 'K',
-			0x05 => 'B',
-			0x06 => 'R',
-			0x07 => 'Q',
-			0x09 => 'p',
-			0x0A => 'n',
-			0x0B => 'k',
-			0x0D => 'b',
-			0x0E => 'r',
-			0x0F => 'q',
+			self::WHITE_PAWN => 'P',
+			self::WHITE_KNIGHT => 'N',
+			self::WHITE_KING => 'K',
+			self::WHITE_BISHOP => 'B',
+			self::WHITE_ROOK => 'R',
+			self::WHITE_QUEEN => 'Q',
+			self::BLACK_PAWN => 'p',
+			self::BLACK_KNIGHT => 'n',
+			self::BLACK_KING => 'k',
+			self::BLACK_BISHOP => 'b',
+			self::BLACK_ROOK => 'r',
+			self::BLACK_QUEEN => 'q',
 		];
 
 		if ( !array_key_exists( $hex, $mappings ) ) {
@@ -125,18 +139,18 @@ class ChessPiece {
 	 */
 	public function getAsHex() : int {
 		$mappings = [
-			'P' => 0x01,
-			'N' => 0x02,
-			'K' => 0x03,
-			'B' => 0x05,
-			'R' => 0x06,
-			'Q' => 0x07,
-			'p' => 0x09,
-			'n' => 0x0A,
-			'k' => 0x0B,
-			'b' => 0x0D,
-			'r' => 0x0E,
-			'q' => 0x0F
+			'P' => self::WHITE_PAWN,
+			'N' => self::WHITE_KNIGHT,
+			'K' => self::WHITE_KING,
+			'B' => self::WHITE_BISHOP,
+			'R' => self::WHITE_ROOK,
+			'Q' => self::WHITE_QUEEN,
+			'p' => self::BLACK_PAWN,
+			'n' => self::BLACK_KNIGHT,
+			'k' => self::BLACK_KING,
+			'b' => self::BLACK_BISHOP,
+			'r' => self::BLACK_ROOK,
+			'q' => self::BLACK_QUEEN,
 		];
 
 		return $mappings[$this->symbol];

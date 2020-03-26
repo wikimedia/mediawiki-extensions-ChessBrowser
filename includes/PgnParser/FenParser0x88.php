@@ -335,7 +335,7 @@ class FenParser0x88 {
 
 			switch ( $piece['t'] ) {
 				// pawns
-				case 0x01:
+				case ChessPiece::WHITE_PAWN:
 					if (
 						!isset( $pinned[$piece['s']] )
 						|| (
@@ -380,7 +380,7 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				case 0x09:
+				case ChessPiece::BLACK_PAWN:
 					if (
 						!isset( $pinned[$piece['s']] )
 						|| (
@@ -428,12 +428,12 @@ class FenParser0x88 {
 
 					break;
 				// Sliding pieces
-				case 0x05:
-				case 0x07:
-				case 0x06:
-				case 0x0D:
-				case 0x0E:
-				case 0x0F:
+				case ChessPiece::WHITE_BISHOP:
+				case ChessPiece::WHITE_ROOK:
+				case ChessPiece::WHITE_QUEEN:
+				case ChessPiece::BLACK_BISHOP:
+				case ChessPiece::BLACK_ROOK:
+				case ChessPiece::BLACK_QUEEN:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					if ( isset( $pinned[$piece['s']] ) ) {
 						if ( array_search( $pinned[$piece['s']]['direction'], $directions ) !== false ) {
@@ -459,9 +459,8 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				// Knight
-				case 0x02:
-				case 0x0A:
+				case ChessPiece::WHITE_KNIGHT:
+				case ChessPiece::BLACK_KNIGHT:
 					if ( isset( $pinned[$piece['s']] ) ) {
 						break;
 					}
@@ -483,10 +482,8 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				// White king
-				// Black king
-				case 0X03:
-				case 0X0B:
+				case ChessPiece::WHITE_KING:
+				case ChessPiece::BLACK_KING:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
@@ -531,7 +528,10 @@ class FenParser0x88 {
 					}
 					break;
 			}
-			if ( $validSquares && $piece['t'] != 0x03 && $piece['t'] != 0x0B ) {
+			if ( $validSquares
+				&& $piece['t'] != ChessPiece::WHITE_KING
+				&& $piece['t'] != ChessPiece::BLACK_KING
+			) {
 				$paths = $this->excludeInvalidSquares( $paths, $validSquares );
 			}
 			$ret[$piece['s']] = $paths;
@@ -594,21 +594,21 @@ class FenParser0x88 {
 		foreach ( $pieces as $piece ) {
 			switch ( $piece['t'] ) {
 				// pawns
-				case 0x01:
+				case ChessPiece::WHITE_PAWN:
 					$possible[] = $piece['s'] + 15;
 					$possible[] = $piece['s'] + 17;
 					break;
-				case 0x09:
+				case ChessPiece::BLACK_PAWN:
 					$possible[] = $piece['s'] - 15;
 					$possible[] = $piece['s'] - 17;
 					break;
 				// Sliding pieces
-				case 0x05:
-				case 0x07:
-				case 0x06:
-				case 0x0D:
-				case 0x0E:
-				case 0x0F:
+				case ChessPiece::WHITE_BISHOP:
+				case ChessPiece::WHITE_ROOK:
+				case ChessPiece::WHITE_QUEEN:
+				case ChessPiece::BLACK_BISHOP:
+				case ChessPiece::BLACK_ROOK:
+				case ChessPiece::BLACK_QUEEN:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenA = count( $directions ); $a < $lenA; $a++ ) {
 						$square = $piece['s'] + $directions[$a];
@@ -622,18 +622,16 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				// knight
-				case 0x02:
-				case 0x0A:
+				case ChessPiece::WHITE_KNIGHT:
+				case ChessPiece::BLACK_KNIGHT:
 					// White knight
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenA = count( $directions ); $a < $lenA; $a++ ) {
 						$possible[] = $piece['s'] + $directions[$a];
 					}
 					break;
-				// king
-				case 0X03:
-				case 0X0B:
+				case ChessPiece::WHITE_KING:
+				case ChessPiece::BLACK_KING:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 						$possible[] = $piece['s'] + $directions[$a];
@@ -668,25 +666,22 @@ class FenParser0x88 {
 				$boardDistance = $numericDistance / $this->getDistance( $king['s'], $piece['s'] );
 
 				switch ( $piece['t'] ) {
-					// Bishop
-					case 0x05:
-					case 0x0D:
+					case ChessPiece::WHITE_BISHOP:
+					case ChessPiece::BLACK_BISHOP:
 						if ( $numericDistance % 15 === 0 || $numericDistance % 17 === 0 ) {
 							$ret[] = ( [ 's' => $piece['s'], 'p' => $boardDistance ] );
 						}
 						break;
-					// Rook
-					case 0x06:
-					case 0x0E:
+					case ChessPiece::WHITE_ROOK:
+					case ChessPiece::BLACK_ROOK:
 						if ( $numericDistance % 16 === 0 ) {
 							$ret[] = [ 's' => $piece['s'], 'p' => $boardDistance ];
 						} elseif ( ( $piece['s'] & 240 ) == ( $king['s'] & 240 ) ) {
 							$ret[] = [ 's' => $piece['s'], 'p' => $numericDistance > 0 ? 1 : -1 ];
 						}
 						break;
-					// Queen
-					case 0x07:
-					case 0x0F:
+					case ChessPiece::WHITE_QUEEN:
+					case ChessPiece::BLACK_QUEEN:
 						if (
 							$numericDistance % 15 === 0
 							|| $numericDistance % 16 === 0
@@ -767,7 +762,7 @@ class FenParser0x88 {
 
 		foreach ( $pieces as $piece ) {
 			switch ( $piece['t'] ) {
-				case 0x01:
+				case ChessPiece::WHITE_PAWN:
 					if ( $king['s'] === $piece['s'] + 15 || $king['s'] === $piece['s'] + 17 ) {
 						if ( $enPassantSquare === $piece['s'] - 16 ) {
 							return [ $piece['s'], $enPassantSquare ];
@@ -775,7 +770,7 @@ class FenParser0x88 {
 						return [ $piece['s'] ];
 					}
 					break;
-				case 0x09:
+				case ChessPiece::BLACK_PAWN:
 					if ( $king['s'] === $piece['s'] - 15 || $king['s'] === $piece['s'] - 17 ) {
 						if ( $enPassantSquare === $piece['s'] + 16 ) {
 							return [ $piece['s'], $enPassantSquare ];
@@ -783,9 +778,8 @@ class FenParser0x88 {
 						return [ $piece['s'] ];
 					}
 					break;
-				// knight
-				case 0x02:
-				case 0x0A:
+				case ChessPiece::WHITE_KNIGHT:
+				case ChessPiece::BLACK_KNIGHT:
 					if ( $this->getDistance( $piece['s'], $king['s'] ) === 2 ) {
 						$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 						for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
@@ -796,24 +790,22 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				// Bishop
-				case 0x05:
-				case 0x0D:
+				case ChessPiece::WHITE_BISHOP:
+				case ChessPiece::BLACK_BISHOP:
 					$checks = $this->getBishopCheckPath( $piece, $king );
 					if ( $checks !== [] ) {
 						return $checks;
 					}
 					break;
-				// Rook
-				case 0x06:
-				case 0x0E:
+				case ChessPiece::WHITE_ROOK:
+				case ChessPiece::BLACK_ROOK:
 					$checks = $this->getRookCheckPath( $piece, $king );
 					if ( $checks !== [] ) {
 						return $checks;
 					}
 					break;
-				case 0x07:
-				case 0x0F:
+				case ChessPiece::WHITE_QUEEN:
+				case ChessPiece::BLACK_QUEEN:
 					$checks = $this->getRookCheckPath( $piece, $king );
 					if ( $checks !== [] ) {
 						return $checks;
@@ -931,8 +923,8 @@ class FenParser0x88 {
 	 */
 	public function isEnPassantMove( $move ) {
 		if (
-			( $this->cache['board'][$move['from']] === 0x01
-			|| $this->cache['board'][$move['from']] == 0x09 )
+			( $this->cache['board'][$move['from']] === ChessPiece::WHITE_PAWN
+			|| $this->cache['board'][$move['from']] === ChessPiece::BLACK_PAWN )
 		) {
 			if (
 				!$this->cache['board'][$move['to']] &&
@@ -957,8 +949,8 @@ class FenParser0x88 {
 	 */
 	public function isCastleMove( $move ) {
 		if (
-			( $this->cache['board'][$move['from']] === 0x03
-			|| $this->cache['board'][$move['from']] == 0x0B )
+			( $this->cache['board'][$move['from']] === ChessPiece::WHITE_KING
+			|| $this->cache['board'][$move['from']] === ChessPiece::BLACK_KING )
 		) {
 			if ( $this->getDistance( $move['from'], $move['to'] ) === 2 ) {
 				return true;
@@ -1077,8 +1069,8 @@ class FenParser0x88 {
 
 			$ret['to'] = $this->getToSquareByNotation( $notation );
 			switch ( $pieceType ) {
-				case 0x01:
-				case 0x09:
+				case ChessPiece::WHITE_PAWN:
+				case ChessPiece::BLACK_PAWN:
 					if ( $color === 'black' ) {
 						$offsets = $capture ? [ 15, 17 ] : [ 16 ];
 						if ( $ret['to'] >= 64 ) {
@@ -1098,8 +1090,8 @@ class FenParser0x88 {
 						}
 					}
 					break;
-				case 0x03:
-				case 0x0B:
+				case ChessPiece::WHITE_KING:
+				case ChessPiece::BLACK_KING:
 					if ( $notation === 'O-O' ) {
 						$foundPieces[] = ( $offset + 4 );
 						$ret['to'] = $offset + 6;
@@ -1111,8 +1103,8 @@ class FenParser0x88 {
 						$foundPieces[] = $k['s'];
 					}
 					break;
-				case 0x02:
-				case 0x0A:
+				case ChessPiece::WHITE_KNIGHT:
+				case ChessPiece::BLACK_KNIGHT:
 					$pattern = ChessPiece::newFromHex( $pieceType )->getMovePatterns();
 					for ( $i = 0, $len = count( $pattern ); $i < $len; $i++ ) {
 						$sq = $ret['to'] + $pattern[$i];
@@ -1410,9 +1402,8 @@ class FenParser0x88 {
 
 		$incrementHalfMoves = !( $this->cache['board'][$move['to']] );
 
-		if (
-			( $this->cache['board'][$move['from']] === 0x01
-				|| $this->cache['board'][$move['from']] == 0x09 )
+		if ( $this->cache['board'][$move['from']] === ChessPiece::WHITE_PAWN
+			|| $this->cache['board'][$move['from']] === ChessPiece::BLACK_PAWN
 		) {
 			$incrementHalfMoves = false;
 			if ( $this->isEnPassantMove( $move ) ) {
@@ -1442,11 +1433,11 @@ class FenParser0x88 {
 			$castle = $this->getCastle();
 			if ( $color == 'white' ) {
 				$castleNotation = '/[KQ]/s';
-				$pieceType = 0x06;
+				$pieceType = ChessPiece::WHITE_ROOK;
 				$offset = 0;
 			} else {
 				$castleNotation = '/[kq]/s';
-				$pieceType = 0x0E;
+				$pieceType = ChessPiece::BLACK_ROOK;
 				$offset = 112;
 			}
 
@@ -1496,20 +1487,20 @@ class FenParser0x88 {
 	 */
 	private function updateCastleForMove( $movedPiece, $from ) {
 		switch ( $movedPiece ) {
-			case 0x03:
+			case ChessPiece::WHITE_KING:
 				$this->setCastle( preg_replace( "/[KQ]/s", "", $this->getCastle() ) );
 				break;
-			case 0x0B:
+			case ChessPiece::BLACK_KING:
 				$this->setCastle( preg_replace( "/[kq]/s", "", $this->getCastle() ) );
 				break;
-			case 0x06:
+			case ChessPiece::WHITE_ROOK:
 				if ( $from === 0 ) {
 					$this->setCastle( preg_replace( "/[Q]/s", "", $this->getCastle() ) );
 				} elseif ( $from === 7 ) {
 					$this->setCastle( preg_replace( "/[K]/s", "", $this->getCastle() ) );
 				}
 				break;
-			case 0x0E:
+			case ChessPiece::BLACK_ROOK:
 				if ( $from === 112 ) {
 					$this->setCastle( preg_replace( "/[q]/s", "", $this->getCastle() ) );
 				} elseif ( $from === 119 ) {
@@ -1542,7 +1533,9 @@ class FenParser0x88 {
 				];
 				$this->cache[$color][] = $obj;
 
-				if ( $piece == 0x03 || $piece == 0x0B ) {
+				if ( $piece === ChessPiece::WHITE_KING
+					|| $piece == ChessPiece::BLACK_KING
+				) {
 					$this->cache['king' . $color] = $obj;
 				}
 			}
@@ -1577,8 +1570,8 @@ class FenParser0x88 {
 		$ret = ChessPiece::newFromHex( $type )->getNotation();
 
 		switch ( $type ) {
-			case 0x01:
-			case 0x09:
+			case ChessPiece::WHITE_PAWN:
+			case ChessPiece::BLACK_PAWN:
 				if ( $this->isEnPassantMove( $move ) || $this->cache['board'][$move['to']] ) {
 					$ret .= $fromSquare->getFile() . 'x';
 				}
@@ -1590,14 +1583,14 @@ class FenParser0x88 {
 					$ret .= '=' . $promotedTo->getNotation();
 				}
 				break;
-			case 0x02:
-			case 0x05:
-			case 0x06:
-			case 0x07:
-			case 0x0A:
-			case 0x0D:
-			case 0x0E:
-			case 0x0F:
+			case ChessPiece::WHITE_KNIGHT:
+			case ChessPiece::BLACK_KNIGHT:
+			case ChessPiece::WHITE_BISHOP:
+			case ChessPiece::BLACK_BISHOP:
+			case ChessPiece::WHITE_ROOK:
+			case ChessPiece::BLACK_ROOK:
+			case ChessPiece::WHITE_QUEEN:
+			case ChessPiece::BLACK_QUEEN:
 				$config = $this->getValidMovesAndResult();
 
 				$configMoves = $config['moves'];
@@ -1621,8 +1614,8 @@ class FenParser0x88 {
 
 				$ret .= $toSquare->getCoords();
 				break;
-			case 0x03:
-			case 0x0B:
+			case ChessPiece::WHITE_KING:
+			case ChessPiece::BLACK_KING:
 				if ( $this->isCastleMove( $move ) ) {
 					if ( $move['to'] > $move['from'] ) {
 						$ret = 'O-O';

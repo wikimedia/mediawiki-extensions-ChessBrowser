@@ -24,6 +24,38 @@
 class ChessPieceTest extends \MediaWikiUnitTestCase {
 
 	/**
+	 * @dataProvider provideTestConstants
+	 * @param string $symbol
+	 * @param string $hexConstant
+	 */
+	public function testConstants(
+		string $symbol,
+		string $hexConstant
+	) {
+		$piece = new ChessPiece( $symbol );
+		$hex = $piece->getAsHex();
+		$expectedHex = constant( ChessPiece::class . '::' . $hexConstant );
+		$this->assertSame( $expectedHex, $hex );
+	}
+
+	public function provideTestConstants() {
+		return [
+			[ 'P', 'WHITE_PAWN' ],
+			[ 'N', 'WHITE_KNIGHT' ],
+			[ 'K', 'WHITE_KING' ],
+			[ 'B', 'WHITE_BISHOP' ],
+			[ 'R', 'WHITE_ROOK' ],
+			[ 'Q', 'WHITE_QUEEN' ],
+			[ 'p', 'BLACK_PAWN' ],
+			[ 'n', 'BLACK_KNIGHT' ],
+			[ 'k', 'BLACK_KING' ],
+			[ 'b', 'BLACK_BISHOP' ],
+			[ 'r', 'BLACK_ROOK' ],
+			[ 'q', 'BLACK_QUEEN' ],
+		];
+	}
+
+	/**
 	 * @dataProvider provideTestGeneral
 	 * @param string $symbol
 	 * @param string $type
