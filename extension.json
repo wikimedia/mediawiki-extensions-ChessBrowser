@@ -1,6 +1,6 @@
 {
 	"name": "ChessBrowser",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"author": [
 		"Wugapodes",
 		"Kipod",
@@ -18,7 +18,6 @@
 		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
 		"ChessBrowserException": "includes/ChessBrowserException.php",
 		"ChessParser": "includes/ChessParser.php",
-		"PgnParser": "includes/PgnParser/PgnParser.php",
 		"GameParser": "includes/PgnParser/GameParser.php",
 		"PgnGameParser": "includes/PgnParser/PgnGameParser.php",
 		"MoveBuilder": "includes/PgnParser/MoveBuilder.php",
