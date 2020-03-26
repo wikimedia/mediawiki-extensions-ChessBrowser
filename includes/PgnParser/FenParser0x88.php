@@ -230,23 +230,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Return boolean true if king side castling is possible for a color
-	 *
-	 * Example:
-	 * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-	 * $parser = new FenParser0x88($fen);
-	 * $whiteCanCastle = $parser->canCastleKingSide("white");
-	 * $blackCanCastle = $parser->canCastleKingSide("black");
-	 *
-	 * @param string $color
-	 * @return bool
-	 */
-	public function canCastleKingSide( $color ) {
-		$code = $color === 'white' ? Board0x88Config::$castle['K'] : Board0x88Config::$castle['k'];
-		return ( $this->fenParts['castleCode'] & $code ) ? true : false;
-	}
-
-	/**
 	 * Return color to move, "white" or "black"
 	 *
 	 * @return string
@@ -262,18 +245,6 @@ class FenParser0x88 {
 			default:
 				throw new ChessBrowserException( "Unknown color: $color" );
 		}
-	}
-
-	/**
-	 * Returns whether queen side castle for given color is possible (based on
-	 * fen only, i.e. no checks or obstructions are checked).
-	 *
-	 * @param string $color
-	 * @return bool
-	 */
-	public function canCastleQueenSide( $color ) {
-		$code = $color === 'white' ? Board0x88Config::$castle['Q'] : Board0x88Config::$castle['q'];
-		return ( $this->fenParts['castleCode'] & $code ) ? true : false;
 	}
 
 	/**
@@ -308,11 +279,15 @@ class FenParser0x88 {
 		$ret = [];
 		$enPassantSquare = $this->getEnPassantSquare();
 
-		$kingSideCastle = $this->canCastleKingSide( $color );
-		$queenSideCastle = $this->canCastleQueenSide( $color );
-		$oppositeColor = $color === 'white' ? 'black' : 'white';
+		$isWhite = $color === 'white' ? true : false;
 
-		$WHITE = $color === 'white' ? true : false;
+		$kingCode = $isWhite ? Board0x88Config::$castle['K'] : Board0x88Config::$castle['k'];
+		$kingSideCastle = (bool)( $this->fenParts['castleCode'] & $kingCode );
+
+		$queenCode = $isWhite ? Board0x88Config::$castle['Q'] : Board0x88Config::$castle['q'];
+		$queenSideCastle = (bool)( $this->fenParts['castleCode'] & $queenCode );
+
+		$oppositeColor = $isWhite ? 'black' : 'white';
 
 		$protectiveMoves = $this->getCaptureAndProtectiveMoves( $oppositeColor );
 
@@ -447,8 +422,8 @@ class FenParser0x88 {
 						while ( ( $square & 0x88 ) === 0 ) {
 							if ( $this->cache['board'][$square] ) {
 								if (
-									( $WHITE && $this->cache['board'][$square] & 0x8 )
-									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+									( $isWhite && $this->cache['board'][$square] & 0x8 )
+									|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
 								) {
 									$paths[] = $square;
 								}
@@ -471,8 +446,8 @@ class FenParser0x88 {
 						if ( ( $square & 0x88 ) === 0 ) {
 							if ( $this->cache['board'][$square] ) {
 								if (
-									( $WHITE && $this->cache['board'][$square] & 0x8 )
-									|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+									( $isWhite && $this->cache['board'][$square] & 0x8 )
+									|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
 								) {
 									$paths[] = $square;
 								}
@@ -491,8 +466,8 @@ class FenParser0x88 {
 							if ( strpos( $protectiveMoves, $this->keySquares[$square] ) === false ) {
 								if ( $this->cache['board'][$square] ) {
 									if (
-										( $WHITE && $this->cache['board'][$square] & 0x8 )
-										|| ( !$WHITE && !( $this->cache['board'][$square] & 0x8 ) )
+										( $isWhite && $this->cache['board'][$square] & 0x8 )
+										|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
 									) {
 										$paths[] = $square;
 									}
@@ -706,8 +681,8 @@ class FenParser0x88 {
 	 */
 	public function getPinned( $color ) {
 		$ret = [];
-		$WHITE = $color === 'white';
-		$pieces = $this->getSlidingPiecesAttackingKing( $WHITE ? 'black' : 'white' );
+		$isWhite = $color === 'white';
+		$pieces = $this->getSlidingPiecesAttackingKing( $isWhite ? 'black' : 'white' );
 		$king = $this->cache['king' . $color];
 		$i = 0;
 		$countPieces = count( $pieces );
@@ -723,7 +698,7 @@ class FenParser0x88 {
 				if ( $this->cache['board'][$square] ) {
 					$countOpposite++;
 
-					if ( $WHITE xor ( $this->cache['board'][$square] & 0x8 ) ) {
+					if ( $isWhite xor ( $this->cache['board'][$square] & 0x8 ) ) {
 						$pinning = $square;
 					} else {
 						break;
