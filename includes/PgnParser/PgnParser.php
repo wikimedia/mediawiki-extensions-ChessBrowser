@@ -37,7 +37,6 @@
 
 class PgnParser {
 
-	private $pgnContent;
 	private $pgnGames;
 
 	/**
@@ -46,55 +45,40 @@ class PgnParser {
 	 * @param string $pgnContent
 	 */
 	public function __construct( $pgnContent ) {
-		$this->pgnContent = $pgnContent;
-	}
+		$clean = $pgnContent;
 
-	/**
-	 * Get games that aren't parsed
-	 *
-	 * TODO document
-	 *
-	 * @return mixed
-	 */
-	public function getUnparsedGames() {
-		if ( !isset( $this->pgnGames ) ) {
-			$clean = $this->pgnContent;
+		$clean = preg_replace( '/"\]\s{0,10}\[/s', "]\n[", $clean );
+		$clean = preg_replace( '/"\]\s{0,10}([\.\d{])/s', "\"]\n\n$1", $clean );
 
-			$clean = preg_replace( '/"\]\s{0,10}\[/s', "]\n[", $clean );
-			$clean = preg_replace( '/"\]\s{0,10}([\.\d{])/s', "\"]\n\n$1", $clean );
+		$clean = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $clean );
 
-			$clean = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $clean );
+		$clean = preg_replace( "/\\$\d+/s", "", $clean );
+		$clean = str_replace( "({", "( {", $clean );
+		$clean = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $clean );
+		$clean = preg_replace( "/\r/s", "", $clean );
+		$clean = preg_replace( "/\t/s", "", $clean );
+		$clean = preg_replace( "/\]\s+\[/s", "]\n[", $clean );
+		$clean = str_replace( " [", "[", $clean );
+		$clean = preg_replace( "/([^\]])(\n+)\[/si", "$1\n\n[", $clean );
+		$clean = preg_replace( "/\n{3,}/s", "\n\n", $clean );
+		$clean = str_replace( "-SB-", "[", $clean );
+		$clean = str_replace( "0-0-0", "O-O-O", $clean );
+		$clean = str_replace( "0-0", "O-O", $clean );
 
-			$clean = preg_replace( "/\\$\d+/s", "", $clean );
-			$clean = str_replace( "({", "( {", $clean );
-			$clean = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $clean );
-			$clean = preg_replace( "/\r/s", "", $clean );
-			$clean = preg_replace( "/\t/s", "", $clean );
-			$clean = preg_replace( "/\]\s+\[/s", "]\n[", $clean );
-			$clean = str_replace( " [", "[", $clean );
-			$clean = preg_replace( "/([^\]])(\n+)\[/si", "$1\n\n[", $clean );
-			$clean = preg_replace( "/\n{3,}/s", "\n\n", $clean );
-			$clean = str_replace( "-SB-", "[", $clean );
-			$clean = str_replace( "0-0-0", "O-O-O", $clean );
-			$clean = str_replace( "0-0", "O-O", $clean );
+		$clean = preg_replace( '/^([^\[])*?\[/', '[', $clean );
 
-			$clean = preg_replace( '/^([^\[])*?\[/', '[', $clean );
+		$pgnGames = [];
+		$content = "\n\n" . $clean;
+		$games = preg_split( "/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE );
 
-			$ret = [];
-			$content = "\n\n" . $clean;
-			$games = preg_split( "/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE );
-
-			for ( $i = 1, $count = count( $games ); $i < $count; $i++ ) {
-				$gameContent = trim( "[" . $games[$i] );
-				if ( strlen( $gameContent ) > 10 ) {
-					array_push( $ret, $gameContent );
-				}
+		for ( $i = 1, $count = count( $games ); $i < $count; $i++ ) {
+			$gameContent = trim( "[" . $games[$i] );
+			if ( strlen( $gameContent ) > 10 ) {
+				array_push( $pgnGames, $gameContent );
 			}
-
-			$this->pgnGames = $ret;
 		}
 
-		return $this->pgnGames;
+		$this->pgnGames = $pgnGames;
 	}
 
 	/**
@@ -104,7 +88,7 @@ class PgnParser {
 	 * @return array|null
 	 */
 	public function getGameByIndex( $index ) {
-		$games = $this->getUnparsedGames();
+		$games = $this->pgnGames;
 		if ( count( $games ) && count( $games ) > $index ) {
 			$pgnGameParser = new PgnGameParser( $games[$index] );
 			$parsedData = $pgnGameParser->getParsedData();
