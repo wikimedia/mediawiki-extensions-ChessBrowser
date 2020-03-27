@@ -193,26 +193,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns king square in numeric format.
-	 *
-	 * Example:
-	 * $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
-	 * $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
-	 * $king = $parser->getKing("black");
-	 *
-	 * returns array("t" : 11, "s" : 128).
-	 *
-	 * where "t" is type, and "s" is square. Square can be converted to board coordinates using
-	 * ChessSquare::newFromNumber( $array['s'] )->getCoords()
-	 *
-	 * @param string $color
-	 * @return array
-	 */
-	public function getKing( $color ) {
-		return $this->cache['king' . $color];
-	}
-
-	/**
 	 * Returns en passant square or null
 	 *
 	 * @return int|null
@@ -291,7 +271,7 @@ class FenParser0x88 {
 		$validSquares = null;
 		$pinned = [];
 		if ( $checks === 2 ) {
-			$pieces = [ $this->getKing( $color ) ];
+			$pieces = [ $this->cache['king' . $color] ];
 		} else {
 			$pieces = $this->cache[$color];
 			$pinned = $this->getPinned( $color );
@@ -559,7 +539,8 @@ class FenParser0x88 {
 
 		$pieces = $this->cache[$color];
 
-		$oppositeKing = $this->getKing( $color === 'white' ? 'black' : 'white' );
+		$oppositeColor = $color === 'white' ? 'black' : 'white';
+		$oppositeKing = $this->cache['king' . $oppositeColor];
 		$oppositeKingSquare = $oppositeKing['s'];
 
 		foreach ( $pieces as $piece ) {
@@ -1070,7 +1051,7 @@ class FenParser0x88 {
 						$foundPieces[] = ( $offset + 4 );
 						$ret['to'] = $offset + 2;
 					} else {
-						$k = $this->getKing( $color );
+						$k = $this->cache['king' . $color];
 						$foundPieces[] = $k['s'];
 					}
 					break;
