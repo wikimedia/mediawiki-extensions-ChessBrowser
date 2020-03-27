@@ -37,7 +37,6 @@
 
 class FenParser0x88 {
 	private $fen;
-	private $previousFen;
 	private $cache;
 
 	private $notation;
@@ -91,9 +90,6 @@ class FenParser0x88 {
 			'blackSliding' => [],
 			'king' => [ 'white' => null, 'black' => null ]
 		];
-		if ( $this->fen ) {
-			$this->previousFen = $this->fen;
-		}
 		$this->fen = $fen;
 		$this->updateFenArray();
 		$this->cacheBlankBoard();
