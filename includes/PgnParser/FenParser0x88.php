@@ -912,16 +912,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Make a new move from an array
-	 *
-	 * @param array $move
-	 */
-	public function makeMove( $move ) {
-		$this->updateBoardData( $move );
-		$this->fen = null;
-	}
-
-	/**
 	 * Convert string notation to array
 	 *
 	 * TODO make static
@@ -971,7 +961,11 @@ class FenParser0x88 {
 		} else {
 			$fromAndTo = $move;
 		}
-		$this->makeMove( $fromAndTo );
+
+		// Make the move and then recreate the fen
+		$this->updateBoardData( $fromAndTo );
+		$this->fen = null;
+
 		$newProperties = [
 			'from' => $fromAndTo['from'],
 			'to' => $fromAndTo['to'],
