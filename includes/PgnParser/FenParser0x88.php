@@ -1314,15 +1314,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the castle
-	 *
-	 * @return string
-	 */
-	public function getCastle() {
-		return $this->fenParts['castle'];
-	}
-
-	/**
 	 * updateBoardData based on passed move
 	 *
 	 * @param array $move
@@ -1367,7 +1358,7 @@ class FenParser0x88 {
 		$this->fenParts['enPassant'] = $enPassant;
 
 		if ( $this->isCastleMove( [ 'from' => $move['from'], 'to' => $move['to'] ] ) ) {
-			$castle = $this->getCastle();
+			$castle = $this->fenParts['castle'];
 			if ( $color == 'white' ) {
 				$castleNotation = '/[KQ]/s';
 				$pieceType = ChessPiece::WHITE_ROOK;
@@ -1423,25 +1414,26 @@ class FenParser0x88 {
 	 * @param int $from
 	 */
 	private function updateCastleForMove( $movedPiece, $from ) {
+		$currentCastle = $this->fenParts['castle'];
 		switch ( $movedPiece ) {
 			case ChessPiece::WHITE_KING:
-				$this->setCastle( preg_replace( "/[KQ]/s", "", $this->getCastle() ) );
+				$this->setCastle( preg_replace( "/[KQ]/s", "", $currentCastle ) );
 				break;
 			case ChessPiece::BLACK_KING:
-				$this->setCastle( preg_replace( "/[kq]/s", "", $this->getCastle() ) );
+				$this->setCastle( preg_replace( "/[kq]/s", "", $currentCastle ) );
 				break;
 			case ChessPiece::WHITE_ROOK:
 				if ( $from === 0 ) {
-					$this->setCastle( preg_replace( "/[Q]/s", "", $this->getCastle() ) );
+					$this->setCastle( preg_replace( "/[Q]/s", "", $currentCastle ) );
 				} elseif ( $from === 7 ) {
-					$this->setCastle( preg_replace( "/[K]/s", "", $this->getCastle() ) );
+					$this->setCastle( preg_replace( "/[K]/s", "", $currentCastle ) );
 				}
 				break;
 			case ChessPiece::BLACK_ROOK:
 				if ( $from === 112 ) {
-					$this->setCastle( preg_replace( "/[q]/s", "", $this->getCastle() ) );
+					$this->setCastle( preg_replace( "/[q]/s", "", $currentCastle ) );
 				} elseif ( $from === 119 ) {
-					$this->setCastle( preg_replace( "/[k]/s", "", $this->getCastle() ) );
+					$this->setCastle( preg_replace( "/[k]/s", "", $currentCastle ) );
 				}
 				break;
 		}
@@ -1614,7 +1606,7 @@ class FenParser0x88 {
 			. ' '
 			. $this->fenParts['color']
 			. ' '
-			. $this->getCastle()
+			. $this->fenParts['castle']
 			. ' '
 			. $this->fenParts['enPassant']
 			. ' '
