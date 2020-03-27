@@ -83,16 +83,17 @@ class FenParser0x88 {
 	 */
 	public function setFen( $fen ) {
 		$this->cache = [
-			'board' => [],
+			// Create the default board as empty
+			'board' => array_fill( 0, 120, 0 ),
 			'white' => [],
 			'black' => [],
 			'whiteSliding' => [],
 			'blackSliding' => [],
 			'king' => [ 'white' => null, 'black' => null ]
 		];
+
 		$this->fen = $fen;
 		$this->updateFenArray();
-		$this->cacheBlankBoard();
 		$this->parseFen();
 	}
 
@@ -115,16 +116,6 @@ class FenParser0x88 {
 			'halfMoves' => $fenParts[4],
 			'fullMoves' => $fenParts[5]
 		];
-	}
-
-	/**
-	 * Create the default board as empty
-	 */
-	private function cacheBlankBoard() {
-		$this->cache['board'] = [];
-		foreach ( range( 0, 119 ) as $square ) {
-			$this->cache['board'][ $square ] = 0;
-		}
 	}
 
 	/**
