@@ -25,7 +25,8 @@
 		"Board0x88Config": "includes/PgnParser/Board0x88Config.php",
 		"FenParser0x88": "includes/PgnParser/FenParser0x88.php",
 		"ChessSquare": "includes/ChessSquare.php",
-		"ChessPiece": "includes/ChessPiece.php"
+		"ChessPiece": "includes/ChessPiece.php",
+		"NotationAnalyzer": "includes/NotationAnalyzer.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",

@@ -966,15 +966,16 @@ class FenParser0x88 {
 	 */
 	public function getFromAndToByNotation( $notation ) {
 		$notation = str_replace( ".", "", $notation );
+		$notationAnalyzer = new NotationAnalyzer( $notation );
 
-		$ret = [ 'promoteTo' => $this->getPromoteByNotation( $notation ) ];
+		$ret = [ 'promoteTo' => $notationAnalyzer->getPromotion() ];
 		$color = $this->getColor();
 
 		$offset = ( $color === 'black' ? 112 : 0 );
 
 		$foundPieces = [];
-		$fromRank = $this->getFromRankByNotation( $notation );
-		$fromFile = $this->getFromFileByNotation( $notation );
+		$fromRank = $notationAnalyzer->getFromRank();
+		$fromFile = $notationAnalyzer->getFromFile();
 
 		if ( strlen( $notation ) === 2 ) {
 			$square = ChessSquare::newFromCoords( $notation )->getNumber();
@@ -990,11 +991,11 @@ class FenParser0x88 {
 			$notation = preg_replace( "/=[QRBN]/", "", $notation );
 			$notation = preg_replace( "/[\+#!\?]/s", "", $notation );
 			$notation = preg_replace( "/^(.*?)[QRBN]$/s", "$1", $notation );
-			$pieceType = $this->getPieceTypeByNotation( $notation, $color );
+			$pieceType = $notationAnalyzer->getPieceType( $color );
 
 			$capture = strpos( $notation, "x" ) > 0;
 
-			$ret['to'] = $this->getToSquareByNotation( $notation );
+			$ret['to'] = $notationAnalyzer->getTargetSquare();
 			switch ( $pieceType ) {
 				case ChessPiece::WHITE_PAWN:
 				case ChessPiece::BLACK_PAWN:
@@ -1120,109 +1121,6 @@ class FenParser0x88 {
 		$ret['to'] = ChessSquare::newFromNumber( $ret['to'] )->getCoords();
 
 		return $ret;
-	}
-
-	/**
-	 * Get the promotion from notation
-	 *
-	 * If the notation token contains an equal sign then it's a promotion
-	 *
-	 * @param string $notation
-	 * @return string
-	 */
-	public function getPromoteByNotation( $notation ) {
-		if ( strpos( $notation, '=' ) !== false ) {
-			$piece = preg_replace( "/^.*?=([QRBN]).*$/", '$1', $notation );
-			return strtolower( $piece );
-		}
-
-		if ( preg_match( "/[a-h][18][NBRQ]/", $notation ) ) {
-			$notation = preg_replace( "/[^a-h18NBRQ]/s", "", $notation );
-			return strtolower( substr( $notation, strlen( $notation ) - 1, 1 ) );
-		}
-		return '';
-	}
-
-	/**
-	 * Get the rank of a notation
-	 *
-	 * TODO add an explicit cast of $notation from string to int
-	 *
-	 * @param string $notation
-	 * @return null|int
-	 */
-	public function getFromRankByNotation( $notation ) {
-		$notation = preg_replace( "/^.+(\d).+\d.*$/s", '$1', $notation );
-		if ( strlen( $notation ) > 1 ) {
-			return null;
-		}
-		return ( $notation - 1 ) * 16;
-	}
-
-	/**
-	 * Get the file of a notation
-	 *
-	 * @param string $notation
-	 * @return null|int
-	 */
-	public function getFromFileByNotation( $notation ) {
-		$notation = preg_replace( "/^.*([a-h]).*[a-h].*$/s", '$1', $notation );
-		if ( strlen( $notation ) > 1 ) {
-			return null;
-		}
-
-		$files = [
-			'a' => 0,
-			'b' => 1,
-			'c' => 2,
-			'd' => 3,
-			'e' => 4,
-			'f' => 5,
-			'g' => 6,
-			'h' => 7
-		];
-		return $files[$notation];
-	}
-
-	/**
-	 * Get the target square of notation
-	 *
-	 * TODO should the end be '' or something else
-	 *
-	 * @param string $notation
-	 * @return int|string
-	 */
-	public function getToSquareByNotation( $notation ) {
-		$notation = preg_replace( "/.*([a-h][1-8]).*/s", '$1', $notation );
-		try {
-			$square = ChessSquare::newFromCoords( $notation );
-			return $square->getNumber();
-		} catch ( ChessBrowserException $e ) {
-			return '';
-		}
-	}
-
-	/**
-	 * Get the type of a piece from notation
-	 *
-	 * @param string $notation
-	 * @param string|null $color defaults to white
-	 * @return int
-	 */
-	public function getPieceTypeByNotation( $notation, $color = null ) {
-		if ( $notation === 'O-O-O' || $notation === 'O-O' ) {
-			$pieceType = 'K';
-		} else {
-			$token = substr( $notation, 0, 1 );
-			$pieceType = preg_match( "/[NRBQK]/", $token ) ? $token : 'P';
-		}
-
-		$pieceType = ( new ChessPiece( $pieceType ) )->getAsHex();
-		if ( $color === 'black' ) {
-			$pieceType += 8;
-		}
-
-		return $pieceType;
 	}
 
 	/**
