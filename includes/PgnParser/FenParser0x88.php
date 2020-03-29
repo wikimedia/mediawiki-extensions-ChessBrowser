@@ -490,16 +490,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the valid moves
-	 *
-	 * @return array
-	 */
-	private function validMoves() {
-		$validMovesAndResult = $this->getValidMovesAndResult();
-		return $validMovesAndResult["moves"];
-	}
-
-	/**
 	 * From a list of squares and valid squares, return the valid ones
 	 *
 	 * TODO document how is this different from using $validSquares?
@@ -1259,7 +1249,8 @@ class FenParser0x88 {
 			}
 		}
 
-		$validMoves = $this->validMoves();
+		$validMovesAndResult = $this->getValidMovesAndResult();
+		$validMoves = $validMovesAndResult["moves"];
 
 		$from = ChessSquare::newFromCoords( $move['from'] )->getNumber();
 		$to = ChessSquare::newFromCoords( $move['to'] )->getNumber();
