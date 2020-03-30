@@ -247,203 +247,7 @@ class FenParser0x88 {
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
-			$paths = [];
-
-			switch ( $piece['t'] ) {
-				// pawns
-				case ChessPiece::WHITE_PAWN:
-					if (
-						!isset( $pinned[$piece['s']] )
-						|| (
-							$pinned[$piece['s']]
-							&& SquareRelations::new( $piece['s'], $pinned[$piece['s']]['by'] )->haveSameFile()
-						)
-					) {
-						if ( !$this->cache['board'][$piece['s'] + 16] ) {
-							$paths[] = $piece['s'] + 16;
-							if (
-								$piece['s'] < 32
-								&& !$this->cache['board'][$piece['s'] + 32]
-							) {
-								$paths[] = $piece['s'] + 32;
-							}
-						}
-					}
-					if (
-						!isset( $pinned[$piece['s']] )
-						|| (
-							$pinned[$piece['s']]
-							&& $pinned[$piece['s']]['by'] === $piece['s'] + 15
-						)
-					) {
-						if ( $enPassantSquare == $piece['s'] + 15 || $this->cache['board'][$piece['s'] + 15] & 0x8 ) {
-							$paths[] = $piece['s'] + 15;
-						}
-					}
-					if (
-						isset( $this->cache['board'][$piece['s'] + 17] )
-						&& (
-							!isset( $pinned[$piece['s']] )
-							|| ( $pinned[$piece['s']] && $pinned[$piece['s']]['by'] === $piece['s'] + 17 )
-						)
-					) {
-						if (
-							$enPassantSquare == $piece['s'] + 17
-							|| ( $this->cache['board'][$piece['s'] + 17] )
-							&& $this->cache['board'][$piece['s'] + 17] & 0x8
-						) {
-							$paths[] = $piece['s'] + 17;
-						}
-					}
-					break;
-				case ChessPiece::BLACK_PAWN:
-					if (
-						!isset( $pinned[$piece['s']] )
-						|| (
-							$pinned[$piece['s']]
-							&& SquareRelations::new( $piece['s'], $pinned[$piece['s']]['by'] )->haveSameFile()
-						)
-					) {
-						if ( !$this->cache['board'][$piece['s'] - 16] ) {
-							$paths[] = $piece['s'] - 16;
-							if (
-								$piece['s'] > 87
-								&& !$this->cache['board'][$piece['s'] - 32]
-							) {
-								$paths[] = $piece['s'] - 32;
-							}
-						}
-					}
-					if (
-						!isset( $pinned[$piece['s']] )
-						|| ( $pinned[$piece['s']]
-						&& $pinned[$piece['s']]['by'] === $piece['s'] - 15 )
-					) {
-						if (
-							$enPassantSquare == $piece['s'] - 15
-							|| ( $this->cache['board'][$piece['s'] - 15] )
-							&& !( $this->cache['board'][$piece['s'] - 15] & 0x8 )
-						) {
-							$paths[] = $piece['s'] - 15;
-						}
-					}
-					if ( $piece['s'] - 17 >= 0 ) {
-						if (
-							!isset( $pinned[$piece['s']] )
-							|| ( $pinned[$piece['s']] && $pinned[$piece['s']]['by'] === $piece['s'] - 17 )
-						) {
-							if (
-								$enPassantSquare == $piece['s'] - 17
-								|| ( $this->cache['board'][$piece['s'] - 17] )
-								&& !( $this->cache['board'][$piece['s'] - 17] & 0x8 )
-							) {
-								$paths[] = $piece['s'] - 17;
-							}
-						}
-					}
-
-					break;
-				// Sliding pieces
-				case ChessPiece::WHITE_BISHOP:
-				case ChessPiece::WHITE_ROOK:
-				case ChessPiece::WHITE_QUEEN:
-				case ChessPiece::BLACK_BISHOP:
-				case ChessPiece::BLACK_ROOK:
-				case ChessPiece::BLACK_QUEEN:
-					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
-					if ( isset( $pinned[$piece['s']] ) ) {
-						if ( array_search( $pinned[$piece['s']]['direction'], $directions ) !== false ) {
-							$directions = [ $pinned[$piece['s']]['direction'], $pinned[$piece['s']]['direction'] * -1 ];
-						} else {
-							$directions = [];
-						}
-					}
-					for ( $a = 0, $len = count( $directions ); $a < $len; $a++ ) {
-						$square = $piece['s'] + $directions[$a];
-						while ( ( $square & 0x88 ) === 0 ) {
-							if ( $this->cache['board'][$square] ) {
-								if (
-									( $isWhite && $this->cache['board'][$square] & 0x8 )
-									|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
-								) {
-									$paths[] = $square;
-								}
-								break;
-							}
-							$paths[] = $square;
-							$square += $directions[$a];
-						}
-					}
-					break;
-				case ChessPiece::WHITE_KNIGHT:
-				case ChessPiece::BLACK_KNIGHT:
-					if ( isset( $pinned[$piece['s']] ) ) {
-						break;
-					}
-					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
-					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-						$square = $piece['s'] + $directions[$a];
-
-						if ( ( $square & 0x88 ) === 0 ) {
-							if ( $this->cache['board'][$square] ) {
-								if (
-									( $isWhite && $this->cache['board'][$square] & 0x8 )
-									|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
-								) {
-									$paths[] = $square;
-								}
-							} else {
-								$paths[] = $square;
-							}
-						}
-					}
-					break;
-				case ChessPiece::WHITE_KING:
-				case ChessPiece::BLACK_KING:
-					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
-					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-						$square = $piece['s'] + $directions[$a];
-						if ( ( $square & 0x88 ) === 0 ) {
-							if ( strpos( $protectiveMoves, $this->keySquares[$square] ) === false ) {
-								if ( $this->cache['board'][$square] ) {
-									if (
-										( $isWhite && $this->cache['board'][$square] & 0x8 )
-										|| ( !$isWhite && !( $this->cache['board'][$square] & 0x8 ) )
-									) {
-										$paths[] = $square;
-									}
-								} else {
-									$paths[] = $square;
-								}
-							}
-						}
-					}
-
-					if ( $kingSideCastle
-						&& !( $this->cache['board'][$piece['s'] + 1] )
-						&& !( $this->cache['board'][$piece['s'] + 2] )
-						&& ( $this->cache['board'][$piece['s'] + 3] )
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s']] ) === false
-						&& $piece['s'] < 117
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] + 1] ) === false
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] + 2] ) === false
-					) {
-						$paths[] = $piece['s'] + 2;
-					}
-
-					if ( $queenSideCastle && $piece['s'] - 2 != -1
-						&& !( $this->cache['board'][$piece['s'] - 1] )
-						&& !( $this->cache['board'][$piece['s'] - 2] )
-						&& !( $this->cache['board'][$piece['s'] - 3] )
-						&& ( $this->cache['board'][$piece['s'] - 4] )
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s']] ) === false
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] - 1] ) === false
-						&& strpos( $protectiveMoves, $this->keySquares[$piece['s'] - 2] ) === false
-					) {
-						$paths[] = $piece['s'] - 2;
-					}
-					break;
-			}
+			$paths = $this->getValidMovePathsForPiece( $piece, $pinned, $isWhite );
 			if ( $validSquares
 				&& $piece['t'] != ChessPiece::WHITE_KING
 				&& $piece['t'] != ChessPiece::BLACK_KING
@@ -461,6 +265,182 @@ class FenParser0x88 {
 		}
 		$this->validMoves = [ 'moves' => $ret, 'result' => $result, 'check' => $checks ];
 		return $this->validMoves;
+	}
+
+	/**
+	 * Analyze the possible moves for a specific piece
+	 *
+	 * @param array $piece
+	 * @param array $pinned
+	 * @param bool $isWhite
+	 * @return array
+	 */
+	private function getValidMovePathsForPiece(
+		array $piece,
+		array $pinned,
+		bool $isWhite
+	) : array {
+		$paths = [];
+		$type = $piece['t'];
+		$square = $piece['s'];
+		$isPinned = isset( $pinned[$square] );
+		$pin = $isPinned ? $pinned[$square] : [ 'by' => -1 ];
+		$board = $this->cache['board'];
+		$directions = ChessPiece::newFromHex( $type )->getMovePatterns();
+
+		switch ( $type ) {
+			// pawns
+			case ChessPiece::WHITE_PAWN:
+				if ( !$isPinned ||
+					SquareRelations::new( $square, $pin['by'] )->haveSameFile()
+				) {
+					if ( !$board[$square + 16] ) {
+						$paths[] = $square + 16;
+						if ( $square < 32 && !$board[$square + 32] ) {
+							$paths[] = $square + 32;
+						}
+					}
+				}
+				if ( !$isPinned || $pin['by'] === $square + 15 ) {
+					if ( $enPassantSquare == $square + 15 || $board[$square + 15] & 0x8 ) {
+						$paths[] = $square + 15;
+					}
+				}
+				if ( isset( $board[$square + 17] ) &&
+					( !$isPinned || $pin['by'] === $square + 17 )
+				) {
+					if (
+						$enPassantSquare == $square + 17
+						|| ( $board[$square + 17] )
+						&& $board[$square + 17] & 0x8
+					) {
+						$paths[] = $square + 17;
+					}
+				}
+				break;
+			case ChessPiece::BLACK_PAWN:
+				if ( !$isPinned ||
+					SquareRelations::new( $square, $pin['by'] )->haveSameFile()
+				) {
+					if ( !$board[$square - 16] ) {
+						$paths[] = $square - 16;
+						if ( $square > 87 && !$board[$square - 32] ) {
+							$paths[] = $square - 32;
+						}
+					}
+				}
+				if ( !$isPinned || $pin['by'] === $square - 15 ) {
+					if (
+						$enPassantSquare == $square - 15
+						|| ( $board[$square - 15] )
+						&& !( $board[$square - 15] & 0x8 )
+					) {
+						$paths[] = $square - 15;
+					}
+				}
+				if ( $square - 17 >= 0 ) {
+					if ( !$isPinned || $pin['by'] === $square - 17 ) {
+						if (
+							$enPassantSquare == $square - 17
+							|| ( $board[$square - 17] )
+							&& !( $board[$square - 17] & 0x8 )
+						) {
+							$paths[] = $square - 17;
+						}
+					}
+				}
+
+				break;
+			// Sliding pieces
+			case ChessPiece::WHITE_BISHOP:
+			case ChessPiece::WHITE_ROOK:
+			case ChessPiece::WHITE_QUEEN:
+			case ChessPiece::BLACK_BISHOP:
+			case ChessPiece::BLACK_ROOK:
+			case ChessPiece::BLACK_QUEEN:
+				if ( $isPinned ) {
+					if ( array_search( $pin['direction'], $directions ) !== false ) {
+						$directions = [ $pin['direction'], $pin['direction'] * -1 ];
+					} else {
+						$directions = [];
+					}
+				}
+				for ( $a = 0, $len = count( $directions ); $a < $len; $a++ ) {
+					$square = $square + $directions[$a];
+					while ( ( $square & 0x88 ) === 0 ) {
+						if ( $board[$square] ) {
+							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
+								$paths[] = $square;
+							}
+							break;
+						}
+						$paths[] = $square;
+						$square += $directions[$a];
+					}
+				}
+				break;
+			case ChessPiece::WHITE_KNIGHT:
+			case ChessPiece::BLACK_KNIGHT:
+				if ( $isPinned ) {
+					break;
+				}
+				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
+					$square = $square + $directions[$a];
+					if ( ( $square & 0x88 ) === 0 ) {
+						if ( $board[$square] ) {
+							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
+								$paths[] = $square;
+							}
+						} else {
+							$paths[] = $square;
+						}
+					}
+				}
+				break;
+			case ChessPiece::WHITE_KING:
+			case ChessPiece::BLACK_KING:
+				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
+					$square = $square + $directions[$a];
+					if ( ( $square & 0x88 ) === 0 &&
+						strpos( $protectiveMoves, $this->keySquares[$square] ) === false
+					) {
+						if ( $board[$square] ) {
+							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
+								$paths[] = $square;
+							}
+						} else {
+							$paths[] = $square;
+						}
+					}
+				}
+
+				if ( $kingSideCastle
+					&& !( $board[$square + 1] )
+					&& !( $board[$square + 2] )
+					&& $board[$square + 3]
+					&& strpos( $protectiveMoves, $this->keySquares[$square] ) === false
+					&& $square < 117
+					&& strpos( $protectiveMoves, $this->keySquares[$square + 1] ) === false
+					&& strpos( $protectiveMoves, $this->keySquares[$square + 2] ) === false
+				) {
+					$paths[] = $square + 2;
+				}
+
+				if ( $queenSideCastle
+					&& $square - 2 != -1
+					&& !( $board[$square - 1] )
+					&& !( $board[$square - 2] )
+					&& !( $board[$square - 3] )
+					&& $board[$square - 4]
+					&& strpos( $protectiveMoves, $this->keySquares[$square] ) === false
+					&& strpos( $protectiveMoves, $this->keySquares[$square - 1] ) === false
+					&& strpos( $protectiveMoves, $this->keySquares[$square - 2] ) === false
+				) {
+					$paths[] = $square - 2;
+				}
+				break;
+		}
+		return $paths;
 	}
 
 	/**
