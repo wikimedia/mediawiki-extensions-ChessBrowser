@@ -48,14 +48,6 @@ class Board0x88Config {
 		'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
 	];
 
-	public static $castle = [
-		'-' => 0,
-		'K' => 8,
-		'Q' => 4,
-		'k' => 2,
-		'q' => 1
-	];
-
 	// intval( $num ) <= 8
 	public static $numbers = [
 		'0' => 1,

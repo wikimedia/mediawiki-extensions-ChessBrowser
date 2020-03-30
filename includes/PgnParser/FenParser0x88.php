@@ -45,6 +45,8 @@ class FenParser0x88 {
 
 	private $keySquares;
 
+	private $castlingTracker;
+
 	/**
 	 * Create a new FenParser
 	 *
@@ -93,25 +95,22 @@ class FenParser0x88 {
 		];
 
 		$this->fen = $fen;
-		$this->updateFenArray();
+		$this->updateFenAndCastle();
 		$this->parseFen();
 	}
 
 	/**
-	 * Update fenParts from fen
+	 * Update fenParts from fen, and castle based on fen
 	 */
-	private function updateFenArray() {
+	private function updateFenAndCastle() {
 		$fenParts = explode( " ", $this->fen );
-		$castleCode = 0;
-		for ( $i = 0, $count = strlen( $fenParts[2] ); $i < $count; $i++ ) {
-			$castleCode += Board0x88Config::$castle[substr( $fenParts[2], $i, 1 )];
-		}
+
+		$this->castleTracker = new CastlingTracker( $fenParts[2] );
 
 		$this->fenParts = [
 			'pieces' => $fenParts[0],
 			'color' => $fenParts[1],
 			'castle' => $fenParts[2],
-			'castleCode' => $castleCode,
 			'enPassant' => $fenParts[3],
 			'halfMoves' => $fenParts[4],
 			'fullMoves' => $fenParts[5]
@@ -248,11 +247,8 @@ class FenParser0x88 {
 
 		$isWhite = $color === 'white' ? true : false;
 
-		$kingCode = $isWhite ? Board0x88Config::$castle['K'] : Board0x88Config::$castle['k'];
-		$kingSideCastle = (bool)( $this->fenParts['castleCode'] & $kingCode );
-
-		$queenCode = $isWhite ? Board0x88Config::$castle['Q'] : Board0x88Config::$castle['q'];
-		$queenSideCastle = (bool)( $this->fenParts['castleCode'] & $queenCode );
+		$kingSideCastle = $this->castlingTracker->checkCastle( $isWhite ? 'K' : 'k' );
+		$queenSideCastle = $this->castlingTracker->checkCastle( $isWhite ? 'Q' : 'q' );
 
 		$oppositeColor = $isWhite ? 'black' : 'white';
 
@@ -1174,26 +1170,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * setCastle
-	 *
-	 * TODO document
-	 *
-	 * @param mixed $castle
-	 */
-	private function setCastle( $castle ) {
-		if ( !$castle ) {
-			$castle = '-';
-		}
-		$this->fenParts['castle'] = $castle;
-
-		$castleCode = 0;
-		for ( $i = 0, $count = strlen( $castle ); $i < $count; $i++ ) {
-			$castleCode += Board0x88Config::$castle[substr( $castle, $i, 1 )];
-		}
-		$this->fenParts['castleCode'] = $castleCode;
-	}
-
-	/**
 	 * updateBoardData based on passed move
 	 *
 	 * @param array $move
@@ -1238,7 +1214,6 @@ class FenParser0x88 {
 		$this->fenParts['enPassant'] = $enPassant;
 
 		if ( $this->isCastleMove( [ 'from' => $move['from'], 'to' => $move['to'] ] ) ) {
-			$castle = $this->fenParts['castle'];
 			if ( $color == 'white' ) {
 				$castleNotation = '/[KQ]/s';
 				$pieceType = ChessPiece::WHITE_ROOK;
@@ -1257,10 +1232,15 @@ class FenParser0x88 {
 				$this->cache['board'][0 + $offset] = null;
 				$this->cache['board'][3 + $offset] = $pieceType;
 			}
-			$castle = preg_replace( $castleNotation, '', $castle );
-			$this->setCastle( $castle );
+			$newCastle = preg_replace( $castleNotation, '', $this->fenParts['castle'] );
+			$this->castlingTracker = new CastlingTracker( $newCastle );
+			$this->fenParts['castle'] = $newCastle;
 		} else {
-			$this->updateCastleForMove( $movedPiece, $move['from'] );
+			$this->castlingTracker = new CastlingTracker( $this->fenParts['castle'] );
+			$this->fenParts['castle'] = $this->castlingTracker->updateForMove(
+				$movedPiece,
+				$move['from']
+			);
 		}
 
 		if ( $color === 'black' ) {
@@ -1287,38 +1267,6 @@ class FenParser0x88 {
 		$this->fenParts['color'] = ( $this->fenParts['color'] == 'w' ) ? 'b' : 'w';
 
 		$this->updatePieces();
-	}
-
-	/**
-	 * Update the castle for a move
-	 *
-	 * @param int $movedPiece
-	 * @param int $from
-	 */
-	private function updateCastleForMove( $movedPiece, $from ) {
-		$currentCastle = $this->fenParts['castle'];
-		switch ( $movedPiece ) {
-			case ChessPiece::WHITE_KING:
-				$this->setCastle( preg_replace( "/[KQ]/s", "", $currentCastle ) );
-				break;
-			case ChessPiece::BLACK_KING:
-				$this->setCastle( preg_replace( "/[kq]/s", "", $currentCastle ) );
-				break;
-			case ChessPiece::WHITE_ROOK:
-				if ( $from === 0 ) {
-					$this->setCastle( preg_replace( "/[Q]/s", "", $currentCastle ) );
-				} elseif ( $from === 7 ) {
-					$this->setCastle( preg_replace( "/[K]/s", "", $currentCastle ) );
-				}
-				break;
-			case ChessPiece::BLACK_ROOK:
-				if ( $from === 112 ) {
-					$this->setCastle( preg_replace( "/[q]/s", "", $currentCastle ) );
-				} elseif ( $from === 119 ) {
-					$this->setCastle( preg_replace( "/[k]/s", "", $currentCastle ) );
-				}
-				break;
-		}
 	}
 
 	/**
