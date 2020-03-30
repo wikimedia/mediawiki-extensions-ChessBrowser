@@ -214,28 +214,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Returns whether two squares are on the same rank.
-	 *
-	 * @param int $square1
-	 * @param int $square2
-	 * @return bool
-	 */
-	public function isOnSameRank( $square1, $square2 ) {
-		return ( $square1 & 240 ) === ( $square2 & 240 );
-	}
-
-	/**
-	 * Returns whether two squares are on the same file
-	 *
-	 * @param int $square1
-	 * @param int $square2
-	 * @return bool
-	 */
-	public function isOnSameFile( $square1, $square2 ) {
-		return ( $square1 & 15 ) === ( $square2 & 15 );
-	}
-
-	/**
 	 * Returns valid moves in 0x88 numeric format and result
 	 *
 	 * @return array|null
@@ -278,7 +256,7 @@ class FenParser0x88 {
 						!isset( $pinned[$piece['s']] )
 						|| (
 							$pinned[$piece['s']]
-							&& $this->isOnSameFile( $piece['s'], $pinned[$piece['s']]['by'] )
+							&& SquareRelations::new( $piece['s'], $pinned[$piece['s']]['by'] )->haveSameFile()
 						)
 					) {
 						if ( !$this->cache['board'][$piece['s'] + 16] ) {
@@ -323,7 +301,7 @@ class FenParser0x88 {
 						!isset( $pinned[$piece['s']] )
 						|| (
 							$pinned[$piece['s']]
-							&& $this->isOnSameFile( $piece['s'], $pinned[$piece['s']]['by'] )
+							&& SquareRelations::new( $piece['s'], $pinned[$piece['s']]['by'] )->haveSameFile()
 						)
 					) {
 						if ( !$this->cache['board'][$piece['s'] - 16] ) {
@@ -592,7 +570,8 @@ class FenParser0x88 {
 		foreach ( $pieces as $piece ) {
 			if ( $piece['t'] & 0x4 ) {
 				$numericDistance = $king['s'] - $piece['s'];
-				$boardDistance = $numericDistance / $this->getDistance( $king['s'], $piece['s'] );
+				$squareDistance = SquareRelations::new( $king['s'], $piece['s'] )->getDistance();
+				$boardDistance = $numericDistance / $squareDistance;
 
 				switch ( $piece['t'] ) {
 					case ChessPiece::WHITE_BISHOP:
@@ -709,7 +688,7 @@ class FenParser0x88 {
 					break;
 				case ChessPiece::WHITE_KNIGHT:
 				case ChessPiece::BLACK_KNIGHT:
-					if ( $this->getDistance( $piece['s'], $king['s'] ) === 2 ) {
+					if ( SquareRelations::new( $piece['s'], $king['s'] )->getDistance() === 2 ) {
 						$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
 						for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
 							$square = $piece['s'] + $directions[$a];
@@ -759,7 +738,8 @@ class FenParser0x88 {
 	 */
 	public function getBishopCheckPath( $piece, $king ) : array {
 		if ( ( $king['s'] - $piece['s'] ) % 15 === 0 || ( $king['s'] - $piece['s'] ) % 17 === 0 ) {
-			$direction = ( $king['s'] - $piece['s'] ) / $this->getDistance( $piece['s'], $king['s'] );
+			$distance = SquareRelations::new( $piece['s'], $king['s'] )->getDistance();
+			$direction = ( $king['s'] - $piece['s'] ) / $distance;
 			$square = $piece['s'] + $direction;
 			$pieceFound = false;
 			$squares = [ $piece['s'] ];
@@ -786,9 +766,10 @@ class FenParser0x88 {
 	 */
 	public function getRookCheckPath( $piece, $king ) : array {
 		$direction = null;
-		if ( $this->isOnSameFile( $piece['s'], $king['s'] ) ) {
-			$direction = ( $king['s'] - $piece['s'] ) / $this->getDistance( $piece['s'], $king['s'] );
-		} elseif ( $this->isOnSameRank( $piece['s'], $king['s'] ) ) {
+		$relations = SquareRelations::new( $piece['s'], $king['s'] );
+		if ( $relations->haveSameFile() ) {
+			$direction = ( $king['s'] - $piece['s'] ) / $relations->getDistance();
+		} elseif ( $relations->haveSameRank() ) {
 			$direction = $king['s'] > $piece['s'] ? 1 : -1;
 		}
 
@@ -832,17 +813,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Get the distance between 2 squares
-	 *
-	 * @param int $sq1
-	 * @param int $sq2
-	 * @return int
-	 */
-	public function getDistance( $sq1, $sq2 ) {
-		return Board0x88Config::$distances[$sq2 - $sq1 + ( $sq2 | 7 ) - ( $sq1 | 7 ) + 240];
-	}
-
-	/**
 	 * Check if a move is en passant
 	 *
 	 * TODO combine ifs
@@ -881,7 +851,7 @@ class FenParser0x88 {
 			( $this->cache['board'][$move['from']] === ChessPiece::WHITE_KING
 			|| $this->cache['board'][$move['from']] === ChessPiece::BLACK_KING )
 		) {
-			if ( $this->getDistance( $move['from'], $move['to'] ) === 2 ) {
+			if ( SquareRelations::new( $move['from'], $move['to'] )->getDistance() === 2 ) {
 				return true;
 			}
 		}
@@ -1063,14 +1033,14 @@ class FenParser0x88 {
 		} else {
 			if ( $fromRank !== null && $fromRank >= 0 ) {
 				for ( $i = 0, $len = count( $foundPieces ); $i < $len; $i++ ) {
-					if ( $this->isOnSameRank( $foundPieces[$i], $fromRank ) ) {
+					if ( SquareRelations::new( $foundPieces[$i], $fromRank )->haveSameRank() ) {
 						$ret['from'] = $foundPieces[$i];
 						break;
 					}
 				}
 			} elseif ( $fromFile !== null && $fromFile >= 0 ) {
 				for ( $i = 0, $len = count( $foundPieces ); $i < $len; $i++ ) {
-					if ( $this->isOnSameFile( $foundPieces[$i], $fromFile ) ) {
+					if ( SquareRelations::new( $foundPieces[$i], $fromFile )->haveSameFile() ) {
 						$ret['from'] = $foundPieces[$i];
 						break;
 					}
@@ -1200,7 +1170,7 @@ class FenParser0x88 {
 
 			if (
 				( $move['from'] & 15 ) == ( $move['to'] & 15 )
-				&& $this->getDistance( $move['from'], $move['to'] ) == 2
+				&& SquareRelations::new( $move['from'], $move['to'] )->getDistance() == 2
 			) {
 				if ( $color === 'white' ) {
 					$number = $move['from'] + 16;

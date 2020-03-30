@@ -27,7 +27,8 @@
 		"ChessSquare": "includes/ChessSquare.php",
 		"ChessPiece": "includes/ChessPiece.php",
 		"NotationAnalyzer": "includes/NotationAnalyzer.php",
-		"CastlingTracker": "includes/CastlingTracker.php"
+		"CastlingTracker": "includes/CastlingTracker.php",
+		"SquareRelations": "includes/SquareRelations.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",
