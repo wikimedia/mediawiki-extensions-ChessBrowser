@@ -1174,15 +1174,6 @@ class FenParser0x88 {
 	}
 
 	/**
-	 * Set the color to be the opposite
-	 *
-	 * TODO rename to switchActiveColor()
-	 */
-	public function setNewColor() {
-		$this->fenParts['color'] = ( $this->fenParts['color'] == 'w' ) ? 'b' : 'w';
-	}
-
-	/**
 	 * setCastle
 	 *
 	 * TODO document
@@ -1292,7 +1283,9 @@ class FenParser0x88 {
 			$piece = new ChessPiece( $pieceStr );
 			$this->cache['board'][$move['to']] = $piece->getAsHex();
 		}
-		$this->setNewColor();
+
+		$this->fenParts['color'] = ( $this->fenParts['color'] == 'w' ) ? 'b' : 'w';
+
 		$this->updatePieces();
 	}
 
