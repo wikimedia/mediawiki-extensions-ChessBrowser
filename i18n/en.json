@@ -6,6 +6,9 @@
 		]
 	},
 	"chessbrowser-desc": "Adds pgn tag to make chess game notation interactive.",
+	"chessbrowser-invalid-message": "The PGN specified is invalid",
+	"chessbrowser-invalid-category": "Pages with invalid PGNs specified",
+	"chessbrowser-invalid-category-desc": "The PGN tags on the page include an invalid game",
 	"chessbrowser-expand-button": "Expand",
 	"chessbrowser-game-detail": "Game details",
 	"chessbrowser-event-label": "Event",

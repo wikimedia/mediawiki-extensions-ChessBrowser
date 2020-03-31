@@ -1,6 +1,6 @@
 {
 	"name": "ChessBrowser",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"author": [
 		"Wugapodes",
 		"Kipod",
@@ -56,5 +56,8 @@
 			"i18n"
 		]
 	},
+	"TrackingCategories": [
+		"chessbrowser-invalid-category"
+	],
 	"manifest_version": 2
 }

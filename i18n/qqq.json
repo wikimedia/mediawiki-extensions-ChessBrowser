@@ -6,6 +6,9 @@
 		]
 	},
 	"chessbrowser-desc": "{{desc|name=ChessBrowser|url=https://www.mediawiki.org/wiki/Extension:ChessBrowser}}",
+	"chessbrowser-invalid-message": "Message shown in place of an invalid PGN",
+	"chessbrowser-invalid-category": "Tracking category for pages with invalid PGNs",
+	"chessbrowser-invalid-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|chessbrowser-invalid-category}} tracking category.",
 	"chessbrowser-expand-button": "Button label which shows additional content on click",
 	"chessbrowser-game-detail": "Information about the game such as players, date, result, etc.",
 	"chessbrowser-event-label": "The tournament or event during which the game was played",
