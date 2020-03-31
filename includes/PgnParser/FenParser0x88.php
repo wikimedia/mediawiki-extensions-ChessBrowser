@@ -247,7 +247,15 @@ class FenParser0x88 {
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
-			$paths = $this->getValidMovePathsForPiece( $piece, $pinned, $isWhite );
+			$paths = $this->getValidMovePathsForPiece(
+				$piece,
+				$pinned,
+				$isWhite,
+				$protectiveMoves,
+				$kingSideCastle,
+				$queenSideCastle,
+				$enPassantSquare
+			);
 			if ( $validSquares
 				&& $piece['t'] != ChessPiece::WHITE_KING
 				&& $piece['t'] != ChessPiece::BLACK_KING
@@ -273,12 +281,20 @@ class FenParser0x88 {
 	 * @param array $piece
 	 * @param array $pinned
 	 * @param bool $isWhite
+	 * @param string $protectiveMoves
+	 * @param bool $kingSideCastle
+	 * @param bool $queenSideCastle
+	 * @param int|null $enPassantSquare
 	 * @return array
 	 */
 	private function getValidMovePathsForPiece(
 		array $piece,
 		array $pinned,
-		bool $isWhite
+		bool $isWhite,
+		string $protectiveMoves,
+		bool $kingSideCastle,
+		bool $queenSideCastle,
+		$enPassantSquare
 	) : array {
 		$paths = [];
 		$type = $piece['t'];
