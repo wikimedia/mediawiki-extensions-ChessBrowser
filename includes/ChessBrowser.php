@@ -30,23 +30,65 @@ class ChessBrowser {
 	 * @return array
 	 */
 	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) : array {
-		$out = $parser->getOutput();
+		try {
+			self::assertValidPGN( $input );
 
-		// Set variable so resource loader knows whether to send javascript
-		$out->setExtensionData( 'ChessViewerTrigger', 'true' );
-		// Get number of games so div id property is unique
-		$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
-		if ( !isset( $gameNum ) ) {
-			$gameNum = 1;
-		} else {
-			$gameNum += 1;
+			$out = $parser->getOutput();
+			// Get number of games so div id property is unique
+			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
+			if ( !isset( $gameNum ) ) {
+				$gameNum = 1;
+			} else {
+				$gameNum += 1;
+			}
+
+			$board = self::createBoard( $input, $gameNum );
+
+			// Set after the parsing, etc. in case there is an error
+			// Set variable so resource loader knows whether to send javascript
+			$out->setExtensionData( 'ChessViewerTrigger', 'true' );
+			// Increment number of games
+			$out->setExtensionData( 'ChessViewerNumGames', $gameNum );
+
+			return [ $board, "markerType" => "nowiki" ];
+		} catch ( Exception $e ) {
+			wfDebugLog( 'ChessBrowser', 'Unable to create a game' );
+			$parser->addTrackingCategory( 'chessbrowser-invalid-category' );
+			$message = wfMessage( 'chessbrowser-invalid-message' )->escaped();
+			return [ $message ];
 		}
-		// Increment number of games
-		$out->setExtensionData( 'ChessViewerNumGames', $gameNum );
+	}
 
+	/**
+	 * Check if an input is valid, solely based on matching the normal format
+	 *
+	 * @param string $input
+	 * @throws ChessBrowserException if invalid
+	 */
+	private static function assertValidPGN( string $input ) {
+		// phpcs:ignore Generic.Files.LineLength.TooLong
+		$likeValidPGN = '/^\s*(?:\[\S+ "[^"\n]+"\]\s*)*\s*(?:\d+\.\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
+		$couldBeValid = preg_match( $likeValidPGN, $input );
+		if ( $couldBeValid != 1 ) {
+			throw new ChessBrowserException( 'Invalid PGN' );
+		}
+	}
+
+	/**
+	 * Handle creating the board to show
+	 *
+	 * @param string $input
+	 * @param int $gameNum
+	 * @return string
+	 * @throws ChessBrowserException
+	 */
+	private static function createBoard( string $input, int $gameNum ) : string {
 		// Initialize parsers
 		$chessParser = new ChessParser( $input );
 		$chessObject = $chessParser->createOutputJson();
+		if ( !( $chessObject && $chessObject['boards'] && $chessObject['boards'][0] ) ) {
+			throw new ChessBrowserException( 'No board available' );
+		}
 		// Set up template arguments
 		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
 		$templateArgs = [
@@ -67,7 +109,7 @@ class ChessBrowser {
 			'ChessBoard',
 			$templateArgs
 		);
-		return [ $board, "markerType" => "nowiki" ];
+		return $board;
 	}
 
 	/**

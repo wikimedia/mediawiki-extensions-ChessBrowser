@@ -244,6 +244,9 @@ class FenParser0x88 {
 				$validSquares = $this->getValidSquaresOnCheck( $color );
 			}
 		}
+		if ( $pinned === null ) {
+			$pinned = [];
+		}
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
