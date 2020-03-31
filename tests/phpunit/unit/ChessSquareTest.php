@@ -160,4 +160,23 @@ class ChessSquareTest extends MediaWikiUnitTestCase {
 		);
 	}
 
+	public static function convert64( int $num ) {
+		$file = ( $num - $num % 8 ) / 8;
+		$rank = 1 + $num % 8;
+		return $file + 8 * ( $rank - 1 );
+	}
+
+	/**
+	 * @covers ::newFromLateral64
+	 */
+	public function test64() {
+		foreach ( range( 0, 63 ) as $num ) {
+			$square = ChessSquare::newFromLateral64( $num );
+			$this->assertSame(
+				$this->convert64( $num ),
+				$square->getAsVertical64()
+			);
+		}
+	}
+
 }

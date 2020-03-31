@@ -122,7 +122,7 @@ class ChessParser {
 		}
 
 		$chessSquare = ChessSquare::newFromCoords( $square );
-		return $chessSquare->getAs64();
+		return $chessSquare->getAsVertical64();
 	}
 
 	/**

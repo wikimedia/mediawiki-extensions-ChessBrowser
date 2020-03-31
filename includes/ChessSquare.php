@@ -81,12 +81,12 @@ class ChessSquare {
 	}
 
 	/**
-	 * For conversion from a 0-63 representation
+	 * For conversion from a 0-63 representation which counted across rows
 	 *
 	 * @param int $number
 	 * @return ChessSquare
 	 */
-	public static function newFrom64( int $number ) : ChessSquare {
+	public static function newFromLateral64( int $number ) : ChessSquare {
 		$inHex = (int)( floor( $number / 8 ) * 16 ) + ( $number % 8 );
 		return self::newFromNumber( $inHex );
 	}
@@ -118,11 +118,12 @@ class ChessSquare {
 	}
 
 	/**
-	 * Get the 0-63 representation
+	 * Get the 0-63 representation going up files
+	 * A1=0; B1=1; etc
 	 *
 	 * @return int
 	 */
-	public function getAs64() : int {
+	public function getAsVertical64() : int {
 		return ( self::FILE_TO_NUMBER[$this->fileLetter] * 8 ) + ( $this->rankNumber - 1 );
 	}
 
