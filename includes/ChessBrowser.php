@@ -106,7 +106,7 @@ class ChessBrowser {
 		$metadata = self::getMetadata( $chessObject['metadata'] );
 		$templateArgs = array_merge( $templateArgs, $localizedLabels, $metadata );
 		$board = $templateParser->processTemplate(
-			'ChessBoard',
+			'ChessGame',
 			$templateArgs
 		);
 		return $board;
