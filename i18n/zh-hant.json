@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-desc": "添加 pgn 標籤來建立棋盤遊戲符號互動。",
+	"chessbrowser-invalid-message": "指定的 PGN 無效",
+	"chessbrowser-invalid-category": "指定了有無效 PGN 頁面",
+	"chessbrowser-invalid-category-desc": "在頁面的 PGN 標籤包含有無效遊戲",
 	"chessbrowser-expand-button": "展開",
 	"chessbrowser-game-detail": "遊戲詳細資料",
 	"chessbrowser-event-label": "事件",

@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-desc": "Satranç oyunu notasyonunu interaktif hale getirmek için pgn etiketi ekler.",
+	"chessbrowser-invalid-message": "Belirtilen PGN geçersiz",
+	"chessbrowser-invalid-category": "Geçersiz PGN'leri belirtilen sayfalar",
+	"chessbrowser-invalid-category-desc": "Sayfadaki PGN etiketleri geçersiz bir oyun içeriyor",
 	"chessbrowser-expand-button": "Genişlet",
 	"chessbrowser-game-detail": "Oyun detayları",
 	"chessbrowser-event-label": "Olay",

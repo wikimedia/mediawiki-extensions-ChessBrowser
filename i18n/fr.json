@@ -6,6 +6,9 @@
 		]
 	},
 	"chessbrowser-desc": "Ajoute la balise pgn pour rendre la notation de jeu d’échec interactive.",
+	"chessbrowser-invalid-message": "Le PGN spécifié n’est pas valide",
+	"chessbrowser-invalid-category": "Pages avec des PGN spécifiés non valides",
+	"chessbrowser-invalid-category-desc": "Les balises PGN sur la page incluent un jeu non valide",
 	"chessbrowser-expand-button": "Développer",
 	"chessbrowser-game-detail": "Détails du jeu",
 	"chessbrowser-event-label": "Événement",

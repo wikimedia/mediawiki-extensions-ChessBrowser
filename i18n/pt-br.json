@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-desc": "Adiciona a etiqueta pgn para tornar a notação do jogo de xadrez interativa.",
+	"chessbrowser-invalid-message": "O PGN especificado é inválido",
+	"chessbrowser-invalid-category": "Páginas com PGNs inválidos especificados",
+	"chessbrowser-invalid-category-desc": "As etiquetas PGN na página incluem um jogo inválido",
 	"chessbrowser-expand-button": "Expandir",
 	"chessbrowser-game-detail": "Detalhes do jogo",
 	"chessbrowser-event-label": "Evento",

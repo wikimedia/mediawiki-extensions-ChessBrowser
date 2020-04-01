@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"chessbrowser-invalid-message": "Direizh eo ar PNG spisaet",
+	"chessbrowser-invalid-category": "Pajennoù gant PGNoù direizh bet merket enno",
+	"chessbrowser-invalid-category-desc": "Ur c'hoari direizh zo e tikedenn PNG ar bajenn"
+}

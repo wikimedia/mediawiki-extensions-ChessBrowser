@@ -5,6 +5,9 @@
 			"Ihojose"
 		]
 	},
+	"chessbrowser-invalid-message": "El PGN especificado no es válido",
+	"chessbrowser-invalid-category": "Páginas con PGN no válidos especificados",
+	"chessbrowser-invalid-category-desc": "Las etiquetaas PGN de la página incluyen una partida no válida",
 	"chessbrowser-expand-button": "Expandir",
 	"chessbrowser-game-detail": "Detalles de partida",
 	"chessbrowser-event-label": "Evento",
