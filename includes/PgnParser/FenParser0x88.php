@@ -244,9 +244,6 @@ class FenParser0x88 {
 				$validSquares = $this->getValidSquaresOnCheck( $color );
 			}
 		}
-		if ( $pinned === null ) {
-			$pinned = [];
-		}
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
@@ -609,9 +606,9 @@ class FenParser0x88 {
 	 * Return numeric squares(0x88) of pinned pieces
 	 *
 	 * @param string $color
-	 * @return array|null
+	 * @return array
 	 */
-	public function getPinned( $color ) {
+	public function getPinned( $color ) : array {
 		$ret = [];
 		$isWhite = $color === 'white';
 		$pieces = $this->getSlidingPiecesAttackingKing( $isWhite ? 'black' : 'white' );
@@ -642,9 +639,6 @@ class FenParser0x88 {
 				$ret[$pinning] = [ 'by' => $piece['s'], 'direction' => $piece['p'] ];
 			}
 			$i++;
-		}
-		if ( count( $ret ) === 0 ) {
-			return null;
 		}
 		return $ret;
 	}
