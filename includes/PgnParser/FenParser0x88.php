@@ -50,28 +50,16 @@ class FenParser0x88 {
 	/**
 	 * Create a new FenParser
 	 *
-	 * @param string|null $fen
+	 * @param string $fen
 	 */
-	public function __construct( $fen = null ) {
-		if ( isset( $fen ) ) {
-			$this->setFen( $fen );
-		}
-
+	public function __construct( string $fen ) {
 		// Set up $keySquares
 		$keySquares = [];
 		foreach ( range( 0, 119 ) as $square ) {
 			$keySquares[] = ",$square,";
 		}
 		$this->keySquares = $keySquares;
-	}
 
-	/**
-	 * Start? a new game
-	 *
-	 * @param string|null $fen
-	 */
-	public function newGame( $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' ) {
-		$this->validMoves = null;
 		$this->setFen( $fen );
 	}
 
