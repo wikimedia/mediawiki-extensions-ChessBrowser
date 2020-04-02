@@ -6,6 +6,9 @@
 		]
 	},
 	"chessbrowser-desc": "Додає тег pgn, аби робити шахову нотацію інтерактивною.",
+	"chessbrowser-invalid-message": "Вказаний PGN — недійсний",
+	"chessbrowser-invalid-category": "Сторінки із недійсними тегами PGN",
+	"chessbrowser-invalid-category-desc": "Теги PGN на сторінці містять недійсну гру",
 	"chessbrowser-expand-button": "Розгорнути",
 	"chessbrowser-game-detail": "Деталі гри",
 	"chessbrowser-event-label": "Подія",

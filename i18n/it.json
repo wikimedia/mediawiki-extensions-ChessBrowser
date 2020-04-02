@@ -4,6 +4,7 @@
 			"Beta16"
 		]
 	},
+	"chessbrowser-invalid-message": "Il PGN indicato non è valido",
 	"chessbrowser-expand-button": "Espandi",
 	"chessbrowser-event-label": "Evento",
 	"chessbrowser-site-label": "Sito",

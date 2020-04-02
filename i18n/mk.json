@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-desc": "Става ознака „pgn“, и со тоа го прави интерактивен шаховскиот запис во партии.",
+	"chessbrowser-invalid-message": "Укажаниот PGN е неважечки",
+	"chessbrowser-invalid-category": "Страници со укажани неважечки PGN-а",
+	"chessbrowser-invalid-category-desc": "PGN-ознаките на страницата содржат неважечка партија",
 	"chessbrowser-expand-button": "Расклопи",
 	"chessbrowser-game-detail": "Подробно за партијата",
 	"chessbrowser-event-label": "Настан",
