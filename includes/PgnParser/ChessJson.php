@@ -50,10 +50,4 @@ class ChessJson {
 
 	public const GAME_METADATA = 'metadata';
 
-	public const PGN_KEY_ACTION_ARROW = "ar";
-	public const PGN_KEY_ACTION_HIGHLIGHT = "sq";
-
-	public const PGN_KEY_ACTION_CLR_HIGHLIGHT = "csl";
-	public const PGN_KEY_ACTION_CLR_ARROW = "cal";
-
 }

@@ -36,6 +36,12 @@
  */
 
 class MoveBuilder {
+
+	private const PGN_KEY_ACTION_ARROW = "ar";
+	private const PGN_KEY_ACTION_HIGHLIGHT = "sq";
+	private const PGN_KEY_ACTION_CLR_HIGHLIGHT = "csl";
+	private const PGN_KEY_ACTION_CLR_ARROW = "cal";
+
 	private $moves = [];
 	private $moveReferences = [];
 	private $pointer = 0;
@@ -130,22 +136,22 @@ class MoveBuilder {
 
 		$comment = preg_replace(
 			'/\[%'
-			. ChessJson::PGN_KEY_ACTION_ARROW
+			. self::PGN_KEY_ACTION_ARROW
 			. '[^\]]+?\]/si', '', $comment
 		);
 		$comment = preg_replace(
 			'/\[%'
-			. ChessJson::PGN_KEY_ACTION_CLR_ARROW
+			. self::PGN_KEY_ACTION_CLR_ARROW
 			. '[^\]]+?\]/si', '', $comment
 		);
 		$comment = preg_replace(
 			'/\[%'
-			. ChessJson::PGN_KEY_ACTION_HIGHLIGHT
+			. self::PGN_KEY_ACTION_HIGHLIGHT
 			. '[^\]]+?\]/si', '', $comment
 		);
 		$comment = preg_replace(
 			'/\[%'
-			. ChessJson::PGN_KEY_ACTION_CLR_HIGHLIGHT
+			. self::PGN_KEY_ACTION_CLR_HIGHLIGHT
 			. '[^\]]+?\]/si', '', $comment
 		);
 		$comment = trim( $comment );
@@ -173,10 +179,10 @@ class MoveBuilder {
 	 */
 	private function getActions( $comment ) {
 		$ret = [];
-		if ( strstr( $comment, '[%' . ChessJson::PGN_KEY_ACTION_ARROW ) ) {
+		if ( strstr( $comment, '[%' . self::PGN_KEY_ACTION_ARROW ) ) {
 			$arrow = preg_replace(
 				'/.*?\[%'
-				. ChessJson::PGN_KEY_ACTION_ARROW
+				. self::PGN_KEY_ACTION_ARROW
 				. ' ([^\]]+?)\].*/si', '$1', $comment
 			);
 			$arrows = explode( ",", $arrow );
@@ -197,10 +203,10 @@ class MoveBuilder {
 			}
 		}
 
-		if ( strstr( $comment, '[%' . ChessJson::PGN_KEY_ACTION_CLR_ARROW ) ) {
+		if ( strstr( $comment, '[%' . self::PGN_KEY_ACTION_CLR_ARROW ) ) {
 			$arrow = preg_replace(
 				'/.*?\[%'
-				. ChessJson::PGN_KEY_ACTION_CLR_ARROW
+				. self::PGN_KEY_ACTION_CLR_ARROW
 				. ' ([^\]]+?)\].*/si', '$1', $comment
 			);
 			$arrows = explode( ",", $arrow );
@@ -226,10 +232,10 @@ class MoveBuilder {
 			}
 		}
 
-		if ( strstr( $comment, '[%' . ChessJson::PGN_KEY_ACTION_HIGHLIGHT ) ) {
+		if ( strstr( $comment, '[%' . self::PGN_KEY_ACTION_HIGHLIGHT ) ) {
 			$arrow = preg_replace(
 				'/.*?\[%'
-				. ChessJson::PGN_KEY_ACTION_HIGHLIGHT
+				. self::PGN_KEY_ACTION_HIGHLIGHT
 				. ' ([^\]]+?)\].*/si', '$1', $comment
 			);
 			$arrows = explode( ",", $arrow );
@@ -249,10 +255,10 @@ class MoveBuilder {
 			}
 		}
 
-		if ( strstr( $comment, '[%' . ChessJson::PGN_KEY_ACTION_CLR_HIGHLIGHT ) ) {
+		if ( strstr( $comment, '[%' . self::PGN_KEY_ACTION_CLR_HIGHLIGHT ) ) {
 			$arrow = preg_replace(
 				'/.*?\[%'
-				. ChessJson::PGN_KEY_ACTION_CLR_HIGHLIGHT
+				. self::PGN_KEY_ACTION_CLR_HIGHLIGHT
 				. ' ([^\]]+?)\].*/si', '$1', $comment
 			);
 			$arrows = explode( ",", $arrow );
