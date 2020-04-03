@@ -47,6 +47,30 @@ class FenParser0x88 {
 
 	private $castlingTracker;
 
+	private const FEN_SQUARES = [
+		'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
+		'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7',
+		'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6',
+		'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5',
+		'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4',
+		'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3',
+		'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2',
+		'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
+	];
+
+	private const VALID_NUMBERS = [
+		'0' => 1,
+		'1' => 1,
+		'2' => 1,
+		'3' => 1,
+		'4' => 1,
+		'5' => 1,
+		'6' => 1,
+		'7' => 1,
+		'8' => 1,
+		'9' => 0
+	];
+
 	/**
 	 * Create a new FenParser
 	 *
@@ -83,36 +107,36 @@ class FenParser0x88 {
 		];
 
 		$this->fen = $fen;
-		$this->updateFenAndCastle();
-		$this->parseFen();
-	}
 
-	/**
-	 * Update fenParts from fen, and castle based on fen
-	 */
-	private function updateFenAndCastle() {
-		$fenParts = explode( " ", $this->fen );
+		$fenParts = explode( " ", $fen );
 
 		$this->castleTracker = new CastlingTracker( $fenParts[2] );
 
 		$this->fenParts = [
-			'pieces' => $fenParts[0],
 			'color' => $fenParts[1],
 			'castle' => $fenParts[2],
 			'enPassant' => $fenParts[3],
 			'halfMoves' => $fenParts[4],
 			'fullMoves' => $fenParts[5]
 		];
+
+		// Pieces
+		$this->parseFen( $fenParts[0] );
 	}
 
 	/**
 	 * Parse the stored fenParts
+	 *
+	 * @param string $pieceStr
 	 */
-	private function parseFen() {
+	private function parseFen( string $pieceStr ) {
 		$pos = 0;
-		$squares = Board0x88Config::$fenSquares;
-		for ( $i = 0, $len = strlen( $this->fenParts['pieces'] ); $i < $len; $i++ ) {
-			$token = $this->fenParts['pieces'][$i];
+		$squares = self::FEN_SQUARES;
+		$pieces = str_split( $pieceStr );
+		$length = count( $pieces );
+		foreach ( range( 0, $length - 1 ) as $index ) {
+			// Need to use index to be able to check position
+			$token = $pieces[$index];
 
 			try {
 				$pieceObject = new ChessPiece( $token );
@@ -121,14 +145,14 @@ class FenParser0x88 {
 			}
 
 			if ( $pieceObject !== false ) {
-				$index = ChessSquare::newFromCoords( $squares[$pos] )->getNumber();
+				$square = ChessSquare::newFromCoords( $squares[$pos] )->getNumber();
 				$type = $pieceObject->getAsHex();
 				$piece = [
 					't' => $type,
-					's' => $index
+					's' => $square
 				];
 				// Board array
-				$this->cache['board'][$index] = $type;
+				$this->cache['board'][$square] = $type;
 
 				$color = $pieceObject->getColor();
 				$this->cache[$color][] = $piece;
@@ -138,7 +162,8 @@ class FenParser0x88 {
 					$this->cache['king' . $color] = $piece;
 				}
 				$pos++;
-			} elseif ( $i < $len - 1 && isset( Board0x88Config::$numbers[$token] ) ) {
+			} elseif ( $index < $length - 1 && isset( self::VALID_NUMBERS[$token] ) ) {
+				// TODO should 9 really be valid?
 				$pos += intval( $token );
 			}
 		}
