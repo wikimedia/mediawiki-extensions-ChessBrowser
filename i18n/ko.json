@@ -4,6 +4,7 @@
 			"Ykhwong"
 		]
 	},
+	"chessbrowser-invalid-message": "지정된 PGN은 유효하지 않습니다",
 	"chessbrowser-game-detail": "게임 상세 정보",
 	"chessbrowser-event-label": "이벤트",
 	"chessbrowser-site-label": "사이트",
