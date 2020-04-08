@@ -52,7 +52,10 @@ class ChessBrowser {
 
 			return [ $board, "markerType" => "nowiki" ];
 		} catch ( Exception $e ) {
-			wfDebugLog( 'ChessBrowser', 'Unable to create a game' );
+			wfDebugLog(
+				'ChessBrowser',
+				'Unable to create a game: ' . $e->getMessage()
+			);
 			$parser->addTrackingCategory( 'chessbrowser-invalid-category' );
 			$message = wfMessage( 'chessbrowser-invalid-message' )->escaped();
 			return [ $message ];
@@ -224,19 +227,21 @@ class ChessBrowser {
 	 * @return array
 	 */
 	public static function getMetadata( $tagPairs ) : array {
+		// TODO localize the defaults
 		$metadata = [
-			'event' => $tagPairs['event'],
-			'site' => $tagPairs['site'],
-			'date' => $tagPairs['date'],
-			'round' => $tagPairs['round'],
-			'white' => $tagPairs['white'],
-			'black' => $tagPairs['black'],
-			'result' => $tagPairs['result'],
+			'event' => 'Unknown event',
+			'site' => 'Unknown site',
+			'date' => 'Unknown date',
+			'round' => 'Unkown round',
+			'white' => 'Unknown white',
+			'black' => 'Unknown black',
+			'result' => 'Unknown result',
 			'other-metadata' => []
 		];
 		$keyList = array_keys( $tagPairs );
 		foreach ( $keyList as $key ) {
 			if ( array_key_exists( $key, $metadata ) ) {
+				$metadata[$key] = $tagPairs[$key];
 				continue;
 			}
 			$miscData = [
