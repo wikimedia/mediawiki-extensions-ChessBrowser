@@ -70,7 +70,7 @@ class ChessBrowser {
 	 */
 	private static function assertValidPGN( string $input ) {
 		// phpcs:ignore Generic.Files.LineLength.TooLong
-		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]+"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
+		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
 		$couldBeValid = preg_match( $likeValidPGN, $input );
 		if ( $couldBeValid != 1 ) {
 			throw new ChessBrowserException( 'Invalid PGN' );

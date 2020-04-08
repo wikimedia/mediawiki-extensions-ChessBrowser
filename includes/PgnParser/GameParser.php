@@ -53,7 +53,7 @@ class GameParser {
 	public function getParsedGame() {
 		$game = $this->game;
 
-		$this->fenParser0x88 = new FenParser0x889( $game[ChessJson::FEN] );
+		$this->fenParser0x88 = new FenParser0x88( $game[ChessJson::FEN] );
 		$this->parseMoves( $game[ChessJson::MOVE_MOVES] );
 
 		$game[ChessJson::GAME_METADATA][ChessJson::MOVE_PARSED] = 1;
