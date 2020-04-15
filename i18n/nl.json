@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"PonkoSasuke"
 		]
 	},
-	"chessbrowser-desc": "Voegt een pgn element toe om de notatie voor schaakspellen interactief te maken"
+	"chessbrowser-desc": "Voegt een pgn element toe om de notatie voor schaakspellen interactief te maken",
+	"chessbrowser-invalid-message": "De gespecificeerde PGN is ongeldig",
+	"chessbrowser-invalid-category": "Pagina's met een ongeldige PGN gespecificeerd",
+	"chessbrowser-invalid-category-desc": "De PGN lables op de pagina bevatten een ongeldig spel"
 }
