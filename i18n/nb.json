@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-desc": "Legger til pgn-tagg for å gjøre sjakknotasjon interaktiv.",
+	"chessbrowser-invalid-message": "Den angitte PGN-en er ugyldig",
+	"chessbrowser-invalid-category": "Sider med ugyldige PGN-er angitt",
+	"chessbrowser-invalid-category-desc": "PGN-taggene på siden inkluderer et ugyldig parti",
 	"chessbrowser-expand-button": "Utvid",
 	"chessbrowser-game-detail": "Spilldetaljer",
 	"chessbrowser-event-label": "Hendelse",
