@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Kipod",
 			"Wugpodes"
 		]
 	},
-	"chessbrowser-desc": "{{desc|name=ChessBrowser|url=https://www.mediawiki.org/wiki/Extension:ChessBrowser}}",
+	"chessbrowser-desc": "{{desc|name=ChessBrowser|url=https://www.mediawiki.org/wiki/Extension:ChessBrowser}}\n\n\"PGN\" is [[:w:en:Portable Game Notation|Portable Game Notation]].",
 	"chessbrowser-invalid-message": "Message shown in place of an invalid PGN",
 	"chessbrowser-invalid-category": "Tracking category for pages with invalid PGNs",
 	"chessbrowser-invalid-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|chessbrowser-invalid-category}} tracking category.",
