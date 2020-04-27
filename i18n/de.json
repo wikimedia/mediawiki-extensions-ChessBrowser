@@ -1,9 +1,25 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ameisenigel",
 			"Ferdinand0101"
 		]
 	},
 	"chessbrowser-expand-button": "Ausklappen",
-	"chessbrowser-result-label": "Ergebnis"
+	"chessbrowser-game-detail": "Spieldetails",
+	"chessbrowser-event-label": "Veranstaltung",
+	"chessbrowser-site-label": "Ort",
+	"chessbrowser-date-label": "Datum",
+	"chessbrowser-round-label": "Runde",
+	"chessbrowser-white-label": "Weiß",
+	"chessbrowser-black-label": "Schwarz",
+	"chessbrowser-result-label": "Ergebnis",
+	"chessbrowser-beginning-of-game": "Zum ersten Zug gehen",
+	"chessbrowser-previous-move": "Vorheriger Zug",
+	"chessbrowser-slow-autoplay": "Langsamer",
+	"chessbrowser-play-pause-button": "Start/Pause",
+	"chessbrowser-fast-autoplay": "Schneller",
+	"chessbrowser-next-move": "Nächster Zug",
+	"chessbrowser-end-of-game": "Zum letzten Zug gehen",
+	"chessbrowser-flip-board": "Ansicht ändern"
 }
