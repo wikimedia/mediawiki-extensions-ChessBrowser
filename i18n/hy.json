@@ -5,6 +5,9 @@
 		]
 	},
 	"chessbrowser-game-detail": "Խաղի մանրամասներ",
+	"chessbrowser-date-label": "Ամսաթիվ",
 	"chessbrowser-white-label": "Սպիտակ",
-	"chessbrowser-black-label": "Սև"
+	"chessbrowser-black-label": "Սև",
+	"chessbrowser-result-label": "Արդյունք",
+	"chessbrowser-next-move": "Հաջորդ քայլը"
 }
