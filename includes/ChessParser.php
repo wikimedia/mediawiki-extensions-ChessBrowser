@@ -173,6 +173,8 @@ class ChessParser {
 			}
 		} elseif ( $token === 'O-O' || $token === 'O-O-O' ) {
 			$specialType = "castle";
+			$rookSource = null;
+			$rookTarget = null;
 			if ( $token === 'O-O' && $fenParts['toMove'] === 'w' ) {
 				$rookSource = 56;
 				$rookTarget = 40;
@@ -238,8 +240,10 @@ class ChessParser {
 			if ( $key === 'metadata' ) {
 				continue;
 			} elseif ( $key === 'moves' ) {
+				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 				$moves = $gameObject[$key];
 			} else {
+				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 				$metadata[$key] = $gameObject[$key];
 			}
 		}

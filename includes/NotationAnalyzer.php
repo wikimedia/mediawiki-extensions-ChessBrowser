@@ -42,7 +42,7 @@ class NotationAnalyzer {
 		if ( strlen( $notation ) > 1 ) {
 			return null;
 		}
-		return ( $notation - 1 ) * 16;
+		return ( (int)$notation - 1 ) * 16;
 	}
 
 	/**

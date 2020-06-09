@@ -74,7 +74,7 @@ class ChessSquare {
 	 * @return ChessSquare
 	 */
 	public static function newFrom64( int $number ) : ChessSquare {
-		$inHex = ( floor( $number / 8 ) * 16 ) + ( $number % 8 );
+		$inHex = (int)( floor( $number / 8 ) * 16 ) + ( $number % 8 );
 		$square = self::newFromNumber( $inHex );
 		return $square;
 	}

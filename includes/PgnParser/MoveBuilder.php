@@ -54,7 +54,7 @@ class MoveBuilder {
 	/**
 	 * Add moves, separated by spaces
 	 *
-	 * @param sting $moveString
+	 * @param string $moveString
 	 */
 	public function addMoves( $moveString ) {
 		$moves = explode( " ", $moveString );

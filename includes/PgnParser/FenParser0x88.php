@@ -37,6 +37,7 @@
 
 class FenParser0x88 {
 	private $fen;
+	/** @var array */
 	private $cache;
 
 	private $notation;
@@ -110,7 +111,7 @@ class FenParser0x88 {
 
 		$fenParts = explode( " ", $fen );
 
-		$this->castleTracker = new CastlingTracker( $fenParts[2] );
+		$this->castlingTracker = new CastlingTracker( $fenParts[2] );
 
 		$this->fenParts = [
 			'color' => $fenParts[1],
@@ -404,6 +405,7 @@ class FenParser0x88 {
 							break;
 						}
 						$paths[] = $square;
+						// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 						$square += $directions[$a];
 					}
 				}
@@ -414,6 +416,7 @@ class FenParser0x88 {
 					break;
 				}
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
+					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 					$square = $square + $directions[$a];
 					if ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
