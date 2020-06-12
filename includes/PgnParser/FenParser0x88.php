@@ -230,7 +230,7 @@ class FenParser0x88 {
 	/**
 	 * Returns valid moves in 0x88 numeric format and result
 	 *
-	 * @return array|null
+	 * @return array
 	 */
 	public function getValidMovesAndResult() {
 		$color = $this->getColor();
@@ -261,6 +261,7 @@ class FenParser0x88 {
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
+			'@phan-var array $piece';
 			$paths = $this->getValidMovePathsForPiece(
 				$piece,
 				$pinned,
@@ -396,6 +397,7 @@ class FenParser0x88 {
 					}
 				}
 				for ( $a = 0, $len = count( $directions ); $a < $len; $a++ ) {
+					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 					$square = $square + $directions[$a];
 					while ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
@@ -416,7 +418,6 @@ class FenParser0x88 {
 					break;
 				}
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 					$square = $square + $directions[$a];
 					if ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
@@ -511,6 +512,7 @@ class FenParser0x88 {
 		$oppositeKingSquare = $oppositeKing['s'];
 
 		foreach ( $pieces as $piece ) {
+			'@phan-var array $piece';
 			switch ( $piece['t'] ) {
 				// pawns
 				case ChessPiece::WHITE_PAWN:
@@ -580,6 +582,7 @@ class FenParser0x88 {
 		$pieces = $this->cache[$color];
 
 		foreach ( $pieces as $piece ) {
+			'@phan-var array $piece';
 			if ( $piece['t'] & 0x4 ) {
 				$numericDistance = $king['s'] - $piece['s'];
 				$squareDistance = SquareRelations::new( $king['s'], $piece['s'] )->getDistance();
@@ -678,6 +681,7 @@ class FenParser0x88 {
 		$enPassantSquare = $this->getEnPassantSquare();
 
 		foreach ( $pieces as $piece ) {
+			'@phan-var array $piece';
 			switch ( $piece['t'] ) {
 				case ChessPiece::WHITE_PAWN:
 					if ( $king['s'] === $piece['s'] + 15 || $king['s'] === $piece['s'] + 17 ) {
@@ -1157,7 +1161,7 @@ class FenParser0x88 {
 		$move = [
 			'from' => ChessSquare::newFromCoords( $move['from'] )->getNumber(),
 			'to' => ChessSquare::newFromCoords( $move['to'] )->getNumber(),
-			'promoteTo' => isset( $move['promoteTo'] ) ? $move['promoteTo'] : ''
+			'promoteTo' => $move['promoteTo'] ?? ''
 		];
 		$movedPiece = $this->cache['board'][$move['from']];
 		$color = ( $movedPiece & 0x8 ) ? 'black' : 'white';
@@ -1384,6 +1388,7 @@ class FenParser0x88 {
 		$fen = '';
 		$emptyCounter = 0;
 
+		// @phan-suppress-next-line PhanTypeInvalidUnaryOperandIncOrDec
 		for ( $rank = 7; $rank >= 0; $rank-- ) {
 			for ( $file = 0; $file < 8; $file++ ) {
 				$index = ( $rank * 8 ) + $file;
