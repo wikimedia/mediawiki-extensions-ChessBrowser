@@ -199,10 +199,7 @@ class FenParser0x88 {
 
 		$obj = $this->getValidMovesAndResult();
 		$moves = $obj['moves'];
-		if ( isset( $moves[$from] ) && in_array( $to, $moves[$from] ) ) {
-			return true;
-		}
-		return false;
+		return isset( $moves[$from] ) && in_array( $to, $moves[$from] );
 	}
 
 	/**
@@ -246,7 +243,7 @@ class FenParser0x88 {
 		$ret = [];
 		$enPassantSquare = $this->getEnPassantSquare();
 
-		$isWhite = $color === 'white' ? true : false;
+		$isWhite = $color === 'white';
 
 		$kingSideCastle = $this->castlingTracker->checkCastle( $isWhite ? 'K' : 'k' );
 		$queenSideCastle = $this->castlingTracker->checkCastle( $isWhite ? 'Q' : 'q' );
@@ -324,7 +321,7 @@ class FenParser0x88 {
 		$type = $piece['t'];
 		$square = $piece['s'];
 		$isPinned = isset( $pinned[$square] );
-		$pin = $isPinned ? $pinned[$square] : [ 'by' => -1 ];
+		$pin = $pinned[$square] ?? [ 'by' => -1 ];
 		$board = $this->cache['board'];
 		'@phan-var int[] $board';
 		$directions = ChessPiece::newFromHex( $type )->getMovePatterns();
@@ -496,13 +493,7 @@ class FenParser0x88 {
 	 * @return array
 	 */
 	private function excludeInvalidSquares( $squares, $validSquares ) {
-		$ret = [];
-		foreach ( $squares as $square ) {
-			if ( in_array( $square, $validSquares ) ) {
-				$ret[] = $square;
-			}
-		}
-		return $ret;
+		return array_intersect( $squares, $validSquares );
 	}
 
 	/**

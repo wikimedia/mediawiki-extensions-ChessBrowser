@@ -42,12 +42,7 @@ class ChessBrowser {
 
 			$out = $parser->getOutput();
 			// Get number of games so div id property is unique
-			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
-			if ( !isset( $gameNum ) ) {
-				$gameNum = 1;
-			} else {
-				$gameNum += 1;
-			}
+			$gameNum = ( $out->getExtensionData( 'ChessViewerNumGames' ) ?? 0 ) + 1;
 
 			$board = self::createBoard( $input, $gameNum );
 
@@ -137,7 +132,7 @@ class ChessBrowser {
 			if ( is_numeric( $fenChar ) ) {
 				$fileIndex += $fenChar;
 			} elseif ( $fenChar == '/' ) {
-				$rankIndex += 1;
+				$rankIndex++;
 				$fileIndex = 0;
 			} else {
 				if ( $fileIndex > 7 ) {
@@ -147,7 +142,7 @@ class ChessBrowser {
 					$pieceArray,
 					self::createPiece( $fenChar, $rankIndex, $fileIndex )
 				);
-				$fileIndex += 1;
+				$fileIndex++;
 			}
 		}
 		return $pieceArray;
@@ -207,9 +202,7 @@ class ChessBrowser {
 	 */
 	public static function getMoveSet( $tokens ) : array {
 		$moveSet = [];
-		$plys = count( $tokens );
-		for ( $i = 0; $i < $plys; $i++ ) {
-			$token = $tokens[$i];
+		foreach ( $tokens as $i => $token ) {
 			$span = [
 				'step-link' => false
 			];

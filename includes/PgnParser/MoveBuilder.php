@@ -197,7 +197,7 @@ class MoveBuilder {
 						'to' => substr( $arrow, 2, 2 ),
 						'type' => 'arrow'
 					];
-					if ( count( $tokens ) > 1 ) {
+					if ( isset( $tokens[1] ) ) {
 						$action['color'] = $tokens[1];
 					}
 					$ret[] = $action;
@@ -249,7 +249,7 @@ class MoveBuilder {
 						'square' => substr( $arrow, 0, 2 ),
 						'type' => 'highlight',
 					];
-					if ( count( $tokens ) > 1 ) {
+					if ( isset( $tokens[1] ) ) {
 						$action["color"] = $tokens[1];
 					}
 					$ret[] = $action;

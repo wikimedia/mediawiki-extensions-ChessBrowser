@@ -96,7 +96,7 @@ class ChessParser {
 	 */
 	private function getGameByIndex( $index ) {
 		$games = $this->pgnGames;
-		if ( count( $games ) && count( $games ) > $index ) {
+		if ( $games !== [] && count( $games ) > $index ) {
 			$pgnGameParser = new PgnGameParser( $games[$index] );
 			$parsedData = $pgnGameParser->getParsedData();
 
@@ -236,9 +236,6 @@ class ChessParser {
 		$gameObject = $this->getGameByIndex( $gameNum );
 
 		// Need to document
-		$boards = [];
-		$plys = [];
-		$tokens = [];
 		$metadata = [];
 		$moves = [];
 		foreach ( array_keys( $gameObject ) as $key ) {

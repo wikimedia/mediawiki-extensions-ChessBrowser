@@ -31,7 +31,6 @@ class CastlingTracker {
 	private $castleCode;
 
 	private const CODES = [
-		'-' => 0,
 		'K' => 8,
 		'Q' => 4,
 		'k' => 2,
@@ -39,13 +38,10 @@ class CastlingTracker {
 	];
 
 	/**
-	 * @param mixed $fromFen
+	 * @param string $fromFen
 	 */
 	public function __construct( $fromFen ) {
-		if ( !$fromFen ) {
-			$fromFen = '-';
-		}
-		$this->castle = $fromFen;
+		$this->castle = $fromFen ?: '-';
 		$this->updateCode();
 	}
 
@@ -56,7 +52,7 @@ class CastlingTracker {
 	 * @return bool whether this castle is valid
 	 */
 	public function checkCastle( string $option ) : bool {
-		$optionCode = self::CODES[$option];
+		$optionCode = self::CODES[$option] ?? 0;
 		$possible = (bool)( $this->castleCode & $optionCode );
 		return $possible;
 	}
@@ -65,13 +61,9 @@ class CastlingTracker {
 	 * Set the castleCode
 	 */
 	private function updateCode() {
-		$options = str_split( $this->castle );
 		$totalCode = 0;
-		foreach ( $options as $option ) {
-			// FIXME why does this happen?
-			if ( $option !== "" ) {
-				$totalCode += self::CODES[$option];
-			}
+		foreach ( str_split( $this->castle ) as $option ) {
+			$totalCode += self::CODES[$option] ?? 0;
 		}
 		$this->castleCode = $totalCode;
 	}

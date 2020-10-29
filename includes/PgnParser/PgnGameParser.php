@@ -209,7 +209,7 @@ class PgnGameParser {
 	 */
 	private function getMoveString() {
 		$tokens = preg_split( "/\]\n\n/s", $this->pgnGame );
-		if ( count( $tokens ) < 2 ) {
+		if ( !isset( $tokens[1] ) ) {
 			return "";
 		}
 		$gameData = $tokens[1];
