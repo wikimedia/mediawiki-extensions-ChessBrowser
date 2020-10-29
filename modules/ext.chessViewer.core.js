@@ -120,8 +120,39 @@
 				$pieceObject = $( '<div>' )
 					.data( 'piece', symbol )
 					.addClass( 'pgn-chessPiece' )
+					// The following classes are used here:
+					// * pgn-ptype-color-bd
+					// * pgn-ptype-color-bl
+					// * pgn-ptype-color-kd
+					// * pgn-ptype-color-kl
+					// * pgn-ptype-color-nd
+					// * pgn-ptype-color-nl
+					// * pgn-ptype-color-pd
+					// * pgn-ptype-color-pl
+					// * pgn-ptype-color-qd
+					// * pgn-ptype-color-ql
+					// * pgn-ptype-color-rd
+					// * pgn-ptype-color-rl
 					.addClass( 'pgn-ptype-color-' + lowerSymbol + color )
+					// The following classes are used here:
+					// * pgn-prow-0
+					// * pgn-prow-1
+					// * pgn-prow-2
+					// * pgn-prow-3
+					// * pgn-prow-4
+					// * pgn-prow-5
+					// * pgn-prow-6
+					// * pgn-prow-7
 					.addClass( 'pgn-prow-' + rank )
+					// The following classes are used here:
+					// * pgn-pfile-0
+					// * pgn-pfile-1
+					// * pgn-pfile-2
+					// * pgn-pfile-3
+					// * pgn-pfile-4
+					// * pgn-pfile-5
+					// * pgn-pfile-6
+					// * pgn-pfile-7
 					.addClass( 'pgn-pfile-' + file );
 
 			me.pieces.push( $pieceObject );
@@ -156,16 +187,51 @@
 				if ( typeof $piece === 'undefined' ) {
 					continue;
 				}
+				// The following classes are used here:
+				// * pgn-pfile-0
+				// * pgn-pfile-1
+				// * pgn-pfile-2
+				// * pgn-pfile-3
+				// * pgn-pfile-4
+				// * pgn-pfile-5
+				// * pgn-pfile-6
+				// * pgn-pfile-7
+				// * pgn-prow-0
+				// * pgn-prow-1
+				// * pgn-prow-2
+				// * pgn-prow-3
+				// * pgn-prow-4
+				// * pgn-prow-5
+				// * pgn-prow-6
+				// * pgn-prow-7
 				$piece.removeClass( me.allPositionClasses )
 					.removeClass( 'pgn-piece-hidden' )
 					.toggleClass(
 						'pgn-transition-immediate',
 						piecesToAppear.indexOf( $piece ) > -1
 					)
+					// The following classes are used here:
+					// * pgn-prow-0
+					// * pgn-prow-1
+					// * pgn-prow-2
+					// * pgn-prow-3
+					// * pgn-prow-4
+					// * pgn-prow-5
+					// * pgn-prow-6
+					// * pgn-prow-7
 					.addClass(
 						'pgn-prow-' +
 						parseInt( pieceIndex % 8 )
 					)
+					// The following classes are used here:
+					// * pgn-pfile-0
+					// * pgn-pfile-1
+					// * pgn-pfile-2
+					// * pgn-pfile-3
+					// * pgn-pfile-4
+					// * pgn-pfile-5
+					// * pgn-pfile-6
+					// * pgn-pfile-7
 					.addClass(
 						'pgn-pfile-' +
 						parseInt( Math.floor( pieceIndex / 8 ) )
@@ -293,7 +359,6 @@
 	function ChessPage() {
 		var me = this;
 		this.gameInstances = [];
-		// eslint-disable-next-line no-undef
 		this.identifierList = mw.config.get( 'wgChessBrowserDivIdentifiers' );
 
 		this.gameFactory = function () {
@@ -309,11 +374,9 @@
 		this.gameFactory();
 	}
 
-	// eslint-disable-next-line
 	chessPage = new ChessPage();
 	$( chessPage.gameInstances ).each( function ( game ) {
 		$( '.pgn-nojs-message', game.$div ).hide();
 	} );
-	// eslint-disable-next-line no-undef
 	mw.config.set( 'wgChessBrowserPage', chessPage );
 }() );

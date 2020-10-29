@@ -6,7 +6,7 @@
 class ChessParserTest extends \MediaWikiUnitTestCase {
 
 	/**
-	 * @var ChessParser $emptyChessParser
+	 * @var ChessParser
 	 * An instance of the ChessParser class without any PGN input.
 	 */
 	private $emptyChessParser;
