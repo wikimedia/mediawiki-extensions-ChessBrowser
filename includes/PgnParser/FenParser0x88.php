@@ -261,7 +261,7 @@ class FenParser0x88 {
 
 		$totalCountMoves = 0;
 		foreach ( $pieces as $piece ) {
-			'@phan-var array $piece';
+			'@phan-var int[] $piece';
 			$paths = $this->getValidMovePathsForPiece(
 				$piece,
 				$pinned,
@@ -317,6 +317,7 @@ class FenParser0x88 {
 		$isPinned = isset( $pinned[$square] );
 		$pin = $isPinned ? $pinned[$square] : [ 'by' => -1 ];
 		$board = $this->cache['board'];
+		'@phan-var int[] $board';
 		$directions = ChessPiece::newFromHex( $type )->getMovePatterns();
 
 		switch ( $type ) {
@@ -398,7 +399,7 @@ class FenParser0x88 {
 				}
 				for ( $a = 0, $len = count( $directions ); $a < $len; $a++ ) {
 					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-					$square = $square + $directions[$a];
+					$square += $directions[$a];
 					while ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
 							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
@@ -418,7 +419,7 @@ class FenParser0x88 {
 					break;
 				}
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-					$square = $square + $directions[$a];
+					$square += $directions[$a];
 					if ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
 							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
@@ -433,7 +434,7 @@ class FenParser0x88 {
 			case ChessPiece::WHITE_KING:
 			case ChessPiece::BLACK_KING:
 				for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-					$square = $square + $directions[$a];
+					$square += $directions[$a];
 					if ( ( $square & 0x88 ) === 0 &&
 						strpos( $protectiveMoves, $this->keySquares[$square] ) === false
 					) {
@@ -512,7 +513,7 @@ class FenParser0x88 {
 		$oppositeKingSquare = $oppositeKing['s'];
 
 		foreach ( $pieces as $piece ) {
-			'@phan-var array $piece';
+			'@phan-var int[] $piece';
 			switch ( $piece['t'] ) {
 				// pawns
 				case ChessPiece::WHITE_PAWN:
@@ -579,10 +580,11 @@ class FenParser0x88 {
 	public function getSlidingPiecesAttackingKing( $color ) {
 		$ret = [];
 		$king = $this->cache['king' . ( $color === 'white' ? 'black' : 'white' )];
+		'@phan-var int[] $king';
 		$pieces = $this->cache[$color];
 
 		foreach ( $pieces as $piece ) {
-			'@phan-var array $piece';
+			'@phan-var int[] $piece';
 			if ( $piece['t'] & 0x4 ) {
 				$numericDistance = $king['s'] - $piece['s'];
 				$squareDistance = SquareRelations::new( $king['s'], $piece['s'] )->getDistance();
@@ -634,6 +636,8 @@ class FenParser0x88 {
 		$king = $this->cache['king' . $color];
 		$i = 0;
 		$countPieces = count( $pieces );
+		$board = $this->cache['board'];
+		'@phan-var int[] $board';
 		while ( $i < $countPieces ) {
 			$piece = $pieces[$i];
 			$square = $piece['s'] + $piece['p'];
@@ -643,10 +647,10 @@ class FenParser0x88 {
 			$pinning = '';
 			while ( $square !== $king['s'] && $countOpposite < 2 ) {
 				$squares[] = $square;
-				if ( $this->cache['board'][$square] ) {
+				if ( $board[$square] ) {
 					$countOpposite++;
 
-					if ( $isWhite xor ( $this->cache['board'][$square] & 0x8 ) ) {
+					if ( $isWhite xor ( $board[$square] & 0x8 ) ) {
 						$pinning = $square;
 					} else {
 						break;
@@ -681,7 +685,7 @@ class FenParser0x88 {
 		$enPassantSquare = $this->getEnPassantSquare();
 
 		foreach ( $pieces as $piece ) {
-			'@phan-var array $piece';
+			'@phan-var int[] $piece';
 			switch ( $piece['t'] ) {
 				case ChessPiece::WHITE_PAWN:
 					if ( $king['s'] === $piece['s'] + 15 || $king['s'] === $piece['s'] + 17 ) {
@@ -1163,14 +1167,16 @@ class FenParser0x88 {
 			'to' => ChessSquare::newFromCoords( $move['to'] )->getNumber(),
 			'promoteTo' => $move['promoteTo'] ?? ''
 		];
-		$movedPiece = $this->cache['board'][$move['from']];
+		$board = $this->cache['board'];
+		'@phan-var int[] $board';
+		$movedPiece = $board[$move['from']];
 		$color = ( $movedPiece & 0x8 ) ? 'black' : 'white';
 		$enPassant = '-';
 
-		$incrementHalfMoves = !( $this->cache['board'][$move['to']] );
+		$incrementHalfMoves = !( $board[$move['to']] );
 
-		if ( $this->cache['board'][$move['from']] === ChessPiece::WHITE_PAWN
-			|| $this->cache['board'][$move['from']] === ChessPiece::BLACK_PAWN
+		if ( $board[$move['from']] === ChessPiece::WHITE_PAWN
+			|| $board[$move['from']] === ChessPiece::BLACK_PAWN
 		) {
 			$incrementHalfMoves = false;
 			if ( $this->isEnPassantMove( $move ) ) {
