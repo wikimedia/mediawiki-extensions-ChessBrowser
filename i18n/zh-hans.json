@@ -1,8 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			")8",
 			"A Chinese Wikipedian"
 		]
 	},
+	"chessbrowser-expand-button": "展开",
+	"chessbrowser-event-label": "事件",
+	"chessbrowser-site-label": "网站",
+	"chessbrowser-date-label": "日期",
+	"chessbrowser-black-label": "黑色",
+	"chessbrowser-result-label": "结果",
 	"chessbrowser-no-javascript": "此页上未启用 JavaScript。要以交互方式查看游戏，请启用 JavaScript。"
 }
