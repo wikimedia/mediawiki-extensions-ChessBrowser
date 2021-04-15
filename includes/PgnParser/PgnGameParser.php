@@ -121,11 +121,10 @@ class PgnGameParser {
 
 		$key = $tokens[0];
 		$value = implode( " ", array_slice( $tokens, 1 ) );
-		$ret = [
+		return [
 			'key' => strtolower( $key ),
 			'value' => $value
 		];
-		return $ret;
 	}
 
 	/**

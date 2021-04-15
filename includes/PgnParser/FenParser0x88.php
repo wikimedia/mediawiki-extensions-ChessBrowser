@@ -403,9 +403,8 @@ class FenParser0x88 {
 						$directions = [];
 					}
 				}
-				for ( $a = 0, $len = count( $directions ); $a < $len; $a++ ) {
-					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-					$square += $directions[$a];
+				foreach ( $directions as $aValue ) {
+					$square += $aValue;
 					while ( ( $square & 0x88 ) === 0 ) {
 						if ( $board[$square] ) {
 							if ( !( $isWhite xor $board[$square] & 0x8 ) ) {
@@ -414,8 +413,7 @@ class FenParser0x88 {
 							break;
 						}
 						$paths[] = $square;
-						// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-						$square += $directions[$a];
+						$square += $aValue;
 					}
 				}
 				break;
@@ -555,8 +553,8 @@ class FenParser0x88 {
 				case ChessPiece::WHITE_KING:
 				case ChessPiece::BLACK_KING:
 					$directions = ChessPiece::newFromHex( $piece['t'] )->getMovePatterns();
-					for ( $a = 0, $lenD = count( $directions ); $a < $lenD; $a++ ) {
-						$possible[] = $piece['s'] + $directions[$a];
+					foreach ( $directions as $v ) {
+						$possible[] = $piece['s'] + $v;
 					}
 					break;
 			}
@@ -994,8 +992,8 @@ class FenParser0x88 {
 						}
 					}
 
-					for ( $i = 0, $lenO = count( $offsets ); $i < $lenO; $i++ ) {
-						$sq = $ret['to'] + $offsets[$i];
+					foreach ( $offsets as $iValue ) {
+						$sq = $ret['to'] + $iValue;
 						if ( $this->cache['board'][$sq] && $this->cache['board'][$sq] === $pieceType ) {
 							$foundPieces[] = ( $sq );
 						}
@@ -1266,7 +1264,6 @@ class FenParser0x88 {
 	private function updatePieces() {
 		$this->cache['white'] = [];
 		$this->cache['black'] = [];
-		$piece = null;
 
 		foreach ( range( 0, 119 ) as $i ) {
 			if ( $i & 0x88 ) {
@@ -1422,7 +1419,7 @@ class FenParser0x88 {
 		if ( $emptyCounter ) {
 			$fen .= $emptyCounter;
 		}
-		$returnValue = $fen
+		return $fen
 			. ' '
 			. $this->fenParts['color']
 			. ' '
@@ -1433,6 +1430,5 @@ class FenParser0x88 {
 			. $this->fenParts['halfMoves']
 			. ' '
 			. $this->fenParts['fullMoves'];
-		return $returnValue;
 	}
 }
