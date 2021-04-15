@@ -33,6 +33,28 @@ class ChessSquare {
 	/** @var int */
 	private $number;
 
+	public const NUMBER_TO_FILE = [
+		0 => 'a',
+		1 => 'b',
+		2 => 'c',
+		3 => 'd',
+		4 => 'e',
+		5 => 'f',
+		6 => 'g',
+		7 => 'h'
+	];
+
+	public const FILE_TO_NUMBER = [
+		'a' => 0,
+		'b' => 1,
+		'c' => 2,
+		'd' => 3,
+		'e' => 4,
+		'f' => 5,
+		'g' => 6,
+		'h' => 7
+	];
+
 	/**
 	 * Doesn't apply validation, should not be called directly
 	 *
@@ -51,19 +73,8 @@ class ChessSquare {
 	 * @return ChessSquare
 	 */
 	public static function newFromNumber( int $number ) : ChessSquare {
-		$files = [
-			0 => 'a',
-			1 => 'b',
-			2 => 'c',
-			3 => 'd',
-			4 => 'e',
-			5 => 'f',
-			6 => 'g',
-			7 => 'h'
-		];
-
 		return new ChessSquare(
-			$files[ $number & 0b00000111 ],
+			self::NUMBER_TO_FILE[ $number & 0b00000111 ],
 			( ( $number & 0b01110000 ) / 16 ) + 1,
 			$number
 		);
@@ -77,8 +88,7 @@ class ChessSquare {
 	 */
 	public static function newFrom64( int $number ) : ChessSquare {
 		$inHex = (int)( floor( $number / 8 ) * 16 ) + ( $number % 8 );
-		$square = self::newFromNumber( $inHex );
-		return $square;
+		return self::newFromNumber( $inHex );
 	}
 
 	/**
@@ -94,22 +104,11 @@ class ChessSquare {
 		list( $fileLetter, $rankNumber ) = str_split( $coords );
 		$rankNumber = intval( $rankNumber );
 
-		$files = [
-			'a' => 0,
-			'b' => 1,
-			'c' => 2,
-			'd' => 3,
-			'e' => 4,
-			'f' => 5,
-			'g' => 6,
-			'h' => 7
-		];
-
-		if ( !isset( $files[ $fileLetter ] ) ) {
+		if ( !isset( self::FILE_TO_NUMBER[ $fileLetter ] ) ) {
 			throw new ChessBrowserException( "No such file: $fileLetter" );
 		}
 
-		$number = $files[ $fileLetter ] + ( 16 * ( $rankNumber - 1 ) );
+		$number = self::FILE_TO_NUMBER[ $fileLetter ] + ( 16 * ( $rankNumber - 1 ) );
 
 		return new ChessSquare(
 			$fileLetter,
@@ -124,19 +123,7 @@ class ChessSquare {
 	 * @return int
 	 */
 	public function getAs64() : int {
-		$files = [
-			'a' => 0,
-			'b' => 1,
-			'c' => 2,
-			'd' => 3,
-			'e' => 4,
-			'f' => 5,
-			'g' => 6,
-			'h' => 7
-		];
-		$fileValue = $files[$this->fileLetter];
-		$ret = ( $fileValue * 8 ) + ( $this->rankNumber - 1 );
-		return $ret;
+		return ( self::FILE_TO_NUMBER[$this->fileLetter] * 8 ) + ( $this->rankNumber - 1 );
 	}
 
 	/**

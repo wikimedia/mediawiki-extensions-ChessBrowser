@@ -44,6 +44,9 @@ use MediaWiki\Extension\ChessBrowser\PgnParser\PgnGameParser;
 
 class ChessParser {
 
+	/**
+	 * @var array
+	 */
 	private $pgnGames;
 
 	/**
@@ -101,9 +104,7 @@ class ChessParser {
 			$parsedData = $pgnGameParser->getParsedData();
 
 			$gameParser = new GameParser( $parsedData );
-			$parsedGame = $gameParser->getParsedGame();
-
-			return $parsedGame;
+			return $gameParser->getParsedGame();
 		}
 		return null;
 	}
@@ -123,9 +124,7 @@ class ChessParser {
 		}
 
 		$chessSquare = ChessSquare::newFromCoords( $square );
-		$int = $chessSquare->getAs64();
-
-		return $int;
+		return $chessSquare->getAs64();
 	}
 
 	/**

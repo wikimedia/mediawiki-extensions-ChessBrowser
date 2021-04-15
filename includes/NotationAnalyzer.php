@@ -57,17 +57,7 @@ class NotationAnalyzer {
 		if ( strlen( $notation ) > 1 ) {
 			return null;
 		}
-		$files = [
-			'a' => 0,
-			'b' => 1,
-			'c' => 2,
-			'd' => 3,
-			'e' => 4,
-			'f' => 5,
-			'g' => 6,
-			'h' => 7
-		];
-		return $files[$notation];
+		return ChessSquare::FILE_TO_NUMBER[$notation];
 	}
 
 	/**

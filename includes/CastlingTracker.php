@@ -53,8 +53,7 @@ class CastlingTracker {
 	 */
 	public function checkCastle( string $option ) : bool {
 		$optionCode = self::CODES[$option] ?? 0;
-		$possible = (bool)( $this->castleCode & $optionCode );
-		return $possible;
+		return (bool)( $this->castleCode & $optionCode );
 	}
 
 	/**

@@ -42,7 +42,12 @@ class ChessBrowser {
 
 			$out = $parser->getOutput();
 			// Get number of games so div id property is unique
-			$gameNum = ( $out->getExtensionData( 'ChessViewerNumGames' ) ?? 0 ) + 1;
+			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
+			if ( !isset( $gameNum ) ) {
+				$gameNum = 1;
+			} else {
+				$gameNum++;
+			}
 
 			$board = self::createBoard( $input, $gameNum );
 
@@ -110,11 +115,10 @@ class ChessBrowser {
 		$localizedLabels = self::getLocalizedLabels();
 		$metadata = self::getMetadata( $chessObject['metadata'] );
 		$templateArgs = array_merge( $templateArgs, $localizedLabels, $metadata );
-		$board = $templateParser->processTemplate(
+		return $templateParser->processTemplate(
 			'ChessGame',
 			$templateArgs
 		);
-		return $board;
 	}
 
 	/**
@@ -154,7 +158,7 @@ class ChessBrowser {
 	 * @return array
 	 */
 	public static function getLocalizedLabels() : array {
-		$labels = [
+		return [
 			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
 			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
 			'event-label' => wfMessage( 'chessbrowser-event-label' )->text(),
@@ -190,7 +194,6 @@ class ChessBrowser {
 			'flip' => wfMessage( 'chessbrowser-flip-board' )->text(),
 			'no-javascript' => wfMessage( 'chessbrowser-no-javascript' )->text()
 		];
-		return $labels;
 	}
 
 	/**
@@ -216,6 +219,7 @@ class ChessBrowser {
 			$span['move-ply'] = $plyNumber;
 			array_push( $moveSet, $span );
 		}
+
 		return $moveSet;
 	}
 
@@ -276,12 +280,11 @@ class ChessBrowser {
 
 		$color = ( $type === $symbol ? 'd' : 'l' );
 
-		$piece = [
+		return [
 			'piece-type' => $type,
 			'piece-color' => $color,
 			'piece-rank' => $rank,
 			'piece-file' => $file
 		];
-		return $piece;
 	}
 }

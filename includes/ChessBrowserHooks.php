@@ -40,18 +40,16 @@ class ChessBrowserHooks {
 	/**
 	 * Update OutputPage after ParserOutput is added, if it includes a chess board
 	 *
-	 * @param OutputPage &$out
+	 * @param OutputPage $out
 	 * @param ParserOutput $parserOutput
 	 */
-	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
-		$trigger = $parserOutput->getExtensionData( 'ChessViewerTrigger' );
-		if ( $trigger ) {
+	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
+		if ( $parserOutput->getExtensionData( 'ChessViewerTrigger' ) ) {
 			$out->addModules( 'ext.chessViewer' );
 			$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
 			$gameIdentifiers = array_map(
-				function ( $index ) {
-					$id = 'chess-browser-div-' . $index;
-					return $id;
+				static function ( $index ) {
+					return 'chess-browser-div-' . $index;
 				},
 				range( 1, $numberOfGames )
 			);

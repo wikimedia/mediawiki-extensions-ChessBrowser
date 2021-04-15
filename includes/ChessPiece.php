@@ -103,8 +103,7 @@ class ChessPiece {
 			throw new ChessBrowserException( "Unknown hex representation '$hex'" );
 		}
 
-		$piece = new ChessPiece( $mappings[$hex] );
-		return $piece;
+		return new ChessPiece( $mappings[$hex] );
 	}
 
 	/**
