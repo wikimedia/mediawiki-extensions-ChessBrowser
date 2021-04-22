@@ -20,13 +20,16 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
+
 use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
 use MediaWiki\Extension\ChessBrowser\ChessPiece;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers MediaWiki\Extension\ChessBrowser\ChessPiece
  */
-class ChessPieceTest extends \MediaWikiUnitTestCase {
+class ChessPieceTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideTestConstants

@@ -20,14 +20,17 @@
  * @author Wugapodes
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests;
+
 use MediaWiki\Extension\ChessBrowser\ChessBrowser;
 use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @group ChessBrowser
  * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\ChessBrowser
  */
-class ChessBrowserTest extends MediaWikiTestCase {
+class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @covers ::getLocalizedLabels
@@ -94,38 +97,38 @@ class ChessBrowserTest extends MediaWikiTestCase {
 
 	public static function provideGetMetadata() {
 		return [
+			[
 				[
-					[
-						'event' => 'Test match',
-						'site' => 'Computer',
-						'date' => '1852.??.??',
-						'round' => '1',
-						'white' => 'John Weiss',
-						'black' => 'Jane Schwartz',
-						'result' => '1-0',
-						'whiteelo' => '1200',
-						'blackelo' => '1201'
-					],
-					[
-						'event' => 'Test match',
-						'site' => 'Computer',
-						'date' => '1852.??.??',
-						'round' => '1',
-						'white' => 'John Weiss',
-						'black' => 'Jane Schwartz',
-						'result' => '1-0',
-						'other-metadata' => [
-							[
-								'label' => 'whiteelo',
-								'value' => '1200'
-							],
-							[
-								'label' => 'blackelo',
-								'value' => '1201'
-							]
+					'event' => 'Test match',
+					'site' => 'Computer',
+					'date' => '1852.??.??',
+					'round' => '1',
+					'white' => 'John Weiss',
+					'black' => 'Jane Schwartz',
+					'result' => '1-0',
+					'whiteelo' => '1200',
+					'blackelo' => '1201'
+				],
+				[
+					'event' => 'Test match',
+					'site' => 'Computer',
+					'date' => '1852.??.??',
+					'round' => '1',
+					'white' => 'John Weiss',
+					'black' => 'Jane Schwartz',
+					'result' => '1-0',
+					'other-metadata' => [
+						[
+							'label' => 'whiteelo',
+							'value' => '1200'
+						],
+						[
+							'label' => 'blackelo',
+							'value' => '1201'
 						]
 					]
 				]
+			]
 		];
 	}
 

@@ -20,12 +20,18 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
+
 use MediaWiki\Extension\ChessBrowser\ChessBrowserHooks;
+use MediaWikiUnitTestCase;
+use OutputPage;
+use Parser;
+use ParserOutput;
 
 /**
  * @covers MediaWiki\Extension\ChessBrowser\ChessBrowserHooks
  */
-class ChessBrowserHooksTest extends \MediaWikiUnitTestCase {
+class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 
 	public function testParserFirstCallInit() {
 		$mock = $this->getMockBuilder( Parser::class )

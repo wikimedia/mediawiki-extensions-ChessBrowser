@@ -20,13 +20,16 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
+
 use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
 use MediaWiki\Extension\ChessBrowser\ChessSquare;
+use MediaWikiUnitTestCase;
 
 /**
  * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\ChessSquare
  */
-class ChessSquareTest extends \MediaWikiUnitTestCase {
+class ChessSquareTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @covers ::newFromCoords

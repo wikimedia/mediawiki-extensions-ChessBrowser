@@ -20,12 +20,15 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
+
 use MediaWiki\Extension\ChessBrowser\NotationAnalyzer;
+use MediaWikiUnitTestCase;
 
 /**
  * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\NotationAnalyzer
  */
-class NotationAnalyzerTest extends \MediaWikiUnitTestCase {
+class NotationAnalyzerTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @covers ::getFromRank

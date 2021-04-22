@@ -20,12 +20,15 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
+
 use MediaWiki\Extension\ChessBrowser\CastlingTracker;
+use MediaWikiUnitTestCase;
 
 /**
  * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\CastlingTracker
  */
-class CastlingTrackerTest extends \MediaWikiUnitTestCase {
+class CastlingTrackerTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @covers ::checkCastle
