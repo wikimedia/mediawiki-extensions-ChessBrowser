@@ -37,6 +37,11 @@
  * @author Alf Magne Kalleland
  */
 
+namespace MediaWiki\Extension\ChessBrowser;
+
+use MediaWiki\Extension\ChessBrowser\PgnParser\GameParser;
+use MediaWiki\Extension\ChessBrowser\PgnParser\PgnGameParser;
+
 class ChessParser {
 
 	private $pgnGames;

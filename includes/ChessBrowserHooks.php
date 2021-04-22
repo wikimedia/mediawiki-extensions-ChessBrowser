@@ -20,6 +20,12 @@
  * @author Wugapodes
  */
 
+namespace MediaWiki\Extension\ChessBrowser;
+
+use OutputPage;
+use Parser;
+use ParserOutput;
+
 class ChessBrowserHooks {
 
 	/**

@@ -18,8 +18,13 @@
  * @file ChessPieceTest
  * @ingroup ChessBrowser
  * @author DannyS712
- *
- * @covers ChessPiece
+ */
+
+use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
+use MediaWiki\Extension\ChessBrowser\ChessPiece;
+
+/**
+ * @covers MediaWiki\Extension\ChessBrowser\ChessPiece
  */
 class ChessPieceTest extends \MediaWikiUnitTestCase {
 

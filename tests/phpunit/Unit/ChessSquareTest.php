@@ -18,14 +18,19 @@
  * @file ChessSquareTest
  * @ingroup ChessBrowser
  * @author DannyS712
- *
- * @covers ChessSquare
+ */
+
+use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
+use MediaWiki\Extension\ChessBrowser\ChessSquare;
+
+/**
+ * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\ChessSquare
  */
 class ChessSquareTest extends \MediaWikiUnitTestCase {
 
 	/**
-	 * @covers ChessSquare::newFromCoords
-	 * @covers ChessSquare::getNumber
+	 * @covers ::newFromCoords
+	 * @covers ::getNumber
 	 * @dataProvider provideCoordsAndNumbers
 	 * @param string $coords
 	 * @param int $expectedNumber
@@ -38,8 +43,8 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * @covers ChessSquare::newFromNumber
-	 * @covers ChessSquare::getCoords
+	 * @covers ::newFromNumber
+	 * @covers ::getCoords
 	 * @dataProvider provideCoordsAndNumbers
 	 * @param string $expectedCoords
 	 * @param int $number
@@ -120,7 +125,7 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * @covers ChessSquare::newFromCoords
+	 * @covers ::newFromCoords
 	 * @dataProvider provideTestThrowsProperException
 	 * @param string $coords
 	 * @param string $expectedMessage
@@ -141,6 +146,9 @@ class ChessSquareTest extends \MediaWikiUnitTestCase {
 		];
 	}
 
+	/**
+	 * @covers ::newFromCoords
+	 */
 	public function testNewFromCoords_good() {
 		$result = ChessSquare::newFromCoords( 'f3' );
 		$this->assertInstanceOf(

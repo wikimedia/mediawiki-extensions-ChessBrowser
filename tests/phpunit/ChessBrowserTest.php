@@ -18,13 +18,19 @@
  * @file ChessBrowserTest
  * @ingroup ChessBrowser
  * @author Wugapodes
- *
+ */
+
+use MediaWiki\Extension\ChessBrowser\ChessBrowser;
+use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
+
+/**
  * @group ChessBrowser
- * @covers ChessBrowser
+ * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\ChessBrowser
  */
 class ChessBrowserTest extends MediaWikiTestCase {
 
 	/**
+	 * @covers ::getLocalizedLabels
 	 * @dataProvider provideGetLocalizedLabels
 	 * @param array $expected
 	 */
@@ -34,6 +40,7 @@ class ChessBrowserTest extends MediaWikiTestCase {
 	}
 
 	/**
+	 * @covers ::getMetadata
 	 * @dataProvider provideGetMetadata
 	 * @param array $tagPairs
 	 * @param array $expected
@@ -44,6 +51,7 @@ class ChessBrowserTest extends MediaWikiTestCase {
 	}
 
 	/**
+	 * @covers ::createPiece
 	 * @dataProvider provideTestCreatePiece
 	 * @param string $symbol
 	 * @param int|string $rank
@@ -56,6 +64,7 @@ class ChessBrowserTest extends MediaWikiTestCase {
 	}
 
 	/**
+	 * @covers ::createPiece
 	 * @dataProvider provideTestThrowsProperException
 	 * @param string $expectedMessage
 	 * @param string $symbol

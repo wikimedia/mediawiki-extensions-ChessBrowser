@@ -1,7 +1,9 @@
 <?php
+use MediaWiki\Extension\ChessBrowser\ChessParser;
+
 /**
  * @group ChessBrowser
- * @covers ChessParser
+ * @covers MediaWiki\Extension\ChessBrowser\ChessParser
  */
 class ChessParserTest extends \MediaWikiUnitTestCase {
 

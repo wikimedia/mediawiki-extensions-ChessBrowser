@@ -20,6 +20,13 @@
  * @author Wugapodes
  */
 
+namespace MediaWiki\Extension\ChessBrowser;
+
+use Exception;
+use Parser;
+use PPFrame;
+use TemplateParser;
+
 class ChessBrowser {
 	/**
 	 * @since 0.1.0

@@ -35,6 +35,15 @@
  * @author Alf Magne Kalleland
  */
 
+namespace MediaWiki\Extension\ChessBrowser\PgnParser;
+
+use MediaWiki\Extension\ChessBrowser\CastlingTracker;
+use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
+use MediaWiki\Extension\ChessBrowser\ChessPiece;
+use MediaWiki\Extension\ChessBrowser\ChessSquare;
+use MediaWiki\Extension\ChessBrowser\NotationAnalyzer;
+use MediaWiki\Extension\ChessBrowser\SquareRelations;
+
 class FenParser0x88 {
 	private $fen;
 	/** @var array */

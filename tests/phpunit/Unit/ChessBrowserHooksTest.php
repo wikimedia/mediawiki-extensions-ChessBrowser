@@ -18,8 +18,12 @@
  * @file ChessBrowserHooksTest
  * @ingroup ChessBrowser
  * @author DannyS712
- *
- * @covers ChessBrowserHooks
+ */
+
+use MediaWiki\Extension\ChessBrowser\ChessBrowserHooks;
+
+/**
+ * @covers MediaWiki\Extension\ChessBrowser\ChessBrowserHooks
  */
 class ChessBrowserHooksTest extends \MediaWikiUnitTestCase {
 

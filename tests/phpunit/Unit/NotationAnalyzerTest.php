@@ -18,13 +18,17 @@
  * @file NotationAnalyzerTest
  * @ingroup ChessBrowser
  * @author DannyS712
- *
- * @covers NotationAnalyzer
+ */
+
+use MediaWiki\Extension\ChessBrowser\NotationAnalyzer;
+
+/**
+ * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\NotationAnalyzer
  */
 class NotationAnalyzerTest extends \MediaWikiUnitTestCase {
 
 	/**
-	 * @covers NotationAnalyzer::getFromRank
+	 * @covers ::getFromRank
 	 * @dataProvider provideTestFromRank
 	 * @param string $notation
 	 * @param int|null $rank
@@ -43,7 +47,7 @@ class NotationAnalyzerTest extends \MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * @covers NotationAnalyzer::getFromFile
+	 * @covers ::getFromFile
 	 * @dataProvider provideTestFromFile
 	 * @param string $notation
 	 * @param int|null $file

@@ -35,6 +35,8 @@
  * @author Alf Magne Kalleland
  */
 
+namespace MediaWiki\Extension\ChessBrowser\PgnParser;
+
 class MoveBuilder {
 
 	private const PGN_KEY_ACTION_ARROW = "ar";

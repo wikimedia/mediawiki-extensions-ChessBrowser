@@ -18,13 +18,17 @@
  * @file CastlingTrackerTest
  * @ingroup ChessBrowser
  * @author DannyS712
- *
- * @covers CastlingTracker
+ */
+
+use MediaWiki\Extension\ChessBrowser\CastlingTracker;
+
+/**
+ * @coversDefaultClass \MediaWiki\Extension\ChessBrowser\CastlingTracker
  */
 class CastlingTrackerTest extends \MediaWikiUnitTestCase {
 
 	/**
-	 * @covers CastlingTracker::checkCastle
+	 * @covers ::checkCastle
 	 * @dataProvider provideTestCheck
 	 * @param string $starting
 	 * @param array $options

@@ -11,27 +11,14 @@
 	"license-name": "GPL-3.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:ChessBrowser",
 	"requires": {
-		"MediaWiki": ">= 1.29.0"
+		"MediaWiki": ">= 1.31"
 	},
-	"AutoloadClasses": {
-		"ChessBrowser": "includes/ChessBrowser.php",
-		"ChessBrowserHooks": "includes/ChessBrowserHooks.php",
-		"ChessBrowserException": "includes/ChessBrowserException.php",
-		"ChessParser": "includes/ChessParser.php",
-		"GameParser": "includes/PgnParser/GameParser.php",
-		"PgnGameParser": "includes/PgnParser/PgnGameParser.php",
-		"MoveBuilder": "includes/PgnParser/MoveBuilder.php",
-		"ChessJson": "includes/PgnParser/ChessJson.php",
-		"FenParser0x88": "includes/PgnParser/FenParser0x88.php",
-		"ChessSquare": "includes/ChessSquare.php",
-		"ChessPiece": "includes/ChessPiece.php",
-		"NotationAnalyzer": "includes/NotationAnalyzer.php",
-		"CastlingTracker": "includes/CastlingTracker.php",
-		"SquareRelations": "includes/SquareRelations.php"
+	"AutoloadNamespaces" : {
+		"MediaWiki\\Extension\\ChessBrowser\\": "includes/"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "ChessBrowserHooks::onParserFirstCallInit",
-		"OutputPageParserOutput": "ChessBrowserHooks::onOutputPageParserOutput"
+		"ParserFirstCallInit": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onParserFirstCallInit",
+		"OutputPageParserOutput": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onOutputPageParserOutput"
 	},
 	"ResourceModules": {
 		"ext.chessViewer": {

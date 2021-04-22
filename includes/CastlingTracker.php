@@ -20,6 +20,8 @@
  * @author DannyS712
  */
 
+namespace MediaWiki\Extension\ChessBrowser;
+
 class CastlingTracker {
 
 	/** @var string */
