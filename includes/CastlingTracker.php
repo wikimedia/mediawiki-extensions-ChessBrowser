@@ -40,7 +40,7 @@ class CastlingTracker {
 	/**
 	 * @param string $fromFen
 	 */
-	public function __construct( $fromFen ) {
+	public function __construct( string $fromFen ) {
 		$this->castle = $fromFen ?: '-';
 		$this->updateCode();
 	}
@@ -79,26 +79,27 @@ class CastlingTracker {
 		$newCastle = $currentCastle;
 		switch ( $movedPiece ) {
 			case ChessPiece::WHITE_KING:
-				$newCastle = preg_replace( "/[KQ]/s", "", $currentCastle );
+				$newCastle = str_replace( [ 'K', 'Q' ], "", $currentCastle );
 				break;
 			case ChessPiece::BLACK_KING:
-				$newCastle = preg_replace( "/[kq]/s", "", $currentCastle );
+				$newCastle = str_replace( [ 'k', 'q' ], "", $currentCastle );
 				break;
 			case ChessPiece::WHITE_ROOK:
 				if ( $from === 0 ) {
-					$newCastle = preg_replace( "/Q/s", "", $currentCastle );
+					$newCastle = str_replace( 'Q', "", $currentCastle );
 				} elseif ( $from === 7 ) {
-					$newCastle = preg_replace( "/K/s", "", $currentCastle );
+					$newCastle = str_replace( 'K', "", $currentCastle );
 				}
 				break;
 			case ChessPiece::BLACK_ROOK:
 				if ( $from === 112 ) {
-					$newCastle = preg_replace( "/q/s", "", $currentCastle );
+					$newCastle = str_replace( 'q', "", $currentCastle );
 				} elseif ( $from === 119 ) {
-					$newCastle = preg_replace( "/k/s", "", $currentCastle );
+					$newCastle = str_replace( 'k', "", $currentCastle );
 				}
 				break;
 		}
+		$newCastle = $newCastle ?: '-';
 		if ( $newCastle !== $currentCastle ) {
 			$this->castle = $newCastle;
 			$this->updateCode();

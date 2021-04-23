@@ -44,9 +44,7 @@ use MediaWiki\Extension\ChessBrowser\PgnParser\PgnGameParser;
 
 class ChessParser {
 
-	/**
-	 * @var array
-	 */
+	/** @var string[] */
 	private $pgnGames;
 
 	/**
@@ -84,7 +82,7 @@ class ChessParser {
 		for ( $i = 1, $count = count( $games ); $i < $count; $i++ ) {
 			$gameContent = trim( "[" . $games[$i] );
 			if ( strlen( $gameContent ) > 10 ) {
-				array_push( $pgnGames, $gameContent );
+				$pgnGames[] = $gameContent;
 			}
 		}
 
@@ -99,7 +97,7 @@ class ChessParser {
 	 */
 	private function getGameByIndex( $index ) {
 		$games = $this->pgnGames;
-		if ( $games !== [] && count( $games ) > $index ) {
+		if ( $games && count( $games ) > $index ) {
 			$pgnGameParser = new PgnGameParser( $games[$index] );
 			$parsedData = $pgnGameParser->getParsedData();
 
@@ -149,9 +147,9 @@ class ChessParser {
 
 			$special = $this->checkSpecialMove( $to, $from, $token, $fenParts );
 
-			array_push( $gameObject['boards'], $fen );
-			array_push( $gameObject['plys'], [ $from, $to, $special ] );
-			array_push( $gameObject['tokens'], $token );
+			$gameObject['boards'][] = $fen;
+			$gameObject['plys'][] = [ $from, $to, $special ];
+			$gameObject['tokens'][] = $token;
 
 			$fenParts = $this->getFenParts( $fen );
 		}
@@ -237,15 +235,13 @@ class ChessParser {
 		// Need to document
 		$metadata = [];
 		$moves = [];
-		foreach ( array_keys( $gameObject ) as $key ) {
+		foreach ( $gameObject as $key => $obj ) {
 			if ( $key === 'metadata' ) {
 				continue;
 			} elseif ( $key === 'moves' ) {
-				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
-				$moves = $gameObject[$key];
+				$moves = $obj;
 			} else {
-				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
-				$metadata[$key] = $gameObject[$key];
+				$metadata[$key] = $obj;
 			}
 		}
 		return [

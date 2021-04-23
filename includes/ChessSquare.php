@@ -132,7 +132,7 @@ class ChessSquare {
 	 * @return string
 	 */
 	public function getCoords() : string {
-		return ( $this->fileLetter . (string)$this->rankNumber );
+		return ( $this->fileLetter . $this->rankNumber );
 	}
 
 	/**

@@ -42,12 +42,8 @@ class ChessBrowser {
 
 			$out = $parser->getOutput();
 			// Get number of games so div id property is unique
-			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' );
-			if ( !isset( $gameNum ) ) {
-				$gameNum = 1;
-			} else {
-				$gameNum++;
-			}
+			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' ) ?? 0;
+			$gameNum++;
 
 			$board = self::createBoard( $input, $gameNum );
 
@@ -61,7 +57,7 @@ class ChessBrowser {
 		} catch ( Exception $e ) {
 			wfDebugLog(
 				'ChessBrowser',
-				'Unable to create a game: ' . $e->getMessage()
+				'Unable to create a game: ' . $e
 			);
 			$parser->addTrackingCategory( 'chessbrowser-invalid-category' );
 			$message = wfMessage( 'chessbrowser-invalid-message' )->escaped();
@@ -79,7 +75,7 @@ class ChessBrowser {
 		// phpcs:ignore Generic.Files.LineLength.TooLong
 		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
 		$couldBeValid = preg_match( $likeValidPGN, $input );
-		if ( $couldBeValid != 1 ) {
+		if ( $couldBeValid !== 1 ) {
 			throw new ChessBrowserException( 'Invalid PGN' );
 		}
 	}
@@ -135,17 +131,14 @@ class ChessBrowser {
 		foreach ( $fenArray as $fenChar ) {
 			if ( is_numeric( $fenChar ) ) {
 				$fileIndex += $fenChar;
-			} elseif ( $fenChar == '/' ) {
+			} elseif ( $fenChar === '/' ) {
 				$rankIndex++;
 				$fileIndex = 0;
 			} else {
 				if ( $fileIndex > 7 ) {
 					continue;
 				}
-				array_push(
-					$pieceArray,
-					self::createPiece( $fenChar, $rankIndex, $fileIndex )
-				);
+				$pieceArray[] = self::createPiece( $fenChar, $rankIndex, $fileIndex );
 				$fileIndex++;
 			}
 		}
@@ -209,7 +202,7 @@ class ChessBrowser {
 			$span = [
 				'step-link' => false
 			];
-			if ( $i % 2 == 0 ) {
+			if ( $i % 2 === 0 ) {
 				$moveNumber = ( $i / 2 ) + 1;
 				$span['step-link'] = true;
 				$span['move-number'] = $moveNumber;
@@ -217,7 +210,7 @@ class ChessBrowser {
 			$plyNumber = $i + 1;
 			$span['move-token'] = $token;
 			$span['move-ply'] = $plyNumber;
-			array_push( $moveSet, $span );
+			$moveSet[] = $span;
 		}
 
 		return $moveSet;
@@ -242,17 +235,16 @@ class ChessBrowser {
 			'result' => 'Unknown result',
 			'other-metadata' => []
 		];
-		$keyList = array_keys( $tagPairs );
-		foreach ( $keyList as $key ) {
+
+		foreach ( $tagPairs as $key => $value ) {
 			if ( array_key_exists( $key, $metadata ) ) {
-				$metadata[$key] = $tagPairs[$key];
+				$metadata[$key] = $value;
 				continue;
 			}
-			$miscData = [
+			$metadata['other-metadata'][] = [
 				'label' => $key,
-				'value' => $tagPairs[$key]
+				'value' => $value
 			];
-			array_push( $metadata['other-metadata'], $miscData );
 		}
 		return $metadata;
 	}

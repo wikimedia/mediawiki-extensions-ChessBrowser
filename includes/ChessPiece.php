@@ -22,6 +22,8 @@
 
 namespace MediaWiki\Extension\ChessBrowser;
 
+use LogicException;
+
 class ChessPiece {
 
 	/** @var string */
@@ -183,6 +185,8 @@ class ChessPiece {
 			case 'Q':
 			case 'q':
 				return [ -15, -17, 15, 17, -1, 1, -16, 16 ];
+			default:
+				throw new LogicException( "Unexpected symbol: $this->symbol" );
 		}
 	}
 

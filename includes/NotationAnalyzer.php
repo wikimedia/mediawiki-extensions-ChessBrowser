@@ -86,7 +86,7 @@ class NotationAnalyzer {
 		if ( $notation === 'O-O-O' || $notation === 'O-O' ) {
 			$pieceType = 'K';
 		} else {
-			$token = substr( $notation, 0, 1 );
+			$token = $notation[0];
 			$pieceType = preg_match( "/[NRBQK]/", $token ) ? $token : 'P';
 		}
 		$pieceType = ( new ChessPiece( $pieceType ) )->getAsHex();
@@ -112,7 +112,7 @@ class NotationAnalyzer {
 
 		if ( preg_match( "/[a-h][18][NBRQ]/", $notation ) ) {
 			$notation = preg_replace( "/[^a-h18NBRQ]/s", "", $notation );
-			return strtolower( substr( $notation, strlen( $notation ) - 1, 1 ) );
+			return strtolower( $notation[-1] );
 		}
 		return '';
 	}
