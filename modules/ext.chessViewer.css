@@ -191,24 +191,12 @@
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/5/55/Ic_skip_next_48px.svg );
 }
 
-.pgn-button-play {
-	background-image: url( //upload.wikimedia.org/wikipedia/commons/8/84/Ic_play_arrow_48px.svg );
-}
-
 .pgn-button-advance {
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/0/09/Ic_keyboard_arrow_right_48px.svg );
 }
 
 .pgn-button-retreat {
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/c/cc/Ic_keyboard_arrow_left_48px.svg );
-}
-
-.pgn-button-faster {
-	background-image: url( //upload.wikimedia.org/wikipedia/commons/1/1a/Ic_directions_bike_48px.svg );
-}
-
-.pgn-button-slower {
-	background-image: url( //upload.wikimedia.org/wikipedia/commons/f/f3/Ic_directions_walk_48px.svg );
 }
 
 .pgn-button-flip {
@@ -218,10 +206,6 @@
 
 .pgn-button-cc {
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/1/1d/Ic_closed_caption_48px.svg );
-}
-
-.pgn-button-play.pgn-image-button-on {
-	background-image: url( //upload.wikimedia.org/wikipedia/commons/9/95/Ic_pause_48px.svg );
 }
 
 /* Flipping */
