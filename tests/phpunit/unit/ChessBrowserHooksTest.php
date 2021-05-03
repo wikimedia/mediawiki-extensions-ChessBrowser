@@ -42,7 +42,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->method( 'setHook' )
 			->with(
 				$this->equalTo( 'pgn' ),
-				$this->callback( function ( $param ) {
+				$this->callback( static function ( $param ) {
 					 return is_callable( $param );
 				} )
 			);
@@ -75,7 +75,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->method( 'addJsConfigVars' )
 			->with(
 				$this->equalTo( 'wgChessBrowserDivIdentifiers' ),
-				$this->callback( function ( $param ) {
+				$this->callback( static function ( $param ) {
 					return is_array( $param );
 				} )
 			);
