@@ -224,6 +224,10 @@
 	background-image: url( //upload.wikimedia.org/wikipedia/commons/9/95/Ic_pause_48px.svg );
 }
 
+.pgn-button-disabled {
+	opacity: 0.3;
+}
+
 /* Flipping */
 .pgn-flip .pgn-board-div,
 .pgn-flip .pgn-board-div div.pgn-row-legend span,
