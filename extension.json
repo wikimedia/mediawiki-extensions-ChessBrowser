@@ -13,7 +13,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.35"
 	},
-	"AutoloadNamespaces" : {
+	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\ChessBrowser\\": "includes/"
 	},
 	"Hooks": {
