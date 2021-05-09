@@ -26,6 +26,8 @@
 		this.boardStates = [];
 		this.pieces = [];
 		this.currentPlyNumber = 1;
+		this.timer = null;
+		this.delay = 800;
 		this.allPositionClasses = '01234567'
 			.split( '' )
 			.map( function ( r ) { return 'pgn-prow-' + r + ' pgn-pfile-' + r; } )
@@ -236,6 +238,10 @@
 					);
 			}
 
+			if ( index === me.boards.length ) {
+				me.stopAutoplay();
+			}
+
 			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
 			me.currentPlyNumber = index;
 
@@ -266,6 +272,9 @@
 			$( '.pgn-button-retreat', me.$div ).on( 'click', me.retreat );
 			$( '.pgn-button-tostart', me.$div ).on( 'click', me.goToStart );
 			$( '.pgn-button-toend', me.$div ).on( 'click', me.goToEnd );
+			$( '.pgn-button-play', me.$div ).on( 'click', me.clickPlay );
+			$( '.pgn-button-faster', me.$div ).on( 'click', me.faster );
+			$( '.pgn-button-slower', me.$div ).on( 'click', me.slower );
 			$( '.pgn-button-flip', me.$div ).on( 'click', me.flipBoard );
 			$( '.pgn-movelink', me.$div ).on( 'click', me.clickNotation );
 		};
@@ -284,10 +293,32 @@
 
 		this.goToStart = function () {
 			me.goToBoard( 0 );
+			me.stopAutoplay();
 		};
 
 		this.goToEnd = function () {
 			me.goToBoard( me.boards.length );
+		};
+
+		this.clickPlay = function () {
+			if ( me.currentPlyNumber === me.boards.length - 1 ) {
+				me.goToBoard( 0 );
+			}
+			if ( me.timer ) {
+				me.stopAutoplay();
+			} else {
+				me.startAutoplay();
+			}
+		};
+
+		this.faster = function () {
+			me.delay = me.delay > 3200 ? me.delay - 1600 : me.delay / 2;
+			me.changeDelay();
+		};
+
+		this.slower = function () {
+			me.delay += Math.min( me.delay, 1600 );
+			me.changeDelay();
 		};
 
 		this.flipBoard = function () {
@@ -298,8 +329,30 @@
 		};
 
 		this.clickNotation = function () {
+			me.stopAutoplay();
 			// Importantly, 'this' is the object which was clicked, NOT the object instance
 			me.goToBoard( $( this ).data( 'ply' ) );
+		};
+
+		this.startAutoplay = function () {
+			me.timer = setInterval( me.advance, me.delay );
+			$( '.pgn-button-play', me.$div ).addClass( 'pgn-image-button-on' );
+		};
+
+		this.stopAutoplay = function () {
+			clearTimeout( me.timer );
+			$( '.pgn-button-play', me.$div ).removeClass( 'pgn-image-button-on' );
+			me.timer = null;
+		};
+
+		this.changeDelay = function () {
+			if ( me.delay < 400 ) {
+				me.delay = 400;
+			}
+			if ( me.timer ) {
+				me.stopAutoplay();
+				me.startAutoplay();
+			}
 		};
 	}
 
