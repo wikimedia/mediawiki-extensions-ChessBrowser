@@ -14,6 +14,8 @@
 	"chessbrowser-result-label": "Risultato",
 	"chessbrowser-beginning-of-game": "Vai alla prima mossa",
 	"chessbrowser-previous-move": "Mossa precedente",
+	"chessbrowser-slow-autoplay": "Più lento",
+	"chessbrowser-fast-autoplay": "Più veloce",
 	"chessbrowser-next-move": "Mossa successiva",
 	"chessbrowser-end-of-game": "Vai all'ultima mossa"
 }

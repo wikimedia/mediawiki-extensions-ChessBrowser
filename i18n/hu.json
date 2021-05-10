@@ -10,5 +10,7 @@
 	"chessbrowser-date-label": "Dátum",
 	"chessbrowser-white-label": "Fehér",
 	"chessbrowser-black-label": "Fekete",
-	"chessbrowser-result-label": "Eredmény"
+	"chessbrowser-result-label": "Eredmény",
+	"chessbrowser-slow-autoplay": "Lassabb",
+	"chessbrowser-fast-autoplay": "Gyorsabb"
 }

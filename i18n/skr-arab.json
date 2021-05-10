@@ -11,5 +11,7 @@
 	"chessbrowser-round-label": "گول",
 	"chessbrowser-white-label": "بگّا",
 	"chessbrowser-black-label": "کالا",
-	"chessbrowser-result-label": "نتیجہ"
+	"chessbrowser-result-label": "نتیجہ",
+	"chessbrowser-slow-autoplay": "مٹھا",
+	"chessbrowser-fast-autoplay": "تکھیرا"
 }

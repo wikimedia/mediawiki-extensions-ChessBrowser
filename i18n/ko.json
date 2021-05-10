@@ -12,5 +12,7 @@
 	"chessbrowser-white-label": "흰색",
 	"chessbrowser-black-label": "검은색",
 	"chessbrowser-result-label": "결과",
+	"chessbrowser-slow-autoplay": "더 느리게",
+	"chessbrowser-fast-autoplay": "더 빠르게",
 	"chessbrowser-no-javascript": "자바스크립트가 이 페이지에 활성화되어 있지 않습니다. 상호작용적으로 게임을 보려면 자바스크립트를 활성화해 주십시오."
 }

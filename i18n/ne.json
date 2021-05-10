@@ -11,5 +11,7 @@
 	"chessbrowser-white-label": "सेताे",
 	"chessbrowser-black-label": "कालो",
 	"chessbrowser-result-label": "परिणाम",
-	"chessbrowser-previous-move": "अघिल्लो चरण"
+	"chessbrowser-previous-move": "अघिल्लो चरण",
+	"chessbrowser-slow-autoplay": "ढिलाे",
+	"chessbrowser-fast-autoplay": "छिटाे"
 }
