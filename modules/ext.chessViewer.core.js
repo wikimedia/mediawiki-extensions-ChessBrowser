@@ -242,9 +242,13 @@
 				me.stopAutoplay();
 			}
 
-			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
-			me.currentPlyNumber = index;
+			$( '.pgn-button-retreat, .pgn-button-tostart', me.$div )
+				.toggleClass( 'pgn-button-disabled', index === 0 );
+			$( '.pgn-button-advance, .pgn-button-toend', me.$div )
+				.toggleClass( 'pgn-button-disabled', index === me.boards.length );
 
+			me.currentPlyNumber = index;
+			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
 			$notation = $( "[data-ply='" + ( me.currentPlyNumber ) + "']", me.$div )
 				.addClass( 'pgn-current-move' );
 			me.scrollNotationToView( $notation );
