@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Ihojose"
+			"Ihojose",
+			"Jrenteria"
 		]
 	},
 	"chessbrowser-invalid-message": "El PGN especificado no es válido",
@@ -20,7 +21,7 @@
 	"chessbrowser-beginning-of-game": "Ir al primer movimiento",
 	"chessbrowser-previous-move": "Movimiento anterior",
 	"chessbrowser-slow-autoplay": "Más lento",
-	"chessbrowser-play-pause-button": "Jugar/Pausar",
+	"chessbrowser-play-pause-button": "Reproducción/Pausar",
 	"chessbrowser-fast-autoplay": "Más rápido",
 	"chessbrowser-next-move": "Movimiento siguiente",
 	"chessbrowser-end-of-game": "Ir al último movimiento",
