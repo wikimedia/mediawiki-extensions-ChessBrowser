@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"SaldırganSincap"
 		]
 	},
 	"chessbrowser-desc": "Satranç oyunu notasyonunu interaktif hale getirmek için pgn etiketi ekler.",
@@ -21,7 +22,7 @@
 	"chessbrowser-beginning-of-game": "İlk hamleye git",
 	"chessbrowser-previous-move": "Önceki hamle",
 	"chessbrowser-slow-autoplay": "Daha yavaş",
-	"chessbrowser-play-pause-button": "Oynat/Durdur",
+	"chessbrowser-play-pause-button": "Oyna/Durdur",
 	"chessbrowser-fast-autoplay": "Daha hızlı",
 	"chessbrowser-next-move": "Sonraki hamle",
 	"chessbrowser-end-of-game": "Son hamleye git",
