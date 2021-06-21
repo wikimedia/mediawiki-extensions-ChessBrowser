@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			")8",
-			"A Chinese Wikipedian"
+			"A Chinese Wikipedian",
+			"Shizhao"
 		]
 	},
+	"chessbrowser-desc": "添加pgn标签以使国际象棋符号具有交互性。",
 	"chessbrowser-expand-button": "展开",
 	"chessbrowser-event-label": "事件",
 	"chessbrowser-site-label": "网站",
