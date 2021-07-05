@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eduardo Addad de Oliveira",
-			"Eduardoaddad"
+			"Eduardoaddad",
+			"Isabelle Belato"
 		]
 	},
 	"chessbrowser-desc": "Adiciona a etiqueta pgn para tornar a notação do jogo de xadrez interativa.",
@@ -21,7 +22,7 @@
 	"chessbrowser-beginning-of-game": "Ir para o primeiro movimento",
 	"chessbrowser-previous-move": "Movimento anterior",
 	"chessbrowser-slow-autoplay": "Mais lento",
-	"chessbrowser-play-pause-button": "Jogar/Pausar",
+	"chessbrowser-play-pause-button": "Reproduzir/Pausar",
 	"chessbrowser-fast-autoplay": "Mais rápido",
 	"chessbrowser-next-move": "Próximo movimento",
 	"chessbrowser-end-of-game": "Ir para o último movimento",
