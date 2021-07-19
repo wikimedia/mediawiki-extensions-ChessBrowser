@@ -315,6 +315,6 @@ class MoveBuilder {
 	 * @return array
 	 */
 	public function getMoves() {
-		return $this->moves;
+		return $this->moveReferences;
 	}
 }

@@ -1,0 +1,11 @@
+{{#step-link}}
+	<span class="pgn-steplink">{{move-number}}</span>
+{{/step-link}}
+<span class="pgn-move-variation" data-variation-ply="{{variation-ply}}">
+	{{variation-token}}
+	{{#annotations}}
+		<span class="pgn-comment">
+			{{comment}}
+		</span>
+	{{/annotations}}
+</span>

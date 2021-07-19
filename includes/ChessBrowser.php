@@ -69,9 +69,14 @@ class ChessBrowser {
 	 * Check if tag cotains valid input format PGN
 	 *
 	 * The regular expression checks whether the string fits the general structure
-	 *   of a PGN file and is divided into two main parts
+	 *   of a PGN file and is divided into three main parts
 	 *
-	 * (?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*
+	 * (?:
+	 *    \[
+	 *      \s*\S+\s*
+	 *      "[^"\n]*"\s*
+	 *    \]\s*
+	 *  )*
 	 * |    This non-capturing group checks for valid tag pairs by looking for patterns
 	 * |      within square brackets. The content is pretty unimportant and only
 	 * |      checked on a superficial level.
@@ -87,14 +92,33 @@ class ChessBrowser {
 	 * |- (?: ... )*
 	 * |    The PGN will pass validation even if tag pairs are omitted.
 	 *
-	 * (?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+
+	 * (?:
+	 *    (?:\{.*?\})?
+	 *    (?:\(.*?\))?
+	 *    \d*\.*\s*
+	 *    [a-hxOBNRKQ1-8=+#\-]+\s*
+	 *  )+
 	 * |    This non-capturing group checks that the rest of the PGN follows the
 	 * |      general format of "1. d4 d5 2. c4 ...". Following the PGN input
 	 * |      standard, it is highly permissive of variation.
+	 * |
+	 * |- (?:\{.*?\})?
+	 * |    Check for comments which are delimited by curly braces and can appear
+	 * |      just about anywhere in the movetext. The content of the comment is
+	 * |      immaterial and can be pretty much anything.
+	 * |- (?:\(.*?\))?
+	 * |    Check for move variations which are delimited by parentheses and can
+	 * |      appear just about anywhere in the mvoetext. The content can be pretty
+	 * |      much anything and will frequently include recursion.
+	 * | These two non-capturing groups precede actual checks of the move text so that
+	 * |    comments and variations can match anywhere, including before the first
+	 * |    move.
+	 * |
 	 * |- \d*\.*
 	 * |    Moves may be preceded by a digit and this digit may be followed by any
 	 * |      number of periods, including none at all. The PGN import format allows
-	 * |      this to be omitted completely.
+	 * |      this to be omitted completely. Usually the move number only precedes
+	 * |      white's move, but the import format allows them to precede black as well.
 	 * |- [a-hxOBNRKQ1-8=+#\-]+
 	 * |    A move token can be as simple as "d4" or as complex as "dxe8=R#". Despite this
 	 * |      variation in length, a valid token is composed of a finite symbol set defined
@@ -102,12 +126,6 @@ class ChessBrowser {
 	 * |      capture symbol (x), the piece symbols (BNRKQ), the promotion symbol (=), the
 	 * |      check symbol (+), the checkmate symbol (#), and the components of the castling
 	 * |      notation (O-O).
-	 * |- [a-hxOBNRKQ1-8=+#\-\/]+
-	 * |    A variation of the previous symbol set, this set has the addition of allowing
-	 * |      the forward slash (/). This allows the expression to properly parse game
-	 * |      results at the end of PGN files. These can be one of 1-0 (white wins),
-	 * |      0-1 (black wins), or 1/2-1/2 (draw) and so not including the slash will
-	 * |      cause the expression to not match drawn games.
 	 * |- \s*
 	 * |    Any amount of whitespace may separate items, including none at all.
 	 * |- (?: ... )+
@@ -115,12 +133,17 @@ class ChessBrowser {
 	 * |      PGN format which defines the empty string as a valid PGN. Still, this
 	 * |      validation is extremely permissive with a string as simple as "e4" passing.
 	 *
+	 * [0-2\/-]{0,7}
+	 * |  Check terminal notation. Typical values are 1-0 (white wins), 0-1 (black wins)
+	 * |    and 1/2-1/2 (draw), but it may be omited. This gives us a limited character set
+	 * |    and limited range of possible lengths. Any 0 to 7 character string made up
+	 * |    of the given character set will match,
 	 * @param string $input
 	 * @throws ChessBrowserException if invalid
 	 */
 	private static function assertValidPGN( string $input ) {
 		// phpcs:ignore Generic.Files.LineLength.TooLong
-		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-\/]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
+		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:(?:\{.*?\})?(?:\(.*?\))?\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*)+\s*[0-2\/-]{0,7}\s*$/';
 		$couldBeValid = preg_match( $likeValidPGN, $input );
 		if ( $couldBeValid !== 1 ) {
 			throw new ChessBrowserException( 'Invalid PGN' );
@@ -139,20 +162,24 @@ class ChessBrowser {
 		// Initialize parsers
 		$chessParser = new ChessParser( $input );
 		$chessObject = $chessParser->createOutputJson();
+		$annotationObject = $chessObject['variations'];
+		unset( $chessObject['variations'] );
 		if ( !( $chessObject && $chessObject['boards'] && $chessObject['boards'][0] ) ) {
 			throw new ChessBrowserException( 'No board available' );
 		}
 		// Set up template arguments
 		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
+		$templateParser->enableRecursivePartials( true );
 		$templateArgs = [
 			'data-chess' => json_encode( $chessObject ),
+			'data-chess-annotations' => json_encode( $annotationObject ),
 			'div-number' => $gameNum,
 			// TODO One day these dimensions will be determined by the user
 			'board-height' => '248px',
 			'board-width' => '248px',
 			'label-height' => '208px',
 			'label-width' => '208px',
-			'move-set' => self::getMoveSet( $chessObject['tokens'] ),
+			'move-set' => self::getMoveSet( $chessObject, $annotationObject ),
 			'piece-set' => self::generatePieces( $chessObject['boards'][0] )
 		];
 		$localizedLabels = self::getLocalizedLabels();
@@ -240,15 +267,43 @@ class ChessBrowser {
 	 * Create array of mustache arguments for move-span.mustache from a given
 	 * array of ply tokens.
 	 * @since 0.2.0
-	 * @param array $tokens List of moves in Standard Algebraic Notation
+	 * @param array $gameObject Game representation loaded into data-chess
+	 *   and output from ChessParser::createOutputJson
+	 * @param array $annotationObject representation loaded into data-chess-annotations
 	 * @return array
 	 */
-	public static function getMoveSet( $tokens ): array {
+	public static function getMoveSet( $gameObject, $annotationObject ): array {
+		$tokens = $gameObject['tokens'];
+		$plys = $gameObject['plys'];
 		$moveSet = [];
+		$variationIndices = array_map(
+			static function ( $x ) {
+				return $x[0];
+			},
+			$annotationObject
+		);
 		foreach ( $tokens as $i => $token ) {
 			$span = [
-				'step-link' => false
+				'step-link' => false,
+				'annotations' => []
 			];
+			if ( in_array( $i, $variationIndices ) ) {
+				$span['variations'] = [];
+				$j = array_search( $i, $variationIndices );
+				$variationList = $annotationObject[$j][1];
+				foreach ( $variationList as $variation ) {
+					$span['variations'][] = [
+						'debug' => json_encode( $variation ),
+						'variation-moves' => self::getVariationSet( $variation, $i )
+					];
+					// $span['variation-set'][] = self::getVariationSet( $variation, [], $i );
+				}
+			}
+			$ply = $plys[$i];
+			$comment = $ply[2][2];
+			if ( $comment !== null ) {
+				$span['annotations'][] = [ 'comment' => $comment ];
+			}
 			if ( $i % 2 === 0 ) {
 				$moveNumber = ( $i / 2 ) + 1;
 				$span['step-link'] = true;
@@ -261,6 +316,39 @@ class ChessBrowser {
 		}
 
 		return $moveSet;
+	}
+
+	/**
+	 * Create template parameters for move variation strings
+	 * @param array $variation Object listing tokens, boards, and plys for
+	 *   the variation moves.
+	 * @param int $index The ply of the parent move
+	 * @return array
+	 */
+	public static function getVariationSet( $variation, $index ) {
+		$tokens = $variation['tokens'];
+		$plys = $variation['plys'];
+		$spanList = [];
+		foreach ( $tokens as $i => $token ) {
+			$span = [
+				'step-link' => false,
+				'annotations' => []
+			];
+			$ply = $plys[$i];
+			$comment = $ply[2][2];
+			if ( $comment !== null ) {
+				$span['annotations'][] = [ 'comment' => $comment ];
+			}
+			if ( ( $index + $i ) % 2 === 0 ) {
+				$moveNumber = ( ( $index + $i ) / 2 ) + 1;
+				$span['step-link'] = true;
+				$span['move-number'] = $moveNumber;
+			}
+			$span['variation-ply'] = $i;
+			$span['variation-token'] = $token;
+			$spanList[] = $span;
+		}
+		return $spanList;
 	}
 
 	/**

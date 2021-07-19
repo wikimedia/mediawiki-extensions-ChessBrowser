@@ -75,7 +75,9 @@ class PgnGameParser {
 	 */
 	public function getParsedData() {
 		$gameData = $this->getMetadata();
-		$gameData[ChessJson::MOVE_MOVES] = $this->getMoves();
+		$moveReferences = $this->getMoves();
+		$gameData[ChessJson::MOVE_MOVES] = $moveReferences[0];
+		$gameData[ChessJson::MOVE_COMMENT] = $moveReferences;
 		return $gameData;
 	}
 

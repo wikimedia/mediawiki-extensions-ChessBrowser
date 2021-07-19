@@ -19,6 +19,7 @@
 		this.$div = $elem;
 		this.$pgnBoardImg = this.$div.find( '.pgn-board-img' );
 		this.data = this.$div.data( 'chess' );
+		this.$variations = this.$div.find( '.pgn-variation' );
 		this.boards = this.data.boards;
 		this.plys = this.data.plys;
 		this.tokens = this.data.tokens;

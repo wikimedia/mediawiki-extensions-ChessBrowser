@@ -10,7 +10,7 @@ Basic opening (no javascript)
 
 1. e4 e5</pgn>
 !! html
-<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null]],[38,36,[&quot;move&quot;,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;}}">
+<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null,null]],[38,36,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;}}">
 	<table class="mw-collapsible mw-collapsed pgn-metadata-table">
 		<tbody>
 			<tr>
@@ -56,44 +56,48 @@ Basic opening (no javascript)
 		<p>
 			<span class="pgn-movelink" data-ply="0">⚃</span>
 					<span class="pgn-steplink">1</span>
-				<span class="pgn-movelink" data-ply="1">e4</span>
-				<span class="pgn-movelink" data-ply="2">e5</span>
+				<span class="pgn-movelink" data-ply="1">
+					e4
+				</span>
+				<span class="pgn-movelink" data-ply="2">
+					e5
+				</span>
 		</p>
 	</div>
 	<div class="pgn-board-div">
 		<div class="pgn-board-img">
-				<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-0"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-1"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-2"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-0 pgn-pfile-3"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-0 pgn-pfile-4"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-5"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-6"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-7"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-0"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-1"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-2"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-3"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-4"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-5"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-6"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-7"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-4 pgn-pfile-4"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-0"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-1"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-2"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-3"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-5"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-6"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-7"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-0"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-1"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-2"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-7 pgn-pfile-3"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-7 pgn-pfile-4"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-5"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-6"></div>
-				<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-0 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-0 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-4 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-7 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-7 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-7"></div>
 		</div>
 		<div class="pgn-row-legend pgn-row-left">
 			<span class="pgn-row-legend pgn-prow-0">1</span>

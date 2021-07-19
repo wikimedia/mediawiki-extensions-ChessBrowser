@@ -137,7 +137,21 @@ class ChessParser {
 
 		# The parser guarantees us the initial board state as FEN
 		$fenParts = $this->getFenParts( $gameObject['metadata']['fen'] );
+		$gameObject = $this->convertParserOutput( $moves, $fenParts, $gameObject );
 
+		return $gameObject;
+	}
+
+	/**
+	 * Convert the parser output into the board, token, ply object used in
+	 * the javascript module.
+	 * @param array $moves The list of moves output by the PgnParser
+	 * @param array $fenParts The fen string broken down by getFenParts
+	 * @param array $moveObject The movereferences from the PgnParser
+	 * @return array
+	 */
+	public function convertParserOutput( $moves, $fenParts, $moveObject ) {
+		$index = 0;
 		foreach ( $moves as $move ) {
 			$token = $move['m'];
 
@@ -146,14 +160,75 @@ class ChessParser {
 			$to = self::squareToInt( $move['to'] );
 
 			$special = $this->checkSpecialMove( $to, $from, $token, $fenParts );
+			if ( array_key_exists( 'comment', $move ) ) {
+				$special[] = $move['comment'];
+			} else {
+				$special[] = null;
+			}
+			if ( array_key_exists( 'variations', $move ) ) {
+				if ( !array_key_exists( 'variations', $moveObject ) ) {
+					$moveObject['variations'] = [];
+				}
+				$moveObject['variations'][] = $this->createAnnotationJson( $move['variations'], $fenParts, $index );
+			}
 
-			$gameObject['boards'][] = $fen;
-			$gameObject['plys'][] = [ $from, $to, $special ];
-			$gameObject['tokens'][] = $token;
+			$moveObject['boards'][] = $fen;
+			$moveObject['plys'][] = [ $from, $to, $special ];
+			$moveObject['tokens'][] = $token;
 
 			$fenParts = $this->getFenParts( $fen );
+			$index++;
 		}
-		return $gameObject;
+		return $moveObject;
+	}
+
+	/**
+	 * Will pass variations to the JS module
+	 * to insert into the game.
+	 * @param array $variationObj list of variations associated with a move. Organized
+	 *   as a list of lists of moves, so 1. e4 (1. c4 c5) (1.d4) would be:
+	 *   [
+	 *     [
+	 *       {
+	 *        'm': 'c4',
+	 *	  'from': 'c2',
+	 *	  'to': 'c4',
+	 *	  'fen': '...'
+	 *	 },
+	 *       {
+	 *        'm': 'c5',
+	 *	  'from': 'c7',
+	 *	  'to': 'c5',
+	 *	  'fen': '...'
+	 *	 }
+	 *     ],
+	 *     [
+	 *       {
+	 *        'm': 'd4',
+	 *        'from': 'd2',
+	 *        'to': 'd4',
+	 *        'fen': '...'
+	 *       }
+	 *     ]
+	 *   ]
+	 * @param array $fenParts The starting fen broken down into semantic chunks
+	 * @param int $index Ply of the variation's parent move.
+	 * @return array
+	 */
+	public function createAnnotationJson( $variationObj, $fenParts, $index ) {
+		$variations = [ $index, [] ];
+		foreach ( $variationObj as $variation ) {
+			$moveObject = [
+				'boards' => [],
+				'plys' => [],
+				'tokens' => []
+			];
+			$moves = $variation;
+			$variations[1][] = $this->convertParserOutput( $moves, $fenParts, $moveObject );
+		}
+		return $variations;
+		// Will pass variations and notation to the JS module
+		// to insert into the game.
 	}
 
 	/**
@@ -231,6 +306,7 @@ class ChessParser {
 	 */
 	public function getPgnParserOutput( $gameNum = 0 ) {
 		$gameObject = $this->getGameByIndex( $gameNum );
+		// What is in the game Object?
 
 		// Need to document
 		$metadata = [];
@@ -240,6 +316,8 @@ class ChessParser {
 				continue;
 			} elseif ( $key === 'moves' ) {
 				$moves = $obj;
+			} elseif ( $key === 'comment' ) {
+				continue;
 			} else {
 				$metadata[$key] = $obj;
 			}
@@ -248,6 +326,7 @@ class ChessParser {
 			'boards' => [],
 			'plys' => [],
 			'tokens' => [],
+			'variations' => [],
 			'metadata' => $metadata,
 			'moves' => $moves
 		];
