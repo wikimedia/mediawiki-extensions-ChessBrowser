@@ -25,6 +25,7 @@ namespace MediaWiki\Extension\ChessBrowser\Tests;
 use MediaWiki\Extension\ChessBrowser\ChessBrowser;
 use MediaWiki\Extension\ChessBrowser\ChessBrowserException;
 use MediaWikiIntegrationTestCase;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @group ChessBrowser
@@ -85,6 +86,19 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 		ChessBrowser::createPiece( $symbol, $rank, $file );
 	}
 
+	/**
+	 * @covers ::assertValidPGN
+	 * @dataProvider provideAssertValidPGN
+	 * @param array $pgnLines
+	 */
+	public function testAssertValidPGN( array $pgnLines ) {
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgn = implode( "\n", $pgnLines );
+		$pgnTest = $browser->assertValidPGN( $pgn );
+		$this->assertNull( $pgnTest );
+	}
+
 	public static function provideTestThrowsProperException() {
 		return [
 			[ "Impossible rank (8) or file (0)", 'p', 8, 0 ],
@@ -128,7 +142,29 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 						]
 					]
 				]
+			],
+			[
+				[
+					'event' => 'Test match 2',
+					'site' => 'Berlin',
+					'date' => '1923.3.15',
+					'round' => '2',
+					'white' => 'Jack White',
+					'black' => 'Jessica Blackmun',
+					'result' => '1/2-1/2'
+				],
+				[
+					'event' => 'Test match 2',
+					'site' => 'Berlin',
+					'date' => '1923.3.15',
+					'round' => '2',
+					'white' => 'Jack White',
+					'black' => 'Jessica Blackmun',
+					'result' => '1/2-1/2',
+					'other-metadata' => []
+				]
 			]
+
 		];
 	}
 
@@ -244,6 +280,90 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 						. 'To view the game interactively, please enable JavaScript.'
 				]
 			]
+		];
+	}
+
+	public static function provideAssertValidPGN() {
+		return [
+			[
+				[
+				'[Event "London Chess Classic 2016"]',
+				'[Site "London"]',
+				'[Date "2016.12.18"]',
+				'[Round "9.1"]',
+				'[White "So, Wesley"]',
+				'[Black "Vachier-Lagrave, Maxime"]',
+				'[Result "1/2-1/2"]',
+				'[BlackElo "2804"]',
+				'[WhiteElo "2794"]',
+				'[LiveChessVersion "1.4.8"]',
+				'[ECO "A04"]',
+				'',
+				'1. Nf3  c5  2. c4  Nc6',
+				'3. Nc3  e5  4. e3',
+				'Nf6  5. Be2  d5',
+				'6. d4  cxd4  7. exd4  e4',
+				'8. Ne5  dxc4  9. Bxc4',
+				'Nxe5  10. dxe5  Qxd1+',
+				'11. Kxd1  Ng4  12. e6',
+				'fxe6  13. Nxe4  Bd7',
+				'14. f3  Ne5  15. Bb3',
+				'Rd8  16. Bd2  Nd3',
+				'17. Kc2  Nb4+  18. Bxb4',
+				'Bxb4  19. Nc3  Ke7',
+				'20. Rhe1  Bxc3  21. Kxc3',
+				'Rc8+  22. Kd2  Rhd8',
+				'23. Ke3  e5  24. Rad1',
+				'Bc6  25. h4  h6',
+				'26. a3  Rxd1  27. Rxd1  Rf8',
+				'28. Rf1  Rf4  29. g3',
+				'Rd4  30. Rd1  Rxd1',
+				'31. Bxd1  g5  32. hxg5',
+				'hxg5  33. f4  gxf4+',
+				'34. gxf4  exf4+  35. Kxf4',
+				'1/2-1/2'
+				]
+			],
+			[
+				[
+				'[Event "London Chess Classic 2016"]',
+				'[Site "London"]',
+				'[Date "2016.12.18"]',
+				'[Round "9.1"]',
+				'[White "So, Wesley"]',
+				'[Black "Vachier-Lagrave, Maxime"]',
+				'[Result "1/2-1/2"]',
+				'[BlackElo "2804"]',
+				'[WhiteElo "2794"]',
+				'[LiveChessVersion "1.4.8"]',
+				'[ECO "A04"]',
+				'',
+				'1. Nf3  c5  2. c4  Nc6',
+				'3. Nc3  e5  4. e3',
+				'Nf6  5. Be2  d5',
+				'6. d4  cxd4  7. exd4  e4',
+				'8. Ne5  dxc4  9. Bxc4',
+				'Nxe5  10. dxe5  Qxd1+',
+				'11. Kxd1  Ng4  12. e6',
+				'fxe6  13. Nxe4  Bd7',
+				'14. f3  Ne5  15. Bb3',
+				'Rd8  16. Bd2  Nd3',
+				'17. Kc2  Nb4+  18. Bxb4',
+				'Bxb4  19. Nc3  Ke7',
+				'20. Rhe1  Bxc3  21. Kxc3',
+				'Rc8+  22. Kd2  Rhd8',
+				'23. Ke3  e5  24. Rad1',
+				'Bc6  25. h4  h6',
+				'26. a3  Rxd1  27. Rxd1  Rf8',
+				'28. Rf1  Rf4  29. g3',
+				'Rd4  30. Rd1  Rxd1',
+				'31. Bxd1  g5  32. hxg5',
+				'hxg5  33. f4  gxf4+',
+				'34. gxf4  exf4+  35. Kxf4',
+				'1-0'
+				]
+			],
+			[ [ 'e4' ] ]
 		];
 	}
 }

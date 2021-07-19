@@ -68,12 +68,59 @@ class ChessBrowser {
 	/**
 	 * Check if tag cotains valid input format PGN
 	 *
+	 * The regular expression checks whether the string fits the general structure
+	 *   of a PGN file and is divided into two main parts
+	 *
+	 * (?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*
+	 * |    This non-capturing group checks for valid tag pairs by looking for patterns
+	 * |      within square brackets. The content is pretty unimportant and only
+	 * |      checked on a superficial level.
+	 * |- \S
+	 * |    checks that there is some non-whitespace as the first element of the tag
+	 * |- "[^"\n]*"
+	 * |    checks that the second element is a quote delimited string. It
+	 * |      will match an empty string or a string of any length as long as it does
+	 * |      not contain a newline or double quote marks.
+	 * |- \s*
+	 * |    Any amount of whitespace may separate items, and the validation is very
+	 * |      permissive when it comes to whitespace.
+	 * |- (?: ... )*
+	 * |    The PGN will pass validation even if tag pairs are omitted.
+	 *
+	 * (?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+
+	 * |    This non-capturing group checks that the rest of the PGN follows the
+	 * |      general format of "1. d4 d5 2. c4 ...". Following the PGN input
+	 * |      standard, it is highly permissive of variation.
+	 * |- \d*\.*
+	 * |    Moves may be preceded by a digit and this digit may be followed by any
+	 * |      number of periods, including none at all. The PGN import format allows
+	 * |      this to be omitted completely.
+	 * |- [a-hxOBNRKQ1-8=+#\-]+
+	 * |    A move token can be as simple as "d4" or as complex as "dxe8=R#". Despite this
+	 * |      variation in length, a valid token is composed of a finite symbol set defined
+	 * |      by this group. Valid symbols are file letters (a-h), rank numbers (1-8), the
+	 * |      capture symbol (x), the piece symbols (BNRKQ), the promotion symbol (=), the
+	 * |      check symbol (+), the checkmate symbol (#), and the components of the castling
+	 * |      notation (O-O).
+	 * |- [a-hxOBNRKQ1-8=+#\-\/]+
+	 * |    A variation of the previous symbol set, this set has the addition of allowing
+	 * |      the forward slash (/). This allows the expression to properly parse game
+	 * |      results at the end of PGN files. These can be one of 1-0 (white wins),
+	 * |      0-1 (black wins), or 1/2-1/2 (draw) and so not including the slash will
+	 * |      cause the expression to not match drawn games.
+	 * |- \s*
+	 * |    Any amount of whitespace may separate items, including none at all.
+	 * |- (?: ... )+
+	 * |    The validator requires at least one move to be present. This differs from the
+	 * |      PGN format which defines the empty string as a valid PGN. Still, this
+	 * |      validation is extremely permissive with a string as simple as "e4" passing.
+	 *
 	 * @param string $input
 	 * @throws ChessBrowserException if invalid
 	 */
 	private static function assertValidPGN( string $input ) {
 		// phpcs:ignore Generic.Files.LineLength.TooLong
-		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
+		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:\d*\.*\s*[a-hxOBNRKQ1-8=+#\-\/]+\s*[a-hxOBNRKQ01-8=+#\-]+\s*)+\s*$/';
 		$couldBeValid = preg_match( $likeValidPGN, $input );
 		if ( $couldBeValid !== 1 ) {
 			throw new ChessBrowserException( 'Invalid PGN' );
