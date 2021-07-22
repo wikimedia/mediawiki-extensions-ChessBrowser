@@ -81,7 +81,7 @@ class NotationAnalyzer {
 	 * @param string $color
 	 * @return int
 	 */
-	public function getPieceType( string $color ) : int {
+	public function getPieceType( string $color ): int {
 		$notation = $this->notation;
 		if ( $notation === 'O-O-O' || $notation === 'O-O' ) {
 			$pieceType = 'K';
@@ -103,7 +103,7 @@ class NotationAnalyzer {
 	 *
 	 * @return string
 	 */
-	public function getPromotion() : string {
+	public function getPromotion(): string {
 		$notation = $this->notation;
 		if ( strpos( $notation, '=' ) !== false ) {
 			$piece = preg_replace( "/^.*?=([QRBN]).*$/", '$1', $notation );

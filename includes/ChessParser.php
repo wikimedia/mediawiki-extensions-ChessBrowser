@@ -115,7 +115,7 @@ class ChessParser {
 	 * @param string $square
 	 * @return int
 	 */
-	private static function squareToInt( string $square ) : int {
+	private static function squareToInt( string $square ): int {
 		if ( $square === '-' ) {
 			// Special handling
 			return -1;

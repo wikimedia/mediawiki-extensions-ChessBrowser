@@ -276,7 +276,7 @@ class SquareRelations {
 	 * @param int $square2
 	 * @return SquareRelations
 	 */
-	public static function new( int $square1, int $square2 ) : SquareRelations {
+	public static function new( int $square1, int $square2 ): SquareRelations {
 		return new SquareRelations( $square1, $square2 );
 	}
 
@@ -294,7 +294,7 @@ class SquareRelations {
 	 * Returns whether two squares are on the same rank.
 	 * @return bool
 	 */
-	public function haveSameRank() : bool {
+	public function haveSameRank(): bool {
 		return ( $this->square1 & 240 ) === ( $this->square2 & 240 );
 	}
 
@@ -302,7 +302,7 @@ class SquareRelations {
 	 * Returns whether two squares are on the same file
 	 * @return bool
 	 */
-	public function haveSameFile() : bool {
+	public function haveSameFile(): bool {
 		return ( $this->square1 & 15 ) === ( $this->square2 & 15 );
 	}
 

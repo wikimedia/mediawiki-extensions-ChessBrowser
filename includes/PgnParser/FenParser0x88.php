@@ -318,7 +318,7 @@ class FenParser0x88 {
 		bool $kingSideCastle,
 		bool $queenSideCastle,
 		$enPassantSquare
-	) : array {
+	): array {
 		$paths = [];
 		$type = $piece['t'];
 		$square = $piece['s'];
@@ -633,7 +633,7 @@ class FenParser0x88 {
 	 * @param string $color
 	 * @return array
 	 */
-	public function getPinned( $color ) : array {
+	public function getPinned( $color ): array {
 		$ret = [];
 		$isWhite = $color === 'white';
 		$pieces = $this->getSlidingPiecesAttackingKing( $isWhite ? 'black' : 'white' );
@@ -757,7 +757,7 @@ class FenParser0x88 {
 	 * @param array $king
 	 * @return array
 	 */
-	public function getBishopCheckPath( $piece, $king ) : array {
+	public function getBishopCheckPath( $piece, $king ): array {
 		if ( ( $king['s'] - $piece['s'] ) % 15 === 0 || ( $king['s'] - $piece['s'] ) % 17 === 0 ) {
 			$distance = SquareRelations::new( $piece['s'], $king['s'] )->getDistance();
 			$direction = ( $king['s'] - $piece['s'] ) / $distance;
@@ -785,7 +785,7 @@ class FenParser0x88 {
 	 * @param array $king
 	 * @return array
 	 */
-	public function getRookCheckPath( $piece, $king ) : array {
+	public function getRookCheckPath( $piece, $king ): array {
 		$direction = null;
 		$relations = SquareRelations::new( $piece['s'], $king['s'] );
 		if ( $relations->haveSameFile() ) {

@@ -36,7 +36,7 @@ class ChessBrowser {
 	 * @param PPFrame $frame Parent frame, provides context of the tage placement
 	 * @return array
 	 */
-	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ) : array {
+	public static function newGame( $input, array $args, Parser $parser, PPFrame $frame ): array {
 		try {
 			self::assertValidPGN( $input );
 
@@ -88,7 +88,7 @@ class ChessBrowser {
 	 * @return string
 	 * @throws ChessBrowserException
 	 */
-	private static function createBoard( string $input, int $gameNum ) : string {
+	private static function createBoard( string $input, int $gameNum ): string {
 		// Initialize parsers
 		$chessParser = new ChessParser( $input );
 		$chessObject = $chessParser->createOutputJson();
@@ -123,7 +123,7 @@ class ChessBrowser {
 	 * @param string $fen
 	 * @return array
 	 */
-	public static function generatePieces( $fen ) : array {
+	public static function generatePieces( $fen ): array {
 		$pieceArray = [];
 		$rankIndex = 0;
 		$fileIndex = 0;
@@ -150,7 +150,7 @@ class ChessBrowser {
 	 * @since 0.2.0
 	 * @return array
 	 */
-	public static function getLocalizedLabels() : array {
+	public static function getLocalizedLabels(): array {
 		return [
 			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
 			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
@@ -196,7 +196,7 @@ class ChessBrowser {
 	 * @param array $tokens List of moves in Standard Algebraic Notation
 	 * @return array
 	 */
-	public static function getMoveSet( $tokens ) : array {
+	public static function getMoveSet( $tokens ): array {
 		$moveSet = [];
 		foreach ( $tokens as $i => $token ) {
 			$span = [
@@ -223,7 +223,7 @@ class ChessBrowser {
 	 * @param array $tagPairs
 	 * @return array
 	 */
-	public static function getMetadata( $tagPairs ) : array {
+	public static function getMetadata( $tagPairs ): array {
 		// TODO localize the defaults
 		$metadata = [
 			'event' => 'Unknown event',
@@ -258,7 +258,7 @@ class ChessBrowser {
 	 * @param string|int $file
 	 * @return array
 	 */
-	public static function createPiece( $symbol, $rank, $file ) : array {
+	public static function createPiece( $symbol, $rank, $file ): array {
 		if ( $rank > 7 || $file > 7 || $rank < 0 || $file < 0 ) {
 			throw new ChessBrowserException( "Impossible rank ($rank) or file ($file)" );
 		}

@@ -72,7 +72,7 @@ class ChessSquare {
 	 * @param int $number
 	 * @return ChessSquare
 	 */
-	public static function newFromNumber( int $number ) : ChessSquare {
+	public static function newFromNumber( int $number ): ChessSquare {
 		return new ChessSquare(
 			self::NUMBER_TO_FILE[ $number & 0b00000111 ],
 			( ( $number & 0b01110000 ) / 16 ) + 1,
@@ -86,7 +86,7 @@ class ChessSquare {
 	 * @param int $number
 	 * @return ChessSquare
 	 */
-	public static function newFromLateral64( int $number ) : ChessSquare {
+	public static function newFromLateral64( int $number ): ChessSquare {
 		$inHex = (int)( floor( $number / 8 ) * 16 ) + ( $number % 8 );
 		return self::newFromNumber( $inHex );
 	}
@@ -96,7 +96,7 @@ class ChessSquare {
 	 * @return ChessSquare
 	 * @throws ChessBrowserException if invalid
 	 */
-	public static function newFromCoords( string $coords ) : ChessSquare {
+	public static function newFromCoords( string $coords ): ChessSquare {
 		if ( strlen( $coords ) !== 2 ) {
 			throw new ChessBrowserException( "Coordinates ($coords) too long" );
 		}
@@ -123,7 +123,7 @@ class ChessSquare {
 	 *
 	 * @return int
 	 */
-	public function getAsVertical64() : int {
+	public function getAsVertical64(): int {
 		return ( self::FILE_TO_NUMBER[$this->fileLetter] * 8 ) + ( $this->rankNumber - 1 );
 	}
 
@@ -132,7 +132,7 @@ class ChessSquare {
 	 *
 	 * @return string
 	 */
-	public function getCoords() : string {
+	public function getCoords(): string {
 		return ( $this->fileLetter . $this->rankNumber );
 	}
 
@@ -141,7 +141,7 @@ class ChessSquare {
 	 *
 	 * @return int
 	 */
-	public function getNumber() : int {
+	public function getNumber(): int {
 		return $this->number;
 	}
 
@@ -150,7 +150,7 @@ class ChessSquare {
 	 *
 	 * @return int
 	 */
-	public function getRank() : int {
+	public function getRank(): int {
 		return $this->rankNumber;
 	}
 
@@ -159,7 +159,7 @@ class ChessSquare {
 	 *
 	 * @return string
 	 */
-	public function getFile() : string {
+	public function getFile(): string {
 		return $this->fileLetter;
 	}
 

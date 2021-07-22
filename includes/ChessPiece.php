@@ -85,7 +85,7 @@ class ChessPiece {
 	 * @return ChessPiece
 	 * @throws ChessBrowserException
 	 */
-	public static function newFromHex( int $hex ) : ChessPiece {
+	public static function newFromHex( int $hex ): ChessPiece {
 		$mappings = [
 			self::WHITE_PAWN => 'P',
 			self::WHITE_KNIGHT => 'N',
@@ -113,7 +113,7 @@ class ChessPiece {
 	 *
 	 * @return string
 	 */
-	public function getSymbol() : string {
+	public function getSymbol(): string {
 		return $this->symbol;
 	}
 
@@ -122,7 +122,7 @@ class ChessPiece {
 	 *
 	 * @return string
 	 */
-	public function getType() : string {
+	public function getType(): string {
 		return $this->type;
 	}
 
@@ -131,7 +131,7 @@ class ChessPiece {
 	 *
 	 * @return string
 	 */
-	public function getColor() : string {
+	public function getColor(): string {
 		return $this->color;
 	}
 
@@ -140,7 +140,7 @@ class ChessPiece {
 	 *
 	 * @return int
 	 */
-	public function getAsHex() : int {
+	public function getAsHex(): int {
 		$mappings = [
 			'P' => self::WHITE_PAWN,
 			'N' => self::WHITE_KNIGHT,
@@ -164,7 +164,7 @@ class ChessPiece {
 	 *
 	 * @return array
 	 */
-	public function getMovePatterns() : array {
+	public function getMovePatterns(): array {
 		switch ( $this->symbol ) {
 			case 'P':
 				return [ 16, 32, 15, 17 ];
@@ -195,7 +195,7 @@ class ChessPiece {
 	 *
 	 * @return string
 	 */
-	public function getNotation() : string {
+	public function getNotation(): string {
 		if ( $this->type === 'p' ) {
 			return '';
 		}

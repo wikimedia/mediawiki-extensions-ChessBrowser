@@ -51,7 +51,7 @@ class CastlingTracker {
 	 * @param string $option
 	 * @return bool whether this castle is valid
 	 */
-	public function checkCastle( string $option ) : bool {
+	public function checkCastle( string $option ): bool {
 		$optionCode = self::CODES[$option] ?? 0;
 		return (bool)( $this->castleCode & $optionCode );
 	}
@@ -74,7 +74,7 @@ class CastlingTracker {
 	 * @param int $from
 	 * @return string
 	 */
-	public function updateForMove( int $movedPiece, int $from ) : string {
+	public function updateForMove( int $movedPiece, int $from ): string {
 		$currentCastle = $this->castle;
 		$newCastle = $currentCastle;
 		switch ( $movedPiece ) {
