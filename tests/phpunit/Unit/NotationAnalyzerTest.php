@@ -25,7 +25,7 @@ class NotationAnalyzerTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @covers NotationAnalyzer::getFromRank
-	 * @dataProvider provideTestFrom
+	 * @dataProvider provideTestFromRank
 	 * @param string $notation
 	 * @param int|null $rank
 	 */
