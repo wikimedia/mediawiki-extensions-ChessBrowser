@@ -19,6 +19,7 @@
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Noir",
 	"chessbrowser-result-label": "Résultat",
+	"chessbrowser-first-rank": "1",
 	"chessbrowser-beginning-of-game": "Aller au premier coup",
 	"chessbrowser-previous-move": "Coup précédent",
 	"chessbrowser-slow-autoplay": "Plus lent",
