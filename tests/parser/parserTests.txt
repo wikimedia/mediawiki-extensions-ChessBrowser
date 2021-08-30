@@ -10,152 +10,146 @@ Basic opening (no javascript)
 
 1. e4 e5</pgn>
 !! html
-<p class="mw-empty-elt"></p><div class="pgnviewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null]],[38,36,[&quot;move&quot;,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;}}">
-	<div style="text-align:center">
-		<table class="mw-collapsible mw-collapsed pgn-metadata-table mw-made-collapsible" style="margin:auto;text-align:left;">
-			<tbody>
+<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null]],[38,36,[&quot;move&quot;,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;}}">
+	<table class="mw-collapsible mw-collapsed pgn-metadata-table">
+		<tbody>
+			<tr>
+				<th colspan="2"><!-- not a caption due to FOUC issues -->
+					Game details
+				</th>
+			</tr>
+			<tr>
+				<th>Event</th>
+				<td>Chess Game</td>
+			</tr>
+			<tr>
+				<th>Site</th>
+				<td>Unknown site</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>Unknown date</td>
+			</tr>
+			<tr>
+				<th>Round</th>
+				<td>Unkown round</td>
+			</tr>
+			<tr>
+				<th>White</th>
+				<td>Unknown white</td>
+			</tr>
+			<tr>
+				<th>Black</th>
+				<td>Unknown black</td>
+			</tr>
+			<tr>
+				<th>Result</th>
+				<td>Unknown result</td>
+			</tr>
 				<tr>
-					<th colspan="2" style="text-align:center;">
-						<span class="mw-collapsible-toggle mw-collapsible-toggle-default mw-collapsible-toggle-collapsed" role="button" tabindex="0" aria-expanded="false">
-							<a class="mw-collapsible-text">
-								Expand
-							</a>
-						</span>
-						Game details
-					</th>
+					<th>fen</th>
+					<td>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</td>
 				</tr>
-				<tr style="display: none;">
-					<td>Event</td>
-					<td>Chess Game</td>
-				</tr>
-				<tr style="display: none;">
-					<td>Site</td>
-					<td>Unknown site</td>
-				</tr>
-				<tr style="display: none;">
-					<td>Date</td>
-					<td>Unknown date</td>
-				</tr>
-				<tr style="display: none;">
-					<td>Round</td>
-					<td>Unkown round</td>
-				</tr>
-				<tr style="display: none;">
-					<td>White</td>
-					<td>Unknown white</td>
-				</tr>
-				<tr style="display: none;">
-					<td>Black</td>
-					<td>Unknown black</td>
-				</tr>
-				<tr style="display: none;">
-					<td>Result</td>
-					<td>Unknown result</td>
-				</tr>
-					<tr style="display: none;">
-						<td>fen</td>
-						<td>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</td>
-					</tr>
-			</tbody>
-		</table>
-		<div class="pgn-notations" style="scroll-behavior:smooth;">
-			<p>
-				<span class="pgn-movelink" data-ply="0">⚃</span>
-						<span class="pgn-steplink">1</span>
-					<span class="pgn-movelink" data-ply="1">e4</span>
-					<span class="pgn-movelink" data-ply="2">e5</span>
-			</p>
+		</tbody>
+	</table>
+	<div class="pgn-notations">
+		<p>
+			<span class="pgn-movelink" data-ply="0">⚃</span>
+					<span class="pgn-steplink">1</span>
+				<span class="pgn-movelink" data-ply="1">e4</span>
+				<span class="pgn-movelink" data-ply="2">e5</span>
+		</p>
+	</div>
+	<div class="pgn-board-div">
+		<div class="pgn-board-img">
+				<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-0"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-1"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-2"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-0 pgn-pfile-3"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-0 pgn-pfile-4"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-5"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-6"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-7"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-0"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-1"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-2"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-3"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-4"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-5"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-6"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-7"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-4 pgn-pfile-4"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-0"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-1"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-2"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-3"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-5"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-6"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-7"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-0"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-1"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-2"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-7 pgn-pfile-3"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-7 pgn-pfile-4"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-5"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-6"></div>
+				<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-7"></div>
 		</div>
-		<div class="pgn-board-div" style="width:248px; height:248px;">
-			<div class="pgn-board-img" style="position: absolute; left: 20px; top: 20px; width: 208px; height: 208px;">
-					<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-0"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-1"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-2"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-0 pgn-pfile-3"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-0 pgn-pfile-4"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-0 pgn-pfile-5"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-0 pgn-pfile-6"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-0 pgn-pfile-7"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-0"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-1"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-2"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-3"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-4"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-5"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-6"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-1 pgn-pfile-7"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-4 pgn-pfile-4"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-0"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-1"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-2"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-3"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-5"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-6"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-6 pgn-pfile-7"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-0"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-1"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-2"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-7 pgn-pfile-3"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-7 pgn-pfile-4"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-7 pgn-pfile-5"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-7 pgn-pfile-6"></div>
-					<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-7 pgn-pfile-7"></div>
-			</div>
-			<div class="pgn-row-legend pgn-row-left" style="top:20px;height:208px;width:20px;">
-				<span class="pgn-row-legend pgn-prow-0">1</span>
-				<span class="pgn-row-legend pgn-prow-1">2</span>
-				<span class="pgn-row-legend pgn-prow-2">3</span>
-				<span class="pgn-row-legend pgn-prow-3">4</span>
-				<span class="pgn-row-legend pgn-prow-4">5</span>
-				<span class="pgn-row-legend pgn-prow-5">6</span>
-				<span class="pgn-row-legend pgn-prow-6">7</span>
-				<span class="pgn-row-legend pgn-prow-7">8</span>
-			</div>
-			<div class="pgn-row-legend pgn-row-right" style="top:20px;left:228px;height:208px;width:20px;">
-				<span class="pgn-row-legend pgn-prow-0">1</span>
-				<span class="pgn-row-legend pgn-prow-1">2</span>
-				<span class="pgn-row-legend pgn-prow-2">3</span>
-				<span class="pgn-row-legend pgn-prow-3">4</span>
-				<span class="pgn-row-legend pgn-prow-4">5</span>
-				<span class="pgn-row-legend pgn-prow-5">6</span>
-				<span class="pgn-row-legend pgn-prow-6">7</span>
-				<span class="pgn-row-legend pgn-prow-7">8</span>
-			</div>
-			<div class="pgn-file-legend pgn-file-top" style="left:20px;width:208px;height:20px;">
-				<span class="pgn-file-legend pgn-pfile-0">a</span>
-				<span class="pgn-file-legend pgn-pfile-1">b</span>
-				<span class="pgn-file-legend pgn-pfile-2">c</span>
-				<span class="pgn-file-legend pgn-pfile-3">d</span>
-				<span class="pgn-file-legend pgn-pfile-4">e</span>
-				<span class="pgn-file-legend pgn-pfile-5">f</span>
-				<span class="pgn-file-legend pgn-pfile-6">g</span>
-				<span class="pgn-file-legend pgn-pfile-7">h</span>
-			</div>
-			<div class="pgn-file-legend pgn-file-bottom" style="left:20px;top:228px;width:208px;height:20px;">
-				<span class="pgn-file-legend pgn-pfile-0">a</span>
-				<span class="pgn-file-legend pgn-pfile-1">b</span>
-				<span class="pgn-file-legend pgn-pfile-2">c</span>
-				<span class="pgn-file-legend pgn-pfile-3">d</span>
-				<span class="pgn-file-legend pgn-pfile-4">e</span>
-				<span class="pgn-file-legend pgn-pfile-5">f</span>
-				<span class="pgn-file-legend pgn-pfile-6">g</span>
-				<span class="pgn-file-legend pgn-pfile-7">h</span>
-			</div>
-		</div>		<div class="pgn-controls" style="text-align: center;">
-			<div class="pgn-image-button pgn-image-button-off pgn-button-tostart" title="Go to first move"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-retreat" title="Previous move"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-slower" title="Slower"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-play" title="Play/Pause"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-faster" title="Faster"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-advance" title="Next move"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-toend" title="Go to last move"></div>
-			<div class="pgn-image-button pgn-image-button-off pgn-button-flip" title="Flip board perspective"></div>
+		<div class="pgn-row-legend pgn-row-left">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
 		</div>
-		<div class="pgn-nojs-message" style="text-align: center;">
-			<p>
-				JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript.
-			</p>
+		<div class="pgn-row-legend pgn-row-right">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
 		</div>
+		<div class="pgn-file-legend pgn-file-top">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+		<div class="pgn-file-legend pgn-file-bottom">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+	</div>
+	<div class="pgn-controls">
+		<div class="pgn-image-button pgn-image-button-off pgn-button-tostart" title="Go to first move"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-retreat" title="Previous move"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-slower" title="Slower"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-play" title="Play/Pause"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-faster" title="Faster"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-advance" title="Next move"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-toend" title="Go to last move"></div>
+		<div class="pgn-image-button pgn-image-button-off pgn-button-flip" title="Flip board perspective"></div>
+	</div>
+	<div class="pgn-nojs-message">
+		<p>
+			JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript.
+		</p>
 	</div>
 </div>
 

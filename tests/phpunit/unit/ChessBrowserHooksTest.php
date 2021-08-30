@@ -69,16 +69,12 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->getMock();
 
 		$mockOP->expects( $this->once() )
+			->method( 'addModuleStyles' )
+			->with( 'ext.chessViewer.styles' );
+
+		$mockOP->expects( $this->once() )
 			->method( 'addModules' )
 			->with( 'ext.chessViewer' );
-		$mockOP->expects( $this->once() )
-			->method( 'addJsConfigVars' )
-			->with(
-				$this->equalTo( 'wgChessBrowserDivIdentifiers' ),
-				$this->callback( static function ( $param ) {
-					return is_array( $param );
-				} )
-			);
 
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()

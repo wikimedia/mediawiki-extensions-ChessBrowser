@@ -45,15 +45,9 @@ class ChessBrowserHooks {
 	 */
 	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
 		if ( $parserOutput->getExtensionData( 'ChessViewerTrigger' ) ) {
+			$out->addModuleStyles( 'ext.chessViewer.styles' );
 			$out->addModules( 'ext.chessViewer' );
 			$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
-			$gameIdentifiers = array_map(
-				static function ( $index ) {
-					return 'chess-browser-div-' . $index;
-				},
-				range( 1, $numberOfGames )
-			);
-			$out->addJsConfigVars( 'wgChessBrowserDivIdentifiers', $gameIdentifiers );
 		}
 	}
 }

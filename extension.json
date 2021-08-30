@@ -32,6 +32,11 @@
 				"jquery.makeCollapsible",
 				"jquery.ui"
 			]
+		},
+		"ext.chessViewer.styles": {
+			"styles": [
+				"modules/ext.chessViewer.styles.less"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

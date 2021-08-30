@@ -1,0 +1,167 @@
+.pgn-metadata-table {
+	margin: auto;
+	text-align: left;
+
+	/* Fake caption because collapsible has FOUC with those */
+	tr:first-child th {
+		font-weight: bold;
+		text-align: center;
+		white-space: nowrap;
+	}
+}
+
+.pgn-notations {
+	unicode-bidi: isolate;
+	text-align: left;
+	font-size: 125%;
+	overflow: auto;
+	scroll-behavior: smooth;
+}
+
+/* Links of notations */
+.pgn-movelink {
+	margin: 0 0.3em;
+	unicode-bidi: isolate;
+}
+
+.pgn-steplink {
+	margin: 0 0.3em;
+	color: green;
+	font-weight: bold;
+}
+
+.pgn-current-move {
+	background-color: #00c;
+	color: yellow;
+}
+
+/* Chessboard */
+.pgn-board-div {
+	position: relative;
+	width: 248px;
+	height: 248px;
+	margin: 0 auto;
+	border: 8px ridge grey;
+	border-radius: 10px;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.pgn-board-img {
+	position: absolute;
+	/* @noflip */
+	left: 20px;
+	top: 20px;
+	width: 208px;
+	height: 208px;
+}
+/* Chessboard legend */
+.pgn-legend {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.pgn-row-legend,
+.pgn-file-legend {
+	position: absolute;
+	line-height: 20px;
+	text-align: center;
+}
+
+.pgn-row-left {
+	top: 20px;
+	height: 208px;
+	width: 20px;
+}
+
+.pgn-row-right {
+	/* @noflip */
+	left: 228px;
+	top: 20px;
+	height: 208px;
+	width: 20px;
+}
+
+.pgn-file-top {
+	/* @noflip */
+	left: 20px;
+	width: 208px;
+	height: 20px;
+}
+
+.pgn-file-bottom {
+	top: 228px;
+	/* @noflip */
+	left: 20px;
+	width: 208px;
+	height: 20px;
+}
+
+/* row % */
+@iterations: 8;
+@gridOffset: 12.5%;
+.pgn-row-loop ( @i ) when ( @i > 0 ) {
+	@row: @i - 1;
+	.pgn-prow-@{row} {
+		top: 100% - ( @i * @gridOffset );
+	}
+	.pgn-row-loop ( @i - 1 );
+}
+.pgn-row-loop( @iterations );
+
+/* file % */
+@iterations: 8;
+@gridOffset: 12.5%;
+.pgn-pfile-loop ( @i ) when ( @i < @iterations ) {
+	.pgn-pfile-@{i} {
+		/* @noflip */
+		left: @i * @gridOffset;
+	}
+	.pgn-pfile-loop ( @i + 1 );
+}
+.pgn-pfile-loop( 0 );
+
+/* Controls */
+.pgn-controls {
+	/* @noflip */
+	direction: ltr;
+	height: 34px; /* total height of a (late loading) button */
+	margin: 8px;
+	text-align: center;
+}
+
+/* Styling for load phase of JS */
+.pgn-viewer:not( .pgn-loaded ) .pgn-controls > .pgn-image-button {
+	display: none;
+}
+
+/* Styling for when there is no JS available */
+.client-nojs .pgn-controls,
+.client-nojs .pgn-board-div {
+	display: none;
+}
+
+.pgn-nojs-message {
+	text-align: center;
+}
+
+.client-js .pgn-nojs-message {
+	display: none;
+}
+
+@media print {
+	/* No interactive controls needed in print */
+	.pgn-controls {
+		display: none;
+	}
+
+	.mw-collapsible-toggle {
+		display: none;
+	}
+
+	/* Display metadata in print */
+	table.pgn-metadata-table tr {
+		/* stylelint-disable-next-line declaration-no-important */
+		display: inherit !important; // !important needed to override inline styling.
+	}
+}

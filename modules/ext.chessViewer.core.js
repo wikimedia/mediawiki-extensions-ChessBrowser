@@ -11,12 +11,12 @@
  */
 
 ( function () {
-	var chessPage;
+	var gameInstances = [];
 
-	function Game( identifier ) {
+	function Game( $elem ) {
 		var me = this;
 
-		this.$div = $( '#' + identifier );
+		this.$div = $elem;
 		this.$pgnBoardImg = this.$div.find( '.pgn-board-img' );
 		this.data = this.$div.data( 'chess' );
 		this.boards = this.data.boards;
@@ -369,27 +369,16 @@
 		};
 	}
 
-	function ChessPage() {
-		var me = this;
-		this.gameInstances = [];
-		this.identifierList = mw.config.get( 'wgChessBrowserDivIdentifiers' );
+	mw.hook( 'wikipage.content' ).add( function ( $content ) {
+		var newGameInstance;
+		$content.find( '.pgn-viewer' ).each( function ( index, elem ) {
+			newGameInstance = new Game( $( elem ) );
+			newGameInstance.makeBoard();
+			/* Add CSS class to indicate that the loading phase is complete */
+			newGameInstance.$div.addClass( 'pgn-loaded' );
 
-		this.gameFactory = function () {
-			var index,
-				newGameInstance;
-			for ( index in me.identifierList ) {
-				newGameInstance = new Game( me.identifierList[ index ] );
-				newGameInstance.makeBoard();
-				me.gameInstances.push( newGameInstance );
-			}
-		};
-
-		this.gameFactory();
-	}
-
-	chessPage = new ChessPage();
-	$( chessPage.gameInstances ).each( function ( game ) {
-		$( '.pgn-nojs-message', game.$div ).hide();
+			gameInstances.push( newGameInstance );
+		} );
 	} );
-	mw.config.set( 'wgChessBrowserPage', chessPage );
+
 }() );
