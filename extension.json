@@ -29,6 +29,7 @@
 				"modules/ext.chessViewer.css"
 			],
 			"dependencies": [
+				"jquery.makeCollapsible",
 				"jquery.ui"
 			]
 		}
