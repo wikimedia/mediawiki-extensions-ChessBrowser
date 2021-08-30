@@ -1,2 +1,3 @@
-docs/*
-vendor/*
+/docs/
+/node_modules/
+/vendor/
