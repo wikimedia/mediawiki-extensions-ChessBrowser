@@ -20,6 +20,10 @@
 		"ParserFirstCallInit": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onParserFirstCallInit",
 		"OutputPageParserOutput": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onOutputPageParserOutput"
 	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "ChessBrowser"
+	},
 	"ResourceModules": {
 		"ext.chessViewer": {
 			"scripts": [
@@ -38,10 +42,6 @@
 				"modules/ext.chessViewer.styles.less"
 			]
 		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteExtPath": "ChessBrowser"
 	},
 	"MessagesDirs": {
 		"ChessBrowser": [

@@ -301,8 +301,8 @@ class ChessBrowser {
 	 * at a given location on the board
 	 * @since 0.2.0
 	 * @param string $symbol The FEN symbol for the piece
-	 * @param string|int $rank
-	 * @param string|int $file
+	 * @param string|int $rank Preserves input type on output
+	 * @param string|int $file Preserves input type on output
 	 * @return array
 	 */
 	public static function createPiece( $symbol, $rank, $file ): array {
