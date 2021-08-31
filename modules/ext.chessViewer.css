@@ -4,6 +4,8 @@
 }
 
 .pgn-board-div {
+	/* @noflip */
+	direction: ltr;
 	display: inline-block;
 	position: relative;
 	margin: 0 auto;
@@ -26,6 +28,7 @@
 
 .pgn-controls {
 	margin: 8px;
+	/* @noflip */
 	direction: ltr;
 }
 
@@ -47,6 +50,7 @@
 }
 
 .pgn-image-button-on {
+	/* @noflip */
 	box-shadow: inset 0 0 0 1px #36c;
 }
 
@@ -57,6 +61,7 @@
 
 .pgn-pgn-display {
 	height: 100%;
+	/* @noflip */
 	direction: ltr;
 }
 
@@ -85,6 +90,7 @@
 }
 
 .pgn-rtl-comment {
+	/* @noflip */
 	direction: rtl;
 	text-align: right;
 	unicode-bidi: embed;
@@ -114,6 +120,7 @@
 .pgn-chessPiece {
 	position: absolute;
 	background-size: cover;
+	/* @noflip */
 	transition: left 700ms, top 700ms, opacity 700ms;
 	min-width: 12.5%;
 	max-width: 12.5%;
@@ -272,34 +279,42 @@
 
 /* file */
 .pgn-pfile-0 {
+	/* @noflip */
 	left: 0;
 }
 
 .pgn-pfile-1 {
+	/* @noflip */
 	left: 12.5%;
 }
 
 .pgn-pfile-2 {
+	/* @noflip */
 	left: 25%;
 }
 
 .pgn-pfile-3 {
+	/* @noflip */
 	left: 37.5%;
 }
 
 .pgn-pfile-4 {
+	/* @noflip */
 	left: 50%;
 }
 
 .pgn-pfile-5 {
+	/* @noflip */
 	left: 62.5%;
 }
 
 .pgn-pfile-6 {
+	/* @noflip */
 	left: 75%;
 }
 
 .pgn-pfile-7 {
+	/* @noflip */
 	left: 87.5%;
 }
 
