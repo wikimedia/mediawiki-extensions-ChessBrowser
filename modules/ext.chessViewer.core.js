@@ -283,28 +283,32 @@
 			$( '.pgn-movelink', me.$div ).on( 'click', me.clickNotation );
 		};
 
-		this.advance = function () {
+		this.advance = function ( e ) {
 			if ( me.currentPlyNumber < me.boards.length ) {
 				me.goToBoard( me.currentPlyNumber + 1 );
 			}
+			e.preventDefault();
 		};
 
-		this.retreat = function () {
+		this.retreat = function ( e ) {
 			if ( me.currentPlyNumber > 0 ) {
 				me.goToBoard( me.currentPlyNumber - 1 );
 			}
+			e.preventDefault();
 		};
 
-		this.goToStart = function () {
+		this.goToStart = function ( e ) {
 			me.goToBoard( 0 );
 			me.stopAutoplay();
+			e.preventDefault();
 		};
 
-		this.goToEnd = function () {
+		this.goToEnd = function ( e ) {
 			me.goToBoard( me.boards.length );
+			e.preventDefault();
 		};
 
-		this.clickPlay = function () {
+		this.clickPlay = function ( e ) {
 			if ( me.currentPlyNumber === me.boards.length - 1 ) {
 				me.goToBoard( 0 );
 			}
@@ -313,29 +317,34 @@
 			} else {
 				me.startAutoplay();
 			}
+			e.preventDefault();
 		};
 
-		this.faster = function () {
+		this.faster = function ( e ) {
 			me.delay = me.delay > 3200 ? me.delay - 1600 : me.delay / 2;
 			me.changeDelay();
+			e.preventDefault();
 		};
 
-		this.slower = function () {
+		this.slower = function ( e ) {
 			me.delay += Math.min( me.delay, 1600 );
 			me.changeDelay();
+			e.preventDefault();
 		};
 
-		this.flipBoard = function () {
+		this.flipBoard = function ( e ) {
 			// eslint-disable-next-line no-jquery/no-class-state
 			me.$div.toggleClass( 'pgn-flip' );
 			// eslint-disable-next-line no-jquery/no-class-state
 			$( '.pgn-button-flip', me.$div ).toggleClass( 'pgn-image-button-on' );
+			e.preventDefault();
 		};
 
-		this.clickNotation = function () {
+		this.clickNotation = function ( e ) {
 			me.stopAutoplay();
 			// Importantly, 'this' is the object which was clicked, NOT the object instance
 			me.goToBoard( $( this ).data( 'ply' ) );
+			e.preventDefault();
 		};
 
 		this.startAutoplay = function () {
