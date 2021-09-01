@@ -287,7 +287,10 @@
 			if ( me.currentPlyNumber < me.boards.length ) {
 				me.goToBoard( me.currentPlyNumber + 1 );
 			}
-			e.preventDefault();
+			if ( e ) {
+				/* Only when triggerd by mouseclick */
+				e.preventDefault();
+			}
 		};
 
 		this.retreat = function ( e ) {
