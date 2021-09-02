@@ -268,14 +268,6 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'f' => 'f',
 					'g' => 'g',
 					'h' => 'h',
-					'beginning' => 'Go to first move',
-					'previous' => 'Previous move',
-					'slower' => 'Slower',
-					'play' => 'Play/Pause',
-					'faster' => 'Faster',
-					'next' => 'Next move',
-					'final' => 'Go to last move',
-					'flip' => 'Flip board perspective',
 					'no-javascript' => 'JavaScript is not enabled on this page. '
 						. 'To view the game interactively, please enable JavaScript.'
 				]

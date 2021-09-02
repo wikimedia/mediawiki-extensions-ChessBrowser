@@ -3,6 +3,7 @@
 }
 
 .pgn-image-button {
+	box-sizing: content-box;
 	height: 26px;
 	width: 26px;
 	margin: 0.25em;
@@ -12,14 +13,13 @@
 	cursor: pointer;
 	background-color: #f8f9fa;
 	background-size: cover;
-	display: inline-block;
 }
 
 .pgn-image-button:hover {
 	background-color: #fff;
 }
 
-.pgn-image-button-on {
+.pgn-image-button[ aria-checked='true' ] {
 	/* @noflip */
 	box-shadow: inset 0 0 0 1px #36c;
 }
@@ -138,13 +138,14 @@
 	transition: 500ms;
 }
 
-.pgn-button-play.pgn-image-button-on {
+.pgn-button-play[ aria-checked='true' ] {
 	/* @embed */
 	background-image: url( ../resources/button-pause.svg );
 }
 
-.pgn-button-disabled {
+.pgn-image-button:disabled {
 	opacity: 0.3;
+	cursor: auto;
 }
 
 /* Flipping */
@@ -152,7 +153,7 @@
 .pgn-flip .pgn-board-div div.pgn-row-legend span,
 .pgn-flip .pgn-board-div div.pgn-file-legend span,
 .pgn-flip .pgn-board-div .pgn-chessPiece,
-.pgn-button-flip.pgn-image-button-on {
+.pgn-button-flip[ aria-checked='true' ] {
 	transform: rotate( 180deg );
 }
 

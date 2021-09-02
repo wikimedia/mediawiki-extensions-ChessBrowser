@@ -137,14 +137,6 @@ Basic opening (no javascript)
 		</div>
 	</div>
 	<div class="pgn-controls">
-		<div class="pgn-image-button pgn-image-button-off pgn-button-tostart" title="Go to first move"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-retreat" title="Previous move"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-slower" title="Slower"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-play" title="Play/Pause"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-faster" title="Faster"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-advance" title="Next move"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-toend" title="Go to last move"></div>
-		<div class="pgn-image-button pgn-image-button-off pgn-button-flip" title="Flip board perspective"></div>
 	</div>
 	<div class="pgn-nojs-message">
 		<p>

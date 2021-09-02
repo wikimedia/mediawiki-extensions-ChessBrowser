@@ -44,6 +44,7 @@
 				board = me.processPly( board, me.plys[ plyIndex ] );
 				me.boardStates.push( board );
 			}
+			me.loadButtons();
 			me.connectButtons();
 
 			// display is an optional argument; defaults to last board state if undefined
@@ -243,9 +244,9 @@
 			}
 
 			$( '.pgn-button-retreat, .pgn-button-tostart', me.$div )
-				.toggleClass( 'pgn-button-disabled', index === 0 );
+				.prop( 'disabled', index === 0 );
 			$( '.pgn-button-advance, .pgn-button-toend', me.$div )
-				.toggleClass( 'pgn-button-disabled', index === me.boards.length );
+				.prop( 'disabled', index === me.boards.length );
 
 			me.currentPlyNumber = index;
 			$( '.pgn-current-move', me.$div ).removeClass( 'pgn-current-move' );
@@ -271,6 +272,22 @@
 			}
 		};
 
+		this.loadButtons = function () {
+			var buttonsTemplate = mw.template.get( 'ext.chessViewer', 'ChessControls.mustache' );
+			var data = {
+				beginning: mw.msg( 'chessbrowser-beginning-of-game' ),
+				previous: mw.msg( 'chessbrowser-previous-move' ),
+				slower: mw.msg( 'chessbrowser-slow-autoplay' ),
+				play: mw.msg( 'chessbrowser-play-pause-button' ),
+				faster: mw.msg( 'chessbrowser-fast-autoplay' ),
+				next: mw.msg( 'chessbrowser-next-move' ),
+				final: mw.msg( 'chessbrowser-end-of-game' ),
+				flip: mw.msg( 'chessbrowser-flip-board' )
+			};
+			var $html = buttonsTemplate.render( data );
+			me.$div.find( '.pgn-controls' ).append( $html );
+		};
+
 		this.connectButtons = function () {
 			$( '.pgn-button-advance', me.$div ).on( 'click', me.advance );
 			$( '.pgn-button-retreat', me.$div ).on( 'click', me.retreat );
@@ -280,7 +297,10 @@
 			$( '.pgn-button-faster', me.$div ).on( 'click', me.faster );
 			$( '.pgn-button-slower', me.$div ).on( 'click', me.slower );
 			$( '.pgn-button-flip', me.$div ).on( 'click', me.flipBoard );
-			$( '.pgn-movelink', me.$div ).on( 'click', me.clickNotation );
+			$( '.pgn-movelink', me.$div ).attr( {
+				tabindex: 0,
+				role: 'button'
+			} ).on( 'click keydown', me.notationHandler );
 		};
 
 		this.advance = function ( e ) {
@@ -338,26 +358,35 @@
 		this.flipBoard = function ( e ) {
 			// eslint-disable-next-line no-jquery/no-class-state
 			me.$div.toggleClass( 'pgn-flip' );
-			// eslint-disable-next-line no-jquery/no-class-state
-			$( '.pgn-button-flip', me.$div ).toggleClass( 'pgn-image-button-on' );
+			var $button = $( '.pgn-button-flip', me.$div );
+			$button.attr( 'aria-checked', !( $button.attr( 'aria-checked' ) === 'true' ) );
 			e.preventDefault();
 		};
 
-		this.clickNotation = function ( e ) {
-			me.stopAutoplay();
-			// Importantly, 'this' is the object which was clicked, NOT the object instance
-			me.goToBoard( $( this ).data( 'ply' ) );
+		this.notationHandler = function ( e ) {
+			if ( e.type === 'keydown' ) {
+				if ( e.which !== 13 && e.which !== 32 ) {
+					return;
+				}
+			}
+			// Handle click, return and space keys
+			me.updateToNotation( e.target );
 			e.preventDefault();
+		};
+
+		this.updateToNotation = function ( target ) {
+			me.stopAutoplay();
+			me.goToBoard( $( target ).data( 'ply' ) );
 		};
 
 		this.startAutoplay = function () {
 			me.timer = setInterval( me.advance, me.delay );
-			$( '.pgn-button-play', me.$div ).addClass( 'pgn-image-button-on' );
+			$( '.pgn-button-play', me.$div ).attr( 'aria-checked', true );
 		};
 
 		this.stopAutoplay = function () {
 			clearTimeout( me.timer );
-			$( '.pgn-button-play', me.$div ).removeClass( 'pgn-image-button-on' );
+			$( '.pgn-button-play', me.$div ).attr( 'aria-checked', false );
 			me.timer = null;
 		};
 
@@ -374,7 +403,7 @@
 
 	mw.hook( 'wikipage.content' ).add( function ( $content ) {
 		var newGameInstance;
-		$content.find( '.pgn-viewer' ).each( function ( index, elem ) {
+		$( '.pgn-viewer', $content ).each( function ( index, elem ) {
 			newGameInstance = new Game( $( elem ) );
 			newGameInstance.makeBoard();
 			/* Add CSS class to indicate that the loading phase is complete */

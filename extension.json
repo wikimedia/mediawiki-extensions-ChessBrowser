@@ -26,11 +26,24 @@
 	},
 	"ResourceModules": {
 		"ext.chessViewer": {
+			"templates": {
+				"ChessControls.mustache": "templates/ChessControls.mustache"
+			},
 			"scripts": [
 				"modules/ext.chessViewer.core.js"
 			],
 			"styles": [
 				"modules/ext.chessViewer.css"
+			],
+			"messages": [
+				"chessbrowser-beginning-of-game",
+				"chessbrowser-previous-move",
+				"chessbrowser-slow-autoplay",
+				"chessbrowser-play-pause-button",
+				"chessbrowser-fast-autoplay",
+				"chessbrowser-next-move",
+				"chessbrowser-end-of-game",
+				"chessbrowser-flip-board"
 			],
 			"dependencies": [
 				"jquery.makeCollapsible",

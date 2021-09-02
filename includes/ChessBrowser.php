@@ -224,14 +224,6 @@ class ChessBrowser {
 			'f' => wfMessage( 'chessbrowser-f-file' )->text(),
 			'g' => wfMessage( 'chessbrowser-g-file' )->text(),
 			'h' => wfMessage( 'chessbrowser-h-file' )->text(),
-			'beginning' => wfMessage( 'chessbrowser-beginning-of-game' )->text(),
-			'previous' => wfMessage( 'chessbrowser-previous-move' )->text(),
-			'slower' => wfMessage( 'chessbrowser-slow-autoplay' )->text(),
-			'play' => wfMessage( 'chessbrowser-play-pause-button' )->text(),
-			'faster' => wfMessage( 'chessbrowser-fast-autoplay' )->text(),
-			'next' => wfMessage( 'chessbrowser-next-move' )->text(),
-			'final' => wfMessage( 'chessbrowser-end-of-game' )->text(),
-			'flip' => wfMessage( 'chessbrowser-flip-board' )->text(),
 			'no-javascript' => wfMessage( 'chessbrowser-no-javascript' )->text()
 		];
 	}
