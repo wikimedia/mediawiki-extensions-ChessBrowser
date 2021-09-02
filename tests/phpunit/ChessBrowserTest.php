@@ -178,7 +178,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'p',
 					'piece-color' => 'd',
 					'piece-rank' => '0',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			],
 			[
@@ -189,7 +189,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'p',
 					'piece-color' => 'd',
 					'piece-rank' => '0',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			],
 			[
@@ -200,7 +200,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'p',
 					'piece-color' => 'l',
 					'piece-rank' => '0',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			],
 			[
@@ -211,7 +211,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'n',
 					'piece-color' => 'l',
 					'piece-rank' => '1',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			],
 			[
@@ -222,7 +222,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'q',
 					'piece-color' => 'd',
 					'piece-rank' => '0',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			],
 			[
@@ -233,7 +233,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'piece-type' => 'b',
 					'piece-color' => 'd',
 					'piece-rank' => '0',
-					'piece-file' => '1'
+					'piece-file' => '1',
 				]
 			]
 		];
