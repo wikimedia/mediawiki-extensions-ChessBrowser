@@ -1,1 +1,17 @@
-<span class="pgn-movelink" data-ply="{{move-ply}}">{{move-token}}</span>
+<span class="pgn-movelink" data-ply="{{move-ply}}">
+	{{move-token}}
+	{{#annotations}}
+	<span class="pgn-comment">
+		{{comment}}
+	</span>
+	{{/annotations}}
+	{{#variations}}
+	<span class="pgn-variation" data-variation="{{debug}}">
+		(
+		{{#variation-moves}}
+		{{> move-variation-span}}
+		{{/variation-moves}}
+		)
+	</span>
+	{{/variations}}
+</span>

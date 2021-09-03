@@ -1,6 +1,8 @@
 <div class="pgn-board-div">
 	<div class="pgn-board-img">
-		{{>chess-piece}}
+		{{#piece-set}}
+		<div class="pgn-chessPiece pgn-ptype-color-{{piece-type}}{{piece-color}} pgn-prow-{{piece-rank}} pgn-pfile-{{piece-file}}"></div>
+		{{/piece-set}}
 	</div>
 	<div class="pgn-row-legend pgn-row-left">
 		<span class="pgn-row-legend pgn-prow-0">{{rank-1}}</span>

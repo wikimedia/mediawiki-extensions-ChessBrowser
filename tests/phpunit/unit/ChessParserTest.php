@@ -67,6 +67,20 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $expected, $fenParts );
 	}
 
+	/**
+	 * @dataProvider provideConvertParserOutput
+	 * @param string $message
+	 * @param array $data
+	 * @param array $expected
+	 */
+	public function testConvertParserOutput( $message, $data, $expected ) {
+		$moves = $data[0];
+		$fenParts = $data[1];
+		$moveObjects = $data[2];
+		$convertedOutput = $this->emptyChessParser->convertParserOutput( $moves, $fenParts, $moveObjects );
+		$this->assertEquals( $expected, $convertedOutput, $message );
+	}
+
 	public static function provideGetFenParts() {
 		return [
 			[
@@ -155,6 +169,119 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 				],
 				[ "move", null ]
 			]
+		];
+	}
+
+	public static function provideConvertParserOutput() {
+		return [
+			[
+				"Single move",
+				[
+					[
+						[
+							'm' => 'e4',
+							'fen' => 'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1',
+							'from' => 'e2',
+							'to' => 'e4'
+						]
+					],
+					[
+						'toMove' => 'b',
+						'enPassantTarget' => 24
+					],
+					[]
+				],
+				[
+					'boards' => [
+						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
+					],
+					'plys' => [
+						[ 33,35,[ "move",null,null ] ]
+					],
+					'tokens' => [ 'e4' ]
+				]
+			],
+			[
+				"Single move with comment",
+				[
+					[
+						[
+							'm' => 'e4',
+							'fen' => 'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1',
+							'from' => 'e2',
+							'to' => 'e4',
+							'comment' => 'Test comment'
+						]
+					],
+					[
+						'toMove' => 'b',
+						'enPassantTarget' => 24
+					],
+					[]
+				],
+				[
+					'boards' => [
+						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
+					],
+					'plys' => [
+						[ 33,35,[ "move",null,'Test comment' ] ]
+					],
+					'tokens' => [ 'e4' ]
+				]
+			],
+			[
+				"Single move with variation and empty moveObject",
+				[
+					[
+						[
+							'm' => 'e4',
+							'fen' => 'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1',
+							'from' => 'e2',
+							'to' => 'e4',
+							'variations' => [
+								[
+									[
+										'm' => 'e3',
+										'fen' => 'rnbqkbnr\/pppppppp\/8\/8\/8\/4P3\/PPPP1PPP\/RNBQKBNR b KQkq - 0 1',
+										'from' => 'e2',
+										'to' => 'e4'
+									]
+								]
+							]
+						]
+					],
+					[
+						'toMove' => 'b',
+						'enPassantTarget' => 24
+					],
+					[]
+				],
+				[
+					'boards' => [
+						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
+					],
+					'plys' => [
+						[ 33,35,[ "move",null,null ] ]
+					],
+					'tokens' => [ 'e4' ],
+					'variations' => [
+						[
+							0,
+							[
+								[
+									'boards' => [
+										'rnbqkbnr\/pppppppp\/8\/8\/8\/4P3\/PPPP1PPP\/RNBQKBNR b KQkq - 0 1'
+									],
+									'plys' => [
+										[ 33,35,[ "move",null,null ] ]
+									],
+									'tokens' => [ 'e3' ]
+								]
+							]
+ ]
+					]
+				]
+			],
 		];
 	}
 }
