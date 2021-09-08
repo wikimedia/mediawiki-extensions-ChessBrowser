@@ -68,85 +68,104 @@ class ChessBrowser {
 	/**
 	 * Check if tag cotains valid input format PGN
 	 *
-	 * The regular expression checks whether the string fits the general structure
-	 *   of a PGN file and is divided into three main parts
+	 * The input PGN is checked by various regular expressions to get a rough
+	 *  sense of whether the PGN is valid before devoting the parsing resources.
 	 *
-	 * (?:
-	 *    \[
-	 *      \s*\S+\s*
-	 *      "[^"\n]*"\s*
-	 *    \]\s*
-	 *  )*
-	 * |    This non-capturing group checks for valid tag pairs by looking for patterns
-	 * |      within square brackets. The content is pretty unimportant and only
-	 * |      checked on a superficial level.
-	 * |- \S
-	 * |    checks that there is some non-whitespace as the first element of the tag
-	 * |- "[^"\n]*"
-	 * |    checks that the second element is a quote delimited string. It
-	 * |      will match an empty string or a string of any length as long as it does
-	 * |      not contain a newline or double quote marks.
-	 * |- \s*
-	 * |    Any amount of whitespace may separate items, and the validation is very
-	 * |      permissive when it comes to whitespace.
-	 * |- (?: ... )*
-	 * |    The PGN will pass validation even if tag pairs are omitted.
+	 * The validation is a series of filters which remove sections that the
+	 *  parser can understand. The PGN is valid if the entire input gets
+	 *  filtered and is invalid if there is some part of the string that
+	 *  remains after the filtering.
 	 *
-	 * (?:
-	 *    (?:\{.*?\})?
-	 *    (?:\(.*?\))?
-	 *    \d*\.*\s*
-	 *    [a-hxOBNRKQ1-8=+#\-]+\s*
-	 *  )+
-	 * |    This non-capturing group checks that the rest of the PGN follows the
-	 * |      general format of "1. d4 d5 2. c4 ...". Following the PGN input
-	 * |      standard, it is highly permissive of variation.
-	 * |
-	 * |- (?:\{.*?\})?
-	 * |    Check for comments which are delimited by curly braces and can appear
-	 * |      just about anywhere in the movetext. The content of the comment is
-	 * |      immaterial and can be pretty much anything.
-	 * |- (?:\(.*?\))?
-	 * |    Check for move variations which are delimited by parentheses and can
-	 * |      appear just about anywhere in the mvoetext. The content can be pretty
-	 * |      much anything and will frequently include recursion.
-	 * | These two non-capturing groups precede actual checks of the move text so that
-	 * |    comments and variations can match anywhere, including before the first
-	 * |    move.
-	 * |
-	 * |- \d*\.*
-	 * |    Moves may be preceded by a digit and this digit may be followed by any
-	 * |      number of periods, including none at all. The PGN import format allows
-	 * |      this to be omitted completely. Usually the move number only precedes
-	 * |      white's move, but the import format allows them to precede black as well.
-	 * |- [a-hxOBNRKQ1-8=+#\-]+
-	 * |    A move token can be as simple as "d4" or as complex as "dxe8=R#". Despite this
-	 * |      variation in length, a valid token is composed of a finite symbol set defined
-	 * |      by this group. Valid symbols are file letters (a-h), rank numbers (1-8), the
-	 * |      capture symbol (x), the piece symbols (BNRKQ), the promotion symbol (=), the
-	 * |      check symbol (+), the checkmate symbol (#), and the components of the castling
-	 * |      notation (O-O).
-	 * |- \s*
-	 * |    Any amount of whitespace may separate items, including none at all.
-	 * |- (?: ... )+
-	 * |    The validator requires at least one move to be present. This differs from the
-	 * |      PGN format which defines the empty string as a valid PGN. Still, this
-	 * |      validation is extremely permissive with a string as simple as "e4" passing.
-	 *
-	 * [0-2\/-]{0,7}
-	 * |  Check terminal notation. Typical values are 1-0 (white wins), 0-1 (black wins)
-	 * |    and 1/2-1/2 (draw), but it may be omited. This gives us a limited character set
-	 * |    and limited range of possible lengths. Any 0 to 7 character string made up
-	 * |    of the given character set will match,
 	 * @param string $input
 	 * @throws ChessBrowserException if invalid
 	 */
 	private static function assertValidPGN( string $input ) {
-		// phpcs:ignore Generic.Files.LineLength.TooLong
-		$likeValidPGN = '/^\s*(?:\[\s*\S+\s*"[^"\n]*"\s*\]\s*)*\s*(?:(?:\{.*?\})?(?:\(.*?\))?\d*\.*\s*[a-hxOBNRKQ1-8=+#\-]+\s*)+\s*[0-2\/-]{0,7}\s*$/';
-		$couldBeValid = preg_match( $likeValidPGN, $input );
-		if ( $couldBeValid !== 1 ) {
-			throw new ChessBrowserException( 'Invalid PGN' );
+		// Validate escaped lines (PGN Standard 6) identified by a % sign at
+		//  start of line and ignoring all following text on the line. A %
+		//  anywhere else but the start of line has no meaning.
+		$escapedLine = '/^%.*?\n/m';
+		$input = preg_replace( $escapedLine, "", $input );
+
+		// Validate tag pairs (PGN Standard 8.1). Composed of four tokens:
+		//   left bracket, ie: [
+		//   symbol token, a sequence comprising only alphanumeric chars and underscore
+		//   string token, a symbol token delimited by double quotes
+		//   right bracket, ie: ]
+		// Input format allows any ammount of whitespace to separate these tokens.
+		$tagPairs = '/\[\s*[a-zA-Z0-9_]+\s*".*"\s*\]/';
+		$input = preg_replace( $tagPairs, "", $input );
+
+		// Validate comments (PGN Standard 5) and move variations (idem 8.2.5).
+		//   Inline comments are delimited by braces
+		//   Rest-of-line comments are delimited by ; and a newline
+		//   Variations are delimited by parentheses
+		$annotations = '/({.*?}|\(.*?\)|;.*?\n)/';
+		$input = preg_replace( $annotations, "", $input );
+
+		// Validate Numeric Annotation Glyphs (NAGs; PGN Standard 10). Composed of:
+		//   a leading dollar sign ($)
+		//   a non-negative decimal integer between 0 and 255
+		// We do not check that the NAG is proper, only that it has the same number of
+		//  digits as a proper NAG, i.e., not greater than a thousand.
+		$NAGs = '/\$\d{1,3}/';
+		$input = preg_replace( $NAGs, "", $input );
+
+		// Validate game termination markers (PGN Standard 8.2.6). One of four values:
+		//   1-0
+		//   0-1
+		//   1/2-1/2
+		//   *
+		// We allow a great deal of leeway in the separator accepting any non-alphanumeric
+		//  value (\W). This is to accomodate en- or em-dashes, periods, spaces, etc
+		//  without a complex pre-processing overhead.
+		// The game will not validate if there is more than one termination marker.
+		$termCount = 0;
+		$limit = -1;
+		$termination = '/(1\W0|0\W1|1\/2\W1\/2|\*)/';
+		$input = preg_replace( $termination, "", $input, $limit, $termCount );
+		if ( $termCount > 1 ) {
+			throw new ChessBrowserException( 'Too many termination tokens.' );
+		}
+
+		// Validate move number indicators (PGN Standard 8.2.2) if they exist. Move
+		// numbers are composed of:
+		//   a leading non-alphanumeric character (\W) which terminates the previous token
+		//   one or more digits (\d+)
+		//   any amount of whitespace (\s*)
+		//   any number of periods (\.*)
+		// Input PGN format is extremely forgiving with regards to the last two criteria
+		$moveNumbers = '/\W\d+\s*\.*/';
+		// Make sure SAN starts with a space
+		$input = " " . $input;
+		$input = preg_replace( $moveNumbers, "", $input );
+
+		// Validate standard algebraic notation (SAN; PGN Standard 8.2.3). As these denote
+		// moves on a chess board, their composition is restricted to:
+		//   files (a-h)
+		//   ranks (1-8)
+		//   the capture indicator (x)
+		//   piece indicators (BNRKQ)
+		//   promotion indictor (=)
+		//   check (+) and checkmate(#)
+		//   components of a castling marker (O-O and O-O-O)
+		// The minimum length of a SAN token is 2 characters, denoting a pawn move.
+		// The theoretical maximum is 7, but we do not check the upper bound.
+		$SAN = '/[a-hxOBNRKQ1-8=+#\-]{2,}/';
+		$input = preg_replace( $SAN, "", $input );
+
+		// Moves may be annotated by some number of glyphs. The most common are checked
+		// for below.
+		$glyphs = [ '?', '!', '+', '-', '=' ];
+		$input = str_replace( $glyphs, "", $input );
+
+		// If the PGN is valid, we should have either an empty string or a string containing
+		// only white space. If, after removing the white space, we have anything left in
+		// the string, we know that the PGN is not valid.
+		$whitespace = '/\s+/';
+		$input = preg_replace( $whitespace, "", $input );
+
+		if ( strlen( $input ) > 0 ) {
+			throw new ChessBrowserException( 'Invalid PGN.' );
 		}
 	}
 
