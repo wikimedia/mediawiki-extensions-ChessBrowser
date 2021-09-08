@@ -297,6 +297,7 @@ class MoveBuilder {
 		$moveVar = ChessJson::MOVE_VARIATIONS;
 		$countVars = count( $this->moveReferences[$this->pointer][$index][$moveVar] );
 		$this->moveReferences[$this->pointer][$index][$moveVar][$countVars] = [];
+		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		$this->moveReferences[] =& $this->moveReferences[$this->pointer][$index][$moveVar][$countVars];
 		$this->pointer++;
 	}
