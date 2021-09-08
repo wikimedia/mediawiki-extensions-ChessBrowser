@@ -135,7 +135,7 @@ class ChessBrowser {
 		//   any number of periods (\.*)
 		// Input PGN format is extremely forgiving with regards to the last two criteria
 		$moveNumbers = '/\W\d+\s*\.*/';
-		// Make sure SAN starts with a space
+		// Make sure SAN starts with a space so that first move number is matched
 		$input = " " . $input;
 		$input = preg_replace( $moveNumbers, "", $input );
 
@@ -153,9 +153,8 @@ class ChessBrowser {
 		$SAN = '/[a-hxOBNRKQ1-8=+#\-]{2,}/';
 		$input = preg_replace( $SAN, "", $input );
 
-		// Moves may be annotated by some number of glyphs. The most common are checked
-		// for below.
-		$glyphs = [ '?', '!', '+', '-', '=' ];
+		// Moves may be annotated by some number of glyphs. Check all known by NagTable.
+		$glyphs = array_values( NagTable::MAP );
 		$input = str_replace( $glyphs, "", $input );
 
 		// If the PGN is valid, we should have either an empty string or a string containing

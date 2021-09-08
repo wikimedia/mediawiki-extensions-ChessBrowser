@@ -60,7 +60,7 @@ class ChessParser {
 
 		$clean = preg_replace( "/{\s{0,6}\[%emt[^\}]*?\}/", "", $clean );
 
-		$clean = preg_replace( "/\\$\d+/s", "", $clean );
+		$clean = preg_replace( '/\s(\$\d{1,3})/', '\1', $clean );
 		$clean = str_replace( "({", "( {", $clean );
 		$clean = preg_replace( "/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $clean );
 		$clean = preg_replace( "/\r/s", "", $clean );
@@ -74,6 +74,8 @@ class ChessParser {
 		$clean = str_replace( "0-0", "O-O", $clean );
 
 		$clean = preg_replace( '/^([^\[])*?\[/', '[', $clean );
+
+		$clean = NagTable::replaceNag( $clean );
 
 		$pgnGames = [];
 		$content = "\n\n" . $clean;
