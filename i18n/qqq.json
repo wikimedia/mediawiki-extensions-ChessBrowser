@@ -44,5 +44,22 @@
 	"chessbrowser-next-move": "Label for button which goes to the next move",
 	"chessbrowser-end-of-game": "Label for button which goes to the last move of the game.\n\nShould be similar to {{msg-mw|Chessbrowser-beginning-of-game}}.",
 	"chessbrowser-flip-board": "Label for button which switches whether the white or black pieces are on the bottom of the board",
-	"chessbrowser-no-javascript": "Text displayed if the user does not have JavaScript enabled"
+	"chessbrowser-no-javascript": "Text displayed if the user does not have JavaScript enabled",
+	"chessbrowser-boardstate-initial": "Accessibility description of the state of the board being the initial state.",
+	"chessbrowser-boardstate-final": "Accessibility description of the state of the board being the final state.",
+	"chessbrowser-boardstate-check": "Accessibility description of the state of the board when in check.",
+	"chessbrowser-boardstate-checkmate": "Accessibility description of the state of the board when in checkmate.",
+	"chessbrowser-castling-queenside": "Accessibility description of move where someone castles queenside.",
+	"chessbrowser-castling-kingside": "Accessibility description of move where someone castles queenside.",
+	"chessbrowser-piece-king": "Name of chesspiece King, used in accessibility description of moves",
+	"chessbrowser-piece-queen": "Name of chesspiece Queen, used in accessibility description of moves",
+	"chessbrowser-piece-bishop": "Name of chesspiece Bishop, used in accessibility description of moves",
+	"chessbrowser-piece-knight": "Name of chesspiece Knight, used in accessibility description of moves",
+	"chessbrowser-piece-rook": "Name of chesspiece Rook, used in accessibility description of moves",
+	"chessbrowser-piece-pawn": "Name of chesspiece Pawn, used in accessibility description of moves",
+	"chessbrowser-move": "Accessibility description of chess move.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file where the chesspiece moves to, like A3.\n",
+	"chessbrowser-capture": "Accessibility description of chess move where you capture a piece.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file of the chesspiece being captured, like A3.\n",
+	"chessbrowser-promote": "Accessibility description of chess move where a pawn reaches the opposing side and promotes to become another piece. $1 - the name of the piece being promoted to.",
+	"chessbrowser-black-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside",
+	"chessbrowser-white-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside"
 }
