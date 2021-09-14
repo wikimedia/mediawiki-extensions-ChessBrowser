@@ -46,7 +46,6 @@
 				"chessbrowser-flip-board"
 			],
 			"dependencies": [
-				"jquery.makeCollapsible",
 				"jquery.ui"
 			]
 		},

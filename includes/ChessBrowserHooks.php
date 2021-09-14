@@ -45,8 +45,8 @@ class ChessBrowserHooks {
 	 */
 	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
 		if ( $parserOutput->getExtensionData( 'ChessViewerTrigger' ) ) {
-			$out->addModuleStyles( 'ext.chessViewer.styles' );
-			$out->addModules( 'ext.chessViewer' );
+			$out->addModuleStyles( [ 'ext.chessViewer.styles', 'jquery.makeCollapsible.styles' ] );
+			$out->addModules( [ 'ext.chessViewer', 'jquery.makeCollapsible' ] );
 			$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
 		}
 	}

@@ -70,11 +70,11 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 
 		$mockOP->expects( $this->once() )
 			->method( 'addModuleStyles' )
-			->with( 'ext.chessViewer.styles' );
+			->with( [ 'ext.chessViewer.styles', 'jquery.makeCollapsible.styles' ] );
 
 		$mockOP->expects( $this->once() )
 			->method( 'addModules' )
-			->with( 'ext.chessViewer' );
+			->with( [ 'ext.chessViewer', 'jquery.makeCollapsible' ] );
 
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()
