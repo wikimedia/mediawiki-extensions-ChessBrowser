@@ -51,8 +51,11 @@
 			me.connectButtons();
 			me.makeAccessibleBoard();
 
+			display = Number( me.data.init );
 			// display is an optional argument; defaults to last board state if undefined
 			me.goToBoard( display || me.plys.length );
+			// After loading everything, remove .notransition so that transitions work
+			me.$div.removeClass( 'notransition' );
 		};
 
 		this.makeAccessibleBoard = function () {

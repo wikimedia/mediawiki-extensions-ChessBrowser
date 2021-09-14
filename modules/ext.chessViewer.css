@@ -185,6 +185,13 @@
 	transform: rotate( 180deg );
 }
 
+.notransition > .pgn-board-div {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
 .pgn-piece-hidden {
 	opacity: 0;
 }

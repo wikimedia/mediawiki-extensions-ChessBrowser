@@ -265,6 +265,71 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers ::parseArguments
+	 * @dataProvider provideParseArguments
+	 * @param array $args
+	 * @param array $expected
+	 * @param string $message
+	 */
+	public function testParseArguments( array $args, array $expected, string $message ) {
+		$parsedArgs = ChessBrowser::parseArguments( $args );
+		$this->assertEquals( $expected, $parsedArgs, $message );
+	}
+
+	public static function provideParseArguments() {
+		return [
+			[
+				[],
+				[
+					'side' => 'white',
+					'ply' => 1
+				],
+				'Test defaults with no arguments.'
+			],
+			[
+				[ 'foo' => 'bar' ],
+				[
+					'side' => 'white',
+					'ply' => 1
+				],
+				'Test discard unrecognized arguments.'
+			],
+			[
+				[ 'side' => 'black' ],
+				[
+					'side' => 'black',
+					'ply' => 1
+				],
+				'Test overwrite default side.'
+			],
+			[
+				[ 'ply' => 12 ],
+				[
+					'side' => 'white',
+					'ply' => 12
+				],
+				'Test overwrite default ply.'
+			],
+			[
+				[ 'ply' => '12' ],
+				[
+					'side' => 'white',
+					'ply' => 12
+				],
+				'Test ply outputs integer.'
+			],
+			[
+				[ 'ply' => 0 ],
+				[
+					'side' => 'white',
+					'ply' => 1
+				],
+				'Test rewrite 0 to 1.'
+			]
+		];
+	}
+
+	/**
 	 * @covers ::assertValidPGN
 	 * @dataProvider provideAssertValidPGNThrowsProperException
 	 * @param array $pgnLines

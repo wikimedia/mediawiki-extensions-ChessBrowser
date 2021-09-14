@@ -46,7 +46,7 @@ class ChessBrowser {
 			$gameNum = $out->getExtensionData( 'ChessViewerNumGames' ) ?? 0;
 			$gameNum++;
 
-			$board = self::createBoard( $input, $gameNum );
+			$board = self::createBoard( $input, $gameNum, $args );
 
 			// Set after the parsing, etc. in case there is an error
 			// Set variable so resource loader knows whether to send javascript
@@ -174,18 +174,26 @@ class ChessBrowser {
 	 *
 	 * @param string $input
 	 * @param int $gameNum
+	 * @param array $args The XML arguments from MediaWiki
 	 * @return string
 	 * @throws ChessBrowserException
 	 */
-	private static function createBoard( string $input, int $gameNum ): string {
+	private static function createBoard( string $input, int $gameNum, array $args ): string {
+		$attr = self::parseArguments( $args );
+		$swap = $attr['side'] === 'black';
+		$initialPosition = $attr['ply'];
+
 		// Initialize parsers
 		$chessParser = new ChessParser( $input );
+
 		$chessObject = $chessParser->createOutputJson();
 		$annotationObject = $chessObject['variations'];
 		unset( $chessObject['variations'] );
-		if ( !( $chessObject && $chessObject['boards'] && $chessObject['boards'][0] ) ) {
+		$chessObject['init'] = $initialPosition;
+		if ( !$chessObject['boards'][0] ) {
 			throw new ChessBrowserException( 'No board available' );
 		}
+
 		// Set up template arguments
 		$templateParser = new TemplateParser( __DIR__ . '/../templates' );
 		$templateParser->enableRecursivePartials( true );
@@ -193,11 +201,11 @@ class ChessBrowser {
 			'data-chess' => json_encode( $chessObject ),
 			'data-chess-annotations' => json_encode( $annotationObject ),
 			'div-number' => $gameNum,
-			// TODO One day these dimensions will be determined by the user
-			'board-height' => '248px',
-			'board-width' => '248px',
-			'label-height' => '208px',
-			'label-width' => '208px',
+			// The JS toggles a class to flip games, so unlike FEN we only need
+			// to add the class in order to flip the board to black's view.
+			// Include notransition class so that readers don't get FOUC and
+			// watch all the boards spin on load
+			'swap' => $swap ? ' pgn-flip notransition' : '',
 			'move-set' => self::getMoveSet( $chessObject, $annotationObject ),
 			'piece-set' => self::generatePieces( $chessObject['boards'][0] )
 		];
@@ -221,6 +229,9 @@ class ChessBrowser {
 	 */
 	public static function newPosition( $input, array $args, Parser $parser, PPFrame $frame ): array {
 		try {
+			$attr = self::parseArguments( $args );
+			$swap = $attr['side'] === 'black';
+
 			$input = trim( $input );
 			self::assertValidFEN( $input );
 			$fenParser = new FenParser0x88( $input );
@@ -232,14 +243,9 @@ class ChessBrowser {
 			$templateParser = new TemplateParser( __DIR__ . '/../templates' );
 			$templateArgs = [
 				'data-chess' => json_encode( $fenOut ),
-				// TODO One day these dimensions will be determined by the user
-				'board-height' => '248px',
-				'board-width' => '248px',
-				'label-height' => '208px',
-				'label-width' => '208px',
-				'piece-set' => self::generatePieces( $fenOut )
+				'piece-set' => self::generatePieces( $fenOut, $swap )
 			];
-			$localizedLegendLabels = self::getLocalizedLegendLabels();
+			$localizedLegendLabels = self::getLocalizedLegendLabels( $swap );
 			$templateArgs = array_merge( $templateArgs, $localizedLegendLabels );
 			$board = $templateParser->processTemplate(
 				'ChessBoard',
@@ -275,12 +281,44 @@ class ChessBrowser {
 	}
 
 	/**
+	 * Return associative array with argument defaults
+	 *
+	 * @param array $args Arguments passed as xml attributes through MediaWiki parser
+	 * @return array
+	 */
+	public static function parseArguments( array $args ): array {
+		$attr = [
+			'side' => 'white',
+			'ply' => 1
+		];
+		foreach ( $args as $name => $value ) {
+			if ( array_key_exists( $name, $attr ) ) {
+				$attr[$name] = $value;
+			}
+		}
+		if ( !in_array( $attr['side'], [ 'white','black' ] ) ) {
+			$attr['side'] = 'white';
+		}
+		// Ensure that an integer is always returned
+		$attr['ply'] = (int)$attr['ply'];
+		// Setting display to 0 results in the last ply being displayed, not
+		// the initial board state which is counterintuitive. Rewrite 0 to 1
+		// to prevent this from happening.
+		// TODO: Add some kind of warning about this behavior or fix it in JS
+		if ( $attr['ply'] === 0 ) {
+			$attr['ply'] = 1;
+		}
+		return $attr;
+	}
+
+	/**
 	 * Create array of mustache arguments for chess-piece.mustache from a given FEN string
 	 * @since 0.2.0
 	 * @param string $fen
+	 * @param bool $swap Display from black's perspective if true
 	 * @return array
 	 */
-	public static function generatePieces( $fen ): array {
+	public static function generatePieces( $fen, $swap = false ): array {
 		$pieceArray = [];
 		$rankIndex = 7;
 		$fileIndex = 0;
@@ -295,7 +333,13 @@ class ChessBrowser {
 				if ( $fileIndex > 7 ) {
 					continue;
 				}
-				$pieceArray[] = self::createPiece( $fenChar, $rankIndex, $fileIndex );
+				if ( $swap ) {
+					$piece = self::createPiece( $fenChar, 7 - $rankIndex, $fileIndex );
+				} else {
+					$piece = self::createPiece( $fenChar, $rankIndex, $fileIndex );
+				}
+
+				$pieceArray[] = $piece;
 				$fileIndex++;
 			}
 		}
@@ -305,10 +349,11 @@ class ChessBrowser {
 	/**
 	 * Retrieve the interface text for the correct locale
 	 * @since 0.2.0
+	 * @param bool $swap
 	 * @return array
 	 */
-	public static function getLocalizedLabels(): array {
-		$legend = self::getLocalizedLegendLabels();
+	public static function getLocalizedLabels( bool $swap = false ): array {
+		$legend = self::getLocalizedLegendLabels( $swap );
 		$other = [
 			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
 			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
@@ -329,18 +374,34 @@ class ChessBrowser {
 	/**
 	 * Retrieve the interface text for the correct locale for the legend only
 	 * @since 0.3.0
+	 * @param bool $swap
 	 * @return array
 	 */
-	private static function getLocalizedLegendLabels(): array {
-		return [
-			'rank-1' => wfMessage( 'chessbrowser-first-rank' )->text(),
-			'rank-2' => wfMessage( 'chessbrowser-second-rank' )->text(),
-			'rank-3' => wfMessage( 'chessbrowser-third-rank' )->text(),
-			'rank-4' => wfMessage( 'chessbrowser-fourth-rank' )->text(),
-			'rank-5' => wfMessage( 'chessbrowser-fifth-rank' )->text(),
-			'rank-6' => wfMessage( 'chessbrowser-sixth-rank' )->text(),
-			'rank-7' => wfMessage( 'chessbrowser-seventh-rank' )->text(),
-			'rank-8' => wfMessage( 'chessbrowser-eighth-rank' )->text(),
+	private static function getLocalizedLegendLabels( bool $swap ): array {
+		if ( $swap ) {
+			$ranks = [
+				'rank-8' => wfMessage( 'chessbrowser-first-rank' )->text(),
+				'rank-7' => wfMessage( 'chessbrowser-second-rank' )->text(),
+				'rank-6' => wfMessage( 'chessbrowser-third-rank' )->text(),
+				'rank-5' => wfMessage( 'chessbrowser-fourth-rank' )->text(),
+				'rank-4' => wfMessage( 'chessbrowser-fifth-rank' )->text(),
+				'rank-3' => wfMessage( 'chessbrowser-sixth-rank' )->text(),
+				'rank-2' => wfMessage( 'chessbrowser-seventh-rank' )->text(),
+				'rank-1' => wfMessage( 'chessbrowser-eighth-rank' )->text(),
+			];
+		} else {
+			$ranks = [
+				'rank-1' => wfMessage( 'chessbrowser-first-rank' )->text(),
+				'rank-2' => wfMessage( 'chessbrowser-second-rank' )->text(),
+				'rank-3' => wfMessage( 'chessbrowser-third-rank' )->text(),
+				'rank-4' => wfMessage( 'chessbrowser-fourth-rank' )->text(),
+				'rank-5' => wfMessage( 'chessbrowser-fifth-rank' )->text(),
+				'rank-6' => wfMessage( 'chessbrowser-sixth-rank' )->text(),
+				'rank-7' => wfMessage( 'chessbrowser-seventh-rank' )->text(),
+				'rank-8' => wfMessage( 'chessbrowser-eighth-rank' )->text(),
+			];
+		}
+		$files = [
 			'a' => wfMessage( 'chessbrowser-a-file' )->text(),
 			'b' => wfMessage( 'chessbrowser-b-file' )->text(),
 			'c' => wfMessage( 'chessbrowser-c-file' )->text(),
@@ -350,6 +411,8 @@ class ChessBrowser {
 			'g' => wfMessage( 'chessbrowser-g-file' )->text(),
 			'h' => wfMessage( 'chessbrowser-h-file' )->text(),
 		];
+
+		return array_merge( $ranks, $files );
 	}
 
 	/**
