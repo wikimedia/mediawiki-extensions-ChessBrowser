@@ -56,6 +56,8 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'white-label' => 'White',
 					'black-label' => 'Black',
 					'result-label' => 'Result',
+					'notations-label' => 'Chess moves described in PGN notation. '
+						. 'Click a button to change to that position of the board.',
 					'rank-1' => '1',
 					'rank-2' => '2',
 					'rank-3' => '3',

@@ -148,6 +148,34 @@
 	cursor: auto;
 }
 
+.pgn-grid {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	top: 20px;
+	/* @noflip */
+	left: 20px;
+	width: 208px;
+	height: 208px;
+}
+
+.pgn-grid > div {
+	display: flex;
+	flex: 0 0 26px;
+	flex-direction: row;
+	text-align: center;
+}
+
+.pgn-grid .pgn-grid-cell {
+	flex: 0 0 26px;
+	opacity: 0;
+	overflow: hidden;
+	height: 26px;
+	cursor: default;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
 /* Flipping */
 .pgn-flip .pgn-board-div,
 .pgn-flip .pgn-board-div div.pgn-row-legend span,

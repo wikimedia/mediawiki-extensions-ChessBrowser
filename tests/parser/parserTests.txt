@@ -52,7 +52,7 @@ Basic opening (no javascript)
 				</tr>
 		</tbody>
 	</table>
-	<div class="pgn-notations">
+	<div class="pgn-notations" role="group" aria-label="Chess moves described in PGN notation. Click a button to change to that position of the board.">
 		<p>
 			<span class="pgn-movelink" data-ply="0">⚃</span>
 					<span class="pgn-steplink">1</span>

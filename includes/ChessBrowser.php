@@ -253,6 +253,7 @@ class ChessBrowser {
 			'white-label' => wfMessage( 'chessbrowser-white-label' )->text(),
 			'black-label' => wfMessage( 'chessbrowser-black-label' )->text(),
 			'result-label' => wfMessage( 'chessbrowser-result-label' )->text(),
+			'notations-label' => wfMessage( 'chessbrowser-notations-label' )->text(),
 			'rank-1' => wfMessage( 'chessbrowser-first-rank' )->text(),
 			'rank-2' => wfMessage( 'chessbrowser-second-rank' )->text(),
 			'rank-3' => wfMessage( 'chessbrowser-third-rank' )->text(),

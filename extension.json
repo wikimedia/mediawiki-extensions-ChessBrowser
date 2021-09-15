@@ -36,6 +36,22 @@
 				"modules/ext.chessViewer.css"
 			],
 			"messages": [
+				"chessbrowser-first-rank",
+				"chessbrowser-second-rank",
+				"chessbrowser-third-rank",
+				"chessbrowser-fourth-rank",
+				"chessbrowser-fifth-rank",
+				"chessbrowser-sixth-rank",
+				"chessbrowser-seventh-rank",
+				"chessbrowser-eighth-rank",
+				"chessbrowser-a-file",
+				"chessbrowser-b-file",
+				"chessbrowser-c-file",
+				"chessbrowser-d-file",
+				"chessbrowser-e-file",
+				"chessbrowser-f-file",
+				"chessbrowser-g-file",
+				"chessbrowser-h-file",
 				"chessbrowser-beginning-of-game",
 				"chessbrowser-previous-move",
 				"chessbrowser-slow-autoplay",
@@ -60,7 +76,11 @@
 				"chessbrowser-capture",
 				"chessbrowser-promote",
 				"chessbrowser-black-moves",
-				"chessbrowser-white-moves"
+				"chessbrowser-white-moves",
+				"chessbrowser-chessboard-label",
+				"chessbrowser-empty-square",
+				"chessbrowser-occupied-black",
+				"chessbrowser-occupied-white"
 			]
 		},
 		"ext.chessViewer.styles": {

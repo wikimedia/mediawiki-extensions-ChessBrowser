@@ -39,18 +39,66 @@
 				plyIndex;
 			// the parser put its own pieces for "noscript" viewers, remove those first
 			me.$div.find( '.pgn-chessPiece' ).remove();
+
+			// Build all the different boardstates
 			board = me.processFen( me.metadata.fen );
 			me.boardStates.push( board );
 			for ( plyIndex in me.plys ) {
 				board = me.processPly( board, me.plys[ plyIndex ] );
 				me.boardStates.push( board );
 			}
-			me.$div.append( $( '<div>' ).addClass( 'pgn-captioning' ).attr( 'aria-live', 'polite' ) );
 			me.loadButtons();
 			me.connectButtons();
+			me.makeAccessibleBoard();
 
 			// display is an optional argument; defaults to last board state if undefined
 			me.goToBoard( display || me.plys.length );
+		};
+
+		this.makeAccessibleBoard = function () {
+			var files = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' ],
+				rank,
+				file,
+				$row,
+				$cell,
+				$grid;
+
+			// Hide the legend, as the invidual chess squares have labels
+			me.$div.find( '.pgn-row-legend' ).attr( 'aria-hidden', true );
+			me.$div.find( '.pgn-file-legend' ).attr( 'aria-hidden', true );
+
+			// Build the accessible version of chessboard
+			$grid = $( '<div>' )
+				.addClass( 'pgn-grid' )
+				.attr( {
+					role: 'grid',
+					'aria-label': mw.msg( 'chessbrowser-chessboard-label' )
+				} );
+
+			for ( var i = 0; i < 64; i++ ) {
+				rank = 8 - Math.floor( i / 8 );
+				file = files[ i % 8 ];
+				if ( i % 8 === 0 ) {
+					$row = $( '<div>' ).attr( 'role', 'row' );
+					$grid.append( $row );
+				}
+				$cell = $( '<div>' )
+					.addClass( 'pgn-grid-cell' )
+					.attr( 'role', 'gridcell' )
+					.data( {
+						file: file,
+						rank: rank
+					} )
+					.text( me.fileToMsg( file ) + me.rankToMsg( rank ) );
+				$row.append( $cell );
+			}
+			$( '.pgn-board-div', me.$div ).append( $grid );
+
+			// Captioning div to announce the moves
+			me.$div.append( $( '<div>' )
+				.addClass( 'pgn-captioning' )
+				.attr( 'aria-live', 'polite' )
+			);
 		};
 
 		this.processFen = function ( fen ) {
@@ -121,7 +169,12 @@
 			var lowerSymbol = symbol.toLowerCase(),
 				color = symbol === lowerSymbol ? 'd' : 'l',
 				$pieceObject = $( '<div>' )
-					.data( 'piece', symbol )
+					.data( {
+						piece: lowerSymbol,
+						rank: rank,
+						file: file,
+						color: color
+					} )
 					.addClass( 'pgn-chessPiece' )
 					// The following classes are used here:
 					// * pgn-ptype-color-bd
@@ -241,6 +294,10 @@
 					);
 			}
 
+			// a11y updates of grid labels
+			me.updateAccessibleBoard( board );
+
+			// State updates, incl. for a11y move announcements
 			if ( index === 0 ) {
 				me.announce( mw.msg( 'chessbrowser-boardstate-initial' ) );
 			} else {
@@ -261,6 +318,46 @@
 			$notation = $( "[data-ply='" + ( me.currentPlyNumber ) + "']", me.$div )
 				.addClass( 'pgn-current-move' );
 			me.scrollNotationToView( $notation );
+		};
+
+		this.updateAccessibleBoard = function ( board ) {
+			var i,
+				offset = 8,
+				offset2,
+				$cell;
+			for ( i = 0; i < 64; i++ ) {
+				$cell = me.$div.find( '.pgn-grid-cell' ).eq( i );
+				if ( i % 8 === 0 ) {
+					offset--;
+				}
+				offset2 = offset + ( ( i % 8 ) * 8 );
+				if ( typeof board[ offset2 ] !== 'undefined' ) {
+					$cell.text(
+						// Messages that can be used here:
+						// * chessbrowser-occupied-black
+						// * chessbrowser-occupied-white
+						mw.message(
+							'chessbrowser-occupied-' +
+							( board[ offset2 ].data( 'color' ) === 'd' ? 'black' : 'white' ),
+							me.pieceToMsg( board[ offset2 ].data( 'piece' ) ),
+							me.positionToMsg(
+								$cell.data( 'file' ),
+								$cell.data( 'rank' )
+							).toUpperCase()
+						)
+					);
+					continue;
+				}
+				$cell.text(
+					mw.message(
+						'chessbrowser-empty-square',
+						me.positionToMsg(
+							$cell.data( 'file' ),
+							$cell.data( 'rank' )
+						).toUpperCase()
+					)
+				);
+			}
 		};
 
 		this.scrollNotationToView = function ( $notation ) {
@@ -312,7 +409,7 @@
 		};
 
 		this.pieceToMsg = function ( piece ) {
-			switch ( piece ) {
+			switch ( piece.toUpperCase() ) {
 				case 'K':
 					return mw.msg( 'chessbrowser-piece-king' );
 				case 'Q':
@@ -329,9 +426,41 @@
 			}
 		};
 
+		this.rankToMsg = function ( rank ) {
+			var rankToMsg = {
+				1: mw.msg( 'chessbrowser-first-rank' ),
+				2: mw.msg( 'chessbrowser-second-rank' ),
+				3: mw.msg( 'chessbrowser-third-rank' ),
+				4: mw.msg( 'chessbrowser-fourth-rank' ),
+				5: mw.msg( 'chessbrowser-fifth-rank' ),
+				6: mw.msg( 'chessbrowser-sixth-rank' ),
+				7: mw.msg( 'chessbrowser-seventh-rank' ),
+				8: mw.msg( 'chessbrowser-eighth-rank' )
+			};
+			return rankToMsg[ rank ];
+		};
+
+		this.fileToMsg = function ( file ) {
+			// Messages that can be used here:
+			// * chessbrowser-a-file
+			// * chessbrowser-b-file
+			// * chessbrowser-c-file
+			// * chessbrowser-d-file
+			// * chessbrowser-e-file
+			// * chessbrowser-f-file
+			// * chessbrowser-g-file
+			// * chessbrowser-h-file
+			return mw.msg( 'chessbrowser-' + file.toLowerCase() + '-file' );
+		};
+
+		this.positionToMsg = function ( file, rank ) {
+			return me.fileToMsg( file ) + me.rankToMsg( rank );
+		};
+
 		this.announce = function ( text ) {
 			me.$div.find( '.pgn-captioning' ).text( text );
 		};
+
 		this.announceAppend = function ( text ) {
 			me.$div.find( '.pgn-captioning' ).text( me.$div.find( '.pgn-captioning' ).text() + ' ' + text );
 		};
