@@ -10,5 +10,12 @@
 	"chessbrowser-invalid-message": "De gespecificeerde PGN is ongeldig",
 	"chessbrowser-invalid-category": "Pagina's met een ongeldige PGN gespecificeerd",
 	"chessbrowser-invalid-category-desc": "De PGN lables op de pagina bevatten een ongeldig spel",
-	"chessbrowser-event-label": "Evenement"
+	"chessbrowser-game-detail": "Speldetails",
+	"chessbrowser-event-label": "Evenement",
+	"chessbrowser-site-label": "Site",
+	"chessbrowser-date-label": "Datum",
+	"chessbrowser-round-label": "Ronde",
+	"chessbrowser-white-label": "Wit",
+	"chessbrowser-black-label": "Zwart",
+	"chessbrowser-result-label": "Resultaat"
 }
