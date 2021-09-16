@@ -45,6 +45,7 @@
 				board = me.processPly( board, me.plys[ plyIndex ] );
 				me.boardStates.push( board );
 			}
+			me.$div.append( $( '<div>' ).addClass( 'pgn-captioning' ).attr( 'aria-live', 'polite' ) );
 			me.loadButtons();
 			me.connectButtons();
 
@@ -240,8 +241,14 @@
 					);
 			}
 
+			if ( index === 0 ) {
+				me.announce( mw.msg( 'chessbrowser-boardstate-initial' ) );
+			} else {
+				me.announceMove( index - 1 );
+			}
 			if ( index === me.boards.length ) {
 				me.stopAutoplay();
+				me.announceAppend( mw.msg( 'chessbrowser-boardstate-final' ) );
 			}
 
 			$( '.pgn-button-retreat, .pgn-button-tostart', me.$div )
@@ -302,6 +309,106 @@
 				tabindex: 0,
 				role: 'button'
 			} ).on( 'click keydown', me.notationHandler );
+		};
+
+		this.pieceToMsg = function ( piece ) {
+			switch ( piece ) {
+				case 'K':
+					return mw.msg( 'chessbrowser-piece-king' );
+				case 'Q':
+					return mw.msg( 'chessbrowser-piece-queen' );
+				case 'R':
+					return mw.msg( 'chessbrowser-piece-rook' );
+				case 'B':
+					return mw.msg( 'chessbrowser-piece-bishop' );
+				case 'N':
+					return mw.msg( 'chessbrowser-piece-knight' );
+				case 'P':
+				default:
+					return mw.msg( 'chessbrowser-piece-pawn' );
+			}
+		};
+
+		this.announce = function ( text ) {
+			me.$div.find( '.pgn-captioning' ).text( text );
+		};
+		this.announceAppend = function ( text ) {
+			me.$div.find( '.pgn-captioning' ).text( me.$div.find( '.pgn-captioning' ).text() + ' ' + text );
+		};
+
+		/**
+		 * Announce a move to screenreader users.
+		 *
+		 * @param {number} index The play as offset of the PGN tokens
+		 *
+		 * Note: Invididual parts of the announcement should end with . to
+		 * make sure the pronunciation separates the words. Similarly,
+		 * use capitals for the files to have them pronounced separately (much like abbreviations)
+		 */
+		this.announceMove = function ( index ) {
+			var move = me.tokens[ index ],
+				colorMsg = ( index % 2 ) === 0 ? 'chessbrowser-white-moves' : 'chessbrowser-black-moves',
+				piece = 'P',
+				pieceSpecifier = '',
+				moveTypeMsg = 'chessbrowser-move',
+				position = '',
+				promotion = '',
+				special = '',
+				matches;
+			if ( move === 'O-O-O' ) {
+				me.announce( [
+					// eslint-disable-next-line mediawiki/msg-doc
+					mw.msg( colorMsg ),
+					mw.msg( 'chessbrowser-castling-queenside' )
+				].join( ' ' ) );
+				return;
+			}
+			if ( move === 'O-O' ) {
+				me.announce( [
+					// eslint-disable-next-line mediawiki/msg-doc
+					mw.msg( colorMsg ),
+					mw.msg( 'chessbrowser-castling-kingside' )
+				].join( ' ' ) );
+				return;
+			}
+
+			matches = move.match( /^([KQRBNP]?)(([abcdefgh]?[12345678]?)(x?))([abcdefgh][12345678])(=([KQRBNP]))?([#+])?/ );
+			if ( matches ) {
+				piece = matches[ 1 ] || 'P';
+			}
+			piece = me.pieceToMsg( piece );
+			if ( matches[ 3 ] ) {
+				// In case we need a finer descriptor of the piece we are moving
+				pieceSpecifier = matches[ 3 ].toUpperCase();
+				// TODO: get full position always, maybe from previous board ?
+				// Not everyone knows valid chess moves
+			}
+			if ( matches[ 4 ] === 'x' ) {
+				moveTypeMsg = 'chessbrowser-capture';
+			}
+			position = matches[ 5 ].toUpperCase();
+			if ( matches.length > 5 && matches[ 6 ] ) {
+				promotion = mw.message( 'chessbrowser-promote', me.pieceToMsg( matches[ 7 ] ) );
+			}
+			if ( matches.length > 7 ) {
+				switch ( matches[ 8 ] ) {
+					case '+':
+						special = mw.msg( 'chessbrowser-boardstate-check' );
+						break;
+					case '#':
+						special = mw.msg( 'chessbrowser-boardstate-checkmate' );
+						break;
+				}
+			}
+
+			me.announce( [
+				// eslint-disable-next-line mediawiki/msg-doc
+				mw.msg( colorMsg ),
+				// eslint-disable-next-line mediawiki/msg-doc
+				mw.message( moveTypeMsg, piece, pieceSpecifier, position ),
+				promotion,
+				special
+			].join( ' ' ) );
 		};
 
 		this.advance = function ( e ) {

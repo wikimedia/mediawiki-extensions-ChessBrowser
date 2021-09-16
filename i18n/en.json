@@ -42,5 +42,22 @@
 	"chessbrowser-next-move": "Next move",
 	"chessbrowser-end-of-game": "Go to last move",
 	"chessbrowser-flip-board": "Flip board perspective",
-	"chessbrowser-no-javascript": "JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript."
+	"chessbrowser-no-javascript": "JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript.",
+	"chessbrowser-boardstate-initial": "Initial state of board.",
+	"chessbrowser-boardstate-final": "Final state of board.",
+	"chessbrowser-boardstate-check": "Check.",
+	"chessbrowser-boardstate-checkmate": "Checkmate.",
+	"chessbrowser-castling-queenside": "Castling queenside.",
+	"chessbrowser-castling-kingside": "Castling kingside.",
+	"chessbrowser-piece-king": "King",
+	"chessbrowser-piece-queen": "Queen",
+	"chessbrowser-piece-bishop": "Bishop",
+	"chessbrowser-piece-knight": "Knight",
+	"chessbrowser-piece-rook": "Rook",
+	"chessbrowser-piece-pawn": "Pawn",
+	"chessbrowser-move": "$1 $2 moves to $3.",
+	"chessbrowser-capture": "$1 $2 captures $3.",
+	"chessbrowser-promote": "Promotes to $1.",
+	"chessbrowser-black-moves": "Black:",
+	"chessbrowser-white-moves": "White:"
 }
