@@ -61,16 +61,22 @@
 }
 
 /* Chessboard legend */
-.pgn-legend {
+.pgn-row-legend,
+.pgn-file-legend {
+	display: block;
+	position: absolute;
 	text-align: center;
 	vertical-align: middle;
 }
 
-.pgn-row-legend,
+.pgn-row-legend {
+	line-height: 26px;
+	width: 20px;
+}
+
 .pgn-file-legend {
-	position: absolute;
 	line-height: 20px;
-	text-align: center;
+	width: 26px;
 }
 
 .pgn-row-left {
