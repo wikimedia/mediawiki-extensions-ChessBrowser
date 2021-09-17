@@ -57,8 +57,8 @@
 	"chessbrowser-piece-knight": "Name of chesspiece Knight, used in accessibility description of moves",
 	"chessbrowser-piece-rook": "Name of chesspiece Rook, used in accessibility description of moves",
 	"chessbrowser-piece-pawn": "Name of chesspiece Pawn, used in accessibility description of moves",
-	"chessbrowser-move": "Accessibility description of chess move.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file where the chesspiece moves to, like A3.\n",
-	"chessbrowser-capture": "Accessibility description of chess move where you capture a piece.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file of the chesspiece being captured, like A3.\n",
+	"chessbrowser-move": "Accessibility description of chess move.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file where the chesspiece moves to, like A3.",
+	"chessbrowser-capture": "Accessibility description of chess move where you capture a piece.\n\nParameters:\n* $1 - The name of the chesspiece making the move, like King.\n* $2 - An optional specifier of rank and/or file to param $1\n* $3 - The rank and file of the chesspiece being captured, like A3.",
 	"chessbrowser-promote": "Accessibility description of chess move where a pawn reaches the opposing side and promotes to become another piece. $1 - the name of the piece being promoted to.",
 	"chessbrowser-black-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside",
 	"chessbrowser-white-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside"
