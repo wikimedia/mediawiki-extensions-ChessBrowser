@@ -75,7 +75,7 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 	 * @param string|int $rank
 	 * @param string|int $file
 	 */
-	public function testThrowsProperException(
+	public function testCreatePieceThrowsProperException(
 		string $expectedMessage,
 		string $symbol,
 		$rank,
@@ -99,6 +99,25 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 		$this->assertNull( $pgnTest );
 	}
 
+	/**
+	 * @covers ::assertValidPGN
+	 * @dataProvider provideAssertValidPGNThrowsProperException
+	 * @param array $pgnLines
+	 * @param string $expectedMessage
+	 */
+	public function testAssertValidPGNThrowsProperException(
+		array $pgnLines,
+		string $expectedMessage
+ ) {
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( $expectedMessage );
+
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgn = implode( "\n", $pgnLines );
+		$pgnTest = $browser->assertValidPGN( $pgn );
+	}
+
 	public static function provideTestThrowsProperException() {
 		return [
 			[ "Impossible rank (8) or file (0)", 'p', 8, 0 ],
@@ -106,6 +125,19 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 			[ "Impossible rank (0) or file (8)", 'p', 0, 8 ],
 			[ "Impossible rank (0) or file (-1)", 'p', 0, -1 ],
 			[ "Invalid piece type 0", '0', 0, 0 ],
+		];
+	}
+
+	public static function provideAssertValidPGNThrowsProperException() {
+		return [
+			[
+				[ '1. e4 1-0 1-0' ],
+				'Too many termination tokens.'
+			],
+			[
+				[ '1. e4 % invalid percent' ],
+				'Invalid PGN.'
+			]
 		];
 	}
 
@@ -395,6 +427,18 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 				'1/2-1/2'
 				]
 			],
+			[
+				[
+					'% we ignore everything with escape',
+					'1. e4 ; A comment is ; {} here',
+					'e4 {Have you {; seen this comment?}',
+					'2. e4 !!',
+					'e4 $123',
+					'% we ignore everything 2 with escape',
+					'10. e4=K{this is a promotion}',
+					'1-0',
+				],
+			]
 		];
 	}
 }
