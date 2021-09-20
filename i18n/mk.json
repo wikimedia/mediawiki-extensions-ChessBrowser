@@ -25,5 +25,22 @@
 	"chessbrowser-next-move": "Следен потег",
 	"chessbrowser-end-of-game": "Оди на последниот потег",
 	"chessbrowser-flip-board": "Префрли гледиште",
-	"chessbrowser-no-javascript": "JavaScript не е овозможен на страницава. За да ја гледате партијата интерактивно, ќе мора да го овозможите."
+	"chessbrowser-no-javascript": "JavaScript не е овозможен на страницава. За да ја гледате партијата интерактивно, ќе мора да го овозможите.",
+	"chessbrowser-boardstate-initial": "Почетна состојба на таблата.",
+	"chessbrowser-boardstate-final": "Завршна состојба на таблата.",
+	"chessbrowser-boardstate-check": "Шах.",
+	"chessbrowser-boardstate-checkmate": "Шах-мат.",
+	"chessbrowser-castling-queenside": "Рокада на кралицата.",
+	"chessbrowser-castling-kingside": "Рокада на кралот.",
+	"chessbrowser-piece-king": "Крал",
+	"chessbrowser-piece-queen": "Кралица",
+	"chessbrowser-piece-bishop": "Ловец",
+	"chessbrowser-piece-knight": "Коњ",
+	"chessbrowser-piece-rook": "Топ",
+	"chessbrowser-piece-pawn": "Пешак",
+	"chessbrowser-move": "$1 $2 се поместува на $3.",
+	"chessbrowser-capture": "$1 $2 го зема $3.",
+	"chessbrowser-promote": "Промовирана во $1.",
+	"chessbrowser-black-moves": "Црни:",
+	"chessbrowser-white-moves": "Бели:"
 }

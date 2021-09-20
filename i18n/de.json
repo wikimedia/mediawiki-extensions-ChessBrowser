@@ -5,6 +5,10 @@
 			"Ferdinand0101"
 		]
 	},
+	"chessbrowser-desc": "Fügt pgn-Tag hinzu, um Schachspiel-Notation interaktiv zu machen.",
+	"chessbrowser-invalid-message": "Die angegebene PGN ist ungültig",
+	"chessbrowser-invalid-category": "Seiten mit ungültigen PGNs",
+	"chessbrowser-invalid-category-desc": "Die PGN-Tags auf der Seite enthalten ein ungültiges Spiel",
 	"chessbrowser-expand-button": "Ausklappen",
 	"chessbrowser-game-detail": "Spieldetails",
 	"chessbrowser-event-label": "Veranstaltung",
@@ -21,5 +25,23 @@
 	"chessbrowser-fast-autoplay": "Schneller",
 	"chessbrowser-next-move": "Nächster Zug",
 	"chessbrowser-end-of-game": "Zum letzten Zug gehen",
-	"chessbrowser-flip-board": "Ansicht ändern"
+	"chessbrowser-flip-board": "Ansicht ändern",
+	"chessbrowser-no-javascript": "JavaScript ist auf dieser Seite nicht aktiviert. Um das Spiel interaktiv zu sehen, aktiviere bitte JavaScript.",
+	"chessbrowser-boardstate-initial": "Anfangszustand des Spielbretts",
+	"chessbrowser-boardstate-final": "Endzustand des Spielbretts",
+	"chessbrowser-boardstate-check": "Abfragen",
+	"chessbrowser-boardstate-checkmate": "Schachmatt.",
+	"chessbrowser-castling-queenside": "Rochade Damenflügel.",
+	"chessbrowser-castling-kingside": "Rochade Königsflügel.",
+	"chessbrowser-piece-king": "König",
+	"chessbrowser-piece-queen": "Dame",
+	"chessbrowser-piece-bishop": "Läufer",
+	"chessbrowser-piece-knight": "Springer",
+	"chessbrowser-piece-rook": "Turm",
+	"chessbrowser-piece-pawn": "Bauer",
+	"chessbrowser-move": "$1 $2 zieht nach $3.",
+	"chessbrowser-capture": "$1 $2 schlägt $3.",
+	"chessbrowser-promote": "Umgewandelt in $1.",
+	"chessbrowser-black-moves": "Schwarz:",
+	"chessbrowser-white-moves": "Weiß:"
 }

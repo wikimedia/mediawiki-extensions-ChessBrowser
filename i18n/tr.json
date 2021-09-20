@@ -2,6 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
+			"Joseph",
+			"Melissadilara",
 			"MuratTheTurkish",
 			"SaldırganSincap"
 		]
@@ -27,5 +29,19 @@
 	"chessbrowser-next-move": "Sonraki hamle",
 	"chessbrowser-end-of-game": "Son hamleye git",
 	"chessbrowser-flip-board": "Pano perspektifi çevir",
-	"chessbrowser-no-javascript": "JavaScript bu sayfada etkin değil. Oyunu etkileşimli olarak görüntülemek için lütfen JavaScript'i etkinleştirin."
+	"chessbrowser-no-javascript": "JavaScript bu sayfada etkin değil. Oyunu etkileşimli olarak görüntülemek için lütfen JavaScript'i etkinleştirin.",
+	"chessbrowser-boardstate-initial": "Tahtanın ilk durumu.",
+	"chessbrowser-boardstate-final": "Tahtanın son durumu.",
+	"chessbrowser-boardstate-check": "Şah.",
+	"chessbrowser-boardstate-checkmate": "Mat.",
+	"chessbrowser-castling-queenside": "Vezir tarafında rok.",
+	"chessbrowser-castling-kingside": "Şah tarafında rok.",
+	"chessbrowser-piece-king": "Şah",
+	"chessbrowser-piece-queen": "Vezir",
+	"chessbrowser-piece-bishop": "Fil",
+	"chessbrowser-piece-knight": "At",
+	"chessbrowser-piece-rook": "Kale",
+	"chessbrowser-piece-pawn": "Piyon",
+	"chessbrowser-black-moves": "Siyah:",
+	"chessbrowser-white-moves": "Beyaz:"
 }

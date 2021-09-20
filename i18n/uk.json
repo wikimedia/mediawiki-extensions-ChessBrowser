@@ -43,5 +43,22 @@
 	"chessbrowser-next-move": "Наступний хід",
 	"chessbrowser-end-of-game": "Перейти до останнього ходу",
 	"chessbrowser-flip-board": "Розвернути дошку",
-	"chessbrowser-no-javascript": "JavaScript не увімкнений на цій сторінці. Щоб інтерактивно переглянути гру, будь ласка, увімкніть JavaScript."
+	"chessbrowser-no-javascript": "JavaScript не увімкнений на цій сторінці. Щоб інтерактивно переглянути гру, будь ласка, увімкніть JavaScript.",
+	"chessbrowser-boardstate-initial": "Початковий стан ради.",
+	"chessbrowser-boardstate-final": "Остаточний стан дошки.",
+	"chessbrowser-boardstate-check": "Перевірити.",
+	"chessbrowser-boardstate-checkmate": "Шах і мат.",
+	"chessbrowser-castling-queenside": "Закидання королеви.",
+	"chessbrowser-castling-kingside": "Рокіровка на королівському фланзі.",
+	"chessbrowser-piece-king": "Король",
+	"chessbrowser-piece-queen": "Ферзь",
+	"chessbrowser-piece-bishop": "Слон",
+	"chessbrowser-piece-knight": "Тура",
+	"chessbrowser-piece-rook": "Кінь",
+	"chessbrowser-piece-pawn": "Пішак",
+	"chessbrowser-move": "$1 $2 переходить до $3.",
+	"chessbrowser-capture": "$1 $2 захоплює $3.",
+	"chessbrowser-promote": "Підвищує до $1.",
+	"chessbrowser-black-moves": "Чорний:",
+	"chessbrowser-white-moves": "Білий:"
 }

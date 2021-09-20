@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"Ihojose",
-			"Jrenteria"
+			"Jrenteria",
+			"Reverse88"
 		]
 	},
 	"chessbrowser-invalid-message": "El PGN especificado no es válido",
@@ -25,5 +26,22 @@
 	"chessbrowser-fast-autoplay": "Más rápido",
 	"chessbrowser-next-move": "Movimiento siguiente",
 	"chessbrowser-end-of-game": "Ir al último movimiento",
-	"chessbrowser-no-javascript": "JavaScript no está habilitado en esta página. Para ver el juego interactivo, por favor habilite Javascript."
+	"chessbrowser-no-javascript": "JavaScript no está habilitado en esta página. Para ver el juego interactivo, por favor habilite Javascript.",
+	"chessbrowser-boardstate-initial": "Estado inicial de tablero.",
+	"chessbrowser-boardstate-final": "Estado inicial de tablero.",
+	"chessbrowser-boardstate-check": "Verificar.",
+	"chessbrowser-boardstate-checkmate": "Jaque mate.",
+	"chessbrowser-castling-queenside": "Enroque el flanco de la reina.",
+	"chessbrowser-castling-kingside": "Enroque kingside.",
+	"chessbrowser-piece-king": "Rey",
+	"chessbrowser-piece-queen": "Reina",
+	"chessbrowser-piece-bishop": "Obispo",
+	"chessbrowser-piece-knight": "Caballero",
+	"chessbrowser-piece-rook": "Torre",
+	"chessbrowser-piece-pawn": "Peón",
+	"chessbrowser-move": "$<span translate=\"no\" class=\"notranslate\">1</span> $<span translate=\"no\" class=\"notranslate\">2</span> movimientos a $<span translate=\"no\" class=\"notranslate\">3</span>.",
+	"chessbrowser-capture": "$<span translate=\"no\" class=\"notranslate\">1</span> $<span translate=\"no\" class=\"notranslate\">2</span> capturas $<span translate=\"no\" class=\"notranslate\">3</span>.",
+	"chessbrowser-promote": "Promueve a <span translate=\"no\" class=\"notranslate\">$1</span>.",
+	"chessbrowser-black-moves": "Negro:",
+	"chessbrowser-white-moves": "Blanco:"
 }
