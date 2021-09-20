@@ -42,21 +42,6 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * @dataProvider provideCheckSpecialMove
-	 * @param string $message
-	 * @param array $data
-	 * @param array $expected
-	 */
-	public function testCheckSpecialMove( $message, $data, $expected ) {
-		$to = $data[0];
-		$from = $data[1];
-		$token = $data[2];
-		$fenParts = $data[3];
-		$special = $this->emptyChessParser->checkSpecialMove( $to, $from, $token, $fenParts );
-		$this->assertEquals( $expected, $special, $message );
-	}
-
-	/**
 	 * @dataProvider provideGetFenParts
 	 * @param string $message
 	 * @param string $fen
@@ -65,20 +50,6 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 	public function testGetFenParts( $message, $fen, $expected ) {
 		$fenParts = $this->emptyChessParser->getFenParts( $fen );
 		$this->assertEquals( $expected, $fenParts );
-	}
-
-	/**
-	 * @dataProvider provideConvertParserOutput
-	 * @param string $message
-	 * @param array $data
-	 * @param array $expected
-	 */
-	public function testConvertParserOutput( $message, $data, $expected ) {
-		$moves = $data[0];
-		$fenParts = $data[1];
-		$moveObjects = $data[2];
-		$convertedOutput = $this->emptyChessParser->convertParserOutput( $moves, $fenParts, $moveObjects );
-		$this->assertEquals( $expected, $convertedOutput, $message );
 	}
 
 	public static function provideGetFenParts() {
@@ -100,6 +71,21 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 				]
 			]
 		];
+	}
+
+	/**
+	 * @dataProvider provideCheckSpecialMove
+	 * @param string $message
+	 * @param array $data
+	 * @param array $expected
+	 */
+	public function testCheckSpecialMove( $message, $data, $expected ) {
+		$to = $data[0];
+		$from = $data[1];
+		$token = $data[2];
+		$fenParts = $data[3];
+		$special = $this->emptyChessParser->checkSpecialMove( $to, $from, $token, $fenParts );
+		$this->assertEquals( $expected, $special, $message );
 	}
 
 	public static function provideCheckSpecialMove() {
@@ -170,6 +156,20 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 				[ "move", null ]
 			]
 		];
+	}
+
+	/**
+	 * @dataProvider provideConvertParserOutput
+	 * @param string $message
+	 * @param array $data
+	 * @param array $expected
+	 */
+	public function testConvertParserOutput( $message, $data, $expected ) {
+		$moves = $data[0];
+		$fenParts = $data[1];
+		$moveObjects = $data[2];
+		$convertedOutput = $this->emptyChessParser->convertParserOutput( $moves, $fenParts, $moveObjects );
+		$this->assertEquals( $expected, $convertedOutput, $message );
 	}
 
 	public static function provideConvertParserOutput() {
@@ -278,7 +278,7 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 									'tokens' => [ 'e3' ]
 								]
 							]
- ]
+						]
 					]
 				]
 			],

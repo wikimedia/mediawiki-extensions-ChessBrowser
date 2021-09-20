@@ -43,6 +43,42 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals( $expected, $labels );
 	}
 
+	public static function provideGetLocalizedLabels() {
+		return [
+			[
+				[
+					'expand-button' => 'Expand',
+					'game-detail' => 'Game details',
+					'event-label' => 'Event',
+					'site-label' => 'Site',
+					'date-label' => 'Date',
+					'round-label' => 'Round',
+					'white-label' => 'White',
+					'black-label' => 'Black',
+					'result-label' => 'Result',
+					'rank-1' => '1',
+					'rank-2' => '2',
+					'rank-3' => '3',
+					'rank-4' => '4',
+					'rank-5' => '5',
+					'rank-6' => '6',
+					'rank-7' => '7',
+					'rank-8' => '8',
+					'a' => 'a',
+					'b' => 'b',
+					'c' => 'c',
+					'd' => 'd',
+					'e' => 'e',
+					'f' => 'f',
+					'g' => 'g',
+					'h' => 'h',
+					'no-javascript' => 'JavaScript is not enabled on this page. '
+						. 'To view the game interactively, please enable JavaScript.'
+				]
+			]
+		];
+	}
+
 	/**
 	 * @covers ::getMetadata
 	 * @dataProvider provideGetMetadata
@@ -52,93 +88,6 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 	public function testGetMetadata( array $tagPairs, array $expected ) {
 		$labels = ChessBrowser::getMetadata( $tagPairs );
 		$this->assertEquals( $expected, $labels );
-	}
-
-	/**
-	 * @covers ::createPiece
-	 * @dataProvider provideTestCreatePiece
-	 * @param string $symbol
-	 * @param int|string $rank
-	 * @param int|string $file
-	 * @param array $expected
-	 */
-	public function testCreatePiece( string $symbol, $rank, $file, array $expected ) {
-		$piece = ChessBrowser::createPiece( $symbol, $rank, $file );
-		$this->assertEquals( $expected, $piece );
-	}
-
-	/**
-	 * @covers ::createPiece
-	 * @dataProvider provideTestThrowsProperException
-	 * @param string $expectedMessage
-	 * @param string $symbol
-	 * @param string|int $rank
-	 * @param string|int $file
-	 */
-	public function testCreatePieceThrowsProperException(
-		string $expectedMessage,
-		string $symbol,
-		$rank,
-		$file
-	) {
-		$this->expectException( ChessBrowserException::class );
-		$this->expectExceptionMessage( $expectedMessage );
-		ChessBrowser::createPiece( $symbol, $rank, $file );
-	}
-
-	/**
-	 * @covers ::assertValidPGN
-	 * @dataProvider provideAssertValidPGN
-	 * @param array $pgnLines
-	 */
-	public function testAssertValidPGN( array $pgnLines ) {
-		$browser = new ChessBrowser();
-		$browser = TestingAccessWrapper::newFromObject( $browser );
-		$pgn = implode( "\n", $pgnLines );
-		$pgnTest = $browser->assertValidPGN( $pgn );
-		$this->assertNull( $pgnTest );
-	}
-
-	/**
-	 * @covers ::assertValidPGN
-	 * @dataProvider provideAssertValidPGNThrowsProperException
-	 * @param array $pgnLines
-	 * @param string $expectedMessage
-	 */
-	public function testAssertValidPGNThrowsProperException(
-		array $pgnLines,
-		string $expectedMessage
- ) {
-		$this->expectException( ChessBrowserException::class );
-		$this->expectExceptionMessage( $expectedMessage );
-
-		$browser = new ChessBrowser();
-		$browser = TestingAccessWrapper::newFromObject( $browser );
-		$pgn = implode( "\n", $pgnLines );
-		$pgnTest = $browser->assertValidPGN( $pgn );
-	}
-
-	public static function provideTestThrowsProperException() {
-		return [
-			[ "Impossible rank (8) or file (0)", 'p', 8, 0 ],
-			[ "Impossible rank (-1) or file (0)", 'p', -1, 0 ],
-			[ "Impossible rank (0) or file (8)", 'p', 0, 8 ],
-			[ "Impossible rank (0) or file (-1)", 'p', 0, -1 ],
-			[ "Invalid piece type 0", '0', 0, 0 ],
-		];
-	}
-
-	public static function provideAssertValidPGNThrowsProperException() {
-		return [
-			[
-				[ '1. e4 1-0 1-0' ],
-				'Too many termination tokens.'
-			],
-			[
-				[ '1. e4 % invalid percent' ],
-				'Invalid PGN.'
-			]
-		];
 	}
 
 	public static function provideGetMetadata() {
@@ -198,6 +147,19 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 			]
 
 		];
+	}
+
+	/**
+	 * @covers ::createPiece
+	 * @dataProvider provideTestCreatePiece
+	 * @param string $symbol
+	 * @param int|string $rank
+	 * @param int|string $file
+	 * @param array $expected
+	 */
+	public function testCreatePiece( string $symbol, $rank, $file, array $expected ) {
+		$piece = ChessBrowser::createPiece( $symbol, $rank, $file );
+		$this->assertEquals( $expected, $piece );
 	}
 
 	public static function provideTestCreatePiece() {
@@ -271,40 +233,78 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 		];
 	}
 
-	public static function provideGetLocalizedLabels() {
+	/**
+	 * @covers ::createPiece
+	 * @dataProvider provideTestCreatePieceThrowsProperException
+	 * @param string $expectedMessage
+	 * @param string $symbol
+	 * @param string|int $rank
+	 * @param string|int $file
+	 */
+	public function testCreatePieceThrowsProperException(
+		string $expectedMessage,
+		string $symbol,
+		$rank,
+		$file
+	) {
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( $expectedMessage );
+		ChessBrowser::createPiece( $symbol, $rank, $file );
+	}
+
+	public static function provideTestCreatePieceThrowsProperException() {
+		return [
+			[ "Impossible rank (8) or file (0)", 'p', 8, 0 ],
+			[ "Impossible rank (-1) or file (0)", 'p', -1, 0 ],
+			[ "Impossible rank (0) or file (8)", 'p', 0, 8 ],
+			[ "Impossible rank (0) or file (-1)", 'p', 0, -1 ],
+			[ "Invalid piece type 0", '0', 0, 0 ],
+		];
+	}
+
+	/**
+	 * @covers ::assertValidPGN
+	 * @dataProvider provideAssertValidPGNThrowsProperException
+	 * @param array $pgnLines
+	 * @param string $expectedMessage
+	 */
+	public function testAssertValidPGNThrowsProperException(
+		array $pgnLines,
+		string $expectedMessage
+	) {
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( $expectedMessage );
+
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgn = implode( "\n", $pgnLines );
+		$pgnTest = $browser->assertValidPGN( $pgn );
+	}
+
+	public static function provideAssertValidPGNThrowsProperException() {
 		return [
 			[
-				[
-					'expand-button' => 'Expand',
-					'game-detail' => 'Game details',
-					'event-label' => 'Event',
-					'site-label' => 'Site',
-					'date-label' => 'Date',
-					'round-label' => 'Round',
-					'white-label' => 'White',
-					'black-label' => 'Black',
-					'result-label' => 'Result',
-					'rank-1' => '1',
-					'rank-2' => '2',
-					'rank-3' => '3',
-					'rank-4' => '4',
-					'rank-5' => '5',
-					'rank-6' => '6',
-					'rank-7' => '7',
-					'rank-8' => '8',
-					'a' => 'a',
-					'b' => 'b',
-					'c' => 'c',
-					'd' => 'd',
-					'e' => 'e',
-					'f' => 'f',
-					'g' => 'g',
-					'h' => 'h',
-					'no-javascript' => 'JavaScript is not enabled on this page. '
-						. 'To view the game interactively, please enable JavaScript.'
-				]
+				[ '1. e4 1-0 1-0' ],
+				'Too many termination tokens.'
+			],
+			[
+				[ '1. e4 % invalid percent' ],
+				'Invalid PGN.'
 			]
 		];
+	}
+
+	/**
+	 * @covers ::assertValidPGN
+	 * @dataProvider provideAssertValidPGN
+	 * @param array $pgnLines
+	 */
+	public function testAssertValidPGN( array $pgnLines ) {
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgn = implode( "\n", $pgnLines );
+		$pgnTest = $browser->assertValidPGN( $pgn );
+		$this->assertNull( $pgnTest );
 	}
 
 	public static function provideAssertValidPGN() {

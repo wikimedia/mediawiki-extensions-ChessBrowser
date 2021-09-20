@@ -46,6 +46,10 @@ class NotationAnalyzerTest extends MediaWikiUnitTestCase {
 			[ 'exd4', null ],
 			[ 'Ngxe7', null ],
 			[ 'Qa4', null ],
+			[ 'O-O', null ],
+			[ 'N4d5', 48 ],
+			[ 'Nf4d5', 48 ],
+			[ 'Nb4xd5', 48 ],
 		];
 	}
 
@@ -65,7 +69,83 @@ class NotationAnalyzerTest extends MediaWikiUnitTestCase {
 			[ 'exd4', 4 ],
 			[ 'Nbxd2', 1 ],
 			[ 'Ndxf6', 3 ],
+			[ 'Nd4', null ],
+			[ 'Qxe3', null ],
+			[ 'O-O', null ],
 		];
 	}
 
+	/**
+	 * @covers ::getTargetSquare
+	 * @dataProvider provideGetTargetSquare
+	 * @param string $notation
+	 * @param int|string $target
+	 */
+	public function testGetTargetSquare( string $notation, $target ) {
+		$notationAnalyzer = new NotationAnalyzer( $notation );
+		$this->assertSame( $target, $notationAnalyzer->getTargetSquare() );
+	}
+
+	public static function provideGetTargetSquare() {
+		return [
+			[ 'exd4', 0x33 ],
+			[ 'Qb7', 0x61 ],
+			[ 'Nf3d4', 0x33 ],
+			[ 'exd', '' ],
+			[ 'O-O-O', '' ],
+		];
+	}
+
+	/**
+	 * @covers ::getPieceType
+	 * @dataProvider provideGetPieceType
+	 * @param string $notation
+	 * @param string $color
+	 * @param int $piece
+	 */
+	public function testGetPieceType( string $notation, string $color, int $piece ) {
+		$notationAnalyzer = new NotationAnalyzer( $notation );
+		$this->assertSame( $piece, $notationAnalyzer->getPieceType( $color ) );
+	}
+
+	public static function provideGetPieceType() {
+		return [
+			[ 'exd4', 'white', 0x1 ],
+			[ 'exd4', 'black', 0x9 ],
+			[ 'Qb7', 'white', 0x7 ],
+			[ 'Qb7', 'black', 0xF ],
+			[ 'Nf3d4', 'white', 0x2 ],
+			[ 'Nf3d4', 'black', 0xA ],
+			[ 'O-O-O', 'white', 0x3 ],
+			[ 'O-O-O', 'black', 0xB ],
+			[ 'O-O', 'white', 0x3 ],
+			[ 'O-O', 'black', 0xB ],
+			[ 'Ke2', 'white', 0x3 ],
+			[ 'Ke7', 'black', 0xB ],
+			[ 'Bg2', 'white', 0x5 ],
+			[ 'Bh7', 'black', 0xD ],
+			[ 'Rh2', 'white', 0x6 ],
+			[ 'Rg7', 'black', 0xE ],
+		];
+	}
+
+	/**
+	 * @covers ::getPromotion
+	 * @dataProvider provideGetPromotion
+	 * @param string $notation
+	 * @param string $piece
+	 */
+	public function testGetPromotion( string $notation, string $piece ) {
+		$notationAnalyzer = new NotationAnalyzer( $notation );
+		$this->assertSame( $piece, $notationAnalyzer->getPromotion() );
+	}
+
+	public static function provideGetPromotion() {
+		return [
+			[ 'exd8=Q', 'q' ],
+			[ 'd8=R', 'r' ],
+			[ 'c8=B', 'b' ],
+			[ 'a1=N', 'n' ],
+		];
+	}
 }
