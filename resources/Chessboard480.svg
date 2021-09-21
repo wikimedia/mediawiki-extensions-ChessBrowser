@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 .5 8 8" width="480" height="480" fill="#d18b47" stroke="#ffce9e" stroke-dasharray="1">
-<circle r="99"/><path d="M.5.5V8h1V1h1V8h1V1h1V8h1V1h1V8h1V1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" fill="#d18b47" stroke="#ffce9e" stroke-dasharray="1" viewBox="0 0.5 8 8">
+	<circle r="99"/>
+	<path d="M.5.5V8h1V1h1v7h1V1h1v7h1V1h1v7h1V1"/>
 </svg>
