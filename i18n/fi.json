@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"MITO"
+			"MITO",
+			"Nike"
 		]
 	},
-	"chessbrowser-boardstate-check": "Tarkista.",
+	"chessbrowser-boardstate-check": "Shakki",
 	"chessbrowser-boardstate-checkmate": "Shakkimatti.",
 	"chessbrowser-piece-king": "Kuningas",
 	"chessbrowser-piece-queen": "Kuningatar",

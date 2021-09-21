@@ -29,7 +29,7 @@
 	"chessbrowser-no-javascript": "JavaScript ist auf dieser Seite nicht aktiviert. Um das Spiel interaktiv zu sehen, aktiviere bitte JavaScript.",
 	"chessbrowser-boardstate-initial": "Anfangszustand des Spielbretts",
 	"chessbrowser-boardstate-final": "Endzustand des Spielbretts",
-	"chessbrowser-boardstate-check": "Abfragen",
+	"chessbrowser-boardstate-check": "Schach.",
 	"chessbrowser-boardstate-checkmate": "Schachmatt.",
 	"chessbrowser-castling-queenside": "Rochade Damenflügel.",
 	"chessbrowser-castling-kingside": "Rochade Königsflügel.",

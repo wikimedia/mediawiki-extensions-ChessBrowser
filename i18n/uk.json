@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"DDPAT",
 			"Piramidion",
 			"Ата"
@@ -46,7 +47,7 @@
 	"chessbrowser-no-javascript": "JavaScript не увімкнений на цій сторінці. Щоб інтерактивно переглянути гру, будь ласка, увімкніть JavaScript.",
 	"chessbrowser-boardstate-initial": "Початковий стан ради.",
 	"chessbrowser-boardstate-final": "Остаточний стан дошки.",
-	"chessbrowser-boardstate-check": "Перевірити.",
+	"chessbrowser-boardstate-check": "Шах.",
 	"chessbrowser-boardstate-checkmate": "Шах і мат.",
 	"chessbrowser-castling-queenside": "Закидання королеви.",
 	"chessbrowser-castling-kingside": "Рокіровка на королівському фланзі.",

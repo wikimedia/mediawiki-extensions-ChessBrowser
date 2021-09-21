@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Fitoschido",
 			"Ihojose",
 			"Jrenteria",
@@ -29,7 +30,7 @@
 	"chessbrowser-no-javascript": "JavaScript no está habilitado en esta página. Para ver el juego interactivo, por favor habilite Javascript.",
 	"chessbrowser-boardstate-initial": "Estado inicial de tablero.",
 	"chessbrowser-boardstate-final": "Estado inicial de tablero.",
-	"chessbrowser-boardstate-check": "Verificar.",
+	"chessbrowser-boardstate-check": "Jaque.",
 	"chessbrowser-boardstate-checkmate": "Jaque mate.",
 	"chessbrowser-castling-queenside": "Enroque el flanco de la reina.",
 	"chessbrowser-castling-kingside": "Enroque kingside.",
@@ -39,9 +40,9 @@
 	"chessbrowser-piece-knight": "Caballero",
 	"chessbrowser-piece-rook": "Torre",
 	"chessbrowser-piece-pawn": "Peón",
-	"chessbrowser-move": "$<span translate=\"no\" class=\"notranslate\">1</span> $<span translate=\"no\" class=\"notranslate\">2</span> movimientos a $<span translate=\"no\" class=\"notranslate\">3</span>.",
-	"chessbrowser-capture": "$<span translate=\"no\" class=\"notranslate\">1</span> $<span translate=\"no\" class=\"notranslate\">2</span> capturas $<span translate=\"no\" class=\"notranslate\">3</span>.",
-	"chessbrowser-promote": "Promueve a <span translate=\"no\" class=\"notranslate\">$1</span>.",
+	"chessbrowser-move": "$1 $2 movimientos a $3.",
+	"chessbrowser-capture": "$1 $2 capturas $3.",
+	"chessbrowser-promote": "Promueve a $1.",
 	"chessbrowser-black-moves": "Negro:",
 	"chessbrowser-white-moves": "Blanco:"
 }
