@@ -30,5 +30,21 @@
 	"chessbrowser-end-of-game": "Aller au dernier coup",
 	"chessbrowser-flip-board": "Faire pivoter l’échiquier",
 	"chessbrowser-no-javascript": "JavaScript n’est pas activé sur cette page. Pour voir le jeu de manière interactive, veuillez activer JavaScript.",
-	"chessbrowser-boardstate-checkmate": "Échec et mat."
+	"chessbrowser-boardstate-initial": "État initial du tableau.",
+	"chessbrowser-boardstate-final": "État final du tableau.",
+	"chessbrowser-boardstate-check": "Échec.",
+	"chessbrowser-boardstate-checkmate": "Échec et mat.",
+	"chessbrowser-castling-queenside": "Roque côté reine.",
+	"chessbrowser-castling-kingside": "Roque côté roi.",
+	"chessbrowser-piece-king": "Roi",
+	"chessbrowser-piece-queen": "Reine",
+	"chessbrowser-piece-bishop": "Fou",
+	"chessbrowser-piece-knight": "Cavalier",
+	"chessbrowser-piece-rook": "Tour",
+	"chessbrowser-piece-pawn": "Pion",
+	"chessbrowser-move": "$1 $2 se déplace vers $3.",
+	"chessbrowser-capture": "$1 $2 capture $3.",
+	"chessbrowser-promote": "Promotion en $1.",
+	"chessbrowser-black-moves": "Noir :",
+	"chessbrowser-white-moves": "Blanc :"
 }
