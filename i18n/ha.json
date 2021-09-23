@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gwanki"
+		]
+	},
+	"chessbrowser-boardstate-initial": "Halin farko na hukuma.",
+	"chessbrowser-boardstate-final": "Matsayin ƙarshe.",
+	"chessbrowser-boardstate-check": "Bincika.",
+	"chessbrowser-boardstate-checkmate": "Mai bincika wa.",
+	"chessbrowser-castling-queenside": "Jefa gefen sarauniya.",
+	"chessbrowser-castling-kingside": "Jefa gefen sarki.",
+	"chessbrowser-piece-king": "Sarki",
+	"chessbrowser-piece-queen": "Sarauniya",
+	"chessbrowser-piece-bishop": "Mishan",
+	"chessbrowser-piece-knight": "Dare",
+	"chessbrowser-piece-rook": "Dutse",
+	"chessbrowser-piece-pawn": "Pawn",
+	"chessbrowser-move": "$1 $2 matsa zuwa $3.",
+	"chessbrowser-capture": "$1 $2 kamawa $3.",
+	"chessbrowser-promote": "Bunƙasa zuwa $1.",
+	"chessbrowser-black-moves": "Baƙi:",
+	"chessbrowser-white-moves": "Fari:"
+}

@@ -5,6 +5,7 @@
 			"Fitoschido",
 			"Ihojose",
 			"Jrenteria",
+			"McDutchie",
 			"Reverse88"
 		]
 	},
@@ -40,8 +41,8 @@
 	"chessbrowser-piece-knight": "Caballero",
 	"chessbrowser-piece-rook": "Torre",
 	"chessbrowser-piece-pawn": "Peón",
-	"chessbrowser-move": "$1 $2 movimientos a $3.",
-	"chessbrowser-capture": "$1 $2 capturas $3.",
+	"chessbrowser-move": "$1 $2 se mueve a $3.",
+	"chessbrowser-capture": "$1 $2 captura $3.",
 	"chessbrowser-promote": "Promueve a $1.",
 	"chessbrowser-black-moves": "Negro:",
 	"chessbrowser-white-moves": "Blanco:"
