@@ -61,9 +61,6 @@
 				"chessbrowser-promote",
 				"chessbrowser-black-moves",
 				"chessbrowser-white-moves"
-			],
-			"dependencies": [
-				"jquery.ui"
 			]
 		},
 		"ext.chessViewer.styles": {
