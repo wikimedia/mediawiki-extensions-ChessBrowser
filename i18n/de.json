@@ -18,6 +18,7 @@
 	"chessbrowser-white-label": "Weiß",
 	"chessbrowser-black-label": "Schwarz",
 	"chessbrowser-result-label": "Ergebnis",
+	"chessbrowser-notations-label": "Schachzüge beschrieben in PGN-Notation. Klicke auf eine Schaltfläche, um zu dieser Position auf dem Brett zu wechseln.",
 	"chessbrowser-beginning-of-game": "Zum ersten Zug gehen",
 	"chessbrowser-previous-move": "Vorheriger Zug",
 	"chessbrowser-slow-autoplay": "Langsamer",
@@ -43,5 +44,9 @@
 	"chessbrowser-capture": "$1 $2 schlägt $3.",
 	"chessbrowser-promote": "Umgewandelt in $1.",
 	"chessbrowser-black-moves": "Schwarz:",
-	"chessbrowser-white-moves": "Weiß:"
+	"chessbrowser-white-moves": "Weiß:",
+	"chessbrowser-chessboard-label": "Schachbrett",
+	"chessbrowser-empty-square": "Leeres Feld, $1",
+	"chessbrowser-occupied-black": "Schwarz $1, $2",
+	"chessbrowser-occupied-white": "Weiß $1, $2"
 }

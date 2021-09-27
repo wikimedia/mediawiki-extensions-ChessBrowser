@@ -22,5 +22,14 @@
 	"chessbrowser-next-move": "Nächsten Zoch",
 	"chessbrowser-end-of-game": "Gitt op den leschten Zoch",
 	"chessbrowser-flip-board": "D'Schachbriet dréinen",
-	"chessbrowser-no-javascript": "JavaScript ass op dëser Säit net aktivéiert. Fir d'Spill interaktiv notzen ze kënnen, aktivéiert wgl. JavaScript."
+	"chessbrowser-no-javascript": "JavaScript ass op dëser Säit net aktivéiert. Fir d'Spill interaktiv notzen ze kënnen, aktivéiert wgl. JavaScript.",
+	"chessbrowser-boardstate-check": "Schach.",
+	"chessbrowser-boardstate-checkmate": "Schachmatt.",
+	"chessbrowser-piece-king": "Kinnek",
+	"chessbrowser-piece-queen": "Damm",
+	"chessbrowser-piece-bishop": "Leefer",
+	"chessbrowser-piece-knight": "Sprénger",
+	"chessbrowser-piece-pawn": "Bauer",
+	"chessbrowser-black-moves": "Schwaarz:",
+	"chessbrowser-white-moves": "Wäiss:"
 }
