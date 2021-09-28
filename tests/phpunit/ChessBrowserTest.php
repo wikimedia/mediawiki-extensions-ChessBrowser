@@ -173,8 +173,8 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 				[
 					'piece-type' => 'p',
 					'piece-color' => 'd',
-					'piece-rank' => '0',
-					'piece-file' => '1',
+					'piece-rank' => 0,
+					'piece-file' => 1,
 				]
 			],
 			[
@@ -206,8 +206,8 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 				[
 					'piece-type' => 'n',
 					'piece-color' => 'l',
-					'piece-rank' => '1',
-					'piece-file' => '1',
+					'piece-rank' => 1,
+					'piece-file' => 1,
 				]
 			],
 			[
@@ -443,4 +443,107 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 			]
 		];
 	}
+
+	/**
+	 * @covers ::assertValidFEN
+	 * @dataProvider provideAssertValidFEN
+	 * @param string $fen
+	 * @param string $message assert message for test case
+	 */
+	public function testAssertValidFEN( string $fen, string $message ) {
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgnTest = $browser->assertValidFen( $fen );
+		$this->assertNull( $pgnTest, $message );
+	}
+
+	public static function provideAssertValidFEN() {
+		return [
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+				"Initial board"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b - - 0 1",
+				"No castling or enpassant"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b - - 49 1",
+				"halfmove clock and fullmove number"
+			],
+
+		];
+	}
+
+	/**
+	 * @covers ::assertValidFEN
+	 * @dataProvider provideAssertInvalidFEN
+	 * @param string $fen
+	 */
+	public function testAssertInvalidFEN( string $fen ) {
+		$this->expectException( ChessBrowserException::class );
+		$this->expectExceptionMessage( 'Invalid FEN.' );
+
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$pgnTest = $browser->assertValidFEN( $fen );
+	}
+
+	public static function provideAssertInvalidFEN() {
+		return [
+			[
+				"Ynbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+				"Incorrect character for a piece"
+			],
+			[
+				"rnbqkbnr/pppppppp/9/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+				"Invalid number of empty squares"
+			],
+			[
+				"rnbqkbnr/pppppppp/0/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+				"Invalid number of empty squares"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR z KQkq - 0 1",
+				"Invalid color to move"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w P - 0 1",
+				"Invalid castling availability"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq e2 0 1",
+				"Invalid En Passant target square"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - - -",
+				"Invalid halfmove clock and fullmove number"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR  w  KQkq  - 0 1",
+				"Multiple spaces between fields"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/RNBQKBNR w KQkq - 0 1",
+				"Too many ranks"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP w KQkq - 0 1",
+				"Too few ranks"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/ w KQkq - 0 1",
+				"Too few ranks #2"
+			],
+			[
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1",
+				"Trailing rank separator"
+			],
+			[
+				"rnbqqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1",
+				"Too many files"
+			],
+		];
+	}
+
 }

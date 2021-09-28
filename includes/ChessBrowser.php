@@ -23,6 +23,7 @@
 namespace MediaWiki\Extension\ChessBrowser;
 
 use Exception;
+use MediaWiki\Extension\ChessBrowser\PgnParser\FenParser0x88;
 use Parser;
 use PPFrame;
 use TemplateParser;
@@ -203,10 +204,74 @@ class ChessBrowser {
 		$localizedLabels = self::getLocalizedLabels();
 		$metadata = self::getMetadata( $chessObject['metadata'] );
 		$templateArgs = array_merge( $templateArgs, $localizedLabels, $metadata );
-		return $templateParser->processTemplate(
+		$game = $templateParser->processTemplate(
 			'ChessGame',
 			$templateArgs
 		);
+		return $game;
+	}
+
+	/**
+	 * @since 0.3.0
+	 * @param string $input The wikitext placed between fen tags
+	 * @param array $args Arguments passed as xml attributes
+	 * @param Parser $parser The MediaWiki parser object
+	 * @param PPFrame $frame Parent frame, provides context of the tage placement
+	 * @return array
+	 */
+	public static function newPosition( $input, array $args, Parser $parser, PPFrame $frame ): array {
+		try {
+			$input = trim( $input );
+			self::assertValidFEN( $input );
+			$fenParser = new FenParser0x88( $input );
+			$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
+
+			$fenOut = $fenParser->getFen();
+
+			// Set up template arguments
+			$templateParser = new TemplateParser( __DIR__ . '/../templates' );
+			$templateArgs = [
+				'data-chess' => json_encode( $fenOut ),
+				// TODO One day these dimensions will be determined by the user
+				'board-height' => '248px',
+				'board-width' => '248px',
+				'label-height' => '208px',
+				'label-width' => '208px',
+				'piece-set' => self::generatePieces( $fenOut )
+			];
+			$localizedLegendLabels = self::getLocalizedLegendLabels();
+			$templateArgs = array_merge( $templateArgs, $localizedLegendLabels );
+			$board = $templateParser->processTemplate(
+				'ChessBoard',
+				$templateArgs
+			);
+			return [ $board , 'markerType' => 'nowiki' ];
+		} catch ( Exception $e ) {
+			wfDebugLog(
+				'ChessBrowser',
+				'Unable to create a game: ' . $e
+			);
+			$parser->addTrackingCategory( 'chessbrowser-invalid-category' );
+			$message = wfMessage( 'chessbrowser-invalid-message' )->escaped();
+			return [ $message ];
+		}
+	}
+
+	/**
+	 * Check if tag contains valid input format FEN
+	 *
+	 * The input string is checked with a regex to make sure we only have the expected
+	 * characters and spacing of FEN. We do not check if it is a valid game.
+	 *
+	 * @param string $fenInput
+	 * @throws ChessBrowserException if invalid
+	 */
+	private static function assertValidFEN( string $fenInput ) {
+		$fenRegex = '/^([prnbqk1-8]{1,8}\/){7}[prnbqk1-8]{1,8}\s[wb]\s([kq]{1,4}|-)\s([abcdefgh][36]|-)\s\d+\s\d+/i';
+		$valid = preg_match( $fenRegex, $fenInput );
+		if ( $valid !== 1 ) {
+			throw new ChessBrowserException( 'Invalid FEN.' );
+		}
 	}
 
 	/**
@@ -217,14 +282,14 @@ class ChessBrowser {
 	 */
 	public static function generatePieces( $fen ): array {
 		$pieceArray = [];
-		$rankIndex = 0;
+		$rankIndex = 7;
 		$fileIndex = 0;
 		$fenArray = str_split( $fen );
 		foreach ( $fenArray as $fenChar ) {
 			if ( is_numeric( $fenChar ) ) {
 				$fileIndex += $fenChar;
 			} elseif ( $fenChar === '/' ) {
-				$rankIndex++;
+				$rankIndex--;
 				$fileIndex = 0;
 			} else {
 				if ( $fileIndex > 7 ) {
@@ -243,7 +308,8 @@ class ChessBrowser {
 	 * @return array
 	 */
 	public static function getLocalizedLabels(): array {
-		return [
+		$legend = self::getLocalizedLegendLabels();
+		$other = [
 			'expand-button' => wfMessage( 'chessbrowser-expand-button' )->text(),
 			'game-detail' => wfMessage( 'chessbrowser-game-detail' )->text(),
 			'event-label' => wfMessage( 'chessbrowser-event-label' )->text(),
@@ -254,6 +320,19 @@ class ChessBrowser {
 			'black-label' => wfMessage( 'chessbrowser-black-label' )->text(),
 			'result-label' => wfMessage( 'chessbrowser-result-label' )->text(),
 			'notations-label' => wfMessage( 'chessbrowser-notations-label' )->text(),
+			'no-javascript' => wfMessage( 'chessbrowser-no-javascript' )->text()
+		];
+		$allLabels = array_merge( $legend, $other );
+		return $allLabels;
+	}
+
+	/**
+	 * Retrieve the interface text for the correct locale for the legend only
+	 * @since 0.3.0
+	 * @return array
+	 */
+	private static function getLocalizedLegendLabels(): array {
+		return [
 			'rank-1' => wfMessage( 'chessbrowser-first-rank' )->text(),
 			'rank-2' => wfMessage( 'chessbrowser-second-rank' )->text(),
 			'rank-3' => wfMessage( 'chessbrowser-third-rank' )->text(),
@@ -270,7 +349,6 @@ class ChessBrowser {
 			'f' => wfMessage( 'chessbrowser-f-file' )->text(),
 			'g' => wfMessage( 'chessbrowser-g-file' )->text(),
 			'h' => wfMessage( 'chessbrowser-h-file' )->text(),
-			'no-javascript' => wfMessage( 'chessbrowser-no-javascript' )->text()
 		];
 	}
 
