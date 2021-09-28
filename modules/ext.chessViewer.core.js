@@ -322,6 +322,7 @@
 
 		this.updateAccessibleBoard = function ( board ) {
 			var i,
+				color,
 				offset = 8,
 				offset2,
 				$cell;
@@ -332,14 +333,14 @@
 				}
 				offset2 = offset + ( ( i % 8 ) * 8 );
 				if ( typeof board[ offset2 ] !== 'undefined' ) {
+					color = board[ offset2 ].data( 'color' ) === 'd' ? 'black' : 'white';
 					$cell.text(
 						// Messages that can be used here:
 						// * chessbrowser-occupied-black
 						// * chessbrowser-occupied-white
 						mw.message(
-							'chessbrowser-occupied-' +
-							( board[ offset2 ].data( 'color' ) === 'd' ? 'black' : 'white' ),
-							me.pieceToMsg( board[ offset2 ].data( 'piece' ) ),
+							'chessbrowser-occupied-' + color,
+							me.pieceToMsg( board[ offset2 ].data( 'piece' ), color ),
 							me.positionToMsg(
 								$cell.data( 'file' ),
 								$cell.data( 'rank' )
@@ -408,21 +409,34 @@
 			} ).on( 'click keydown', me.notationHandler );
 		};
 
-		this.pieceToMsg = function ( piece ) {
+		this.pieceToMsg = function ( piece, color ) {
+			// Messages that can be used here:
+			// * chessbrowser-piece-black-king
+			// * chessbrowser-piece-black-queen
+			// * chessbrowser-piece-black-rook
+			// * chessbrowser-piece-black-bishop
+			// * chessbrowser-piece-black-knight
+			// * chessbrowser-piece-black-pawn
+			// * chessbrowser-piece-white-king
+			// * chessbrowser-piece-white-queen
+			// * chessbrowser-piece-white-rook
+			// * chessbrowser-piece-white-bishop
+			// * chessbrowser-piece-white-knight
+			// * chessbrowser-piece-white-pawn
 			switch ( piece.toUpperCase() ) {
 				case 'K':
-					return mw.msg( 'chessbrowser-piece-king' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-king' );
 				case 'Q':
-					return mw.msg( 'chessbrowser-piece-queen' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-queen' );
 				case 'R':
-					return mw.msg( 'chessbrowser-piece-rook' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-rook' );
 				case 'B':
-					return mw.msg( 'chessbrowser-piece-bishop' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-bishop' );
 				case 'N':
-					return mw.msg( 'chessbrowser-piece-knight' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-knight' );
 				case 'P':
 				default:
-					return mw.msg( 'chessbrowser-piece-pawn' );
+					return mw.msg( 'chessbrowser-piece-' + color + '-pawn' );
 			}
 		};
 
