@@ -92,7 +92,8 @@
 		"ext.chessViewer.styles": {
 			"styles": [
 				"modules/ext.chessViewer.styles.less"
-			]
+			],
+			"targets": [ "mobile", "desktop" ]
 		}
 	},
 	"MessagesDirs": {

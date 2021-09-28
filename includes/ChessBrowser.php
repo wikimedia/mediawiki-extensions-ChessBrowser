@@ -219,13 +219,11 @@ class ChessBrowser {
 	 * @param PPFrame $frame Parent frame, provides context of the tage placement
 	 * @return array
 	 */
-	public static function newPosition( $input, array $args, Parser $parser, PPFrame $frame ): array {
+	public static function newPosition( string $input, array $args, Parser $parser, PPFrame $frame ): array {
 		try {
 			$input = trim( $input );
 			self::assertValidFEN( $input );
 			$fenParser = new FenParser0x88( $input );
-			$parser->getOutput()->setExtensionData( 'ChessViewerTrigger', 'true' );
-
 			$fenOut = $fenParser->getFen();
 
 			// Set up template arguments
@@ -245,6 +243,7 @@ class ChessBrowser {
 				'ChessBoard',
 				$templateArgs
 			);
+			$parser->getOutput()->setExtensionData( 'ChessViewerFEN', 'true' );
 			return [ $board , 'markerType' => 'nowiki' ];
 		} catch ( Exception $e ) {
 			wfDebugLog(

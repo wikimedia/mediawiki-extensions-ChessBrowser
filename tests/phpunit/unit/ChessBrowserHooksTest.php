@@ -58,20 +58,26 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 		ChessBrowserHooks::onParserFirstCallInit( $mock );
 	}
 
-	public function testOutputPageParserOutput() {
+	public function testOutputPageParserOutputNone() {
 		$mockOP = $this->createNoOpMock( OutputPage::class );
-
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$mockPO->expects( $this->once() )
+		$mockPO->expects( $this->exactly( 2 ) )
 			->method( 'getExtensionData' )
-			->with( 'ChessViewerTrigger' )
-			->willReturn( false );
+			->withConsecutive(
+				[ $this->equalTo( 'ChessViewerFEN' ) ],
+				[ $this->equalTo( 'ChessViewerTrigger' ) ]
+			)
+			->will(
+				$this->onConsecutiveCalls( false, false )
+			);
 
 		// if $trigger is false, no methods on outputpage are called
 		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
+	}
 
+	public function testOutputPageParserOutputPGN() {
 		$mockOP = $this->getMockBuilder( OutputPage::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -87,14 +93,41 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$mockPO->expects( $this->exactly( 2 ) )
+		$mockPO->expects( $this->exactly( 3 ) )
 			->method( 'getExtensionData' )
 			->withConsecutive(
+				[ $this->equalTo( 'ChessViewerFEN' ) ],
 				[ $this->equalTo( 'ChessViewerTrigger' ) ],
 				[ $this->equalTo( 'ChessViewerNumGames' ) ]
 			)
 			->will(
-				$this->onConsecutiveCalls( true, 5 )
+				$this->onConsecutiveCalls( false, true, 5 )
+			);
+
+		// if $trigger is true, outputpage methods are called
+		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
+	}
+
+	public function testOutputPageParserOutputFEN() {
+		$mockOP = $this->getMockBuilder( OutputPage::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$mockOP->expects( $this->once() )
+			->method( 'addModuleStyles' )
+			->with( 'ext.chessViewer.styles' );
+
+		$mockPO = $this->getMockBuilder( ParserOutput::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$mockPO->expects( $this->exactly( 2 ) )
+			->method( 'getExtensionData' )
+			->withConsecutive(
+				[ $this->equalTo( 'ChessViewerFEN' ) ],
+				[ $this->equalTo( 'ChessViewerTrigger' ) ]
+			)
+			->will(
+				$this->onConsecutiveCalls( true, false )
 			);
 
 		// if $trigger is true, outputpage methods are called
