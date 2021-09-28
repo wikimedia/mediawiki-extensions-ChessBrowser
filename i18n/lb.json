@@ -31,5 +31,9 @@
 	"chessbrowser-piece-knight": "Sprénger",
 	"chessbrowser-piece-pawn": "Bauer",
 	"chessbrowser-black-moves": "Schwaarz:",
-	"chessbrowser-white-moves": "Wäiss:"
+	"chessbrowser-white-moves": "Wäiss:",
+	"chessbrowser-chessboard-label": "Schachbriet",
+	"chessbrowser-empty-square": "Eidelt Feld, $1",
+	"chessbrowser-occupied-black": "Schwaarz $1, $2",
+	"chessbrowser-occupied-white": "Wäiss $1, $2"
 }

@@ -18,6 +18,7 @@
 	"chessbrowser-white-label": "לבן",
 	"chessbrowser-black-label": "שחור",
 	"chessbrowser-result-label": "תוצאה",
+	"chessbrowser-notations-label": "מהלכי שחמט מתוארים בשפת PGN. יש ללחוץ על כפתור כדי לשנות למיקום הזה של הלוח.",
 	"chessbrowser-a-file": "א",
 	"chessbrowser-b-file": "ב",
 	"chessbrowser-c-file": "ג",
@@ -51,5 +52,9 @@
 	"chessbrowser-capture": "$1 $2 מכה את $3",
 	"chessbrowser-promote": "מוכתר ל$1",
 	"chessbrowser-black-moves": "שחור:",
-	"chessbrowser-white-moves": "לבן:"
+	"chessbrowser-white-moves": "לבן:",
+	"chessbrowser-chessboard-label": "לוח שחמט",
+	"chessbrowser-empty-square": "ריבוע ריק, $1",
+	"chessbrowser-occupied-black": "$1 שחור, $2",
+	"chessbrowser-occupied-white": "$1 לבן, $2"
 }

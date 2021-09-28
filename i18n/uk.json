@@ -20,6 +20,7 @@
 	"chessbrowser-white-label": "Білі",
 	"chessbrowser-black-label": "Чорні",
 	"chessbrowser-result-label": "Результат",
+	"chessbrowser-notations-label": "Шахові ходи, описані в позначенні PGN. Натисніть кнопку, щоб змінити положення дошки.",
 	"chessbrowser-first-rank": "1",
 	"chessbrowser-second-rank": "2",
 	"chessbrowser-third-rank": "3",
@@ -61,5 +62,9 @@
 	"chessbrowser-capture": "$1 $2 захоплює $3.",
 	"chessbrowser-promote": "Підвищує до $1.",
 	"chessbrowser-black-moves": "Чорний:",
-	"chessbrowser-white-moves": "Білий:"
+	"chessbrowser-white-moves": "Білий:",
+	"chessbrowser-chessboard-label": "Шахова дошка",
+	"chessbrowser-empty-square": "Порожній квадрат, $1",
+	"chessbrowser-occupied-black": "Чорний $1, $2",
+	"chessbrowser-occupied-white": "Білий $1, $2"
 }

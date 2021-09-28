@@ -17,6 +17,7 @@
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Nigre",
 	"chessbrowser-result-label": "Resultato",
+	"chessbrowser-notations-label": "Le movimentos de chacos es describite in notation PGN. Clicca sur un button pro cambiar al position correspondente del tabuliero.",
 	"chessbrowser-beginning-of-game": "Ir al prime movimento",
 	"chessbrowser-previous-move": "Movimento precedente",
 	"chessbrowser-slow-autoplay": "Plus lente",
@@ -42,5 +43,9 @@
 	"chessbrowser-capture": "$1 $2 captura $3.",
 	"chessbrowser-promote": "Se promove a $1.",
 	"chessbrowser-black-moves": "Nigre:",
-	"chessbrowser-white-moves": "Blanc:"
+	"chessbrowser-white-moves": "Blanc:",
+	"chessbrowser-chessboard-label": "Chachiero",
+	"chessbrowser-empty-square": "Quadrato vacue, $1",
+	"chessbrowser-occupied-black": "$1 nigre, $2",
+	"chessbrowser-occupied-white": "$1 blanc, $2"
 }

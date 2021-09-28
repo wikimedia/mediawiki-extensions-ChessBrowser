@@ -4,6 +4,7 @@
 			"Gwanki"
 		]
 	},
+	"chessbrowser-notations-label": "Chess motsa da aka bayyana a cikin bayanin PGN.  Danna maɓallin don canzawa zuwa wancan matsayin hukumar.",
 	"chessbrowser-boardstate-initial": "Halin farko na hukuma.",
 	"chessbrowser-boardstate-final": "Matsayin ƙarshe.",
 	"chessbrowser-boardstate-check": "Bincika.",
@@ -20,5 +21,9 @@
 	"chessbrowser-capture": "$1 $2 kamawa $3.",
 	"chessbrowser-promote": "Bunƙasa zuwa $1.",
 	"chessbrowser-black-moves": "Baƙi:",
-	"chessbrowser-white-moves": "Fari:"
+	"chessbrowser-white-moves": "Fari:",
+	"chessbrowser-chessboard-label": "Katako",
+	"chessbrowser-empty-square": "Fankom murabba'i, $1",
+	"chessbrowser-occupied-black": "Baƙi $1, $2",
+	"chessbrowser-occupied-white": "Fari $1, $2"
 }
