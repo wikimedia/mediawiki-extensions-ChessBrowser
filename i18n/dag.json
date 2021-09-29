@@ -4,10 +4,6 @@
 			"Jahinfo"
 		]
 	},
-	"chessbrowser-piece-queen": "Na paɣa",
-	"chessbrowser-piece-knight": "Tobu tuhira",
 	"chessbrowser-promote": "Chaŋ tooni ni $1.",
-	"chessbrowser-empty-square": "Yaɣa niŋ, $1",
-	"chessbrowser-occupied-black": "Zaɣi sabinli $1, $2",
-	"chessbrowser-occupied-white": "Sabimi $1, $2"
+	"chessbrowser-empty-square": "Yaɣa niŋ, $1"
 }

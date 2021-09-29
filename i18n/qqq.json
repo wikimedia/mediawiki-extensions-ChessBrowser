@@ -70,7 +70,7 @@
 	"chessbrowser-black-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside",
 	"chessbrowser-white-moves": "Accessibility description of the side that is about to move. Followed by either {{msg-mw|chessbrowser-move}}, {{msg-mw|chessbrowser-capture}}, {{msg-mw|chessbrowser-castling-kingside}} or {{msg-mw|chessbrowser-castling-queenside",
 	"chessbrowser-chessboard-label": "Acessibility label for the chessboard itself.",
-	"chessbrowser-empty-square": "Accessibility label for an empty square of the chessboard. Parameter $1, the position on the board.",
+	"chessbrowser-empty-square": "Accessibility label for an empty square of the chessboard. Parameter $1, the position on the board. Check the Wikipedia article [[:en:Chessboard|Chessboard]] for the terminology for \"square\" in your language.",
 	"chessbrowser-occupied-black": "Accessibility label for a square occupied by a black piece.\n\nParameters:\n* $1 - Name of the chesspiece\n* $2 - Position of the chesspiece",
 	"chessbrowser-occupied-white": "Accessibility label for a square occupied by a white piece.\n\nParameters:\n* $1 - Name of the chesspiece\n* $2 - Position of the chesspiece"
 }

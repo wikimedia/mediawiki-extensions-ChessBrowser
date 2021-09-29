@@ -19,6 +19,7 @@
 	"chessbrowser-white-label": "Branco",
 	"chessbrowser-black-label": "Preto",
 	"chessbrowser-result-label": "Resultado",
+	"chessbrowser-notations-label": "Jogadas de xadrez descritas na notação PGN. Clique em um botão para mudar para essa posição do tabuleiro.",
 	"chessbrowser-beginning-of-game": "Ir para o primeiro movimento",
 	"chessbrowser-previous-move": "Movimento anterior",
 	"chessbrowser-slow-autoplay": "Mais lento",
@@ -27,5 +28,7 @@
 	"chessbrowser-next-move": "Próximo movimento",
 	"chessbrowser-end-of-game": "Ir para o último movimento",
 	"chessbrowser-flip-board": "Perspectiva da borda de movimento",
-	"chessbrowser-no-javascript": "O JavaScript não está ativado nesta página. Para visualizar o jogo interativamente, ative o Javascript."
+	"chessbrowser-no-javascript": "O JavaScript não está ativado nesta página. Para visualizar o jogo interativamente, ative o Javascript.",
+	"chessbrowser-chessboard-label": "Tabuleiro de xadrez",
+	"chessbrowser-empty-square": "Quadrado vazio, $1"
 }

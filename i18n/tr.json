@@ -36,12 +36,6 @@
 	"chessbrowser-boardstate-checkmate": "Mat.",
 	"chessbrowser-castling-queenside": "Vezir tarafında rok.",
 	"chessbrowser-castling-kingside": "Şah tarafında rok.",
-	"chessbrowser-piece-king": "Şah",
-	"chessbrowser-piece-queen": "Vezir",
-	"chessbrowser-piece-bishop": "Fil",
-	"chessbrowser-piece-knight": "At",
-	"chessbrowser-piece-rook": "Kale",
-	"chessbrowser-piece-pawn": "Piyon",
 	"chessbrowser-black-moves": "Siyah:",
 	"chessbrowser-white-moves": "Beyaz:"
 }

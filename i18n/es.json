@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Destinid10 2",
 			"Fitoschido",
 			"Ihojose",
 			"Jrenteria",
@@ -35,15 +36,22 @@
 	"chessbrowser-boardstate-checkmate": "Jaque mate.",
 	"chessbrowser-castling-queenside": "Enroque el flanco de la reina.",
 	"chessbrowser-castling-kingside": "Enroque kingside.",
-	"chessbrowser-piece-king": "Rey",
-	"chessbrowser-piece-queen": "Reina",
-	"chessbrowser-piece-bishop": "Obispo",
-	"chessbrowser-piece-knight": "Caballero",
-	"chessbrowser-piece-rook": "Torre",
-	"chessbrowser-piece-pawn": "Peón",
+	"chessbrowser-piece-white-king": "Rey Blanco",
+	"chessbrowser-piece-white-queen": "Dama Blanca",
+	"chessbrowser-piece-white-bishop": "Alfil Blanco",
+	"chessbrowser-piece-white-knight": "Rey Blanco",
+	"chessbrowser-piece-white-rook": "Torre Blanca",
+	"chessbrowser-piece-white-pawn": "Peón Blanco",
+	"chessbrowser-piece-black-king": "Rey Negro",
+	"chessbrowser-piece-black-queen": "Dama Negra",
+	"chessbrowser-piece-black-bishop": "Alfil Negro",
+	"chessbrowser-piece-black-knight": "Caballo Negro",
+	"chessbrowser-piece-black-rook": "Torre Negra",
+	"chessbrowser-piece-black-pawn": "Peón Negro",
 	"chessbrowser-move": "$1 $2 se mueve a $3.",
 	"chessbrowser-capture": "$1 $2 captura $3.",
 	"chessbrowser-promote": "Promueve a $1.",
 	"chessbrowser-black-moves": "Negro:",
-	"chessbrowser-white-moves": "Blanco:"
+	"chessbrowser-white-moves": "Blanco:",
+	"chessbrowser-chessboard-label": "Tablero de ajedrez"
 }

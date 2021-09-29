@@ -29,12 +29,6 @@
 	"chessbrowser-fast-autoplay": "দ্রুত",
 	"chessbrowser-next-move": "পরবর্তী চাল",
 	"chessbrowser-end-of-game": "সর্বশেষ গুটি চালনায় চলুন",
-	"chessbrowser-piece-king": "রাজা",
-	"chessbrowser-piece-queen": "মন্ত্রী",
-	"chessbrowser-piece-bishop": "হাতি",
-	"chessbrowser-piece-knight": "ঘোড়া",
-	"chessbrowser-piece-rook": "নৌকা",
-	"chessbrowser-piece-pawn": "সৈন্য",
 	"chessbrowser-promote": "$1-এ উন্নীত।",
 	"chessbrowser-black-moves": "কালো:",
 	"chessbrowser-white-moves": "সাদা:"

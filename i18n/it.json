@@ -21,12 +21,6 @@
 	"chessbrowser-end-of-game": "Vai all'ultima mossa",
 	"chessbrowser-boardstate-check": "Scacco.",
 	"chessbrowser-boardstate-checkmate": "Scacco matto.",
-	"chessbrowser-piece-king": "Re",
-	"chessbrowser-piece-queen": "Regina",
-	"chessbrowser-piece-bishop": "Alfiere",
-	"chessbrowser-piece-knight": "Cavallo",
-	"chessbrowser-piece-rook": "Torre",
-	"chessbrowser-piece-pawn": "Pedone",
 	"chessbrowser-move": "$1 $2 muove in $3.",
 	"chessbrowser-black-moves": "Nero:",
 	"chessbrowser-white-moves": "Bianco:"

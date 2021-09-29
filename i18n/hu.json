@@ -16,9 +16,6 @@
 	"chessbrowser-fast-autoplay": "Gyorsabb",
 	"chessbrowser-boardstate-check": "Sakk.",
 	"chessbrowser-boardstate-checkmate": "Sakk matt.",
-	"chessbrowser-piece-king": "Király",
-	"chessbrowser-piece-queen": "Királynő",
-	"chessbrowser-piece-knight": "Lovag",
 	"chessbrowser-black-moves": "Fekete:",
 	"chessbrowser-white-moves": "Fehér:"
 }

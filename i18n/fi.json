@@ -7,12 +7,6 @@
 	},
 	"chessbrowser-boardstate-check": "Shakki",
 	"chessbrowser-boardstate-checkmate": "Shakkimatti.",
-	"chessbrowser-piece-king": "Kuningas",
-	"chessbrowser-piece-queen": "Kuningatar",
-	"chessbrowser-piece-bishop": "Lähetti",
-	"chessbrowser-piece-knight": "Ratsu",
-	"chessbrowser-piece-rook": "Torni",
-	"chessbrowser-piece-pawn": "Sotilas",
 	"chessbrowser-black-moves": "Musta:",
 	"chessbrowser-white-moves": "Valkoinen:"
 }

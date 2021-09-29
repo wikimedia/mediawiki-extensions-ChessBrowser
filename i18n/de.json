@@ -34,19 +34,13 @@
 	"chessbrowser-boardstate-checkmate": "Schachmatt.",
 	"chessbrowser-castling-queenside": "Rochade Damenflügel.",
 	"chessbrowser-castling-kingside": "Rochade Königsflügel.",
-	"chessbrowser-piece-king": "König",
-	"chessbrowser-piece-queen": "Dame",
-	"chessbrowser-piece-bishop": "Läufer",
-	"chessbrowser-piece-knight": "Springer",
-	"chessbrowser-piece-rook": "Turm",
-	"chessbrowser-piece-pawn": "Bauer",
+	"chessbrowser-piece-white-king": "Weißer König",
+	"chessbrowser-piece-white-queen": "Weiße Dame",
 	"chessbrowser-move": "$1 $2 zieht nach $3.",
 	"chessbrowser-capture": "$1 $2 schlägt $3.",
 	"chessbrowser-promote": "Umgewandelt in $1.",
 	"chessbrowser-black-moves": "Schwarz:",
 	"chessbrowser-white-moves": "Weiß:",
 	"chessbrowser-chessboard-label": "Schachbrett",
-	"chessbrowser-empty-square": "Leeres Feld, $1",
-	"chessbrowser-occupied-black": "Schwarz $1, $2",
-	"chessbrowser-occupied-white": "Weiß $1, $2"
+	"chessbrowser-empty-square": "Leeres Feld, $1"
 }
