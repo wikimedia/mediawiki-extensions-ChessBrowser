@@ -157,7 +157,7 @@ Basic opening (no javascript)
 Invalid PGN shows warning
 !! wikitext
 <pgn>FooBar</pgn>
-!! html/php+tidy
+!! html/php
 <p>The PGN specified is invalid
 </p>
 !! end
@@ -168,7 +168,7 @@ Invalid PGN adds tracking category
 cat
 !! wikitext
 <pgn>Baz</pgn>
-!! html+tidy
+!! html/php
 cat=Pages_with_invalid_PGNs_specified sort=
 !! end
 
