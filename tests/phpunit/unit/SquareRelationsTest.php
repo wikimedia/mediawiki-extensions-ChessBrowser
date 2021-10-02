@@ -45,9 +45,17 @@ class SquareRelationsTest extends MediaWikiUnitTestCase {
 
 	public static function provideGetDistance() {
 		return [
+			[ 0x00, 0x01, 1, 'Test a1 to b1 has distance 1.' ],
+			[ 0x00, 0x02, 2, 'Test a1 to c1 has distance 2.' ],
+			[ 0x00, 0x07, 7, 'Test a1 to h1 has distance 7.' ],
+			[ 0x00, 0x77, 7, 'Test a1 to h8 has distance 7.' ],
+			[ 0x40, 0x07, 7, 'Test a5 to h1 has distance 7.' ],
+			[ 0x40, 0x00, 4, 'Test a5 to a1 has distance 4.' ],
+			[ 0x47, 0x00, 7, 'Test h5 to a1 has distance 7.' ],
+			[ 0x47, 0x07, 4, 'Test h5 to h1 has distance 4.' ],
+			[ 0x42, 0x34, 2, 'Test b5 to d4 has distance 2.' ],
 			[ 0x43, 0x54, 1, 'Test d5 to e6 has distance 1.' ],
 			[ 0x01, 0x22, 2, 'Test b1 to c3 has distance 2.' ],
-			[ 0x00, 0x77, 7, 'Test a1 to h8 has distance 7.' ],
 			[ 0x70, 0x07, 7, 'Test a8 to h1 has distance 7.' ]
 		];
 	}
