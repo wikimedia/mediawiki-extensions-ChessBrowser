@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fraxinus.cs"
+		]
+	},
+	"chessbrowser-notations-label": "Šachové tahy popsané v zápisu PGN. Klikněte na tlačítko, abyste se přesunuli na tuto pozici šachovnice.",
+	"chessbrowser-boardstate-initial": "Počáteční stav na hrací desce.",
+	"chessbrowser-boardstate-final": "Konečný stav na hrací desce.",
+	"chessbrowser-boardstate-check": "Šach.",
+	"chessbrowser-boardstate-checkmate": "Šachmat.",
+	"chessbrowser-piece-white-king": "Bílý král",
+	"chessbrowser-piece-white-queen": "Bílá královna",
+	"chessbrowser-piece-white-bishop": "Bílý střelec",
+	"chessbrowser-piece-white-knight": "Bílý jezdec",
+	"chessbrowser-piece-white-rook": "Bílá věž",
+	"chessbrowser-piece-white-pawn": "Bílý pěšec",
+	"chessbrowser-piece-black-king": "Černý král",
+	"chessbrowser-piece-black-queen": "Černá královna",
+	"chessbrowser-piece-black-bishop": "Černý střelec",
+	"chessbrowser-piece-black-knight": "Černý jezdec",
+	"chessbrowser-piece-black-rook": "Černá věž",
+	"chessbrowser-piece-black-pawn": "Černý pěšec",
+	"chessbrowser-move": "$1 $2 se přesouvá na $3.",
+	"chessbrowser-promote": "Postupuje do $1",
+	"chessbrowser-black-moves": "Černý:",
+	"chessbrowser-white-moves": "Bílý:",
+	"chessbrowser-chessboard-label": "Šachovnice",
+	"chessbrowser-empty-square": "Prázdné políčko, $1"
+}

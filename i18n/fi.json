@@ -7,6 +7,20 @@
 	},
 	"chessbrowser-boardstate-check": "Shakki",
 	"chessbrowser-boardstate-checkmate": "Shakkimatti.",
+	"chessbrowser-piece-white-king": "Valkoinen kuningas",
+	"chessbrowser-piece-white-queen": "Valkoinen kuningatar",
+	"chessbrowser-piece-white-bishop": "Valkoinen lähetti",
+	"chessbrowser-piece-white-knight": "Valkoinen ratsu",
+	"chessbrowser-piece-white-rook": "Valkoinen torni",
+	"chessbrowser-piece-white-pawn": "Valkoinen sotilas",
+	"chessbrowser-piece-black-king": "Musta kuningas",
+	"chessbrowser-piece-black-queen": "Musta kuningatar",
+	"chessbrowser-piece-black-bishop": "Musta lähetti",
+	"chessbrowser-piece-black-knight": "Musta ratsu",
+	"chessbrowser-piece-black-rook": "Musta torni",
+	"chessbrowser-piece-black-pawn": "Musta sotilas",
 	"chessbrowser-black-moves": "Musta:",
-	"chessbrowser-white-moves": "Valkoinen:"
+	"chessbrowser-white-moves": "Valkoinen:",
+	"chessbrowser-chessboard-label": "Shakkipöytä",
+	"chessbrowser-empty-square": "Tyhjä neliö, $1"
 }

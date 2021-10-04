@@ -36,6 +36,7 @@
 	"chessbrowser-boardstate-checkmate": "Échec et mat.",
 	"chessbrowser-castling-queenside": "Roque côté reine.",
 	"chessbrowser-castling-kingside": "Roque côté roi.",
+	"chessbrowser-piece-white-king": "Roi blanc",
 	"chessbrowser-move": "$1 $2 se déplace vers $3.",
 	"chessbrowser-capture": "$1 $2 capture $3.",
 	"chessbrowser-promote": "Promotion en $1.",
