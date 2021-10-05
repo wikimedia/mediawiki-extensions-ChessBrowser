@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"पदाति"
+		]
+	},
+	"chessbrowser-piece-white-king": "सफेद राजा",
+	"chessbrowser-piece-white-queen": "सफेद रानी",
+	"chessbrowser-piece-white-bishop": "सफेद ऊंट",
+	"chessbrowser-piece-white-knight": "सफेद घोड़ा",
+	"chessbrowser-piece-white-rook": "सफेद हाथी",
+	"chessbrowser-piece-white-pawn": "सफेद प्यादा",
+	"chessbrowser-piece-black-king": "काला राजा",
+	"chessbrowser-piece-black-queen": "काली रानी",
+	"chessbrowser-piece-black-bishop": "काला ऊंट",
+	"chessbrowser-piece-black-knight": "काला घोड़ा",
+	"chessbrowser-piece-black-rook": "काला हाथी",
+	"chessbrowser-piece-black-pawn": "काला प्यादा",
+	"chessbrowser-chessboard-label": "बिसात",
+	"chessbrowser-empty-square": "खाली वर्ग, $1"
+}

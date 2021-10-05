@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ninjastrikers",
 			"ခွန်ပညာႏ(တောင်ႏကီꩻ)"
 		]
 	},
-	"chessbrowser-boardstate-check": "စဲစ်ဆေꩻ",
-	"chessbrowser-black-moves": "အဖြေင်း"
+	"chessbrowser-boardstate-check": "စစ်ဆေး။",
+	"chessbrowser-black-moves": "အမည်း:"
 }
