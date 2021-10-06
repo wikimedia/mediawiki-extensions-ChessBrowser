@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
+			"Erdemkose",
 			"Joseph",
 			"Melissadilara",
 			"MuratTheTurkish",
@@ -21,7 +22,7 @@
 	"chessbrowser-white-label": "Beyaz",
 	"chessbrowser-black-label": "Siyah",
 	"chessbrowser-result-label": "Sonuç",
-	"chessbrowser-notations-label": "Satranç hamleleri PGN gösterimiyle anlatılmıştır. Tahtanın o durumuna değiştirmek için bir düğmeye tıklayın.",
+	"chessbrowser-notations-label": "Satranç hamleleri PGN gösterimiyle anlatılmıştır. Tahtanın o durumuna dönmek için bir düğmeye tıklayın.",
 	"chessbrowser-beginning-of-game": "İlk hamleye git",
 	"chessbrowser-previous-move": "Önceki hamle",
 	"chessbrowser-slow-autoplay": "Daha yavaş",
