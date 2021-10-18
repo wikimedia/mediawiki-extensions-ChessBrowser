@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"MITO",
-			"Nike"
+			"Nike",
+			"Rönttönen"
 		]
 	},
 	"chessbrowser-boardstate-check": "Shakki",
@@ -21,6 +22,6 @@
 	"chessbrowser-piece-black-pawn": "Musta sotilas",
 	"chessbrowser-black-moves": "Musta:",
 	"chessbrowser-white-moves": "Valkoinen:",
-	"chessbrowser-chessboard-label": "Shakkipöytä",
+	"chessbrowser-chessboard-label": "Shakkilauta",
 	"chessbrowser-empty-square": "Tyhjä neliö, $1"
 }

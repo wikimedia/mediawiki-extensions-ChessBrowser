@@ -1,15 +1,25 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abayeta",
 			"Adignyoke",
+			"Akakiiri",
 			"Akoonaba"
 		]
 	},
 	"chessbrowser-boardstate-check": "Kɛki",
 	"chessbrowser-piece-white-king": "Nerɛ pɛɛlega Naba",
 	"chessbrowser-piece-white-queen": "Nerɛ pɛɛlega pɔgenaba",
+	"chessbrowser-piece-white-bishop": "Bisɔpi pɛɛlega",
+	"chessbrowser-piece-white-knight": "Sɔpɛɛlega",
+	"chessbrowser-piece-white-rook": "Kugepɛɛlega",
+	"chessbrowser-piece-black-king": "Nasabelega",
 	"chessbrowser-piece-black-queen": "Nerɛ Sabega Pɔgenaba",
+	"chessbrowser-piece-black-bishop": "Bisɔpi sabelega",
+	"chessbrowser-piece-black-knight": "Sɔsabelega",
+	"chessbrowser-piece-black-rook": "Kugesabelega",
 	"chessbrowser-capture": "$1 $2 nyɔke $3.",
 	"chessbrowser-black-moves": "Sabega",
-	"chessbrowser-white-moves": "Pɛɛlega"
+	"chessbrowser-white-moves": "Pɛɛlega",
+	"chessbrowser-empty-square": "Dana voore, $1"
 }

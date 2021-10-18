@@ -20,5 +20,7 @@
 	"chessbrowser-next-move": "حرکت بعدی",
 	"chessbrowser-end-of-game": "رفتن به آخرین حرکت",
 	"chessbrowser-boardstate-check": "کش",
-	"chessbrowser-boardstate-checkmate": "کیش و مات"
+	"chessbrowser-boardstate-checkmate": "کیش و مات",
+	"chessbrowser-black-moves": "سیاه:",
+	"chessbrowser-white-moves": "سفید:"
 }

@@ -3,7 +3,8 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
-			"Isabelle Belato"
+			"Isabelle Belato",
+			"Svjatysberega"
 		]
 	},
 	"chessbrowser-desc": "Adiciona a etiqueta pgn para tornar a notação do jogo de xadrez interativa.",
@@ -29,6 +30,17 @@
 	"chessbrowser-end-of-game": "Ir para o último movimento",
 	"chessbrowser-flip-board": "Perspectiva da borda de movimento",
 	"chessbrowser-no-javascript": "O JavaScript não está ativado nesta página. Para visualizar o jogo interativamente, ative o Javascript.",
+	"chessbrowser-piece-white-king": "Rei Branco",
+	"chessbrowser-piece-white-queen": "Dama Branca",
+	"chessbrowser-piece-white-bishop": "Bispo Branco",
+	"chessbrowser-piece-white-knight": "Cavalo Branco",
+	"chessbrowser-piece-white-rook": "Torre Branca",
+	"chessbrowser-piece-white-pawn": "Peão Branco",
+	"chessbrowser-piece-black-king": "Rei Preto",
+	"chessbrowser-piece-black-queen": "Dama Preta",
+	"chessbrowser-piece-black-knight": "Cavalo Preto",
+	"chessbrowser-piece-black-rook": "Torre Preta",
+	"chessbrowser-piece-black-pawn": "Peão Preto",
 	"chessbrowser-chessboard-label": "Tabuleiro de xadrez",
 	"chessbrowser-empty-square": "Quadrado vazio, $1"
 }
