@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ajeje Brazorf",
+			"Cantons-de-l'Est",
 			"Eneelk",
 			"Gomoko",
 			"Verdy p"
@@ -20,6 +21,7 @@
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Noir",
 	"chessbrowser-result-label": "Résultat",
+	"chessbrowser-notations-label": "Mouvements du jeu d'échecs décrits en notation PGN. Cliquer sur un bouton pour se déplacer à une position sur l'échiquier.",
 	"chessbrowser-first-rank": "1",
 	"chessbrowser-beginning-of-game": "Aller au premier coup",
 	"chessbrowser-previous-move": "Coup précédent",
@@ -37,9 +39,22 @@
 	"chessbrowser-castling-queenside": "Roque côté reine.",
 	"chessbrowser-castling-kingside": "Roque côté roi.",
 	"chessbrowser-piece-white-king": "Roi blanc",
+	"chessbrowser-piece-white-queen": "Dame blanche",
+	"chessbrowser-piece-white-bishop": "Fou blanc",
+	"chessbrowser-piece-white-knight": "Cavalier blanc",
+	"chessbrowser-piece-white-rook": "Tour blanche",
+	"chessbrowser-piece-white-pawn": "Pion blanc",
+	"chessbrowser-piece-black-king": "Roi noir",
+	"chessbrowser-piece-black-queen": "Dame noire",
+	"chessbrowser-piece-black-bishop": "Fou noir",
+	"chessbrowser-piece-black-knight": "Cavalier noir",
+	"chessbrowser-piece-black-rook": "Tour noire",
+	"chessbrowser-piece-black-pawn": "Pion noir",
 	"chessbrowser-move": "$1 $2 se déplace vers $3.",
 	"chessbrowser-capture": "$1 $2 capture $3.",
 	"chessbrowser-promote": "Promotion en $1.",
 	"chessbrowser-black-moves": "Noir :",
-	"chessbrowser-white-moves": "Blanc :"
+	"chessbrowser-white-moves": "Blanc :",
+	"chessbrowser-chessboard-label": "Équiquier",
+	"chessbrowser-empty-square": "Case vide, $1"
 }
