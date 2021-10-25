@@ -11,7 +11,7 @@ Basic opening (no javascript)
 
 1. e4 e5</pgn>
 !! html
-<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null,null]],[38,36,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;}}">
+<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null,null]],[38,36,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;},&quot;init&quot;:1}">
 	<table class="mw-collapsible mw-collapsed pgn-metadata-table">
 		<tbody>
 			<tr>
