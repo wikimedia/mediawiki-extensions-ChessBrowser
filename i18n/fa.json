@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeeputer"
+		]
+	},
+	"chessbrowser-expand-button": "گسترش",
+	"chessbrowser-game-detail": "جزئیات بازی",
+	"chessbrowser-event-label": "رویداد",
+	"chessbrowser-site-label": "وبگاه",
+	"chessbrowser-date-label": "تاریخ",
+	"chessbrowser-round-label": "راند",
+	"chessbrowser-white-label": "سفید",
+	"chessbrowser-black-label": "سیاه",
+	"chessbrowser-result-label": "نتیجه",
+	"chessbrowser-beginning-of-game": "رفتن به نخستین حرکت",
+	"chessbrowser-previous-move": "حرکت قبلی",
+	"chessbrowser-slow-autoplay": "آرام‌تر",
+	"chessbrowser-fast-autoplay": "سریع‌تر",
+	"chessbrowser-next-move": "حرکت بعدی",
+	"chessbrowser-end-of-game": "رفتن به آخرین حرکت"
+}

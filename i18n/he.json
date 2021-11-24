@@ -6,7 +6,7 @@
 		]
 	},
 	"chessbrowser-desc": "הוספת תג pgn להצגת משחקי שחמט באופן אינטראקטיבי.",
-	"chessbrowser-invalid-message": "תחביר ה־PGN שניתן אינו תקין",
+	"chessbrowser-invalid-message": "תחביר ה־PGN שנכתב אינו תקין",
 	"chessbrowser-invalid-category": "דפים עם תחביר PGN בלתי־תקין",
 	"chessbrowser-invalid-category-desc": "תגי ה־PGN בדף מכילים משחק בלתי־תקין",
 	"chessbrowser-expand-button": "הרחבה",
@@ -26,13 +26,13 @@
 	"chessbrowser-f-file": "ו",
 	"chessbrowser-g-file": "ז",
 	"chessbrowser-h-file": "ח",
-	"chessbrowser-beginning-of-game": "מעבר למהלך הראשון",
+	"chessbrowser-beginning-of-game": "לעבור למהלך הראשון",
 	"chessbrowser-previous-move": "המהלך הקודם",
 	"chessbrowser-slow-autoplay": "לאט יותר",
 	"chessbrowser-play-pause-button": "להריץ / לעצור",
 	"chessbrowser-fast-autoplay": "מהר יותר",
 	"chessbrowser-next-move": "המהלך הבא",
-	"chessbrowser-end-of-game": "מעבר למהלך האחרון",
+	"chessbrowser-end-of-game": "לעבור למהלך האחרון",
 	"chessbrowser-flip-board": "להפוך את נקודת המבט על הלוח",
 	"chessbrowser-no-javascript": "תמיכה ב־JavaScript אינה מופעלת בדף הזה. כדי להציג את המשחק באופן הידודי, נא להפעיל את JavaScript."
 }
