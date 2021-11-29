@@ -17,6 +17,7 @@
 	"chessbrowser-white-label": "Hvit",
 	"chessbrowser-black-label": "Svart",
 	"chessbrowser-result-label": "Resultat",
+	"chessbrowser-notations-label": "Sjakktrekk beskrevet med PGN-notasjon. Klikk på en knapp for å bytte til den posisjonen på brettet.",
 	"chessbrowser-beginning-of-game": "Gå til første trekk",
 	"chessbrowser-previous-move": "Forrige trekk",
 	"chessbrowser-slow-autoplay": "Saktere",
@@ -25,5 +26,9 @@
 	"chessbrowser-next-move": "Neste trekk",
 	"chessbrowser-end-of-game": "Gå til siste trekk",
 	"chessbrowser-flip-board": "Endre brettets perspektiv",
-	"chessbrowser-no-javascript": "JavaScript er ikke slått på på denne siden. Slå på JavaScript for å vise spillet interaktivt."
+	"chessbrowser-no-javascript": "JavaScript er ikke slått på på denne siden. Slå på JavaScript for å vise spillet interaktivt.",
+	"chessbrowser-black-moves": "Svart:",
+	"chessbrowser-white-moves": "Hvit:",
+	"chessbrowser-chessboard-label": "Sjakkbrett",
+	"chessbrowser-empty-square": "Tom rute, $1"
 }
