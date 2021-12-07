@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"chessbrowser-site-label": "Situ",
+	"chessbrowser-white-label": "Biancu",
+	"chessbrowser-black-label": "Nigru",
+	"chessbrowser-result-label": "Risurtatu"
+}

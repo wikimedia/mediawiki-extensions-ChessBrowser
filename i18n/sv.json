@@ -1,9 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Sabelöga"
 		]
 	},
+	"chessbrowser-desc": "Lägger till pgn-tagg för att göra schackspelnotation interaktiv.",
+	"chessbrowser-invalid-message": "Angiven PGN är ogiltig",
+	"chessbrowser-invalid-category": "Sidor med ogiltigt angivna PGN",
+	"chessbrowser-invalid-category-desc": "PGN-taggarna på sidan innehåller ett ogiltigt spel",
 	"chessbrowser-expand-button": "Utvidga",
 	"chessbrowser-game-detail": "Speldetaljer",
 	"chessbrowser-event-label": "Händelse",
@@ -20,5 +25,6 @@
 	"chessbrowser-fast-autoplay": "Snabbare",
 	"chessbrowser-next-move": "Nästa drag",
 	"chessbrowser-end-of-game": "Gå till sista draget",
-	"chessbrowser-flip-board": "Vänd brädets perspektiv"
+	"chessbrowser-flip-board": "Vänd brädets perspektiv",
+	"chessbrowser-no-javascript": "JavaScript har inte aktiverats på denna sida. Aktivera JavaScript för att interaktivt visa spelet."
 }

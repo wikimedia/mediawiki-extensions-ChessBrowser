@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"আফতাবুজ্জামান"
+		]
+	},
+	"chessbrowser-invalid-message": "উল্লেখিত পিজিএন বৈধ নয়",
+	"chessbrowser-expand-button": "প্রসারণ",
+	"chessbrowser-game-detail": "খেলার বিস্তারিত",
+	"chessbrowser-event-label": "ইভেন্ট",
+	"chessbrowser-site-label": "সাইট",
+	"chessbrowser-date-label": "তারিখ",
+	"chessbrowser-round-label": "রাউন্ড",
+	"chessbrowser-white-label": "সাদা",
+	"chessbrowser-black-label": "কালো",
+	"chessbrowser-result-label": "ফলাফল",
+	"chessbrowser-first-rank": "১",
+	"chessbrowser-second-rank": "২",
+	"chessbrowser-third-rank": "৩",
+	"chessbrowser-fourth-rank": "৪",
+	"chessbrowser-fifth-rank": "৫",
+	"chessbrowser-sixth-rank": "৬",
+	"chessbrowser-seventh-rank": "৭",
+	"chessbrowser-eighth-rank": "৮",
+	"chessbrowser-beginning-of-game": "প্রথম গুটি চালনায় চলুন",
+	"chessbrowser-previous-move": "পূর্ববর্তী চাল",
+	"chessbrowser-slow-autoplay": "ধীরে",
+	"chessbrowser-play-pause-button": "শুরু করুন/বিরাম দিন",
+	"chessbrowser-fast-autoplay": "দ্রুত",
+	"chessbrowser-next-move": "পরবর্তী চাল",
+	"chessbrowser-end-of-game": "সর্বশেষ গুটি চালনায় চলুন"
+}
