@@ -2,7 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Eneelk",
-			"Gomoko"
+			"Gomoko",
+			"Ajeje Brazorf",
+			"Cantons-de-l'Est",
+			"Verdy p"
 		]
 	},
 	"chessbrowser-desc": "Ajoute la balise pgn pour rendre la notation de jeu d’échec interactive.",
@@ -18,6 +21,7 @@
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Noir",
 	"chessbrowser-result-label": "Résultat",
+	"chessbrowser-first-rank": "1",
 	"chessbrowser-beginning-of-game": "Aller au premier coup",
 	"chessbrowser-previous-move": "Coup précédent",
 	"chessbrowser-slow-autoplay": "Plus lent",

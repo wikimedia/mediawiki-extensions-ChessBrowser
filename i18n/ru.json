@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alexander Yukal"
+			"Alexander Yukal",
+			"Okras"
 		]
 	},
 	"chessbrowser-game-detail": "Детали игры",
@@ -13,9 +14,9 @@
 	"chessbrowser-black-label": "Черный",
 	"chessbrowser-beginning-of-game": "Перейти к первому ходу",
 	"chessbrowser-previous-move": "Предыдущий ход",
-	"chessbrowser-slow-autoplay": "Медленней",
+	"chessbrowser-slow-autoplay": "Медленнее",
 	"chessbrowser-play-pause-button": "Воспроизведение/Пауза",
-	"chessbrowser-fast-autoplay": "Быстрей",
+	"chessbrowser-fast-autoplay": "Быстрее",
 	"chessbrowser-next-move": "Следующий ход",
 	"chessbrowser-end-of-game": "Перейти к последнему ходу",
 	"chessbrowser-no-javascript": "JavaScript не включен на этой странице. Для интерактивного просмотра игры, пожалуйста, включите JavaScript."

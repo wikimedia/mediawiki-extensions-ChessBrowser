@@ -1,7 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"Erdemkose",
+			"Joseph",
+			"Melissadilara",
+			"MuratTheTurkish",
+			"SaldırganSincap"
 		]
 	},
 	"chessbrowser-desc": "Satranç oyunu notasyonunu interaktif hale getirmek için pgn etiketi ekler.",
@@ -10,7 +15,7 @@
 	"chessbrowser-invalid-category-desc": "Sayfadaki PGN etiketleri geçersiz bir oyun içeriyor",
 	"chessbrowser-expand-button": "Genişlet",
 	"chessbrowser-game-detail": "Oyun detayları",
-	"chessbrowser-event-label": "Olay",
+	"chessbrowser-event-label": "Etkinlik",
 	"chessbrowser-site-label": "Site",
 	"chessbrowser-date-label": "Tarih",
 	"chessbrowser-round-label": "Raund",
@@ -20,7 +25,7 @@
 	"chessbrowser-beginning-of-game": "İlk hamleye git",
 	"chessbrowser-previous-move": "Önceki hamle",
 	"chessbrowser-slow-autoplay": "Daha yavaş",
-	"chessbrowser-play-pause-button": "Oynat/Durdur",
+	"chessbrowser-play-pause-button": "Oyna/Durdur",
 	"chessbrowser-fast-autoplay": "Daha hızlı",
 	"chessbrowser-next-move": "Sonraki hamle",
 	"chessbrowser-end-of-game": "Son hamleye git",

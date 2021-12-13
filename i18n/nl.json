@@ -2,11 +2,30 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
-			"PonkoSasuke"
+			"PonkoSasuke",
+			"Romaine"
 		]
 	},
 	"chessbrowser-desc": "Voegt een pgn element toe om de notatie voor schaakspellen interactief te maken",
 	"chessbrowser-invalid-message": "De gespecificeerde PGN is ongeldig",
 	"chessbrowser-invalid-category": "Pagina's met een ongeldige PGN gespecificeerd",
-	"chessbrowser-invalid-category-desc": "De PGN lables op de pagina bevatten een ongeldig spel"
+	"chessbrowser-invalid-category-desc": "De PGN lables op de pagina bevatten een ongeldig spel",
+	"chessbrowser-expand-button": "Uitvouwen",
+	"chessbrowser-game-detail": "Speldetails",
+	"chessbrowser-event-label": "Evenement",
+	"chessbrowser-site-label": "Site",
+	"chessbrowser-date-label": "Datum",
+	"chessbrowser-round-label": "Ronde",
+	"chessbrowser-white-label": "Wit",
+	"chessbrowser-black-label": "Zwart",
+	"chessbrowser-result-label": "Resultaat",
+	"chessbrowser-beginning-of-game": "Ga naar de eerste zet",
+	"chessbrowser-previous-move": "Vorige zet",
+	"chessbrowser-slow-autoplay": "Langzamer",
+	"chessbrowser-play-pause-button": "Afspelen/Pauzeren",
+	"chessbrowser-fast-autoplay": "Sneller",
+	"chessbrowser-next-move": "Volgende zet",
+	"chessbrowser-end-of-game": "Ga naar de laaste zet",
+	"chessbrowser-flip-board": "Bordperspectief omdraaien",
+	"chessbrowser-no-javascript": "JavaScript is niet ingeschakeld op deze pagina. Schakel JavaScript in om het spel interactief te bekijken."
 }
