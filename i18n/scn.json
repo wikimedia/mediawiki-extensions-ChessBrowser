@@ -4,10 +4,13 @@
 			"Ajeje Brazorf"
 		]
 	},
+	"chessbrowser-expand-button": "Allarga",
+	"chessbrowser-game-detail": "Dittagghî dû jocu",
 	"chessbrowser-site-label": "Situ",
 	"chessbrowser-white-label": "Biancu",
 	"chessbrowser-black-label": "Nigru",
 	"chessbrowser-result-label": "Risurtatu",
+	"chessbrowser-boardstate-check": "Scaccu.",
 	"chessbrowser-piece-white-king": "Re biancu",
 	"chessbrowser-piece-white-queen": "Riggina bianca",
 	"chessbrowser-piece-white-bishop": "Alferi biancu",
