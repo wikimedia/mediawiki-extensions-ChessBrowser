@@ -6,10 +6,15 @@
 		]
 	},
 	"chessbrowser-desc": "Adiciona a etiqueta pgn para tornar a notação do jogo de xadrez interativa.",
+	"chessbrowser-invalid-message": "O PGN especificado é inválido",
+	"chessbrowser-invalid-category": "Páginas com PGN inválidos especificados",
+	"chessbrowser-invalid-category-desc": "As etiquetas PGN da página incluem um jogo inválido",
 	"chessbrowser-expand-button": "Expandir",
 	"chessbrowser-game-detail": "Detalhes do jogo",
+	"chessbrowser-event-label": "Evento",
 	"chessbrowser-site-label": "Localização",
 	"chessbrowser-date-label": "Data",
+	"chessbrowser-round-label": "Ronda",
 	"chessbrowser-white-label": "Brancas",
 	"chessbrowser-black-label": "Pretas",
 	"chessbrowser-result-label": "Resultado",
@@ -19,5 +24,6 @@
 	"chessbrowser-play-pause-button": "Reprodução/Pausa",
 	"chessbrowser-fast-autoplay": "Mais rápido",
 	"chessbrowser-next-move": "Jogada seguinte",
-	"chessbrowser-end-of-game": "Ir para a última jogada"
+	"chessbrowser-end-of-game": "Ir para a última jogada",
+	"chessbrowser-flip-board": "Alternar perspetiva do tabuleiro"
 }
