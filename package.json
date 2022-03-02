@@ -8,14 +8,14 @@
 		"lint:js": "eslint --cache . ",
 		"lint:styles": "stylelint \"**/*.{less,css}\"",
 		"lint:i18n": "banana-checker --requireLowerCase=0 i18n/",
-		"minify-svg": "svgo --config=.svgo.config.js -q -r -f resources/"
+		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/"
 	},
 	"devDependencies": {
 		"eslint": "7.23.0",
 		"eslint-config-wikimedia": "0.20.0",
 		"grunt-banana-checker": "0.9.0",
 		"stylelint-config-wikimedia": "0.11.1",
-		"svgo": "^2.6.1"
+		"svgo": "2.8.0"
 	},
 	"eslintIgnore": [
 		"vendor/**",
