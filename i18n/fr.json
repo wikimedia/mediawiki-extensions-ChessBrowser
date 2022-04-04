@@ -17,7 +17,7 @@
 	"chessbrowser-event-label": "Événement",
 	"chessbrowser-site-label": "Lieu",
 	"chessbrowser-date-label": "Date",
-	"chessbrowser-round-label": "Ronde",
+	"chessbrowser-round-label": "Tour",
 	"chessbrowser-white-label": "Blanc",
 	"chessbrowser-black-label": "Noir",
 	"chessbrowser-result-label": "Résultat",
@@ -44,6 +44,6 @@
 	"chessbrowser-fast-autoplay": "Plus rapide",
 	"chessbrowser-next-move": "Coup suivant",
 	"chessbrowser-end-of-game": "Aller au dernier coup",
-	"chessbrowser-flip-board": "Faire pivoter l’échiquier",
+	"chessbrowser-flip-board": "Tourner la vue de l’échiquier",
 	"chessbrowser-no-javascript": "JavaScript n’est pas activé sur cette page. Pour voir le jeu de manière interactive, veuillez activer JavaScript."
 }
