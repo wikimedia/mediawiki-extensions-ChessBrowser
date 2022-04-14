@@ -1,4 +1,5 @@
 {
+	"name": "ChessBrowser",
 	"private": true,
 	"scripts": {
 		"test": "npm -s run lint",
@@ -11,8 +12,8 @@
 		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/"
 	},
 	"devDependencies": {
-		"eslint": "7.23.0",
-		"eslint-config-wikimedia": "0.20.0",
+		"eslint": "8.9.0",
+		"eslint-config-wikimedia": "0.22.1",
 		"grunt-banana-checker": "0.9.0",
 		"stylelint-config-wikimedia": "0.11.1",
 		"svgo": "2.8.0"
