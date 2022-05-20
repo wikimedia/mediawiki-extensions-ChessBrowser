@@ -1,12 +1,7 @@
 {
 	"extends": "stylelint-config-wikimedia",
 	"rules": {
-		"color-named": [
-			"never",
-			{
-				"severity": "warning"
-			}
-		],
+		"color-named": null,
 		"function-url-no-scheme-relative": [
 			true,
 			{
