@@ -3,10 +3,14 @@
 		"authors": [
 			")8",
 			"A Chinese Wikipedian",
-			"Shizhao"
+			"Shizhao",
+			"StarrySky"
 		]
 	},
 	"chessbrowser-desc": "添加pgn标签以使国际象棋符号具有交互性。",
+	"chessbrowser-invalid-message": "指定的 PGN 无效",
+	"chessbrowser-invalid-category": "指定了有无效 PGN 页面",
+	"chessbrowser-invalid-category-desc": "在页面的 PGN 标签包含有无效游戏",
 	"chessbrowser-expand-button": "展开",
 	"chessbrowser-event-label": "事件",
 	"chessbrowser-site-label": "网站",
