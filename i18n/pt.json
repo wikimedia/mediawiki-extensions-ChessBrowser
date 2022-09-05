@@ -25,5 +25,6 @@
 	"chessbrowser-fast-autoplay": "Mais rápido",
 	"chessbrowser-next-move": "Jogada seguinte",
 	"chessbrowser-end-of-game": "Ir para a última jogada",
-	"chessbrowser-flip-board": "Alternar perspetiva do tabuleiro"
+	"chessbrowser-flip-board": "Alternar perspetiva do tabuleiro",
+	"chessbrowser-no-javascript": "O JavaScript não está ativo nesta página. Para ver o jogo interativamente, ative-o."
 }
