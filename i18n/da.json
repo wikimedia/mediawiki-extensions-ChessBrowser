@@ -16,5 +16,7 @@
 	"chessbrowser-play-pause-button": "Afspil/Sæt på pause",
 	"chessbrowser-fast-autoplay": "Hurtigere",
 	"chessbrowser-next-move": "Næste træk",
-	"chessbrowser-end-of-game": "Gå til sidste træk"
+	"chessbrowser-end-of-game": "Gå til sidste træk",
+	"chessbrowser-black-moves": "Sort:",
+	"chessbrowser-white-moves": "Hvid:"
 }
