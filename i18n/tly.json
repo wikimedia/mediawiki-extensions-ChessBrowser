@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Patriot Kur"
+			"Patriot Kur",
+			"Patriot Kor"
 		]
 	},
 	"chessbrowser-site-label": "Ərozi",
 	"chessbrowser-date-label": "Tarix",
-	"chessbrowser-white-label": "Sıpi"
+	"chessbrowser-white-label": "Sıpi",
+	"chessbrowser-black-label": "Siyo"
 }

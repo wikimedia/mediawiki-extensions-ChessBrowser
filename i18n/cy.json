@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Afalau"
+		]
+	},
+	"chessbrowser-desc": "Yn ychwanegu tag pgn i wneud nodiant gêm gwyddbwyll yn rhyngweithiol.",
+	"chessbrowser-invalid-message": "PGN annilys",
+	"chessbrowser-invalid-category": "Tudalennau gyda nodiannau PGN annilys",
+	"chessbrowser-invalid-category-desc": "Mae'r tagiau PGN ar y dudalen yn cynnwys gêm annilys",
+	"chessbrowser-expand-button": "Ehangu",
+	"chessbrowser-game-detail": "Manylion y gêm",
+	"chessbrowser-event-label": "Digwyddiad",
+	"chessbrowser-site-label": "Safle",
+	"chessbrowser-date-label": "Dyddiad",
+	"chessbrowser-round-label": "Rownd",
+	"chessbrowser-white-label": "Gwyn",
+	"chessbrowser-black-label": "Du",
+	"chessbrowser-result-label": "Canlyniad",
+	"chessbrowser-beginning-of-game": "Ewch i'r symudiad cyntaf",
+	"chessbrowser-previous-move": "Symudiad cynt",
+	"chessbrowser-slow-autoplay": "Arafach",
+	"chessbrowser-play-pause-button": "Chwarae/Seibio",
+	"chessbrowser-fast-autoplay": "Cyflymach",
+	"chessbrowser-next-move": "Symudiad nesaf",
+	"chessbrowser-end-of-game": "Ewch i'r symudiad olaf",
+	"chessbrowser-flip-board": "Troi safbwynt y bwrdd",
+	"chessbrowser-no-javascript": "Nid yw JavaScript wedi'i alluogi ar y dudalen hon. Er mwyn gweld y gêm yn rhyngweithiol, trowch JavaScript ymlaen."
+}
