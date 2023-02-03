@@ -8,7 +8,7 @@
 	"chessbrowser-invalid-message": "Le PGN specificate non es valide",
 	"chessbrowser-invalid-category": "Paginas con PGNs invalide",
 	"chessbrowser-invalid-category-desc": "Le etiquettas PGN sur le pagina include un partita invalide",
-	"chessbrowser-expand-button": "Displicar",
+	"chessbrowser-expand-button": "Expander",
 	"chessbrowser-game-detail": "Detalios del partita",
 	"chessbrowser-event-label": "Evento",
 	"chessbrowser-site-label": "Sito",
