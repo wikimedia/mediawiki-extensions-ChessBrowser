@@ -4,18 +4,30 @@
 			"A Chinese Wikipedian",
 			")8",
 			"Shizhao",
-			"StarrySky"
+			"StarrySky",
+			"Xzonn"
 		]
 	},
 	"chessbrowser-desc": "添加pgn标签以使国际象棋符号具有交互性。",
-	"chessbrowser-invalid-message": "指定的 PGN 无效",
-	"chessbrowser-invalid-category": "指定了有无效 PGN 页面",
-	"chessbrowser-invalid-category-desc": "在页面的 PGN 标签包含有无效游戏",
+	"chessbrowser-invalid-message": "指定的PGN无效",
+	"chessbrowser-invalid-category": "指定了无效PGN的页面",
+	"chessbrowser-invalid-category-desc": "页面的PGN标签中包含了无效棋局",
 	"chessbrowser-expand-button": "展开",
+	"chessbrowser-game-detail": "棋局细节",
 	"chessbrowser-event-label": "事件",
 	"chessbrowser-site-label": "网站",
 	"chessbrowser-date-label": "日期",
-	"chessbrowser-black-label": "黑色",
+	"chessbrowser-round-label": "回合",
+	"chessbrowser-white-label": "白方",
+	"chessbrowser-black-label": "黑方",
 	"chessbrowser-result-label": "结果",
-	"chessbrowser-no-javascript": "此页上未启用 JavaScript。要以交互方式查看游戏，请启用 JavaScript。"
+	"chessbrowser-beginning-of-game": "转到第一步",
+	"chessbrowser-previous-move": "上一步",
+	"chessbrowser-slow-autoplay": "较慢",
+	"chessbrowser-play-pause-button": "播放/暂停",
+	"chessbrowser-fast-autoplay": "较快",
+	"chessbrowser-next-move": "下一步",
+	"chessbrowser-end-of-game": "转到最后一步",
+	"chessbrowser-flip-board": "翻转棋盘视角",
+	"chessbrowser-no-javascript": "此页上未启用JavaScript。要以交互方式查看棋局，请启用JavaScript。"
 }
