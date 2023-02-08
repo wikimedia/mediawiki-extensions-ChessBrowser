@@ -42,6 +42,9 @@
 	"chessbrowser-piece-black-knight": "Cavalo Preto",
 	"chessbrowser-piece-black-rook": "Torre Preta",
 	"chessbrowser-piece-black-pawn": "Peão Preto",
+	"chessbrowser-promote": "Promovido a $1.",
+	"chessbrowser-black-moves": "Pretas:",
+	"chessbrowser-white-moves": "Brancas:",
 	"chessbrowser-chessboard-label": "Tabuleiro de xadrez",
 	"chessbrowser-empty-square": "Quadrado vazio, $1"
 }
