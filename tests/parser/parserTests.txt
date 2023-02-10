@@ -166,6 +166,7 @@ Invalid PGN shows warning
 Invalid PGN adds tracking category
 !! options
 cat
+nohtml
 !! wikitext
 <pgn>Baz</pgn>
 !! html/php
