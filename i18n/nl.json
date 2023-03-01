@@ -3,7 +3,8 @@
 		"authors": [
 			"Mainframe98",
 			"PonkoSasuke",
-			"Romaine"
+			"Romaine",
+			"McDutchie"
 		]
 	},
 	"chessbrowser-desc": "Voegt een pgn element toe om de notatie voor schaakspellen interactief te maken",
@@ -19,6 +20,7 @@
 	"chessbrowser-white-label": "Wit",
 	"chessbrowser-black-label": "Zwart",
 	"chessbrowser-result-label": "Resultaat",
+	"chessbrowser-notations-label": "In PGN-notatie beschreven schaakzetten. Klik op een knop om naar die positie op het bord te gaan.",
 	"chessbrowser-beginning-of-game": "Ga naar de eerste zet",
 	"chessbrowser-previous-move": "Vorige zet",
 	"chessbrowser-slow-autoplay": "Langzamer",
@@ -28,8 +30,12 @@
 	"chessbrowser-end-of-game": "Ga naar de laaste zet",
 	"chessbrowser-flip-board": "Bordperspectief omdraaien",
 	"chessbrowser-no-javascript": "JavaScript is niet ingeschakeld op deze pagina. Schakel JavaScript in om het spel interactief te bekijken.",
+	"chessbrowser-boardstate-initial": "Beginstaat van het bord.",
+	"chessbrowser-boardstate-final": "Eindstaat van het bord.",
 	"chessbrowser-boardstate-check": "Schaak.",
 	"chessbrowser-boardstate-checkmate": "Schaakmat.",
+	"chessbrowser-castling-queenside": "Rokade koninginnezijde.",
+	"chessbrowser-castling-kingside": "Rokade koningszijde.",
 	"chessbrowser-piece-white-king": "Witte koning",
 	"chessbrowser-piece-white-queen": "Witte dame",
 	"chessbrowser-piece-white-bishop": "Witte loper",
@@ -42,6 +48,9 @@
 	"chessbrowser-piece-black-knight": "Zwart paard",
 	"chessbrowser-piece-black-rook": "Zwarte toren",
 	"chessbrowser-piece-black-pawn": "Zwarte pion",
+	"chessbrowser-move": "$1 $2 gaat naar $3.",
+	"chessbrowser-capture": "$1 $2 slaat $3.",
+	"chessbrowser-promote": "Wordt bevorderd tot $1.",
 	"chessbrowser-black-moves": "Zwart:",
 	"chessbrowser-white-moves": "Wit:",
 	"chessbrowser-chessboard-label": "Schaakbord",
