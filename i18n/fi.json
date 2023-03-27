@@ -3,9 +3,14 @@
 		"authors": [
 			"MITO",
 			"Nike",
+			"Pyscowicz",
 			"Rönttönen"
 		]
 	},
+	"chessbrowser-white-label": "Valkoinen",
+	"chessbrowser-black-label": "Musta",
+	"chessbrowser-result-label": "Tulos",
+	"chessbrowser-next-move": "Seuraava siirto",
 	"chessbrowser-boardstate-check": "Shakki",
 	"chessbrowser-boardstate-checkmate": "Shakkimatti.",
 	"chessbrowser-piece-white-king": "Valkoinen kuningas",
