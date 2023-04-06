@@ -5,7 +5,7 @@
 		]
 	},
 	"chessbrowser-desc": "Doda značko pgn za interaktivnost notacije šahovske igre.",
-	"chessbrowser-invalid-message": "Podani PGN je neveljaven",
+	"chessbrowser-invalid-message": "Predloženi PGN je neveljaven",
 	"chessbrowser-invalid-category": "Strani z neveljavnim podanim PGN",
 	"chessbrowser-invalid-category-desc": "Značke PGN na strani vključujejo neveljavno igro",
 	"chessbrowser-expand-button": "Razširi",
