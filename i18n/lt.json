@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"chessbrowser-expand-button": "išskleisti",
+	"chessbrowser-game-detail": "Žaidimo informacija",
+	"chessbrowser-event-label": "Įvykis",
+	"chessbrowser-site-label": "Svetainė",
+	"chessbrowser-date-label": "Data",
+	"chessbrowser-white-label": "Baltas",
+	"chessbrowser-black-label": "Juodas",
+	"chessbrowser-result-label": "Rezultatas",
+	"chessbrowser-beginning-of-game": "Eiti į pirmą ėjimą",
+	"chessbrowser-previous-move": "Ankstesnis ėjimas",
+	"chessbrowser-slow-autoplay": "Lėčiau",
+	"chessbrowser-play-pause-button": "Leisti / pristabdyti",
+	"chessbrowser-fast-autoplay": "Greičiau",
+	"chessbrowser-next-move": "Kitas ėjimas",
+	"chessbrowser-end-of-game": "Eiti į paskutinį ėjimą",
+	"chessbrowser-flip-board": "Apvesti lentos perspektyvą",
+	"chessbrowser-no-javascript": "JavaScript šiame puslapyje neįjungtas. Norėdami žiūrėti žaidimą interaktyviai, įgalinkite JavaScript."
+}
