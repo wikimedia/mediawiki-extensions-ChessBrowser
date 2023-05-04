@@ -5,5 +5,7 @@
 		]
 	},
 	"chessbrowser-expand-button": "وڌايو",
-	"chessbrowser-event-label": "موقعو"
+	"chessbrowser-event-label": "موقعو",
+	"chessbrowser-occupied-black": "$1، $2",
+	"chessbrowser-occupied-white": "$1، $2"
 }
