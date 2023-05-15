@@ -2,10 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Alshamiri1"
 		]
 	},
 	"chessbrowser-desc": "يضيف وسم pgn لجعل تدوين لعبة الشطرنج تفاعليا.",
+	"chessbrowser-invalid-message": "PGN المحدد غير صالح",
+	"chessbrowser-invalid-category": "تم تحديد الصفحات ذات PGNs غير الصالحة",
+	"chessbrowser-invalid-category-desc": "تتضمن علامات PGN الموجودة على الصفحة لعبة غير صالحة",
+	"chessbrowser-expand-button": "وسع",
 	"chessbrowser-game-detail": "تفاصيل اللعبة",
 	"chessbrowser-event-label": "الحدث",
 	"chessbrowser-site-label": "الموقع",
@@ -17,5 +22,10 @@
 	"chessbrowser-beginning-of-game": "اذهب إلى الحركة الأولى",
 	"chessbrowser-previous-move": "الحركة السابقة",
 	"chessbrowser-slow-autoplay": "أبطأ",
-	"chessbrowser-flip-board": "اقلب منظور اللوح"
+	"chessbrowser-play-pause-button": "تشغيل / وقفة",
+	"chessbrowser-fast-autoplay": "أسرع",
+	"chessbrowser-next-move": "الخطوة التالية",
+	"chessbrowser-end-of-game": "انتقل إلى الخطوة الأخيرة",
+	"chessbrowser-flip-board": "اقلب منظور اللوح",
+	"chessbrowser-no-javascript": "لم يتم تمكين JavaScript في هذه الصفحة. لعرض اللعبة بشكل تفاعلي ، يرجى تمكين JavaScript."
 }
