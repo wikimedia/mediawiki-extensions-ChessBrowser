@@ -49,7 +49,7 @@ class CastlingTrackerTest extends MediaWikiUnitTestCase {
 		}
 	}
 
-	public function provideTestCheck() {
+	public static function provideTestCheck() {
 		return [
 			[
 				'KQkq',

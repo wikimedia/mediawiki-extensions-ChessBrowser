@@ -46,7 +46,7 @@ class ChessPieceTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expectedHex, $hex );
 	}
 
-	public function provideTestConstants() {
+	public static function provideTestConstants() {
 		return [
 			[ 'P', 'WHITE_PAWN' ],
 			[ 'N', 'WHITE_KNIGHT' ],
@@ -90,7 +90,7 @@ class ChessPieceTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $notation, $piece->getNotation() );
 	}
 
-	public function provideTestGeneral() {
+	public static function provideTestGeneral() {
 		return [
 			'P' => [ 'P', 'p', 'white', 0x01, [ 16, 32, 15, 17 ], '' ],
 			'N' => [ 'N', 'n', 'white', 0x02, [ -33, -31, -18, -14, 14, 18, 31, 33 ], 'N' ],
@@ -122,7 +122,7 @@ class ChessPieceTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $hex, $piece->getAsHex() );
 	}
 
-	public function provideTestHex() {
+	public static function provideTestHex() {
 		return [
 			[ 0x01 ],
 			[ 0x02 ],
