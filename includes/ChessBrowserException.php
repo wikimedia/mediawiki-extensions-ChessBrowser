@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\ChessBrowser;
 
-use MWException;
+use Exception;
 
-class ChessBrowserException extends MWException {
+class ChessBrowserException extends Exception {
 }
