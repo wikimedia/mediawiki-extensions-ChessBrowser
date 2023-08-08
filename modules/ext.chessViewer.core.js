@@ -5,7 +5,6 @@
  *
  * Original source taken from https://www.mediawiki.org/w/index.php?title=User:קיפודנחש/chess-animator.js
  *
- * @ingroup ChessBrowser
  * @author Kipod
  * @author Wugapodes
  */
