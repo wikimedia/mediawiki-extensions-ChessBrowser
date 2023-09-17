@@ -22,18 +22,23 @@
 
 namespace MediaWiki\Extension\ChessBrowser;
 
+use MediaWiki\Hook\OutputPageParserOutputHook;
+use MediaWiki\Hook\ParserFirstCallInitHook;
 use OutputPage;
 use Parser;
 use ParserOutput;
 
-class ChessBrowserHooks {
+class ChessBrowserHooks implements
+	ParserFirstCallInitHook,
+	OutputPageParserOutputHook
+{
 
 	/**
 	 * Register parser hooks
 	 *
 	 * @param Parser $parser
 	 */
-	public static function onParserFirstCallInit( Parser $parser ) {
+	public function onParserFirstCallInit( $parser ) {
 		$parser->setHook( 'pgn', [ ChessBrowser::class, 'newGame' ] );
 		$parser->setHook( 'fen', [ ChessBrowser::class, 'newPosition' ] );
 	}
@@ -44,7 +49,7 @@ class ChessBrowserHooks {
 	 * @param OutputPage $out
 	 * @param ParserOutput $parserOutput
 	 */
-	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
+	public function onOutputPageParserOutput( $out, $parserOutput ): void {
 		if ( $parserOutput->getExtensionData( 'ChessViewerFEN' ) ) {
 			$out->addModuleStyles( 'ext.chessViewer.styles' );
 		}

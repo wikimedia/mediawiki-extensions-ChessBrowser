@@ -17,8 +17,13 @@
 		"MediaWiki\\Extension\\ChessBrowser\\": "includes/"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onParserFirstCallInit",
-		"OutputPageParserOutput": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks::onOutputPageParserOutput"
+		"ParserFirstCallInit": "main",
+		"OutputPageParserOutput": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\ChessBrowser\\ChessBrowserHooks"
+		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",

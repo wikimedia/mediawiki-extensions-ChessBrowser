@@ -55,7 +55,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 				]
 			);
 
-		ChessBrowserHooks::onParserFirstCallInit( $mock );
+		( new ChessBrowserHooks )->onParserFirstCallInit( $mock );
 	}
 
 	public function testOutputPageParserOutputNone() {
@@ -74,7 +74,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			);
 
 		// if $trigger is false, no methods on outputpage are called
-		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
+		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
 	}
 
 	public function testOutputPageParserOutputPGN() {
@@ -105,7 +105,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			);
 
 		// if $trigger is true, outputpage methods are called
-		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
+		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
 	}
 
 	public function testOutputPageParserOutputFEN() {
@@ -131,7 +131,7 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			);
 
 		// if $trigger is true, outputpage methods are called
-		ChessBrowserHooks::onOutputPageParserOutput( $mockOP, $mockPO );
+		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
 	}
 
 }
