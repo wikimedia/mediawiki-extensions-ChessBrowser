@@ -93,12 +93,11 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 		$mockPO = $this->getMockBuilder( ParserOutput::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$mockPO->expects( $this->exactly( 3 ) )
+		$mockPO->expects( $this->exactly( 2 ) )
 			->method( 'getExtensionData' )
 			->withConsecutive(
 				[ $this->equalTo( 'ChessViewerFEN' ) ],
-				[ $this->equalTo( 'ChessViewerTrigger' ) ],
-				[ $this->equalTo( 'ChessViewerNumGames' ) ]
+				[ $this->equalTo( 'ChessViewerTrigger' ) ]
 			)
 			->will(
 				$this->onConsecutiveCalls( false, true, 5 )

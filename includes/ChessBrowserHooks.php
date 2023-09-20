@@ -56,7 +56,6 @@ class ChessBrowserHooks implements
 		if ( $parserOutput->getExtensionData( 'ChessViewerTrigger' ) ) {
 			$out->addModuleStyles( [ 'ext.chessViewer.styles', 'jquery.makeCollapsible.styles' ] );
 			$out->addModules( [ 'ext.chessViewer', 'jquery.makeCollapsible' ] );
-			$numberOfGames = $parserOutput->getExtensionData( 'ChessViewerNumGames' );
 		}
 	}
 }
