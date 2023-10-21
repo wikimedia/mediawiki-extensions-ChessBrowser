@@ -158,7 +158,7 @@ class MoveBuilder {
 		);
 		$comment = trim( $comment );
 
-		if ( empty( $comment ) ) {
+		if ( $comment === '' ) {
 			return;
 		}
 
