@@ -127,10 +127,7 @@ class MoveBuilder {
 		}
 
 		$actions = $this->getActions( $comment );
-		if ( !empty( $actions ) ) {
-			if ( empty( $this->moveReferences[$this->pointer][$index][ChessJson::MOVE_ACTIONS] ) ) {
-				$this->moveReferences[$this->pointer][$index][ChessJson::MOVE_ACTIONS] = [];
-			}
+		if ( $actions ) {
 			foreach ( $actions as $action ) {
 				$this->moveReferences[$this->pointer][$index][ChessJson::MOVE_ACTIONS][] = $action;
 			}
