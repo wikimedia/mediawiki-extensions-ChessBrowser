@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Renessaince"
+		]
+	},
+	"chessbrowser-desc": "Дадае цэтлік pgn, каб шахматная натацыя зрабілася інтэрактыўнай.",
+	"chessbrowser-invalid-message": "Пазначаны PGN няслушны",
+	"chessbrowser-invalid-category": "Старонкі зь няслушнымі PGN",
+	"chessbrowser-invalid-category-desc": "Цэтлікі PGN на старонцы месьцяць няслушную гульню",
+	"chessbrowser-expand-button": "Разгарнуць",
+	"chessbrowser-game-detail": "Падрабязнасьці гульні",
+	"chessbrowser-event-label": "Падзея",
+	"chessbrowser-site-label": "Сайт",
+	"chessbrowser-date-label": "Дата",
+	"chessbrowser-round-label": "Кола",
+	"chessbrowser-white-label": "Белы",
+	"chessbrowser-black-label": "Чорны",
+	"chessbrowser-result-label": "Вынік",
+	"chessbrowser-beginning-of-game": "Перайсьці да першага ходу",
+	"chessbrowser-previous-move": "Папярэдні ход",
+	"chessbrowser-slow-autoplay": "Павольней",
+	"chessbrowser-play-pause-button": "Прайграваньне/Паўза",
+	"chessbrowser-fast-autoplay": "Хутчэй",
+	"chessbrowser-next-move": "Наступны ход",
+	"chessbrowser-end-of-game": "Перайсьці да апошняга ходу",
+	"chessbrowser-flip-board": "Выгляд перакуленай дошкі",
+	"chessbrowser-no-javascript": "На гэтай старонцы ня ўключаны JavaScript. Каб праглядаць гульню інтэрактыўна, уключыце яго."
+}
