@@ -38,22 +38,16 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$expectedTags = [
+			'pgn' => true,
+			'fen' => true,
+		];
 		$mock->expects( $this->exactly( 2 ) )
 			->method( 'setHook' )
-			->withConsecutive(
-				[
-					$this->equalTo( 'pgn' ),
-					$this->callback( static function ( $param ) {
-						 return is_callable( $param );
-					} )
-				],
-				[
-					$this->equalTo( 'fen' ),
-					$this->callback( static function ( $param ) {
-						 return is_callable( $param );
-					} )
-				]
-			);
+			->willReturnCallback( function ( $tag ) use ( &$expectedTags ) {
+				$this->assertArrayHasKey( $tag, $expectedTags );
+				unset( $expectedTags[$tag] );
+			} );
 
 		( new ChessBrowserHooks )->onParserFirstCallInit( $mock );
 	}
@@ -65,13 +59,10 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->getMock();
 		$mockPO->expects( $this->exactly( 2 ) )
 			->method( 'getExtensionData' )
-			->withConsecutive(
-				[ $this->equalTo( 'ChessViewerFEN' ) ],
-				[ $this->equalTo( 'ChessViewerTrigger' ) ]
-			)
-			->will(
-				$this->onConsecutiveCalls( false, false )
-			);
+			->willReturnMap( [
+				[ 'ChessViewerFEN', false ],
+				[ 'ChessViewerTrigger', false ],
+			] );
 
 		// if $trigger is false, no methods on outputpage are called
 		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
@@ -95,13 +86,10 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->getMock();
 		$mockPO->expects( $this->exactly( 2 ) )
 			->method( 'getExtensionData' )
-			->withConsecutive(
-				[ $this->equalTo( 'ChessViewerFEN' ) ],
-				[ $this->equalTo( 'ChessViewerTrigger' ) ]
-			)
-			->will(
-				$this->onConsecutiveCalls( false, true, 5 )
-			);
+			->willReturnMap( [
+				[ 'ChessViewerFEN', false ],
+				[ 'ChessViewerTrigger', true ],
+			] );
 
 		// if $trigger is true, outputpage methods are called
 		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
@@ -121,13 +109,10 @@ class ChessBrowserHooksTest extends MediaWikiUnitTestCase {
 			->getMock();
 		$mockPO->expects( $this->exactly( 2 ) )
 			->method( 'getExtensionData' )
-			->withConsecutive(
-				[ $this->equalTo( 'ChessViewerFEN' ) ],
-				[ $this->equalTo( 'ChessViewerTrigger' ) ]
-			)
-			->will(
-				$this->onConsecutiveCalls( true, false )
-			);
+			->willReturnMap( [
+				[ 'ChessViewerFEN', true ],
+				[ 'ChessViewerTrigger', false ],
+			] );
 
 		// if $trigger is true, outputpage methods are called
 		( new ChessBrowserHooks )->onOutputPageParserOutput( $mockOP, $mockPO );
