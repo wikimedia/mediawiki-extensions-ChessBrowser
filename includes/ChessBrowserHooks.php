@@ -24,7 +24,7 @@ namespace MediaWiki\Extension\ChessBrowser;
 
 use MediaWiki\Hook\OutputPageParserOutputHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
-use OutputPage;
+use MediaWiki\Output\OutputPage;
 use Parser;
 use ParserOutput;
 

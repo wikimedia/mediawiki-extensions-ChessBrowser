@@ -23,8 +23,8 @@
 namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
 
 use MediaWiki\Extension\ChessBrowser\ChessBrowserHooks;
+use MediaWiki\Output\OutputPage;
 use MediaWikiUnitTestCase;
-use OutputPage;
 use Parser;
 use ParserOutput;
 
