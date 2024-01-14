@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45">
 	<g style="opacity:1;fill:#000;fill-opacity:1;fill-rule:evenodd;stroke:#000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-		<path d="M9 39h27v-3H9v3zm3.5-7 1.5-2.5h17l1.5 2.5h-20zm-.5 4v-4h21v4H12z" style="stroke-linecap:butt"/>
-		<path d="M14 29.5v-13h17v13H14z" style="stroke-linecap:butt;stroke-linejoin:miter"/>
-		<path d="M14 16.5 11 14h23l-3 2.5H14zM11 14V9h4v2h5V9h5v2h5V9h4v5H11z" style="stroke-linecap:butt"/>
+		<path d="M9 39h27v-3H9zm3.5-7 1.5-2.5h17l1.5 2.5zm-.5 4v-4h21v4z" style="stroke-linecap:butt"/>
+		<path d="M14 29.5v-13h17v13z" style="stroke-linecap:butt;stroke-linejoin:miter"/>
+		<path d="M14 16.5 11 14h23l-3 2.5zM11 14V9h4v2h5V9h5v2h5V9h4v5z" style="stroke-linecap:butt"/>
 		<path d="M12 35.5h21m-20-4h19m-18-2h17m-17-13h17M11 14h23" style="fill:none;stroke:#fff;stroke-width:1;stroke-linejoin:miter"/>
 	</g>
 </svg>
