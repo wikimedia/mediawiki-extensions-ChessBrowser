@@ -9,7 +9,7 @@
 	"chessbrowser-invalid-message": "תחביר ה־PGN שנכתב אינו תקין",
 	"chessbrowser-invalid-category": "דפים עם תחביר PGN בלתי־תקין",
 	"chessbrowser-invalid-category-desc": "תגי ה־PGN בדף מכילים משחק בלתי־תקין",
-	"chessbrowser-expand-button": "הרחבה",
+	"chessbrowser-expand-button": "הצגה",
 	"chessbrowser-game-detail": "פרטי המשחק",
 	"chessbrowser-event-label": "אירוע",
 	"chessbrowser-site-label": "אתר",
