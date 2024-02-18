@@ -30,7 +30,9 @@
 		this.delay = 800;
 		this.allPositionClasses = '01234567'
 			.split( '' )
-			.map( function ( r ) { return 'pgn-prow-' + r + ' pgn-pfile-' + r; } )
+			.map( function ( r ) {
+				return 'pgn-prow-' + r + ' pgn-pfile-' + r;
+			} )
 			.join( ' ' );
 
 		this.makeBoard = function ( display ) {
