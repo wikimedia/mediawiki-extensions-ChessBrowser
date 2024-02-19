@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"NMW03"
+		]
+	},
+	"chessbrowser-desc": "Şahmat oyunu notasiyasını interaktiv etmək üçün pgn etiketi əlavə edir.",
+	"chessbrowser-invalid-message": "Göstərilən PGN yanlışdır",
+	"chessbrowser-invalid-category": "Yanlış PGN əlavə edilmiş səhifələr",
+	"chessbrowser-invalid-category-desc": "Səhifədəki PGN teqlərinə etibarsız oyun daxildir",
+	"chessbrowser-expand-button": "Göstər",
+	"chessbrowser-game-detail": "Oyun detalları",
+	"chessbrowser-event-label": "Tədbir",
+	"chessbrowser-site-label": "Sayt",
+	"chessbrowser-date-label": "Tarix",
+	"chessbrowser-round-label": "Raund",
+	"chessbrowser-white-label": "Ağ",
+	"chessbrowser-black-label": "Qara",
+	"chessbrowser-result-label": "Nəticə",
+	"chessbrowser-notations-label": "PGN notasiyasında təsvir olunan şahmat hərəkətləri. Lövhənin həmin mövqeyinə keçmək üçün düyməni basın.",
+	"chessbrowser-beginning-of-game": "İlk hərəkətə keçin",
+	"chessbrowser-previous-move": "Əvvəlki hərəkət",
+	"chessbrowser-slow-autoplay": "Yavaş",
+	"chessbrowser-play-pause-button": "Oyna/Dayandır",
+	"chessbrowser-fast-autoplay": "Daha sürətli",
+	"chessbrowser-next-move": "Növbəti hərəkət",
+	"chessbrowser-end-of-game": "Son hərəkətə keçin"
+}
