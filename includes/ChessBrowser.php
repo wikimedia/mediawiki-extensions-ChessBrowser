@@ -250,7 +250,7 @@ class ChessBrowser {
 				$templateArgs
 			);
 			$parser->getOutput()->setExtensionData( 'ChessViewerFEN', 'true' );
-			return [ $board , 'markerType' => 'nowiki' ];
+			return [ $board, 'markerType' => 'nowiki' ];
 		} catch ( Exception $e ) {
 			wfDebugLog(
 				'ChessBrowser',
@@ -295,7 +295,7 @@ class ChessBrowser {
 				$attr[$name] = $value;
 			}
 		}
-		if ( !in_array( $attr['side'], [ 'white','black' ] ) ) {
+		if ( !in_array( $attr['side'], [ 'white', 'black' ] ) ) {
 			$attr['side'] = 'white';
 		}
 		// Ensure that an integer is always returned

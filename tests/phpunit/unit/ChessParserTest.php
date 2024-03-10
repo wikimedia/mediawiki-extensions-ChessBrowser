@@ -196,7 +196,7 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
 					],
 					'plys' => [
-						[ 33,35,[ "move",null,null ] ]
+						[ 33, 35, [ "move", null, null ] ]
 					],
 					'tokens' => [ 'e4' ]
 				]
@@ -224,7 +224,7 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
 					],
 					'plys' => [
-						[ 33,35,[ "move",null,'Test comment' ] ]
+						[ 33, 35, [ "move", null, 'Test comment' ] ]
 					],
 					'tokens' => [ 'e4' ]
 				]
@@ -261,7 +261,7 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 						'rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1'
 					],
 					'plys' => [
-						[ 33,35,[ "move",null,null ] ]
+						[ 33, 35, [ "move", null, null ] ]
 					],
 					'tokens' => [ 'e4' ],
 					'variations' => [
@@ -273,7 +273,7 @@ class ChessParserTest extends MediaWikiUnitTestCase {
 										'rnbqkbnr\/pppppppp\/8\/8\/8\/4P3\/PPPP1PPP\/RNBQKBNR b KQkq - 0 1'
 									],
 									'plys' => [
-										[ 33,35,[ "move",null,null ] ]
+										[ 33, 35, [ "move", null, null ] ]
 									],
 									'tokens' => [ 'e3' ]
 								]

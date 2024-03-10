@@ -101,7 +101,7 @@ class ChessSquare {
 			throw new ChessBrowserException( "Coordinates ($coords) too long" );
 		}
 
-		list( $fileLetter, $rankNumber ) = str_split( $coords );
+		[ $fileLetter, $rankNumber ] = str_split( $coords );
 		$rankNumber = intval( $rankNumber );
 
 		if ( !isset( self::FILE_TO_NUMBER[ $fileLetter ] ) ) {
