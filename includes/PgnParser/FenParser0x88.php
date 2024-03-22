@@ -351,8 +351,7 @@ class FenParser0x88 {
 				) {
 					if (
 						$enPassantSquare == $square + 17
-						|| ( $board[$square + 17] )
-						&& $board[$square + 17] & 0x8
+						|| ( $board[$square + 17] && $board[$square + 17] & 0x8 )
 					) {
 						$paths[] = $square + 17;
 					}
@@ -372,8 +371,7 @@ class FenParser0x88 {
 				if ( !$isPinned || $pin['by'] === $square - 15 ) {
 					if (
 						$enPassantSquare == $square - 15
-						|| ( $board[$square - 15] )
-						&& !( $board[$square - 15] & 0x8 )
+						|| ( $board[$square - 15] && !( $board[$square - 15] & 0x8 ) )
 					) {
 						$paths[] = $square - 15;
 					}
@@ -382,8 +380,7 @@ class FenParser0x88 {
 					if ( !$isPinned || $pin['by'] === $square - 17 ) {
 						if (
 							$enPassantSquare == $square - 17
-							|| ( $board[$square - 17] )
-							&& !( $board[$square - 17] & 0x8 )
+							|| ( $board[$square - 17] && !( $board[$square - 17] & 0x8 ) )
 						) {
 							$paths[] = $square - 17;
 						}
