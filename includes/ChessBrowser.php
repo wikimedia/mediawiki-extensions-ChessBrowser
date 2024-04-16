@@ -170,6 +170,43 @@ class ChessBrowser {
 	}
 
 	/**
+	 * Check tag pair result against notation-end result
+	 *
+	 * @param string $input The text inside the pgn tag
+	 * @param array $metadata Dictionary of tag pair key-values
+	 * @return string
+	 * @throws ChessBrowserException if Tag Pair result and movetext termination string are both valid but don't match.
+	 */
+	private static function decideResultString( string $input, array $metadata ): string {
+		$terminationRegex = '/(1\W0|0\W1|1\/2\W1\/2|\*)/';
+		$tagResult = $metadata['result'];
+		$validTagPairResult = ( preg_match( $terminationRegex, $tagResult, $tagResultToken ) === 1 );
+		// Termination markers can appear all over the place in the input text like
+		// in variations or comments, so preg_match can have false positives. The real
+		// term marker should be at the end of the game, so checking the last 7 chars
+		// (the longest term marker of 1/2-1/2) should avoid false positives.
+		$endOfMovetext = substr( $input, -7 );
+		$validMovetextTerm = ( preg_match( $terminationRegex, $endOfMovetext, $movetextTermToken ) === 1 );
+
+		if ( $validTagPairResult && $validMovetextTerm ) {
+			// Check that they match
+			if ( strcmp( $tagResultToken[1], $movetextTermToken[1] ) !== 0 ) {
+				$errorMsg = 'Invalid PGN: Result tag and game termination marker do not match.';
+				throw new ChessBrowserException( $errorMsg );
+			}
+			// Go with the movetext token
+			return $movetextTermToken[1];
+		} elseif ( $validTagPairResult ) {
+			return $tagResultToken[1];
+		} elseif ( $validMovetextTerm ) {
+			return $movetextTermToken[1];
+		} else {
+			// Don't fail, just print nothing, TODO add tracking cat
+			return '';
+		}
+	}
+
+	/**
 	 * Handle creating the board to show
 	 *
 	 * @param string $input
@@ -211,6 +248,10 @@ class ChessBrowser {
 		];
 		$localizedLabels = self::getLocalizedLabels();
 		$metadata = self::getMetadata( $chessObject['metadata'] );
+		$resultString = self::decideResultString( $input, $metadata );
+		if ( strcmp( $resultString, '' ) !== 0 ) {
+			$templateArgs['movetext-result'] = $resultString;
+		}
 		$templateArgs = array_merge( $templateArgs, $localizedLabels, $metadata );
 		$game = $templateParser->processTemplate(
 			'ChessGame',

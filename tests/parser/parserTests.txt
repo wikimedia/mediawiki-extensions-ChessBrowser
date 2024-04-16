@@ -154,6 +154,315 @@ Basic opening (no javascript)
 !! end
 
 !! test
+No result tag uses movetext termination
+!! wikitext
+<pgn>[Event "Chess Game"]
+
+1. d4 Nf6 2. c4 1-0</pgn>
+!! html
+<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR b KQkq d3 0 1&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR w KQkq - 1 2&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/2PP4\/8\/PP2PPPP\/RNBQKBNR b KQkq c3 0 2&quot;],&quot;plys&quot;:[[25,27,[&quot;move&quot;,null,null]],[55,45,[&quot;move&quot;,null,null]],[17,19,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;d4&quot;,&quot;Nf6&quot;,&quot;c4&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;},&quot;init&quot;:1}">
+	<table class="mw-collapsible mw-collapsed pgn-metadata-table">
+		<tbody>
+			<tr>
+				<th colspan="2"><!-- not a caption due to FOUC issues -->
+					Game details
+				</th>
+			</tr>
+			<tr>
+				<th>Event</th>
+				<td>Chess Game</td>
+			</tr>
+			<tr>
+				<th>Site</th>
+				<td>Unknown site</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>Unknown date</td>
+			</tr>
+			<tr>
+				<th>Round</th>
+				<td>Unkown round</td>
+			</tr>
+			<tr>
+				<th>White</th>
+				<td>Unknown white</td>
+			</tr>
+			<tr>
+				<th>Black</th>
+				<td>Unknown black</td>
+			</tr>
+			<tr>
+				<th>Result</th>
+				<td>Unknown result</td>
+			</tr>
+				<tr>
+					<th>fen</th>
+					<td>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</td>
+				</tr>
+		</tbody>
+	</table>
+	<div class="pgn-notations" role="group" aria-label="Chess moves described in PGN notation. Click a button to change to that position of the board.">
+		<p>
+			<span class="pgn-movelink" data-ply="0">⚃</span>
+					<span class="pgn-steplink">1</span>
+				<span class="pgn-movelink" data-ply="1">
+					d4
+				</span>
+				<span class="pgn-movelink" data-ply="2">
+					Nf6
+				</span>
+					<span class="pgn-steplink">2</span>
+				<span class="pgn-movelink" data-ply="3">
+					c4
+				</span>
+				<span class="pgn-movetext-result">1-0</span>
+		</p>
+	</div>
+	<div class="pgn-board-div">
+		<div class="pgn-board-img">
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-7 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-7 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-7 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-7 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-7 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-7 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-7 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-7 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-3 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-0 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-0 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-0 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-0 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-0 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-0 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-0 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-0 pgn-pfile-7"></div>
+		</div>
+		<div class="pgn-row-legend pgn-row-left">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
+		</div>
+		<div class="pgn-row-legend pgn-row-right">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
+		</div>
+		<div class="pgn-file-legend pgn-file-top">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+		<div class="pgn-file-legend pgn-file-bottom">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+	</div>
+	<div class="pgn-controls">
+	</div>
+	<div class="pgn-nojs-message">
+		<p>
+			JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript.
+		</p>
+	</div>
+</div>
+
+<p class="mw-empty-elt"></p>
+!! end
+
+!! test
+No movetext termination uses result tag
+!! wikitext
+<pgn>[Event "Chess Game"]
+[Result "1-0"]
+
+1. d4 Nf6 2. c4</pgn>
+!! html
+<p class="mw-empty-elt"></p><div class="pgn-viewer" id="chess-browser-div-1" data-chess="{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR b KQkq d3 0 1&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR w KQkq - 1 2&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/2PP4\/8\/PP2PPPP\/RNBQKBNR b KQkq c3 0 2&quot;],&quot;plys&quot;:[[25,27,[&quot;move&quot;,null,null]],[55,45,[&quot;move&quot;,null,null]],[17,19,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;d4&quot;,&quot;Nf6&quot;,&quot;c4&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;result&quot;:&quot;1-0&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;},&quot;init&quot;:1}">
+	<table class="mw-collapsible mw-collapsed pgn-metadata-table">
+		<tbody>
+			<tr>
+				<th colspan="2"><!-- not a caption due to FOUC issues -->
+					Game details
+				</th>
+			</tr>
+			<tr>
+				<th>Event</th>
+				<td>Chess Game</td>
+			</tr>
+			<tr>
+				<th>Site</th>
+				<td>Unknown site</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>Unknown date</td>
+			</tr>
+			<tr>
+				<th>Round</th>
+				<td>Unkown round</td>
+			</tr>
+			<tr>
+				<th>White</th>
+				<td>Unknown white</td>
+			</tr>
+			<tr>
+				<th>Black</th>
+				<td>Unknown black</td>
+			</tr>
+			<tr>
+				<th>Result</th>
+				<td>1-0</td>
+			</tr>
+				<tr>
+					<th>fen</th>
+					<td>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</td>
+				</tr>
+		</tbody>
+	</table>
+	<div class="pgn-notations" role="group" aria-label="Chess moves described in PGN notation. Click a button to change to that position of the board.">
+		<p>
+			<span class="pgn-movelink" data-ply="0">⚃</span>
+					<span class="pgn-steplink">1</span>
+				<span class="pgn-movelink" data-ply="1">
+					d4
+				</span>
+				<span class="pgn-movelink" data-ply="2">
+					Nf6
+				</span>
+					<span class="pgn-steplink">2</span>
+				<span class="pgn-movelink" data-ply="3">
+					c4
+				</span>
+				<span class="pgn-movetext-result">1-0</span>
+		</p>
+	</div>
+	<div class="pgn-board-div">
+		<div class="pgn-board-img">
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-7 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-7 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-7 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-qd pgn-prow-7 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kd pgn-prow-7 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bd pgn-prow-7 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nd pgn-prow-7 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rd pgn-prow-7 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pd pgn-prow-6 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-3 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-pl pgn-prow-1 pgn-pfile-7"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-0 pgn-pfile-0"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-0 pgn-pfile-1"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-0 pgn-pfile-2"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-ql pgn-prow-0 pgn-pfile-3"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-kl pgn-prow-0 pgn-pfile-4"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-bl pgn-prow-0 pgn-pfile-5"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-nl pgn-prow-0 pgn-pfile-6"></div>
+			<div class="pgn-chessPiece pgn-ptype-color-rl pgn-prow-0 pgn-pfile-7"></div>
+		</div>
+		<div class="pgn-row-legend pgn-row-left">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
+		</div>
+		<div class="pgn-row-legend pgn-row-right">
+			<span class="pgn-row-legend pgn-prow-0">1</span>
+			<span class="pgn-row-legend pgn-prow-1">2</span>
+			<span class="pgn-row-legend pgn-prow-2">3</span>
+			<span class="pgn-row-legend pgn-prow-3">4</span>
+			<span class="pgn-row-legend pgn-prow-4">5</span>
+			<span class="pgn-row-legend pgn-prow-5">6</span>
+			<span class="pgn-row-legend pgn-prow-6">7</span>
+			<span class="pgn-row-legend pgn-prow-7">8</span>
+		</div>
+		<div class="pgn-file-legend pgn-file-top">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+		<div class="pgn-file-legend pgn-file-bottom">
+			<span class="pgn-file-legend pgn-pfile-0">a</span>
+			<span class="pgn-file-legend pgn-pfile-1">b</span>
+			<span class="pgn-file-legend pgn-pfile-2">c</span>
+			<span class="pgn-file-legend pgn-pfile-3">d</span>
+			<span class="pgn-file-legend pgn-pfile-4">e</span>
+			<span class="pgn-file-legend pgn-pfile-5">f</span>
+			<span class="pgn-file-legend pgn-pfile-6">g</span>
+			<span class="pgn-file-legend pgn-pfile-7">h</span>
+		</div>
+	</div>
+	<div class="pgn-controls">
+	</div>
+	<div class="pgn-nojs-message">
+		<p>
+			JavaScript is not enabled on this page. To view the game interactively, please enable JavaScript.
+		</p>
+	</div>
+</div>
+
+<p class="mw-empty-elt"></p>
+!! end
+
+!! test
 Invalid PGN shows warning
 !! wikitext
 <pgn>FooBar</pgn>
