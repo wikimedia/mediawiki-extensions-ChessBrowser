@@ -505,6 +505,17 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 					'10. e4=K{this is a promotion}',
 					'1-0',
 				],
+			],
+			[
+				[
+					'1. e4 e5 ; No trailing newline'
+				]
+			],
+			[
+				[
+					'1. e4 ; trailing newline',
+					'e5'
+				]
 			]
 		];
 	}

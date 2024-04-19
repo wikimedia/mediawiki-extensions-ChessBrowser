@@ -130,25 +130,130 @@ class PgnGameParser {
 	}
 
 	/**
-	 * Get the moves
+	 * Determine how many elements are part of the comment
+	 *
+	 * getMovesAndComments() Takes the PGN move string and splits it on the
+	 * special characters `{`, `}`, `;`, and `\n`. These characters *sometimes*
+	 * delimit a comment. From the PGN Standard section 5
+	 *
+	 * > Brace comments do not nest; a left brace character appearing in a brace
+	 * > comment loses its special meaning and is ignored. A semicolon appearing
+	 * > inside of a brace comment loses its special meaning and is ignored.
+	 * > Braces appearing inside of a semicolon comments lose their special meaning
+	 * > and are ignored.
+	 *
+	 * The result is that a single comment might span multiple elements of
+	 * $moveStringParts if it contains characters that lost their special meaning. This
+	 * function implements a context-sensitive sub-parser to determine how far to move
+	 * the main buffer when it runs into a comment start character.
+	 *
+	 * This function is called whenever getMoves() encounters a comment start character,
+	 * so `{` or `;` and receives the whole $moveStringParts array and the main buffer
+	 * position ($bufferPos) to start sub-parsing the comment. The element at that index
+	 * will be `{` or `;` and the first for loop iteration sets the proper context flag.
+	 * These flags are used to determine which characters lose special meaning. When
+	 * the appropriate comment end character for the context is hit, the function returns
+	 * an integer ($idx) specifying how far forward to move the main buffer.
+	 *
+	 * See T363230
+	 *
+	 * @param array $moveStringParts Output of getMovesAndComments()
+	 * @param int $bufferPos Index of where in $moveStringParts the comment starts
+	 * @return int
+	 */
+	private function mergeAdjacentComments( array $moveStringParts, int $bufferPos ): int {
+		// Context flags
+		$inBraceComment = false;
+		$inEOLComment = false;
+
+		$endIdx = count( $moveStringParts ) - $bufferPos;
+		for ( $idx = 0; $idx < $endIdx; $idx++ ) {
+			$move = $moveStringParts[ $bufferPos + $idx ];
+
+			/**
+			 * The element following a comment start character or a '}' without
+			 * its special meaning will always be a comment string, so we can
+			 * save some time and potential parsing bugs by incrementing $idx
+			 * past them and skipping the iteration.
+			 *
+			 * See getMovesAndComments for more info on $moveStringParts
+			 */
+			switch ( $move ) {
+				case '{':
+					// Set context flag if not in EOL comment context
+					// '{' in a brace comment context loses its special meaning
+					if ( !$inEOLComment ) {
+						$inBraceComment = true;
+					}
+					// Skip past following comment string
+					$idx++;
+					break;
+				case ';':
+					// Set context flag if not in brace comment context
+					// ';' in brace and EOL comments loses special meaning
+					if ( !$inBraceComment ) {
+						$inEOLComment = true;
+					}
+					// Skip past following comment string
+					$idx++;
+					break;
+				case '}':
+					// The first '}' ALWAYS has special meaning under the PGN
+					// standard and ends a brace comment.
+					if ( $inBraceComment ) {
+						// Don't include the '}' itself in the buffer increment
+						return $idx - 1;
+					}
+					// '}' in EOL comment loses special meaning
+					// Skip past following comment string
+					$idx++;
+					break;
+				case "\n":
+					// \n ALWAYS ends an EOL comment.
+					if ( $inEOLComment ) {
+						// Include the newline in the buffer increment, it gets
+						// removed later as whitespace
+						return $idx - 0;
+					}
+					break;
+			}
+		}
+		// Reached EOF so return a buffer increment past EOF
+		return $idx + 1;
+	}
+
+	/**
+	 * Process tokens in the move string
 	 *
 	 * @return array
 	 */
 	private function getMoves() {
 		$moveBuilder = new MoveBuilder();
 
-		$parts = $this->getMovesAndComments();
-		for ( $i = 0, $count = count( $parts ); $i < $count; $i++ ) {
-			$move = trim( $parts[$i] );
+		$moveStringParts = $this->getMovesAndComments();
+		$lenMSP = count( $moveStringParts );
+		for ( $bufferPos = 0; $bufferPos < $lenMSP; $bufferPos++ ) {
+			$move = trim( $moveStringParts[$bufferPos] );
 
 			switch ( $move ) {
 				case '{':
-					if ( $i == 0 ) {
-						$moveBuilder->addCommentBeforeFirstMove( $parts[$i + 1] );
+				case ';':
+					$commentBufferIncrement = $this->mergeAdjacentComments(
+						$moveStringParts,
+						$bufferPos
+					);
+					$commentSlice = array_slice(
+						$moveStringParts,
+						$bufferPos + 1,
+						$commentBufferIncrement
+					);
+					$comment = implode( '', $commentSlice );
+					if ( $bufferPos == 0 ) {
+						$moveBuilder->addCommentBeforeFirstMove( $comment );
 					} else {
-						$moveBuilder->addComment( $parts[$i + 1] );
+						$moveBuilder->addComment( $comment );
 					}
-					$i += 2;
+					$bufferPos += $commentBufferIncrement;
 					break;
 				default:
 					$moves = $this->getMovesAndVariationFromString( $move );
@@ -172,16 +277,47 @@ class PgnGameParser {
 	}
 
 	/**
-	 * Get the moves and comments
+	 * Split the move string based on comment indicators
+	 *
+	 * $moveSectionParts is an array split by the PGN special comment characters `{`, `}`, `;`, and `\n`. These
+	 * splitting characters are also included in the array to aid parsing later. The structure for a string like:
+	 *
+	 * ```
+	 * $inputString = "e4 e5 { King's pawn opening } Nf3 ; Interesting! {Not really}\nNc6 ; A common response";
+	 * ```
+	 *
+	 * Would result in the array:
+	 * ```
+	 * $moveSectionParts = [
+	 *     "e4 e5",
+	 *     "{"
+	 *     "King's pawn opening",
+	 *     "}",
+	 *     "Nf3",
+	 *     ";",
+	 *     "Interesting!",
+	 *     "{",
+	 *     "Not really",
+	 *     "}",
+	 *     "",
+	 *     "\n",
+	 *     "Nc6",
+	 *     ";",
+	 *     "A common response"
+	 * ];
+	 * ```
+	 *
+	 * Notice that even though the split characters `}` and `\n` are adjacent, the split results in an empty string
+	 * being inserted between them.
 	 *
 	 * @return array
 	 */
 	private function getMovesAndComments() {
-		$ret = preg_split( "/({|})/s", $this->getMoveString(), 0, PREG_SPLIT_DELIM_CAPTURE );
-		if ( !$ret[0] ) {
-			$ret = array_slice( $ret, 1 );
+		$moveSectionParts = preg_split( "/({|}|;|\n)/s", $this->getMoveString(), 0, PREG_SPLIT_DELIM_CAPTURE );
+		if ( !$moveSectionParts[0] ) {
+			$moveSectionParts = array_slice( $moveSectionParts, 1 );
 		}
-		return $ret;
+		return $moveSectionParts;
 	}
 
 	/**
@@ -214,8 +350,7 @@ class PgnGameParser {
 			return "";
 		}
 		$gameData = $tokens[1];
-		$gameData = str_replace( "\n", " ", $gameData );
-		$gameData = preg_replace( "/(\s+)/", " ", $gameData );
-		return trim( $gameData );
+		// \n is meaningful so don't trim them
+		return trim( $gameData, " \r\t\v\x00" );
 	}
 }
