@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajeje Brazorf"
+			"Ajeje Brazorf",
+			"Chqaz"
 		]
 	},
+	"chessbrowser-result-label": "結果",
 	"chessbrowser-boardstate-checkmate": "チェックメイト。"
 }
