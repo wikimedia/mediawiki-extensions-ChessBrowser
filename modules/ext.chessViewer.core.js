@@ -407,10 +407,37 @@
 			$( '.pgn-button-faster', me.$div ).on( 'click', me.faster );
 			$( '.pgn-button-slower', me.$div ).on( 'click', me.slower );
 			$( '.pgn-button-flip', me.$div ).on( 'click', me.flipBoard );
+			$( me.$div ).on( 'keydown', me.keyboardNav );
 			$( '.pgn-movelink', me.$div ).attr( {
 				tabindex: 0,
 				role: 'button'
 			} ).on( 'click keydown', me.notationHandler );
+		};
+
+		/**
+		 * Handle keydown events for active board.
+		 *
+		 * @param {event} e The keydown event passed
+		 *
+		 * TODO: Handle variation navigation once that is implemented.
+		 */
+		this.keyboardNav = function ( e ) {
+			switch ( e.key ) {
+				case 'ArrowRight':
+					me.advance( e );
+					break;
+				case 'ArrowLeft':
+					me.retreat( e );
+					break;
+				case 'ArrowUp':
+					me.goToStart( e );
+					break;
+				case 'ArrowDown':
+					me.goToEnd( e );
+					break;
+				default:
+					return;
+			}
 		};
 
 		this.pieceToMsg = function ( piece, color ) {
