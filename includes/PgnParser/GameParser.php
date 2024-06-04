@@ -38,8 +38,9 @@
 namespace MediaWiki\Extension\ChessBrowser\PgnParser;
 
 class GameParser {
-
+	/** @var array */
 	private $game;
+	/** @var FenParser0x88|null */
 	private $fenParser0x88;
 
 	/**

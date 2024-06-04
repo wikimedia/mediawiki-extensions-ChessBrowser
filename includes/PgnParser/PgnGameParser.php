@@ -38,11 +38,11 @@
 namespace MediaWiki\Extension\ChessBrowser\PgnParser;
 
 class PgnGameParser {
-
+	/** @var string */
 	private $pgnGame;
-
+	/** @var string */
 	private $defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-
+	/** @var string[] */
 	private $specialMetadata = [
 		'event',
 		'site',

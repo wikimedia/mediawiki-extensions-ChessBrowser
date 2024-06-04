@@ -38,15 +38,18 @@
 namespace MediaWiki\Extension\ChessBrowser\PgnParser;
 
 class MoveBuilder {
-
 	private const PGN_KEY_ACTION_ARROW = "ar";
 	private const PGN_KEY_ACTION_HIGHLIGHT = "sq";
 	private const PGN_KEY_ACTION_CLR_HIGHLIGHT = "csl";
 	private const PGN_KEY_ACTION_CLR_ARROW = "cal";
 
+	/** @var array */
 	private $moves = [];
+	/** @var array */
 	private $moveReferences = [];
+	/** @var int */
 	private $pointer = 0;
+	/** @var int */
 	private $currentIndex = 0;
 
 	public function __construct() {

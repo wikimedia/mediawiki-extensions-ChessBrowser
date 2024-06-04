@@ -45,16 +45,20 @@ use MediaWiki\Extension\ChessBrowser\NotationAnalyzer;
 use MediaWiki\Extension\ChessBrowser\SquareRelations;
 
 class FenParser0x88 {
+	/** @var string|null */
 	private $fen;
 	/** @var array */
 	private $cache;
 
+	/** @var string|null */
 	private $notation;
+	/** @var array|null */
 	private $validMoves = null;
+	/** @var array */
 	private $fenParts = [];
-
+	/** @var array */
 	private $keySquares;
-
+	/** @var CastlingTracker|null */
 	private $castlingTracker;
 
 	private const FEN_SQUARES = [
