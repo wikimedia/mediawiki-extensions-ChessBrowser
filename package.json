@@ -12,9 +12,9 @@
 		"minify:svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.27.0",
+		"eslint-config-wikimedia": "0.28.0",
 		"grunt-banana-checker": "0.13.0",
-		"stylelint-config-wikimedia": "0.16.1",
+		"stylelint-config-wikimedia": "0.17.1",
 		"svgo": "3.2.0"
 	},
 	"eslintIgnore": [
