@@ -22,11 +22,11 @@
 
 namespace MediaWiki\Extension\ChessBrowser;
 
-use MediaWiki\Hook\OutputPageParserOutputHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
-use Parser;
-use ParserOutput;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
 
 class ChessBrowserHooks implements
 	ParserFirstCallInitHook,

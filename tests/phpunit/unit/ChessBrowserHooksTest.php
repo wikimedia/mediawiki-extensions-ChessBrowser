@@ -24,9 +24,9 @@ namespace MediaWiki\Extension\ChessBrowser\Tests\Unit;
 
 use MediaWiki\Extension\ChessBrowser\ChessBrowserHooks;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
 use MediaWikiUnitTestCase;
-use Parser;
-use ParserOutput;
 
 /**
  * @covers MediaWiki\Extension\ChessBrowser\ChessBrowserHooks
