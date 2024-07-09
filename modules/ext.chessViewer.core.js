@@ -12,6 +12,12 @@
 ( function () {
 	var gameInstances = [];
 
+	/**
+	 * Represents a single chess game.
+	 *
+	 * @class
+	 * @param {jQuery} $elem - The jQuery element containing the game data.
+	 */
 	function Game( $elem ) {
 		var me = this;
 
@@ -35,6 +41,12 @@
 			} )
 			.join( ' ' );
 
+		/**
+		 * Initializes the board and loads initial data.
+		 *
+		 * @param {number} [display] - Optional argument to specify the initial board state
+		 * to display.
+		 */
 		this.makeBoard = function ( display ) {
 			var board,
 				plyIndex;
@@ -59,6 +71,9 @@
 			me.$div.removeClass( 'notransition' );
 		};
 
+		/**
+		 * Makes the chessboard accessible for screen readers.
+		 */
 		this.makeAccessibleBoard = function () {
 			var files = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' ],
 				rank,
@@ -105,6 +120,12 @@
 			);
 		};
 
+		/**
+		 * Processes a FEN string and returns the initial board state.
+		 *
+		 * @param {string} fen - The FEN string representing the initial board state.
+		 * @return {Array} The board state array.
+		 */
 		this.processFen = function ( fen ) {
 			var fenArray = fen.split( '/' ),
 				fenLine,
@@ -139,6 +160,13 @@
 			return board;
 		};
 
+		/**
+		 * Processes a single move (ply) and updates the board state.
+		 *
+		 * @param {Array} board - The current board state.
+		 * @param {Array} ply - The move data.
+		 * @return {Array} The updated board state.
+		 */
 		this.processPly = function ( board, ply ) {
 			var newBoard = board.slice(),
 				source = ply[ 0 ],
@@ -169,6 +197,14 @@
 			return newBoard;
 		};
 
+		/**
+		 * Creates a piece element.
+		 *
+		 * @param {string} symbol - The symbol representing the piece.
+		 * @param {number} rank - The rank position of the piece.
+		 * @param {number} file - The file position of the piece.
+		 * @return {jQuery} The jQuery element representing the piece.
+		 */
 		this.createPiece = function ( symbol, rank, file ) {
 			var lowerSymbol = symbol.toLowerCase(),
 				color = symbol === lowerSymbol ? 'd' : 'l',
@@ -220,12 +256,23 @@
 			return $pieceObject;
 		};
 
+		/**
+		 * Checks if a piece is on the board.
+		 *
+		 * @param {Array} board - The current board state.
+		 * @return {Function} A function that checks if a piece is on the board.
+		 */
 		this.isOnBoard = function ( board ) {
 			return function ( $piece ) {
 				return board.indexOf( $piece ) !== -1;
 			};
 		};
 
+		/**
+		 * Moves to the specified board state.
+		 *
+		 * @param {number} index - The index of the board state to display.
+		 */
 		this.goToBoard = function ( index ) {
 			var $piece,
 				pieceIndex,
@@ -324,6 +371,11 @@
 			me.scrollNotationToView( $notation );
 		};
 
+		/**
+		 * Updates the accessible board labels.
+		 *
+		 * @param {Array} board - The current board state.
+		 */
 		this.updateAccessibleBoard = function ( board ) {
 			var i,
 				color,
@@ -365,6 +417,12 @@
 			}
 		};
 
+		/**
+		 * Scrolls a notation element into view within its parent container.
+		 *
+		 * @param {Object} $notation - The jQuery object representing the
+		 * notation element to scroll into view.
+		 */
 		this.scrollNotationToView = function ( $notation ) {
 			var $parent = $notation.closest( '.pgn-notations' ),
 				parentsHeight = $parent.height(),
@@ -382,6 +440,9 @@
 			}
 		};
 
+		/**
+		 * Loads navigation buttons.
+		 */
 		this.loadButtons = function () {
 			var buttonsTemplate = mw.template.get( 'ext.chessViewer', 'ChessControls.mustache' );
 			var data = {
@@ -398,6 +459,9 @@
 			me.$div.find( '.pgn-controls' ).append( $html );
 		};
 
+		/**
+		 * Attaches navigation buttons to their respective event listeners.
+		 */
 		this.connectButtons = function () {
 			$( '.pgn-button-advance', me.$div ).on( 'click', me.advance );
 			$( '.pgn-button-retreat', me.$div ).on( 'click', me.retreat );
@@ -440,6 +504,13 @@
 			}
 		};
 
+		/**
+		 * Converts piece element to message for i18n purposes.
+		 *
+		 * @param {string} piece - The piece parameter.
+		 * @param {string} color - The color parameter.
+		 * @return {string} The corresponding message.
+		 */
 		this.pieceToMsg = function ( piece, color ) {
 			// Messages that can be used here:
 			// * chessbrowser-piece-black-king
@@ -471,6 +542,12 @@
 			}
 		};
 
+		/**
+		 * Converts rank number to message for i18n purposes.
+		 *
+		 * @param {number} rank - The rank number.
+		 * @return {string} The corresponding message.
+		 */
 		this.rankToMsg = function ( rank ) {
 			var rankToMsg = {
 				1: mw.msg( 'chessbrowser-first-rank' ),
@@ -485,6 +562,12 @@
 			return rankToMsg[ rank ];
 		};
 
+		/**
+		 * Converts file character to message for i18n purposes.
+		 *
+		 * @param {string} file - The file character.
+		 * @return {string} The corresponding message.
+		 */
 		this.fileToMsg = function ( file ) {
 			// Messages that can be used here:
 			// * chessbrowser-a-file
@@ -498,14 +581,31 @@
 			return mw.msg( 'chessbrowser-' + file.toLowerCase() + '-file' );
 		};
 
+		/**
+		 * Converts file and rank coordinates to a message format for i18n purposes.
+		 *
+		 * @param {number} file - The file coordinate.
+		 * @param {number} rank - The rank coordinate.
+		 * @return {string} The message representation of the position.
+		 */
 		this.positionToMsg = function ( file, rank ) {
 			return me.fileToMsg( file ) + me.rankToMsg( rank );
 		};
 
+		/**
+		 * Announces a message to screen readers.
+		 *
+		 * @param {string} text - The text to announce.
+		 */
 		this.announce = function ( text ) {
 			me.$div.find( '.pgn-captioning' ).text( text );
 		};
 
+		/**
+		 * Appends text to the announcement caption.
+		 *
+		 * @param {string} text - The text to append.
+		 */
 		this.announceAppend = function ( text ) {
 			me.$div.find( '.pgn-captioning' ).text( me.$div.find( '.pgn-captioning' ).text() + ' ' + text );
 		};
@@ -585,6 +685,11 @@
 			].join( ' ' ) );
 		};
 
+		/**
+		 * Advances to the next board position.
+		 *
+		 * @param {Event} e - The event object (optional).
+		 */
 		this.advance = function ( e ) {
 			if ( me.currentPlyNumber < me.boards.length ) {
 				me.goToBoard( me.currentPlyNumber + 1 );
@@ -595,6 +700,11 @@
 			}
 		};
 
+		/**
+		 * Retreats to the previous board position.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.retreat = function ( e ) {
 			if ( me.currentPlyNumber > 0 ) {
 				me.goToBoard( me.currentPlyNumber - 1 );
@@ -602,17 +712,32 @@
 			e.preventDefault();
 		};
 
+		/**
+		 * Goes to the start of the board.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.goToStart = function ( e ) {
 			me.goToBoard( 0 );
 			me.stopAutoplay();
 			e.preventDefault();
 		};
 
+		/**
+		 * Goes to the end of the board.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.goToEnd = function ( e ) {
 			me.goToBoard( me.boards.length );
 			e.preventDefault();
 		};
 
+		/**
+		 * Toggles autoplay on click.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.clickPlay = function ( e ) {
 			if ( me.currentPlyNumber === me.boards.length - 1 ) {
 				me.goToBoard( 0 );
@@ -625,18 +750,33 @@
 			e.preventDefault();
 		};
 
+		/**
+		 * Increases the autoplay speed.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.faster = function ( e ) {
 			me.delay = me.delay > 3200 ? me.delay - 1600 : me.delay / 2;
 			me.changeDelay();
 			e.preventDefault();
 		};
 
+		/**
+		 * Decreases the autoplay speed.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.slower = function ( e ) {
 			me.delay += Math.min( me.delay, 1600 );
 			me.changeDelay();
 			e.preventDefault();
 		};
 
+		/**
+		 * Flips the board view.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.flipBoard = function ( e ) {
 			// eslint-disable-next-line no-jquery/no-class-state
 			me.$div.toggleClass( 'pgn-flip' );
@@ -645,6 +785,11 @@
 			e.preventDefault();
 		};
 
+		/**
+		 * Handles notation events.
+		 *
+		 * @param {Event} e - The event object.
+		 */
 		this.notationHandler = function ( e ) {
 			if ( e.type === 'keydown' ) {
 				if ( e.which !== 13 && e.which !== 32 ) {
@@ -656,22 +801,36 @@
 			e.preventDefault();
 		};
 
+		/**
+		 * Updates the board to a specific notation.
+		 *
+		 * @param {HTMLElement} target - The target element.
+		 */
 		this.updateToNotation = function ( target ) {
 			me.stopAutoplay();
 			me.goToBoard( $( target ).data( 'ply' ) );
 		};
 
+		/**
+		 * Starts autoplay.
+		 */
 		this.startAutoplay = function () {
 			me.timer = setInterval( me.advance, me.delay );
 			$( '.pgn-button-play', me.$div ).attr( 'aria-checked', true );
 		};
 
+		/**
+		 * Stops autoplay.
+		 */
 		this.stopAutoplay = function () {
 			clearTimeout( me.timer );
 			$( '.pgn-button-play', me.$div ).attr( 'aria-checked', false );
 			me.timer = null;
 		};
 
+		/**
+		 * Changes the autoplay delay.
+		 */
 		this.changeDelay = function () {
 			if ( me.delay < 400 ) {
 				me.delay = 400;
