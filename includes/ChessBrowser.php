@@ -100,7 +100,9 @@ class ChessBrowser {
 		//   Inline comments are delimited by braces
 		//   Rest-of-line comments are delimited by ; and a newline, EOL, or EOF
 		//   Variations are delimited by parentheses
-		$annotations = '/({.*?}|\(.*?\)|;.*?(\n|$|\Z))/';
+		//
+		// Single line or else multi-line comments fail, see T370499
+		$annotations = '/({.*?}|\(.*?\)|;.*?(\n|$|\Z))/s';
 		$input = preg_replace( $annotations, "", $input );
 
 		// Validate Numeric Annotation Glyphs (NAGs; PGN Standard 10). Composed of:

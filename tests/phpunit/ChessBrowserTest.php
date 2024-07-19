@@ -152,6 +152,45 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers ::createBoard
+	 * @dataProvider provideCreateBoard
+	 *
+	 */
+	public function testCreateBoard( array $pgnLines, string $expected ) {
+		$browser = new ChessBrowser();
+		$browser = TestingAccessWrapper::newFromObject( $browser );
+		$input = implode( "\n", $pgnLines );
+		$board = $browser->createBoard( $input, 0, [] );
+		$this->assertStringContainsString( $expected, $board );
+	}
+
+	public static function provideCreateBoard() {
+		return [
+			[
+				[
+					'[Event "Chess Game"]',
+					'[Result "1-0"]',
+					'',
+					'1. d4 Nf6 2.c4 h6 3. h3 h5 4. h4'
+				],
+				// phpcs:ignore
+				"data-chess='{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR b KQkq d3 0 1&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR w KQkq - 1 2&quot;,&quot;rnbqkb1r\/pppppppp\/5n2\/8\/2PP4\/8\/PP2PPPP\/RNBQKBNR b KQkq c3 0 2&quot;,&quot;rnbqkb1r\/ppppppp1\/5n1p\/8\/2PP4\/8\/PP2PPPP\/RNBQKBNR w KQkq - 0 3&quot;,&quot;rnbqkb1r\/ppppppp1\/5n1p\/8\/2PP4\/7P\/PP2PPP1\/RNBQKBNR b KQkq - 0 3&quot;,&quot;rnbqkb1r\/ppppppp1\/5n2\/7p\/2PP4\/7P\/PP2PPP1\/RNBQKBNR w KQkq - 0 4&quot;,&quot;rnbqkb1r\/ppppppp1\/5n2\/7p\/2PP3P\/8\/PP2PPP1\/RNBQKBNR b KQkq - 0 4&quot;],&quot;plys&quot;:[[25,27,[&quot;move&quot;,null,null]],[55,45,[&quot;move&quot;,null,null]],[17,19,[&quot;move&quot;,null,null]],[62,61,[&quot;move&quot;,null,null]],[57,58,[&quot;move&quot;,null,null]],[61,60,[&quot;move&quot;,null,null]],[58,59,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;d4&quot;,&quot;Nf6&quot;,&quot;c4&quot;,&quot;h6&quot;,&quot;h3&quot;,&quot;h5&quot;,&quot;h4&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;result&quot;:&quot;1-0&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;},&quot;init&quot;:1}'"
+			],
+			[
+				[
+					'[Event "Chess Game"]',
+					'[Result "1-0"]',
+					'',
+					'1.e4 e5 {This is a comment} 2.f4 exf4',
+					'3.Bc4 Qh4+'
+				],
+				// phpcs:ignore
+				"data-chess='{&quot;boards&quot;:[&quot;rnbqkbnr\/pppppppp\/8\/8\/4P3\/8\/PPPP1PPP\/RNBQKBNR b KQkq e3 0 1&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4P3\/8\/PPPP1PPP\/RNBQKBNR w KQkq e6 0 2&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/4p3\/4PP2\/8\/PPPP2PP\/RNBQKBNR b KQkq f3 0 2&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/8\/4Pp2\/8\/PPPP2PP\/RNBQKBNR w KQkq - 0 3&quot;,&quot;rnbqkbnr\/pppp1ppp\/8\/8\/2B1Pp2\/8\/PPPP2PP\/RNBQK1NR b KQkq - 1 3&quot;,&quot;rnb1kbnr\/pppp1ppp\/8\/8\/2B1Pp1q\/8\/PPPP2PP\/RNBQK1NR w KQkq - 2 4&quot;],&quot;plys&quot;:[[33,35,[&quot;move&quot;,null,null]],[38,36,[&quot;move&quot;,null,&quot;This is a comment&quot;]],[41,43,[&quot;move&quot;,null,null]],[36,43,[&quot;move&quot;,null,null]],[40,19,[&quot;move&quot;,null,null]],[31,59,[&quot;move&quot;,null,null]]],&quot;tokens&quot;:[&quot;e4&quot;,&quot;e5&quot;,&quot;f4&quot;,&quot;exf4&quot;,&quot;Bc4&quot;,&quot;Qh4+&quot;],&quot;metadata&quot;:{&quot;event&quot;:&quot;Chess Game&quot;,&quot;result&quot;:&quot;1-0&quot;,&quot;fen&quot;:&quot;rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1&quot;},&quot;init&quot;:1}'"
+			],
+		];
+	}
+
+	/**
 	 * @covers ::createPiece
 	 * @dataProvider provideTestCreatePiece
 	 * @param string $symbol
@@ -515,6 +554,12 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 				[
 					'1. e4 ; trailing newline',
 					'e5'
+				]
+			],
+			[
+				[
+					'1. e4 {A comment',
+					'that spans two lines} e5'
 				]
 			]
 		];
