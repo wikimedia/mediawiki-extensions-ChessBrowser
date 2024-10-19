@@ -26,7 +26,7 @@ use Exception;
 use MediaWiki\Extension\ChessBrowser\PgnParser\FenParser0x88;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Parser\Parser;
-use PPFrame;
+use MediaWiki\Parser\PPFrame;
 
 class ChessBrowser {
 	/**
