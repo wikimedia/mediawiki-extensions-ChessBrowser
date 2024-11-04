@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"NMW03"
+			"NMW03",
+			"Nemoralis"
 		]
 	},
 	"chessbrowser-desc": "Şahmat oyunu notasiyasını interaktiv etmək üçün pgn etiketi əlavə edir.",
