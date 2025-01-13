@@ -3,7 +3,8 @@
 		"authors": [
 			"ديفيد",
 			"محمد أحمد عبد الفتاح",
-			"Alshamiri1"
+			"Alshamiri1",
+			"Meno25"
 		]
 	},
 	"chessbrowser-desc": "يضيف وسم pgn لجعل تدوين لعبة الشطرنج تفاعليا.",
@@ -32,6 +33,9 @@
 	"chessbrowser-boardstate-initial": "الحالة الأولية للمجلس.",
 	"chessbrowser-boardstate-final": "الحالة النهائية للوحة.",
 	"chessbrowser-boardstate-check": "فحص",
+	"chessbrowser-boardstate-checkmate": "مات.",
+	"chessbrowser-castling-queenside": "التبييت على جانب الملكة.",
+	"chessbrowser-castling-kingside": "التبييت على جانب الملك.",
 	"chessbrowser-piece-white-king": "الملك الأبيض",
 	"chessbrowser-piece-white-queen": "الملكة البيضاء",
 	"chessbrowser-piece-white-bishop": "أسقف أبيض",
