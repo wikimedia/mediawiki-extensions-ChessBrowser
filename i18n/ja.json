@@ -2,9 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Ajeje Brazorf",
-			"Chqaz"
+			"Chqaz",
+			"FlatLanguage"
 		]
 	},
+	"chessbrowser-invalid-category": "無効なPGNが指定されたページ",
+	"chessbrowser-invalid-category-desc": "ChessBrowser拡張機能で無効なPGNが指定されたページ",
 	"chessbrowser-result-label": "結果",
 	"chessbrowser-boardstate-checkmate": "チェックメイト。"
 }
