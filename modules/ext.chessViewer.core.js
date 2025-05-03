@@ -10,7 +10,7 @@
  */
 
 ( function () {
-	var gameInstances = [];
+	const gameInstances = [];
 
 	/**
 	 * Represents a single chess game.
@@ -19,7 +19,7 @@
 	 * @param {jQuery} $elem - The jQuery element containing the game data.
 	 */
 	function Game( $elem ) {
-		var me = this;
+		const me = this;
 
 		this.$div = $elem;
 		this.$pgnBoardImg = this.$div.find( '.pgn-board-img' );
@@ -36,9 +36,7 @@
 		this.delay = 800;
 		this.allPositionClasses = '01234567'
 			.split( '' )
-			.map( function ( r ) {
-				return 'pgn-prow-' + r + ' pgn-pfile-' + r;
-			} )
+			.map( ( r ) => 'pgn-prow-' + r + ' pgn-pfile-' + r )
 			.join( ' ' );
 
 		/**
@@ -48,7 +46,7 @@
 		 * to display.
 		 */
 		this.makeBoard = function ( display ) {
-			var board,
+			let board,
 				plyIndex;
 			// the parser put its own pieces for "noscript" viewers, remove those first
 			me.$div.find( '.pgn-chessPiece' ).remove();
@@ -75,7 +73,7 @@
 		 * Makes the chessboard accessible for screen readers.
 		 */
 		this.makeAccessibleBoard = function () {
-			var files = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' ],
+			let files = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' ],
 				rank,
 				file,
 				$row,
@@ -94,7 +92,7 @@
 					'aria-label': mw.msg( 'chessbrowser-chessboard-label' )
 				} );
 
-			for ( var i = 0; i < 64; i++ ) {
+			for ( let i = 0; i < 64; i++ ) {
 				rank = 8 - Math.floor( i / 8 );
 				file = files[ i % 8 ];
 				if ( i % 8 === 0 ) {
@@ -127,7 +125,7 @@
 		 * @return {Array} The board state array.
 		 */
 		this.processFen = function ( fen ) {
-			var fenArray = fen.split( '/' ),
+			let fenArray = fen.split( '/' ),
 				fenLine,
 				fenTokenList,
 				fenToken,
@@ -168,7 +166,7 @@
 		 * @return {Array} The updated board state.
 		 */
 		this.processPly = function ( board, ply ) {
-			var newBoard = board.slice(),
+			const newBoard = board.slice(),
 				source = ply[ 0 ],
 				destination = ply[ 1 ],
 				special = ply[ 2 ],
@@ -206,7 +204,7 @@
 		 * @return {jQuery} The jQuery element representing the piece.
 		 */
 		this.createPiece = function ( symbol, rank, file ) {
-			var lowerSymbol = symbol.toLowerCase(),
+			const lowerSymbol = symbol.toLowerCase(),
 				color = symbol === lowerSymbol ? 'd' : 'l',
 				$pieceObject = $( '<div>' )
 					.data( {
@@ -264,7 +262,7 @@
 		 */
 		this.isOnBoard = function ( board ) {
 			return function ( $piece ) {
-				return board.indexOf( $piece ) !== -1;
+				return board.includes( $piece );
 			};
 		};
 
@@ -274,7 +272,7 @@
 		 * @param {number} index - The index of the board state to display.
 		 */
 		this.goToBoard = function ( index ) {
-			var $piece,
+			let $piece,
 				pieceIndex,
 				$notation,
 				board = me.boardStates[ index ],
@@ -315,7 +313,7 @@
 					.removeClass( 'pgn-piece-hidden' )
 					.toggleClass(
 						'pgn-transition-immediate',
-						piecesToAppear.indexOf( $piece ) > -1
+						piecesToAppear.includes( $piece )
 					)
 					// The following classes are used here:
 					// * pgn-prow-0
@@ -377,7 +375,7 @@
 		 * @param {Array} board - The current board state.
 		 */
 		this.updateAccessibleBoard = function ( board ) {
-			var i,
+			let i,
 				color,
 				offset = 8,
 				offset2,
@@ -424,7 +422,7 @@
 		 * notation element to scroll into view.
 		 */
 		this.scrollNotationToView = function ( $notation ) {
-			var $parent = $notation.closest( '.pgn-notations' ),
+			let $parent = $notation.closest( '.pgn-notations' ),
 				parentsHeight = $parent.height(),
 				notationHeight = $notation.height(),
 				notationTop = $notation.position().top,
@@ -444,8 +442,8 @@
 		 * Loads navigation buttons.
 		 */
 		this.loadButtons = function () {
-			var buttonsTemplate = mw.template.get( 'ext.chessViewer', 'ChessControls.mustache' );
-			var data = {
+			const buttonsTemplate = mw.template.get( 'ext.chessViewer', 'ChessControls.mustache' );
+			const data = {
 				beginning: mw.msg( 'chessbrowser-beginning-of-game' ),
 				previous: mw.msg( 'chessbrowser-previous-move' ),
 				slower: mw.msg( 'chessbrowser-slow-autoplay' ),
@@ -455,7 +453,7 @@
 				final: mw.msg( 'chessbrowser-end-of-game' ),
 				flip: mw.msg( 'chessbrowser-flip-board' )
 			};
-			var $html = buttonsTemplate.render( data );
+			const $html = buttonsTemplate.render( data );
 			me.$div.find( '.pgn-controls' ).append( $html );
 		};
 
@@ -549,7 +547,7 @@
 		 * @return {string} The corresponding message.
 		 */
 		this.rankToMsg = function ( rank ) {
-			var rankToMsg = {
+			const rankToMsg = {
 				1: mw.msg( 'chessbrowser-first-rank' ),
 				2: mw.msg( 'chessbrowser-second-rank' ),
 				3: mw.msg( 'chessbrowser-third-rank' ),
@@ -620,7 +618,7 @@
 		 * use capitals for the files to have them pronounced separately (much like abbreviations)
 		 */
 		this.announceMove = function ( index ) {
-			var move = me.tokens[ index ],
+			let move = me.tokens[ index ],
 				colorMsg = ( index % 2 ) === 0 ? 'chessbrowser-white-moves' : 'chessbrowser-black-moves',
 				piece = 'P',
 				pieceSpecifier = '',
@@ -780,7 +778,7 @@
 		this.flipBoard = function ( e ) {
 			// eslint-disable-next-line no-jquery/no-class-state
 			me.$div.toggleClass( 'pgn-flip' );
-			var $button = $( '.pgn-button-flip', me.$div );
+			const $button = $( '.pgn-button-flip', me.$div );
 			$button.attr( 'aria-checked', !( $button.attr( 'aria-checked' ) === 'true' ) );
 			e.preventDefault();
 		};
@@ -842,9 +840,9 @@
 		};
 	}
 
-	mw.hook( 'wikipage.content' ).add( function ( $content ) {
-		var newGameInstance;
-		$( '.pgn-viewer', $content ).each( function ( index, elem ) {
+	mw.hook( 'wikipage.content' ).add( ( $content ) => {
+		let newGameInstance;
+		$( '.pgn-viewer', $content ).each( ( index, elem ) => {
 			newGameInstance = new Game( $( elem ) );
 			newGameInstance.makeBoard();
 			/* Add CSS class to indicate that the loading phase is complete */
