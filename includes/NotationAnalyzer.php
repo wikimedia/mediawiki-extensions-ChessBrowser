@@ -70,7 +70,7 @@ class NotationAnalyzer {
 		try {
 			$square = ChessSquare::newFromCoords( $notation );
 			return $square->getNumber();
-		} catch ( ChessBrowserException $e ) {
+		} catch ( ChessBrowserException ) {
 			return '';
 		}
 	}

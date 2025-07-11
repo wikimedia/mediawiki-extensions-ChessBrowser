@@ -154,7 +154,7 @@ class FenParser0x88 {
 
 			try {
 				$pieceObject = new ChessPiece( $token );
-			} catch ( ChessBrowserException $ex ) {
+			} catch ( ChessBrowserException ) {
 				$pieceObject = false;
 			}
 

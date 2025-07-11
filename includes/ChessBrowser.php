@@ -586,6 +586,7 @@ class ChessBrowser {
 	 * @param string|int $rank Preserves input type on output
 	 * @param string|int $file Preserves input type on output
 	 * @return array
+	 * @throws ChessBrowserException
 	 */
 	public static function createPiece( $symbol, $rank, $file ): array {
 		if ( $rank > 7 || $file > 7 || $rank < 0 || $file < 0 ) {
