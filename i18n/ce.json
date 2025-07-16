@@ -4,5 +4,22 @@
 			"Умар"
 		]
 	},
-	"chessbrowser-next-move": "РогӀера лелар"
+	"chessbrowser-expand-button": "Схьайаста",
+	"chessbrowser-game-detail": "Ловзаран деталаш",
+	"chessbrowser-event-label": "Хилам",
+	"chessbrowser-site-label": "Лаьтта меттиг",
+	"chessbrowser-date-label": "Терахь",
+	"chessbrowser-round-label": "Раунд",
+	"chessbrowser-white-label": "КӀайн",
+	"chessbrowser-black-label": "Ӏаьржа",
+	"chessbrowser-result-label": "Хилам",
+	"chessbrowser-beginning-of-game": "Хьалхарчу гӀулча тӀе гӀо",
+	"chessbrowser-previous-move": "Хьалхара гӀулч",
+	"chessbrowser-slow-autoplay": "Меллаша",
+	"chessbrowser-play-pause-button": "Йолайалийта/Пауза",
+	"chessbrowser-fast-autoplay": "Сихха",
+	"chessbrowser-next-move": "РогӀера лелар",
+	"chessbrowser-end-of-game": "Хьалхарчу гӀулча тӀе гӀо",
+	"chessbrowser-black-moves": "Ӏаьржа:",
+	"chessbrowser-white-moves": "КӀайн:"
 }
