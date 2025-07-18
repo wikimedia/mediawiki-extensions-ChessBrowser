@@ -94,7 +94,7 @@ class PgnGameParser {
 		$lines = explode( "\n", $this->pgnGame );
 		foreach ( $lines as $line ) {
 			$line = trim( $line );
-			if ( substr( $line, 0, 1 ) === '[' && substr( $line, strlen( $line ) - 1, 1 ) === ']' ) {
+			if ( str_starts_with( $line, '[' ) && str_ends_with( $line, ']' ) ) {
 				$metadata = $this->getMetadataKeyAndValue( $line );
 				if ( in_array( $metadata['key'], $this->specialMetadata ) ) {
 					$ret[$metadata['key']] = $metadata['value'];
