@@ -4,5 +4,6 @@
 			"StanProg"
 		]
 	},
-	"chessbrowser-desc": "Добавя pgn таг, за да бъде интерактивна шахматната нотация."
+	"chessbrowser-desc": "Добавя pgn таг, за да бъде интерактивна шахматната нотация.",
+	"chessbrowser-event-label": "Събитие"
 }
