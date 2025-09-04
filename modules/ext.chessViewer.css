@@ -114,9 +114,6 @@
 }
 
 .notransition > .pgn-board-div {
-	-webkit-transition: none;
-	-moz-transition: none;
-	-o-transition: none;
 	transition: none;
 }
 
