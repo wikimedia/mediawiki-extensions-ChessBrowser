@@ -154,7 +154,6 @@ class ChessBrowserTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @covers ::createBoard
 	 * @dataProvider provideCreateBoard
-	 *
 	 */
 	public function testCreateBoard( array $pgnLines, string $expected ) {
 		$browser = new ChessBrowser();
