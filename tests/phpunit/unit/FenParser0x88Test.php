@@ -41,7 +41,6 @@ class FenParser0x88Test extends MediaWikiUnitTestCase {
 		);
 		$mirror = new ReflectionClass( FenParser0x88::class );
 		$method = $mirror->getMethod( 'getNotationForAMove' );
-		$method->setAccessible( true );
 		$move = [
 			'from' => 'd4',
 			'to' => 'f3'
@@ -76,7 +75,6 @@ class FenParser0x88Test extends MediaWikiUnitTestCase {
 		$mirror = new ReflectionClass( FenParser0x88::class );
 		$fenParser->move( $move );
 		$notationProperty = $mirror->getProperty( 'notation' );
-		$notationProperty->setAccessible( true );
 		$notation = $notationProperty->getValue( $fenParser );
 		$this->assertSame( $expected, $notation );
 	}
