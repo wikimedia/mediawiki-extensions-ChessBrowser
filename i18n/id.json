@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Daud I.F. Argana"
+			"Daud I.F. Argana",
+			"Penyuwangi"
 		]
 	},
 	"chessbrowser-desc": "Menambahkan tag pgn untuk membuat notasi permainan catur menjadi interaktif.",
@@ -26,7 +27,7 @@
 	"chessbrowser-next-move": "Gerakan selanjutnya",
 	"chessbrowser-end-of-game": "Pergi ke gerakan terakhir",
 	"chessbrowser-flip-board": "Balikkan sudut pandang papan",
-	"chessbrowser-no-javascript": "JavaScript tidak diaktifkan di halaman ini. Untuk melihat permainan secara interaktif, tolong aktifkan JavaScript.",
+	"chessbrowser-no-javascript": "JavaScript tidak dinyalakan di halaman ini. Untuk melihat permainan secara interaktif, tolong nyalakan JavaScript.",
 	"chessbrowser-boardstate-initial": "Keadaan awal papan.",
 	"chessbrowser-boardstate-final": "Keadaan akhir papan.",
 	"chessbrowser-boardstate-check": "Sekak.",
