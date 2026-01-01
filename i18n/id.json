@@ -5,10 +5,10 @@
 			"Penyuwangi"
 		]
 	},
-	"chessbrowser-desc": "Menambahkan tag pgn untuk membuat notasi permainan catur menjadi interaktif.",
+	"chessbrowser-desc": "Menambahkan tanda pgn untuk membuat notasi permainan catur menjadi interaktif.",
 	"chessbrowser-invalid-message": "PGN yang diberikan tidak sah",
 	"chessbrowser-invalid-category": "Halaman dengan PGN yang diberikan tidak sah",
-	"chessbrowser-invalid-category-desc": "Tag PGN di halaman mencantumkan permainan yang tidak sah",
+	"chessbrowser-invalid-category-desc": "Tanda PGN di halaman mencantumkan permainan yang tidak sah",
 	"chessbrowser-expand-button": "Kembangkan",
 	"chessbrowser-game-detail": "Rincian permainan",
 	"chessbrowser-event-label": "Acara",
