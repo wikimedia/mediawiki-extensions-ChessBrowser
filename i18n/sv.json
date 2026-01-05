@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Sabelöga",
+			"Stefan2255",
 			"WikiPhoenix"
 		]
 	},
@@ -18,6 +19,7 @@
 	"chessbrowser-white-label": "Vit",
 	"chessbrowser-black-label": "Svart",
 	"chessbrowser-result-label": "Resultat",
+	"chessbrowser-notations-label": "Schackdrag beskrivs i PGN-notation. Klicka på en knapp för att byta till den positionen på spelplanen.",
 	"chessbrowser-beginning-of-game": "Gå till första draget",
 	"chessbrowser-previous-move": "Föregående drag",
 	"chessbrowser-slow-autoplay": "Långsammare",
@@ -26,5 +28,30 @@
 	"chessbrowser-next-move": "Nästa drag",
 	"chessbrowser-end-of-game": "Gå till sista draget",
 	"chessbrowser-flip-board": "Vänd brädets perspektiv",
-	"chessbrowser-no-javascript": "JavaScript har inte aktiverats på denna sida. Aktivera JavaScript för att interaktivt visa spelet."
+	"chessbrowser-no-javascript": "JavaScript har inte aktiverats på denna sida. Aktivera JavaScript för att interaktivt visa spelet.",
+	"chessbrowser-boardstate-initial": "Brädans ursprungliga tillstånd.",
+	"chessbrowser-boardstate-final": "Slutgiltigt tillstånd på brädet.",
+	"chessbrowser-boardstate-check": "Schack.",
+	"chessbrowser-boardstate-checkmate": "Schackmatt.",
+	"chessbrowser-castling-queenside": "Lång rockad.",
+	"chessbrowser-castling-kingside": "Kort rockad.",
+	"chessbrowser-piece-white-king": "Vite kungen",
+	"chessbrowser-piece-white-queen": "Vita drottningen",
+	"chessbrowser-piece-white-bishop": "Vit biskop",
+	"chessbrowser-piece-white-knight": "Vita riddaren",
+	"chessbrowser-piece-white-rook": "Vita tornet",
+	"chessbrowser-piece-white-pawn": "Vit bonde",
+	"chessbrowser-piece-black-king": "Svarte kungen",
+	"chessbrowser-piece-black-queen": "Svarta drottningen",
+	"chessbrowser-piece-black-bishop": "Svart biskop",
+	"chessbrowser-piece-black-knight": "Svarta riddaren",
+	"chessbrowser-piece-black-rook": "Svarta tornet",
+	"chessbrowser-piece-black-pawn": "Svart bonde",
+	"chessbrowser-move": "$1 $2 flyttas till $3.",
+	"chessbrowser-capture": "$1 $2 fångar $3.",
+	"chessbrowser-promote": "Befordras till $1.",
+	"chessbrowser-black-moves": "Svart:",
+	"chessbrowser-white-moves": "Vit:",
+	"chessbrowser-chessboard-label": "Schackbräde",
+	"chessbrowser-empty-square": "Tom ruta, $1"
 }
