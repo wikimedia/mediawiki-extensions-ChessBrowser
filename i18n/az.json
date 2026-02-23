@@ -25,5 +25,11 @@
 	"chessbrowser-play-pause-button": "Oyna/Dayandır",
 	"chessbrowser-fast-autoplay": "Daha sürətli",
 	"chessbrowser-next-move": "Növbəti hərəkət",
-	"chessbrowser-end-of-game": "Son hərəkətə keçin"
+	"chessbrowser-end-of-game": "Son hərəkətə keçin",
+	"chessbrowser-flip-board": "Lövhə perspektivini çevir",
+	"chessbrowser-no-javascript": "Bu səhifədə JavaScript aktiv deyil. Oyunu interaktiv şəkildə izləmək üçün zəhmət olmasa, JavaScript-i aktivləşdirin.",
+	"chessbrowser-boardstate-initial": "Lövhənin ilkin vəziyyəti.",
+	"chessbrowser-boardstate-final": "Lövhənin son vəziyyəti.",
+	"chessbrowser-boardstate-check": "Şah.",
+	"chessbrowser-boardstate-checkmate": "Mat."
 }
