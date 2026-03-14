@@ -533,6 +533,7 @@ class ChessBrowser {
 			if ( $comment !== null ) {
 				$span['annotations'][] = [ 'comment' => $comment ];
 			}
+			// @phan-suppress-next-line PhanTypeInvalidModuloOperand
 			if ( ( $index + $i ) % 2 === 0 ) {
 				$moveNumber = ( ( $index + $i ) / 2 ) + 1;
 				$span['step-link'] = true;

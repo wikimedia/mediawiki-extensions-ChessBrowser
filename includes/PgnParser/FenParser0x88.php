@@ -759,6 +759,7 @@ class FenParser0x88 {
 	 * @return array
 	 */
 	public function getBishopCheckPath( $piece, $king ): array {
+		// @phan-suppress-next-line PhanTypeInvalidModuloOperand
 		if ( ( $king['s'] - $piece['s'] ) % 15 === 0 || ( $king['s'] - $piece['s'] ) % 17 === 0 ) {
 			$distance = SquareRelations::new( $piece['s'], $king['s'] )->getDistance();
 			$direction = ( $king['s'] - $piece['s'] ) / $distance;
@@ -860,7 +861,9 @@ class FenParser0x88 {
 			if (
 				!$this->cache['board'][$move['to']] &&
 				(
+					// @phan-suppress-next-line PhanTypeInvalidModuloOperand
 					( $move['from'] - $move['to'] ) % 17 === 0
+					// @phan-suppress-next-line PhanTypeInvalidModuloOperand
 					|| ( $move['from'] - $move['to'] ) % 15 === 0
 				)
 			) {
@@ -1410,7 +1413,6 @@ class FenParser0x88 {
 		$fen = '';
 		$emptyCounter = 0;
 
-		// @phan-suppress-next-line PhanTypeInvalidUnaryOperandIncOrDec
 		for ( $rank = 7; $rank >= 0; $rank-- ) {
 			for ( $file = 0; $file < 8; $file++ ) {
 				$index = ( $rank * 8 ) + $file;
