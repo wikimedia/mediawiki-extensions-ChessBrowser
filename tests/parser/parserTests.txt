@@ -479,6 +479,7 @@ nohtml
 !! wikitext
 <pgn>Baz</pgn>
 !! html/php
+!! metadata
 cat=Pages_with_invalid_PGNs_specified sort=
 !! end
 
