@@ -22,9 +22,9 @@
 
 namespace MediaWiki\Extension\ChessBrowser;
 
-use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\Hook\ParserFirstCallInitHook;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 
