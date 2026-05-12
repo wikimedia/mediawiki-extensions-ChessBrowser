@@ -5,7 +5,10 @@
 			"Tensama0415"
 		]
 	},
+	"chessbrowser-desc": "체스 기보 표기법을 상호작용 가능하게 만들기 위해 pgn 태그를 추가합니다.",
 	"chessbrowser-invalid-message": "지정된 PGN은 유효하지 않습니다",
+	"chessbrowser-invalid-category": "잘못된 PGN이 지정된 문서",
+	"chessbrowser-invalid-category-desc": "문서의 PGN 태그에 유효하지 않은 게임이 포함되어 있습니다",
 	"chessbrowser-expand-button": "펼치기",
 	"chessbrowser-game-detail": "게임 상세 정보",
 	"chessbrowser-event-label": "이벤트",
@@ -15,6 +18,7 @@
 	"chessbrowser-white-label": "흰색",
 	"chessbrowser-black-label": "검은색",
 	"chessbrowser-result-label": "결과",
+	"chessbrowser-notations-label": "체스 기보는 PGN 표기법으로 표시됩니다. 버튼을 클릭하면 해당 위치로 이동합니다",
 	"chessbrowser-beginning-of-game": "첫 수로 이동",
 	"chessbrowser-previous-move": "이전 수",
 	"chessbrowser-slow-autoplay": "더 느리게",
@@ -22,6 +26,7 @@
 	"chessbrowser-fast-autoplay": "더 빠르게",
 	"chessbrowser-next-move": "다음 수",
 	"chessbrowser-end-of-game": "마지막 수로 이동",
+	"chessbrowser-flip-board": "체스판 시점 뒤집기",
 	"chessbrowser-no-javascript": "자바스크립트가 이 페이지에 활성화되어 있지 않습니다. 상호작용적으로 게임을 보려면 자바스크립트를 활성화해 주십시오.",
 	"chessbrowser-boardstate-initial": "체스판의 초기 상태.",
 	"chessbrowser-boardstate-final": "체스판의 최종 상태.",
@@ -44,5 +49,6 @@
 	"chessbrowser-promote": "$1(으)로 승진함.",
 	"chessbrowser-black-moves": "흑:",
 	"chessbrowser-white-moves": "백:",
-	"chessbrowser-chessboard-label": "체스판"
+	"chessbrowser-chessboard-label": "체스판",
+	"chessbrowser-empty-square": "빈 칸, $1"
 }
