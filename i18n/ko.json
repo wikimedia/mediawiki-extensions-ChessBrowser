@@ -46,6 +46,8 @@
 	"chessbrowser-piece-black-knight": "흑의 나이트",
 	"chessbrowser-piece-black-rook": "흑의 룩",
 	"chessbrowser-piece-black-pawn": "흑의 폰",
+	"chessbrowser-move": "$1 $2, $3 이동.",
+	"chessbrowser-capture": "$1 $2, $3 잡음.",
 	"chessbrowser-promote": "$1(으)로 승진함.",
 	"chessbrowser-black-moves": "흑:",
 	"chessbrowser-white-moves": "백:",
