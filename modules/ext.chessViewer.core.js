@@ -629,7 +629,6 @@
 				matches;
 			if ( move === 'O-O-O' ) {
 				me.announce( [
-					// eslint-disable-next-line mediawiki/msg-doc
 					mw.msg( colorMsg ),
 					mw.msg( 'chessbrowser-castling-queenside' )
 				].join( ' ' ) );
@@ -637,7 +636,6 @@
 			}
 			if ( move === 'O-O' ) {
 				me.announce( [
-					// eslint-disable-next-line mediawiki/msg-doc
 					mw.msg( colorMsg ),
 					mw.msg( 'chessbrowser-castling-kingside' )
 				].join( ' ' ) );
@@ -674,9 +672,7 @@
 			}
 
 			me.announce( [
-				// eslint-disable-next-line mediawiki/msg-doc
 				mw.msg( colorMsg ),
-				// eslint-disable-next-line mediawiki/msg-doc
 				mw.message( moveTypeMsg, piece, pieceSpecifier, position ),
 				promotion,
 				special
