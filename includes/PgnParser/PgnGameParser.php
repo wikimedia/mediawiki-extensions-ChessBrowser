@@ -41,9 +41,9 @@ class PgnGameParser {
 	/** @var string */
 	private $pgnGame;
 	/** @var string */
-	private $defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+	private const DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 	/** @var string[] */
-	private $specialMetadata = [
+	private const SPECIAL_METADATA = [
 		'event',
 		'site',
 		'white',
@@ -96,7 +96,7 @@ class PgnGameParser {
 			$line = trim( $line );
 			if ( str_starts_with( $line, '[' ) && str_ends_with( $line, ']' ) ) {
 				$metadata = $this->getMetadataKeyAndValue( $line );
-				if ( in_array( $metadata['key'], $this->specialMetadata ) ) {
+				if ( in_array( $metadata['key'], self::SPECIAL_METADATA ) ) {
 					$ret[$metadata['key']] = $metadata['value'];
 				} else {
 					$ret[ChessJson::GAME_METADATA][$metadata['key']] = $metadata['value'];
@@ -104,7 +104,7 @@ class PgnGameParser {
 			}
 		}
 		if ( !isset( $ret[ChessJson::FEN] ) ) {
-			$ret[ChessJson::FEN] = $this->defaultFen;
+			$ret[ChessJson::FEN] = self::DEFAULT_FEN;
 		}
 
 		return $ret;
