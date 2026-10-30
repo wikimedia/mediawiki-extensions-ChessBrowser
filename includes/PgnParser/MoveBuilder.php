@@ -49,8 +49,6 @@ class MoveBuilder {
 	private $moveReferences = [];
 	/** @var int */
 	private $pointer = 0;
-	/** @var int */
-	private $currentIndex = 0;
 
 	public function __construct() {
 		$this->moveReferences[0] = &$this->moves;
@@ -79,7 +77,6 @@ class MoveBuilder {
 		}
 		$move = preg_replace( "/^([a-h])([18])([QRNB])$/", "$1$2=$3", $move );
 		$this->moveReferences[$this->pointer][] = [ ChessJson::MOVE_NOTATION => $move ];
-		$this->currentIndex++;
 	}
 
 	/**
@@ -165,7 +162,6 @@ class MoveBuilder {
 		if ( $index === -1 ) {
 			$index = 0;
 			$this->moveReferences[$this->pointer][$index][ChessJson::MOVE_COMMENT] = $comment;
-			$this->currentIndex++;
 		} else {
 			$this->moveReferences[$this->pointer][$index][ChessJson::MOVE_COMMENT] = $comment;
 		}
