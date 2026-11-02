@@ -72,10 +72,7 @@ class FenParser0x88Test extends MediaWikiUnitTestCase {
 	 */
 	public function testMove( string $fen, $move, string $expected ) {
 		$fenParser = new FenParser0x88( $fen );
-		$mirror = new ReflectionClass( FenParser0x88::class );
-		$fenParser->move( $move );
-		$notationProperty = $mirror->getProperty( 'notation' );
-		$notation = $notationProperty->getValue( $fenParser );
+		$notation = $fenParser->move( $move );
 		$this->assertSame( $expected, $notation );
 	}
 

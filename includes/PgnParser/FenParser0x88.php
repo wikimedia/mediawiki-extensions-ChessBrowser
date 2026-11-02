@@ -50,8 +50,6 @@ class FenParser0x88 {
 	/** @var array */
 	private $cache;
 
-	/** @var string|null */
-	private $notation;
 	/** @var array|null */
 	private $validMoves = null;
 	/** @var array */
@@ -1137,6 +1135,7 @@ class FenParser0x88 {
 	 * like array("from" => "g1", "to"=>"f3")
 	 *
 	 * @param string|array $move
+	 * @return string Move notation
 	 * @throws ChessBrowserException
 	 */
 	public function move( $move ) {
@@ -1162,16 +1161,18 @@ class FenParser0x88 {
 
 		$this->fen = null;
 		$this->validMoves = null;
-		$this->notation = $this->getNotationForAMove( $move );
+		$notation = $this->getNotationForAMove( $move );
 		$this->updateBoardData( $move );
 
 		$config = $this->getValidMovesAndResult();
 
 		if ( $config['result'] === 1 || $config['result'] === -1 ) {
-			$this->notation .= '#';
+			$notation .= '#';
 		} elseif ( $config['check'] > 0 ) {
-			$this->notation .= '+';
+			$notation .= '+';
 		}
+
+		return $notation;
 	}
 
 	/**
